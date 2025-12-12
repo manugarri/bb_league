@@ -1,33 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Blood Bowl League Tracker - Home{% endblock %}
+{% block title %}{{ _('Blood Bowl League Tracker') }} - {{ _('Home') }}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
 <div class="hero text-center rounded mb-5">
     <h1 class="display-4 fw-bold text-gold mb-3">
-        <i class="bi bi-trophy-fill text-blood"></i> Blood Bowl League Tracker
+        <i class="bi bi-trophy-fill text-blood"></i> {{ _('Blood Bowl League Tracker') }}
     </h1>
     <p class="lead text-muted mb-4">
+        {% if get_locale() == 'es' %}
+        ¡Gestiona tus ligas, controla tus equipos y domina el campo!
+        {% else %}
         Manage your leagues, track your teams, and dominate the pitch!
+        {% endif %}
     </p>
     {% if not current_user.is_authenticated %}
     <div class="d-flex justify-content-center gap-3">
         <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">
-            <i class="bi bi-person-plus me-2"></i>Join Now
+            <i class="bi bi-person-plus me-2"></i>{% if get_locale() == 'es' %}Únete Ahora{% else %}Join Now{% endif %}
         </a>
         <a href="{{ url_for('auth.login') }}" class="btn btn-outline-secondary btn-lg">
-            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+            <i class="bi bi-box-arrow-in-right me-2"></i>{{ _('Login') }}
         </a>
     </div>
     {% else %}
     <div class="d-flex justify-content-center gap-3">
         <a href="{{ url_for('teams.create') }}" class="btn btn-primary btn-lg">
-            <i class="bi bi-plus-circle me-2"></i>Create Team
+            <i class="bi bi-plus-circle me-2"></i>{{ _('Create Team') }}
         </a>
+        {% if current_user.is_admin %}
         <a href="{{ url_for('leagues.create') }}" class="btn btn-secondary btn-lg">
-            <i class="bi bi-trophy me-2"></i>Create League
+            <i class="bi bi-trophy me-2"></i>{{ _('Create League') }}
         </a>
+        {% endif %}
     </div>
     {% endif %}
 </div>
@@ -37,8 +43,8 @@
     <div class="col-lg-6">
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-trophy me-2"></i>Active Leagues</span>
-                <a href="{{ url_for('leagues.index') }}" class="btn btn-sm btn-outline-secondary">View All</a>
+                <span><i class="bi bi-trophy me-2"></i>{{ _('Active Leagues') }}</span>
+                <a href="{{ url_for('leagues.index') }}" class="btn btn-sm btn-outline-secondary">{% if get_locale() == 'es' %}Ver Todas{% else %}View All{% endif %}</a>
             </div>
             <div class="card-body">
                 {% if active_leagues %}
@@ -50,11 +56,15 @@
                                 <h6 class="mb-1 text-gold">{{ league.name }}</h6>
                                 <small class="text-muted">
                                     <i class="bi bi-person me-1"></i>{{ league.commissioner.username }} · 
-                                    <i class="bi bi-people me-1"></i>{{ league.team_count }}/{{ league.max_teams }} teams
+                                    <i class="bi bi-people me-1"></i>{{ league.team_count }}/{{ league.max_teams }} {{ _('Teams').lower() }}
                                 </small>
                             </div>
                             <span class="badge {% if league.status == 'registration' %}bg-success{% elif league.status == 'active' %}bg-warning{% else %}bg-secondary{% endif %}">
-                                {{ league.status | capitalize }}
+                                {% if get_locale() == 'es' %}
+                                    {% if league.status == 'registration' %}Inscripción{% elif league.status == 'active' %}Activa{% elif league.status == 'completed' %}Completada{% else %}{{ league.status | capitalize }}{% endif %}
+                                {% else %}
+                                    {{ league.status | capitalize }}
+                                {% endif %}
                             </span>
                         </div>
                     </a>
@@ -63,7 +73,7 @@
                 {% else %}
                 <p class="text-muted text-center py-4">
                     <i class="bi bi-inbox display-4 d-block mb-2"></i>
-                    No active leagues yet. Be the first to create one!
+                    {% if get_locale() == 'es' %}No hay ligas activas aún. ¡Sé el primero en crear una!{% else %}No active leagues yet. Be the first to create one!{% endif %}
                 </p>
                 {% endif %}
             </div>
@@ -74,8 +84,8 @@
     <div class="col-lg-6">
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-calendar-event me-2"></i>Recent Matches</span>
-                <a href="{{ url_for('matches.index') }}" class="btn btn-sm btn-outline-secondary">View All</a>
+                <span><i class="bi bi-calendar-event me-2"></i>{{ _('Recent Matches') }}</span>
+                <a href="{{ url_for('matches.index') }}" class="btn btn-sm btn-outline-secondary">{% if get_locale() == 'es' %}Ver Todos{% else %}View All{% endif %}</a>
             </div>
             <div class="card-body">
                 {% if recent_matches %}
@@ -101,7 +111,7 @@
                         </div>
                         <small class="text-muted d-block text-center mt-1">
                             {% if match.league %}{{ match.league.name }} · {% endif %}
-                            Round {{ match.round_number or 'N/A' }}
+                            {{ _('Round') }} {{ match.round_number or 'N/A' }}
                         </small>
                     </a>
                     {% endfor %}
@@ -109,7 +119,7 @@
                 {% else %}
                 <p class="text-muted text-center py-4">
                     <i class="bi bi-calendar-x display-4 d-block mb-2"></i>
-                    No matches played yet.
+                    {% if get_locale() == 'es' %}No hay partidos jugados aún.{% else %}No matches played yet.{% endif %}
                 </p>
                 {% endif %}
             </div>
@@ -121,9 +131,9 @@
 <!-- Your Teams -->
 <div class="card mt-4">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <span><i class="bi bi-shield-fill me-2"></i>Your Teams</span>
+        <span><i class="bi bi-shield-fill me-2"></i>{{ _('My Teams') }}</span>
         <a href="{{ url_for('teams.create') }}" class="btn btn-sm btn-primary">
-            <i class="bi bi-plus me-1"></i>New Team
+            <i class="bi bi-plus me-1"></i>{% if get_locale() == 'es' %}Nuevo Equipo{% else %}New Team{% endif %}
         </a>
     </div>
     <div class="card-body">
@@ -134,15 +144,15 @@
                     <div class="card-body">
                         <h5 class="card-title text-gold">{{ team.name }}</h5>
                         <p class="card-text">
-                            <span class="badge bg-secondary">{{ team.race.name }}</span>
-                            <span class="text-muted">TV: {{ "{:,}".format(team.current_tv) }}</span>
+                            <span class="badge bg-secondary">{{ tr_race(team.race.name) }}</span>
+                            <span class="text-muted">{{ _('TV (Team Value)') }}: {{ "{:,}".format(team.current_tv) }}</span>
                         </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-muted small">
-                                {{ team.roster_count }}/16 players
+                                {{ team.roster_count }}/16 {{ _('Players').lower() }}
                             </span>
                             <a href="{{ url_for('teams.view', team_id=team.id) }}" class="btn btn-sm btn-outline-primary">
-                                View Team
+                                {% if get_locale() == 'es' %}Ver Equipo{% else %}View Team{% endif %}
                             </a>
                         </div>
                     </div>
@@ -160,8 +170,14 @@
         <div class="card text-center h-100">
             <div class="card-body py-5">
                 <i class="bi bi-people-fill display-3 text-blood mb-3"></i>
-                <h4 class="text-gold">Manage Teams</h4>
-                <p class="text-muted">Create your team, hire players, track stats and watch them grow through the league.</p>
+                <h4 class="text-gold">{% if get_locale() == 'es' %}Gestiona Equipos{% else %}Manage Teams{% endif %}</h4>
+                <p class="text-muted">
+                    {% if get_locale() == 'es' %}
+                    Crea tu equipo, contrata jugadores, rastrea estadísticas y míralos crecer a través de la liga.
+                    {% else %}
+                    Create your team, hire players, track stats and watch them grow through the league.
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>
@@ -169,8 +185,14 @@
         <div class="card text-center h-100">
             <div class="card-body py-5">
                 <i class="bi bi-trophy display-3 text-gold mb-3"></i>
-                <h4 class="text-gold">Run Leagues</h4>
-                <p class="text-muted">Organize round-robin leagues, generate schedules, and track standings automatically.</p>
+                <h4 class="text-gold">{% if get_locale() == 'es' %}Organiza Ligas{% else %}Run Leagues{% endif %}</h4>
+                <p class="text-muted">
+                    {% if get_locale() == 'es' %}
+                    Organiza ligas de todos contra todos, genera calendarios y rastrea clasificaciones automáticamente.
+                    {% else %}
+                    Organize round-robin leagues, generate schedules, and track standings automatically.
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>
@@ -178,11 +200,16 @@
         <div class="card text-center h-100">
             <div class="card-body py-5">
                 <i class="bi bi-bar-chart-fill display-3 text-blood mb-3"></i>
-                <h4 class="text-gold">Track Stats</h4>
-                <p class="text-muted">Detailed statistics for players, teams, and matches. See who's the deadliest on the pitch!</p>
+                <h4 class="text-gold">{% if get_locale() == 'es' %}Rastrea Estadísticas{% else %}Track Stats{% endif %}</h4>
+                <p class="text-muted">
+                    {% if get_locale() == 'es' %}
+                    Estadísticas detalladas de jugadores, equipos y partidos. ¡Mira quién es el más letal en el campo!
+                    {% else %}
+                    Detailed statistics for players, teams, and matches. See who's the deadliest on the pitch!
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
-

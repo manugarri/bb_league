@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Blood Bowl League Tracker{% endblock %}
+{% block title %}{{ _('Dashboard') }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1><i class="bi bi-speedometer2 text-gold me-2"></i>Dashboard</h1>
+    <h1><i class="bi bi-speedometer2 text-gold me-2"></i>{{ _('Dashboard') }}</h1>
     <div>
         <a href="{{ url_for('teams.create') }}" class="btn btn-primary me-2">
-            <i class="bi bi-plus-circle me-1"></i>Create Team
+            <i class="bi bi-plus-circle me-1"></i>{{ _('Create Team') }}
         </a>
+        {% if current_user.is_admin %}
         <a href="{{ url_for('leagues.create') }}" class="btn btn-secondary">
-            <i class="bi bi-trophy me-1"></i>Create League
+            <i class="bi bi-trophy me-1"></i>{{ _('Create League') }}
         </a>
+        {% endif %}
     </div>
 </div>
 
@@ -20,13 +22,13 @@
     <div class="col-6 col-md-3">
         <div class="stat-box">
             <div class="stat-value">{{ teams | length }}</div>
-            <div class="stat-label">Your Teams</div>
+            <div class="stat-label">{{ _('My Teams') }}</div>
         </div>
     </div>
     <div class="col-6 col-md-3">
         <div class="stat-box">
             <div class="stat-value">{{ upcoming_matches | length }}</div>
-            <div class="stat-label">Upcoming</div>
+            <div class="stat-label">{% if get_locale() == 'es' %}Próximos{% else %}Upcoming{% endif %}</div>
         </div>
     </div>
     <div class="col-6 col-md-3">
@@ -38,7 +40,7 @@
                 {% endfor %}
                 {{ total_wins.count }}
             </div>
-            <div class="stat-label">Total Wins</div>
+            <div class="stat-label">{% if get_locale() == 'es' %}Victorias Totales{% else %}Total Wins{% endif %}</div>
         </div>
     </div>
     <div class="col-6 col-md-3">
@@ -50,7 +52,7 @@
                 {% endfor %}
                 {{ total_tds.count }}
             </div>
-            <div class="stat-label">Touchdowns</div>
+            <div class="stat-label">{{ _('Touchdowns') }}</div>
         </div>
     </div>
 </div>
@@ -60,7 +62,7 @@
     <div class="col-lg-6">
         <div class="card h-100">
             <div class="card-header">
-                <i class="bi bi-shield-fill me-2"></i>Your Teams
+                <i class="bi bi-shield-fill me-2"></i>{{ _('My Teams') }}
             </div>
             <div class="card-body">
                 {% if teams %}
@@ -68,10 +70,10 @@
                     <table class="table table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>Team</th>
-                                <th>Race</th>
-                                <th>TV</th>
-                                <th>Record</th>
+                                <th>{% if get_locale() == 'es' %}Equipo{% else %}Team{% endif %}</th>
+                                <th>{{ _('Race') }}</th>
+                                <th>{{ _('TV (Team Value)') }}</th>
+                                <th>{% if get_locale() == 'es' %}Récord{% else %}Record{% endif %}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -83,12 +85,12 @@
                                         {{ team.name }}
                                     </a>
                                 </td>
-                                <td>{{ team.race.name }}</td>
+                                <td>{{ tr_race(team.race.name) }}</td>
                                 <td>{{ "{:,}".format(team.current_tv) }}</td>
                                 <td>
-                                    <span class="text-success">{{ team.wins }}W</span> -
-                                    <span class="text-muted">{{ team.draws }}D</span> -
-                                    <span class="text-danger">{{ team.losses }}L</span>
+                                    <span class="text-success">{{ team.wins }}{% if get_locale() == 'es' %}V{% else %}W{% endif %}</span> -
+                                    <span class="text-muted">{{ team.draws }}{% if get_locale() == 'es' %}E{% else %}D{% endif %}</span> -
+                                    <span class="text-danger">{{ team.losses }}{% if get_locale() == 'es' %}D{% else %}L{% endif %}</span>
                                 </td>
                                 <td class="text-end">
                                     <a href="{{ url_for('teams.view', team_id=team.id) }}" class="btn btn-sm btn-outline-primary">
@@ -103,9 +105,9 @@
                 {% else %}
                 <div class="text-center py-5">
                     <i class="bi bi-shield-x display-3 text-muted mb-3"></i>
-                    <p class="text-muted mb-3">You haven't created any teams yet.</p>
+                    <p class="text-muted mb-3">{% if get_locale() == 'es' %}Aún no has creado ningún equipo.{% else %}You haven't created any teams yet.{% endif %}</p>
                     <a href="{{ url_for('teams.create') }}" class="btn btn-primary">
-                        <i class="bi bi-plus-circle me-1"></i>Create Your First Team
+                        <i class="bi bi-plus-circle me-1"></i>{% if get_locale() == 'es' %}Crea tu Primer Equipo{% else %}Create Your First Team{% endif %}
                     </a>
                 </div>
                 {% endif %}
@@ -117,7 +119,7 @@
     <div class="col-lg-6">
         <div class="card h-100">
             <div class="card-header">
-                <i class="bi bi-calendar-event me-2"></i>Upcoming Matches
+                <i class="bi bi-calendar-event me-2"></i>{{ _('Upcoming Matches') }}
             </div>
             <div class="card-body">
                 {% if upcoming_matches %}
@@ -137,11 +139,11 @@
                                 </div>
                                 <small class="text-muted">
                                     {% if match.league %}{{ match.league.name }} · {% endif %}
-                                    Round {{ match.round_number or 'N/A' }}
+                                    {{ _('Round') }} {{ match.round_number or 'N/A' }}
                                 </small>
                             </div>
                             <a href="{{ url_for('matches.record', match_id=match.id) }}" class="btn btn-sm btn-primary ms-3">
-                                Record
+                                {% if get_locale() == 'es' %}Registrar{% else %}Record{% endif %}
                             </a>
                         </div>
                     </div>
@@ -150,7 +152,7 @@
                 {% else %}
                 <div class="text-center py-5">
                     <i class="bi bi-calendar-check display-3 text-muted mb-3"></i>
-                    <p class="text-muted">No upcoming matches scheduled.</p>
+                    <p class="text-muted">{% if get_locale() == 'es' %}No hay partidos programados próximamente.{% else %}No upcoming matches scheduled.{% endif %}</p>
                 </div>
                 {% endif %}
             </div>
@@ -162,17 +164,17 @@
 {% if recent_results %}
 <div class="card mt-4">
     <div class="card-header">
-        <i class="bi bi-clock-history me-2"></i>Recent Results
+        <i class="bi bi-clock-history me-2"></i>{% if get_locale() == 'es' %}Resultados Recientes{% else %}Recent Results{% endif %}
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Match</th>
-                        <th class="text-center">Score</th>
-                        <th>League</th>
-                        <th>Round</th>
+                        <th>{{ _('Match') }}</th>
+                        <th class="text-center">{{ _('Score') }}</th>
+                        <th>{% if get_locale() == 'es' %}Liga{% else %}League{% endif %}</th>
+                        <th>{{ _('Round') }}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -195,7 +197,7 @@
                         <td>{{ match.round_number or '-' }}</td>
                         <td class="text-end">
                             <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-sm btn-outline-secondary">
-                                Details
+                                {{ _('Details') }}
                             </a>
                         </td>
                     </tr>
@@ -207,4 +209,3 @@
 </div>
 {% endif %}
 {% endblock %}
-

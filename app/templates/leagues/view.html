@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ league.name }} - Blood Bowl League Tracker{% endblock %}
+{% block title %}{{ league.name }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
 <!-- League Header -->
@@ -11,31 +11,42 @@
                 <div class="d-flex align-items-center mb-2">
                     <h1 class="text-gold mb-0 me-3">{{ league.name }}</h1>
                     <span class="badge fs-6 {% if league.status == 'registration' %}bg-success{% elif league.status == 'active' %}bg-warning{% elif league.status == 'playoffs' %}bg-danger{% else %}bg-secondary{% endif %}">
-                        {{ league.status | capitalize }}
+                        {% if get_locale() == 'es' %}
+                            {% if league.status == 'registration' %}Inscripción{% elif league.status == 'active' %}Activa{% elif league.status == 'playoffs' %}Playoffs{% elif league.status == 'completed' %}Completada{% else %}{{ league.status | capitalize }}{% endif %}
+                        {% else %}
+                            {{ league.status | capitalize }}
+                        {% endif %}
                     </span>
                 </div>
                 <p class="text-muted mb-2">{{ league.description }}</p>
                 <p class="mb-0">
-                    <i class="bi bi-person me-1"></i>Commissioner: <strong>{{ league.commissioner.username }}</strong>
+                    <i class="bi bi-person me-1"></i>{{ _('Commissioner') }}: <strong>{{ league.commissioner.username }}</strong>
                     &nbsp;|&nbsp;
-                    <i class="bi bi-calendar me-1"></i>Format: <strong>{{ league.format | replace('_', ' ') | title }}</strong>
+                    <i class="bi bi-calendar me-1"></i>{{ _('Format') }}: <strong>
+                        {% if get_locale() == 'es' %}
+                            {% if league.format == 'round_robin' %}Todos contra Todos{% elif league.format == 'swiss' %}Sistema Suizo{% elif league.format == 'knockout' %}Eliminación Directa{% else %}{{ league.format | replace('_', ' ') | title }}{% endif %}
+                        {% else %}
+                            {{ league.format | replace('_', ' ') | title }}
+                        {% endif %}
+                    </strong>
                 </p>
             </div>
             <div class="col-md-4 text-md-end mt-3 mt-md-0">
                 {% if is_commissioner %}
                 <a href="{{ url_for('leagues.edit', league_id=league.id) }}" class="btn btn-outline-secondary me-2">
-                    <i class="bi bi-pencil me-1"></i>Edit
+                    <i class="bi bi-pencil me-1"></i>{{ _('Edit') }}
                 </a>
                 {% if league.status == 'registration' and teams | length >= league.min_teams %}
                 <form action="{{ url_for('leagues.generate_schedule', league_id=league.id) }}" method="POST" class="d-inline">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-primary" onclick="return confirm('Generate schedule and start the league?');">
-                        <i class="bi bi-play-fill me-1"></i>Start League
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('{% if get_locale() == 'es' %}¿Generar calendario e iniciar la liga?{% else %}Generate schedule and start the league?{% endif %}');">
+                        <i class="bi bi-play-fill me-1"></i>{{ _('Start League') }}
                     </button>
                 </form>
                 {% endif %}
-                {% elif can_join %}
-                <form action="{{ url_for('leagues.join', league_id=league.id) }}" method="POST" class="d-inline">
+                {% endif %}
+                {% if can_join %}
+                <form action="{{ url_for('leagues.join', league_id=league.id) }}" method="POST" class="d-inline{% if is_commissioner %} mt-2 d-block{% endif %}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <select name="team_id" class="form-select form-select-sm d-inline-block w-auto me-2">
                         {% for team in user_teams %}
@@ -43,7 +54,7 @@
                         {% endfor %}
                     </select>
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-box-arrow-in-right me-1"></i>Join League
+                        <i class="bi bi-box-arrow-in-right me-1"></i>{{ _('Join League') }}
                     </button>
                 </form>
                 {% endif %}
@@ -57,25 +68,67 @@
     <div class="col-6 col-md-3">
         <div class="stat-box">
             <div class="stat-value">{{ teams | length }}/{{ league.max_teams }}</div>
-            <div class="stat-label">Teams</div>
+            <div class="stat-label">{{ _('Teams') }}</div>
         </div>
     </div>
     <div class="col-6 col-md-3">
         <div class="stat-box">
             <div class="stat-value">{{ league.win_points }}/{{ league.draw_points }}/{{ league.loss_points }}</div>
-            <div class="stat-label">W/D/L Points</div>
+            <div class="stat-label">{% if get_locale() == 'es' %}Pts V/E/D{% else %}W/D/L Points{% endif %}</div>
         </div>
     </div>
     <div class="col-6 col-md-3">
         <div class="stat-box">
             <div class="stat-value">{{ league.current_season.current_round if league.current_season else '-' }}</div>
-            <div class="stat-label">Current Round</div>
+            <div class="stat-label">{{ _('Current Round') }}</div>
         </div>
     </div>
     <div class="col-6 col-md-3">
         <div class="stat-box">
             <div class="stat-value">{{ recent_matches | length }}</div>
-            <div class="stat-label">Completed Matches</div>
+            <div class="stat-label">{% if get_locale() == 'es' %}Partidos Completados{% else %}Completed Matches{% endif %}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Roster Rules -->
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="bi bi-people me-2"></i>{% if get_locale() == 'es' %}Reglas de Plantilla{% else %}Roster Rules{% endif %}
+    </div>
+    <div class="card-body">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="mb-2">
+                    <i class="bi bi-person-dash text-warning fs-4"></i>
+                </div>
+                <div class="fw-bold">{{ league.min_roster_size or 11 }}</div>
+                <small class="text-muted">{% if get_locale() == 'es' %}Mínimo de Jugadores{% else %}Min. Players{% endif %}</small>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-2">
+                    <i class="bi bi-person-plus text-success fs-4"></i>
+                </div>
+                <div class="fw-bold">{{ league.max_roster_size or 16 }}</div>
+                <small class="text-muted">{% if get_locale() == 'es' %}Máximo de Jugadores{% else %}Max. Players{% endif %}</small>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-2">
+                    {% if league.allow_star_players is none or league.allow_star_players %}
+                    <i class="bi bi-star-fill text-gold fs-4"></i>
+                    {% else %}
+                    <i class="bi bi-star text-muted fs-4"></i>
+                    {% endif %}
+                </div>
+                <div class="fw-bold">
+                    {% if league.allow_star_players is none or league.allow_star_players %}
+                        {% if get_locale() == 'es' %}Permitidos{% else %}Allowed{% endif %}
+                    {% else %}
+                        {% if get_locale() == 'es' %}No Permitidos{% else %}Not Allowed{% endif %}
+                    {% endif %}
+                </div>
+                <small class="text-muted">{% if get_locale() == 'es' %}Jugadores Estrella{% else %}Star Players{% endif %}</small>
+            </div>
         </div>
     </div>
 </div>
@@ -85,8 +138,8 @@
     <div class="col-lg-8">
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-list-ol me-2"></i>Standings</span>
-                <a href="{{ url_for('leagues.standings', league_id=league.id) }}" class="btn btn-sm btn-outline-secondary">Full Table</a>
+                <span><i class="bi bi-list-ol me-2"></i>{{ _('Standings') }}</span>
+                <a href="{{ url_for('leagues.standings', league_id=league.id) }}" class="btn btn-sm btn-outline-secondary">{{ _('Full Table') }}</a>
             </div>
             <div class="card-body p-0">
                 {% if standings %}
@@ -95,13 +148,13 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 40px;">#</th>
-                                <th>Team</th>
-                                <th class="text-center">P</th>
-                                <th class="text-center">W</th>
-                                <th class="text-center">D</th>
-                                <th class="text-center">L</th>
-                                <th class="text-center">TD+/-</th>
-                                <th class="text-center">Pts</th>
+                                <th>{% if get_locale() == 'es' %}Equipo{% else %}Team{% endif %}</th>
+                                <th class="text-center">{{ _('P') }}</th>
+                                <th class="text-center">{{ _('W') }}</th>
+                                <th class="text-center">{{ _('D') }}</th>
+                                <th class="text-center">{{ _('L') }}</th>
+                                <th class="text-center">{{ _('TD+/-') }}</th>
+                                <th class="text-center">{{ _('Pts') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,7 +165,7 @@
                                     <a href="{{ url_for('teams.view', team_id=standing.team.id) }}" class="text-gold text-decoration-none">
                                         {{ standing.team.name }}
                                     </a>
-                                    <small class="text-muted ms-1">({{ standing.team.race.name }})</small>
+                                    <small class="text-muted ms-1">({{ tr_race(standing.team.race.name) }})</small>
                                 </td>
                                 <td class="text-center">{{ standing.played }}</td>
                                 <td class="text-center text-success">{{ standing.wins }}</td>
@@ -130,7 +183,7 @@
                 {% else %}
                 <div class="text-center py-5">
                     <i class="bi bi-list-ol display-3 text-muted mb-3"></i>
-                    <p class="text-muted">No standings yet. The league hasn't started.</p>
+                    <p class="text-muted">{% if get_locale() == 'es' %}Aún no hay clasificación. La liga no ha comenzado.{% else %}No standings yet. The league hasn't started.{% endif %}</p>
                 </div>
                 {% endif %}
             </div>
@@ -139,8 +192,8 @@
         <!-- Recent Matches -->
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span><i class="bi bi-clock-history me-2"></i>Recent Matches</span>
-                <a href="{{ url_for('leagues.schedule', league_id=league.id) }}" class="btn btn-sm btn-outline-secondary">Full Schedule</a>
+                <span><i class="bi bi-clock-history me-2"></i>{{ _('Recent Matches') }}</span>
+                <a href="{{ url_for('leagues.schedule', league_id=league.id) }}" class="btn btn-sm btn-outline-secondary">{{ _('Full Schedule') }}</a>
             </div>
             <div class="card-body p-0">
                 {% if recent_matches %}
@@ -162,14 +215,14 @@
                                 </span>
                             </div>
                         </div>
-                        <small class="text-muted d-block text-center">Round {{ match.round_number or 'N/A' }}</small>
+                        <small class="text-muted d-block text-center">{{ _('Round') }} {{ match.round_number or 'N/A' }}</small>
                     </a>
                     {% endfor %}
                 </div>
                 {% else %}
                 <div class="text-center py-5">
                     <i class="bi bi-calendar-x display-3 text-muted mb-3"></i>
-                    <p class="text-muted">No matches completed yet.</p>
+                    <p class="text-muted">{{ _('No matches completed yet.') }}</p>
                 </div>
                 {% endif %}
             </div>
@@ -181,7 +234,7 @@
         <!-- Registered Teams -->
         <div class="card mb-4">
             <div class="card-header">
-                <i class="bi bi-people me-2"></i>Registered Teams ({{ teams | length }})
+                <i class="bi bi-people me-2"></i>{{ _('Registered Teams') }} ({{ teams | length }})
             </div>
             <div class="card-body p-0">
                 {% if teams %}
@@ -191,13 +244,13 @@
                         <a href="{{ url_for('teams.view', team_id=team.id) }}" class="text-gold text-decoration-none">
                             {{ team.name }}
                         </a>
-                        <span class="badge bg-secondary">{{ team.race.name }}</span>
+                        <span class="badge bg-secondary">{{ tr_race(team.race.name) }}</span>
                     </li>
                     {% endfor %}
                 </ul>
                 {% else %}
                 <div class="text-center py-4">
-                    <p class="text-muted mb-0">No teams registered yet.</p>
+                    <p class="text-muted mb-0">{% if get_locale() == 'es' %}Aún no hay equipos registrados.{% else %}No teams registered yet.{% endif %}</p>
                 </div>
                 {% endif %}
             </div>
@@ -207,7 +260,7 @@
         {% if is_commissioner and pending_teams %}
         <div class="card mb-4">
             <div class="card-header bg-warning text-dark">
-                <i class="bi bi-hourglass me-2"></i>Pending Approval ({{ pending_teams | length }})
+                <i class="bi bi-hourglass me-2"></i>{{ _('Pending Approval') }} ({{ pending_teams | length }})
             </div>
             <div class="card-body p-0">
                 <ul class="list-group list-group-flush">
@@ -240,7 +293,7 @@
         <!-- Upcoming Matches -->
         <div class="card">
             <div class="card-header">
-                <i class="bi bi-calendar-event me-2"></i>Upcoming Matches
+                <i class="bi bi-calendar-event me-2"></i>{{ _('Upcoming Matches') }}
             </div>
             <div class="card-body p-0">
                 {% if upcoming_matches %}
@@ -249,14 +302,14 @@
                     <li class="list-group-item bg-transparent">
                         <div class="d-flex justify-content-between align-items-center">
                             <small>{{ match.home_team.name }} vs {{ match.away_team.name }}</small>
-                            <span class="badge bg-secondary">R{{ match.round_number or '?' }}</span>
+                            <span class="badge bg-secondary">{% if get_locale() == 'es' %}J{% else %}R{% endif %}{{ match.round_number or '?' }}</span>
                         </div>
                     </li>
                     {% endfor %}
                 </ul>
                 {% else %}
                 <div class="text-center py-4">
-                    <p class="text-muted mb-0">No upcoming matches.</p>
+                    <p class="text-muted mb-0">{{ _('No upcoming matches.') }}</p>
                 </div>
                 {% endif %}
             </div>
@@ -264,4 +317,3 @@
     </div>
 </div>
 {% endblock %}
-

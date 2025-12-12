@@ -10,6 +10,7 @@ leagues_bp = Blueprint("leagues", __name__)
 
 
 @leagues_bp.route("/")
+@login_required
 def index():
     """List all leagues."""
     page = request.args.get("page", 1, type=int)
@@ -37,7 +38,11 @@ def index():
 @leagues_bp.route("/create", methods=["GET", "POST"])
 @login_required
 def create():
-    """Create a new league."""
+    """Create a new league (admin only)."""
+    if not current_user.is_admin:
+        flash("Only administrators can create leagues.", "danger")
+        return redirect(url_for("leagues.index"))
+    
     form = CreateLeagueForm()
     
     if form.validate_on_submit():
@@ -52,6 +57,9 @@ def create():
             win_points=form.win_points.data,
             draw_points=form.draw_points.data,
             loss_points=form.loss_points.data,
+            min_roster_size=form.min_roster_size.data,
+            max_roster_size=form.max_roster_size.data,
+            allow_star_players=form.allow_star_players.data,
             is_public=form.is_public.data
         )
         
@@ -74,6 +82,7 @@ def create():
 
 
 @leagues_bp.route("/<int:league_id>")
+@login_required
 def view(league_id: int):
     """View league details."""
     league = League.query.get_or_404(league_id)
@@ -146,6 +155,9 @@ def edit(league_id: int):
         league.name = form.name.data
         league.description = form.description.data
         league.max_teams = form.max_teams.data
+        league.min_roster_size = form.min_roster_size.data
+        league.max_roster_size = form.max_roster_size.data
+        league.allow_star_players = form.allow_star_players.data
         league.is_public = form.is_public.data
         league.registration_open = form.registration_open.data
         
@@ -169,13 +181,36 @@ def join(league_id: int):
     team_id = request.form.get("team_id", type=int)
     team = Team.query.get_or_404(team_id)
     
-    if team.coach_id != current_user.id:
+    # Allow team coach or admin to join
+    if team.coach_id != current_user.id and not current_user.is_admin:
         abort(403)
     
     # Check if team is already registered
     existing = LeagueTeam.query.filter_by(league_id=league.id, team_id=team.id).first()
     if existing:
         flash("This team is already registered in this league.", "warning")
+        return redirect(url_for("leagues.view", league_id=league.id))
+    
+    # Validate roster rules
+    roster_count = team.roster_count
+    min_roster = league.min_roster_size or 11
+    max_roster = league.max_roster_size or 16
+    
+    from flask import session
+    lang = session.get('language', 'en')
+    
+    if roster_count < min_roster:
+        if lang == 'es':
+            flash(f"El equipo necesita al menos {min_roster} jugadores para unirse a esta liga. Plantilla actual: {roster_count}.", "danger")
+        else:
+            flash(f"Team needs at least {min_roster} players to join this league. Current roster: {roster_count}.", "danger")
+        return redirect(url_for("leagues.view", league_id=league.id))
+    
+    if roster_count > max_roster:
+        if lang == 'es':
+            flash(f"El equipo excede el tamaño máximo de plantilla de {max_roster} jugadores. Plantilla actual: {roster_count}.", "danger")
+        else:
+            flash(f"Team exceeds the maximum roster size of {max_roster} players. Current roster: {roster_count}.", "danger")
         return redirect(url_for("leagues.view", league_id=league.id))
     
     # Register team
@@ -296,6 +331,7 @@ def generate_schedule(league_id: int):
 
 
 @leagues_bp.route("/<int:league_id>/standings")
+@login_required
 def standings(league_id: int):
     """View full standings table."""
     league = League.query.get_or_404(league_id)
@@ -322,6 +358,7 @@ def standings(league_id: int):
 
 
 @leagues_bp.route("/<int:league_id>/schedule")
+@login_required
 def schedule(league_id: int):
     """View full match schedule."""
     league = League.query.get_or_404(league_id)

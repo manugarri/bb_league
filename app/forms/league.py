@@ -54,6 +54,20 @@ class CreateLeagueForm(FlaskForm):
         default=0,
         validators=[InputRequired(), NumberRange(min=0, max=10)]
     )
+    min_roster_size = IntegerField(
+        "Minimum Roster Size",
+        default=11,
+        validators=[InputRequired(), NumberRange(min=1, max=16)]
+    )
+    max_roster_size = IntegerField(
+        "Maximum Roster Size",
+        default=16,
+        validators=[InputRequired(), NumberRange(min=1, max=20)]
+    )
+    allow_star_players = BooleanField(
+        "Allow Star Players",
+        default=True
+    )
     is_public = BooleanField(
         "Public League",
         default=True
@@ -74,6 +88,15 @@ class EditLeagueForm(FlaskForm):
         "Maximum Teams",
         validators=[DataRequired(), NumberRange(min=2, max=32)]
     )
+    min_roster_size = IntegerField(
+        "Minimum Roster Size",
+        validators=[InputRequired(), NumberRange(min=1, max=16)]
+    )
+    max_roster_size = IntegerField(
+        "Maximum Roster Size",
+        validators=[InputRequired(), NumberRange(min=1, max=20)]
+    )
+    allow_star_players = BooleanField("Allow Star Players")
     is_public = BooleanField("Public League")
     registration_open = BooleanField("Registration Open")
 

@@ -3,6 +3,15 @@ from datetime import datetime
 from app.extensions import db
 
 
+# Association table for teams and their hired star players
+team_star_players = db.Table(
+    'team_star_players',
+    db.Column('team_id', db.Integer, db.ForeignKey('teams.id'), primary_key=True),
+    db.Column('star_player_id', db.Integer, db.ForeignKey('star_players.id'), primary_key=True),
+    db.Column('hired_at', db.DateTime, default=datetime.utcnow)
+)
+
+
 class Race(db.Model):
     """Blood Bowl race/roster."""
     __tablename__ = "races"
@@ -95,6 +104,7 @@ class Team(db.Model):
     # Relationships
     players = db.relationship("Player", backref="team", lazy="dynamic", cascade="all, delete-orphan")
     staff = db.relationship("TeamStaff", backref="team", lazy="dynamic", cascade="all, delete-orphan")
+    star_players = db.relationship("StarPlayer", secondary=team_star_players, backref=db.backref("teams", lazy="dynamic"))
     league_entries = db.relationship("LeagueTeam", backref="team", lazy="dynamic")
     home_matches = db.relationship("Match", foreign_keys="Match.home_team_id", backref="home_team", lazy="dynamic")
     away_matches = db.relationship("Match", foreign_keys="Match.away_team_id", backref="away_team", lazy="dynamic")
@@ -109,6 +119,10 @@ class Team(db.Model):
         # Player values
         for player in self.players.filter_by(is_active=True):
             tv += player.calculate_value()
+        
+        # Star player values
+        for star in self.star_players:
+            tv += star.cost
         
         # Team assets
         tv += self.rerolls * self.race.reroll_cost
@@ -148,4 +162,21 @@ class TeamStaff(db.Model):
     
     def __repr__(self) -> str:
         return f"<TeamStaff {self.staff_type} for {self.team.name}>"
+
+
+class TeamStarPlayer(db.Model):
+    """Association between teams and star players they have hired."""
+    __tablename__ = "team_star_player_entries"
+    
+    id = db.Column(db.Integer, primary_key=True)
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), nullable=False)
+    star_player_id = db.Column(db.Integer, db.ForeignKey("star_players.id"), nullable=False)
+    hired_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    team = db.relationship("Team", backref=db.backref("star_player_entries", lazy="dynamic"))
+    star_player = db.relationship("StarPlayer", backref=db.backref("team_entries", lazy="dynamic"))
+    
+    def __repr__(self) -> str:
+        return f"<TeamStarPlayer {self.star_player.name} for team {self.team.name}>"
 

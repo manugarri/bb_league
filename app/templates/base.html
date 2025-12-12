@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="{{ get_locale() }}" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -346,44 +346,59 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}" href="{{ url_for('main.index') }}">
-                            <i class="bi bi-house-fill me-1"></i> Home
+                            <i class="bi bi-house-fill me-1"></i> {{ _('Home') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint and 'teams' in request.endpoint %}active{% endif %}" href="{{ url_for('teams.index') }}">
-                            <i class="bi bi-people-fill me-1"></i> Teams
+                            <i class="bi bi-people-fill me-1"></i> {{ _('Teams') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint and 'leagues' in request.endpoint %}active{% endif %}" href="{{ url_for('leagues.index') }}">
-                            <i class="bi bi-trophy me-1"></i> Leagues
+                            <i class="bi bi-trophy me-1"></i> {{ _('Leagues') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint and 'matches' in request.endpoint %}active{% endif %}" href="{{ url_for('matches.index') }}">
-                            <i class="bi bi-calendar-event me-1"></i> Matches
+                            <i class="bi bi-calendar-event me-1"></i> {{ _('Matches') }}
                         </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
+                    <!-- Language Switcher -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-translate me-1"></i>
+                            {% if get_locale() == 'es' %}ES{% else %}EN{% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item {% if get_locale() == 'en' %}active{% endif %}" href="{{ url_for('main.set_language', language='en') }}">
+                                🇬🇧 English
+                            </a></li>
+                            <li><a class="dropdown-item {% if get_locale() == 'es' %}active{% endif %}" href="{{ url_for('main.set_language', language='es') }}">
+                                🇪🇸 Español
+                            </a></li>
+                        </ul>
+                    </li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle me-1"></i> {{ current_user.get_display_name() }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ url_for('main.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.profile') }}"><i class="bi bi-gear me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>{{ _('Dashboard') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.profile') }}"><i class="bi bi-gear me-2"></i>{{ _('Profile') }}</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right me-2"></i>{{ _('Logout') }}</a></li>
                         </ul>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.login') }}"><i class="bi bi-box-arrow-in-right me-1"></i> Login</a>
+                        <a class="nav-link" href="{{ url_for('auth.login') }}"><i class="bi bi-box-arrow-in-right me-1"></i> {{ _('Login') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary btn-sm ms-2" href="{{ url_for('auth.register') }}">Register</a>
+                        <a class="btn btn-primary btn-sm ms-2" href="{{ url_for('auth.register') }}">{{ _('Register') }}</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -409,10 +424,10 @@
     <footer class="text-center">
         <div class="container">
             <p class="text-muted mb-1">
-                <span class="text-gold">Blood Bowl League Tracker</span> &copy; 2025
+                <span class="text-gold">{{ _('Blood Bowl League Tracker') }}</span> &copy; 2025
             </p>
             <p class="small text-muted">
-                Blood Bowl is a trademark of Games Workshop Ltd.
+                {{ _('Blood Bowl is a trademark of Games Workshop Ltd.') }}
             </p>
         </div>
     </footer>

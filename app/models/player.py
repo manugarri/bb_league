@@ -56,11 +56,57 @@ class Skill(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True, nullable=False)
-    category = db.Column(db.String(20), nullable=False)  # General, Agility, Strength, Passing, Mutation
+    name_es = db.Column(db.String(64))  # Spanish name
+    category = db.Column(db.String(20), nullable=False)  # A, S, G, M, P, E
+    skill_type = db.Column(db.String(20), default="active")  # active, passive
+    is_mandatory = db.Column(db.Boolean, default=False)  # Must use when applicable (marked with *)
     description = db.Column(db.Text)
+    description_es = db.Column(db.Text)  # Spanish description
     
     def __repr__(self) -> str:
         return f"<Skill {self.name}>"
+    
+    @property
+    def category_name(self) -> str:
+        """Return full category name."""
+        categories = {
+            'A': 'Agility',
+            'S': 'Strength', 
+            'G': 'General',
+            'M': 'Mutation',
+            'P': 'Passing',
+            'E': 'Extraordinary'
+        }
+        return categories.get(self.category, self.category)
+    
+    @property
+    def category_name_es(self) -> str:
+        """Return full category name in Spanish."""
+        categories = {
+            'A': 'Agilidad',
+            'S': 'Fuerza', 
+            'G': 'Generales',
+            'M': 'Mutación',
+            'P': 'Pase',
+            'E': 'Triquiñuelas'
+        }
+        return categories.get(self.category, self.category)
+
+
+class Trait(db.Model):
+    """Blood Bowl trait (innate abilities that cannot be learned)."""
+    __tablename__ = "traits"
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True, nullable=False)
+    name_es = db.Column(db.String(64))  # Spanish name
+    trait_type = db.Column(db.String(20), default="passive")  # active, passive
+    is_mandatory = db.Column(db.Boolean, default=False)  # Must use when applicable (marked with *)
+    description = db.Column(db.Text)
+    description_es = db.Column(db.Text)  # Spanish description
+    
+    def __repr__(self) -> str:
+        return f"<Trait {self.name}>"
 
 
 class PlayerSkill(db.Model):
@@ -78,6 +124,22 @@ class PlayerSkill(db.Model):
     
     def __repr__(self) -> str:
         return f"<PlayerSkill {self.skill.name}>"
+
+
+class PlayerTrait(db.Model):
+    """Association between players and traits."""
+    __tablename__ = "player_traits"
+    
+    id = db.Column(db.Integer, primary_key=True)
+    player_id = db.Column(db.Integer, db.ForeignKey("players.id"), nullable=False)
+    trait_id = db.Column(db.Integer, db.ForeignKey("traits.id"), nullable=False)
+    is_starting = db.Column(db.Boolean, default=True)  # Traits usually come with position
+    
+    # Relationships
+    trait = db.relationship("Trait", backref="player_traits")
+    
+    def __repr__(self) -> str:
+        return f"<PlayerTrait {self.trait.name}>"
 
 
 class Injury(db.Model):
@@ -143,6 +205,7 @@ class Player(db.Model):
     
     # Relationships
     skills = db.relationship("PlayerSkill", backref="player", lazy="dynamic", cascade="all, delete-orphan")
+    traits = db.relationship("PlayerTrait", backref="player", lazy="dynamic", cascade="all, delete-orphan")
     injuries = db.relationship("Injury", backref="player", lazy="dynamic", cascade="all, delete-orphan")
     match_stats = db.relationship("MatchPlayerStats", backref="player", lazy="dynamic")
     
@@ -207,4 +270,37 @@ class Player(db.Model):
     def get_skill_list(self) -> list:
         """Return list of skill names."""
         return [ps.skill.name for ps in self.skills.all()]
+    
+    def get_trait_list(self) -> list:
+        """Return list of trait names."""
+        return [pt.trait.name for pt in self.traits.all()]
+    
+    def get_all_abilities(self) -> dict:
+        """Return all skills and traits."""
+        return {
+            'skills': self.get_skill_list(),
+            'traits': self.get_trait_list()
+        }
+    
+    def add_skill(self, skill: 'Skill', is_starting: bool = False) -> 'PlayerSkill':
+        """Add a skill to this player."""
+        from app.extensions import db
+        player_skill = PlayerSkill(
+            player_id=self.id,
+            skill_id=skill.id,
+            is_starting=is_starting
+        )
+        db.session.add(player_skill)
+        return player_skill
+    
+    def add_trait(self, trait: 'Trait', is_starting: bool = True) -> 'PlayerTrait':
+        """Add a trait to this player."""
+        from app.extensions import db
+        player_trait = PlayerTrait(
+            player_id=self.id,
+            trait_id=trait.id,
+            is_starting=is_starting
+        )
+        db.session.add(player_trait)
+        return player_trait
 

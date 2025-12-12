@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}{% if get_locale() == 'es' %}Jugadores Estrella{% else %}Star Players{% endif %} - {{ team.name }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('teams.index') }}">{{ _('Teams') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('teams.view', team_id=team.id) }}">{{ team.name }}</a></li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Jugadores Estrella{% else %}Star Players{% endif %}</li>
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-star-fill text-gold me-2"></i>{% if get_locale() == 'es' %}Jugadores Estrella{% else %}Star Players{% endif %}</h1>
+    <div>
+        <span class="badge bg-secondary fs-6">
+            <i class="bi bi-coin me-1"></i>{% if get_locale() == 'es' %}Tesorería{% else %}Treasury{% endif %}: {{ "{:,}".format(team.treasury) }}g
+        </span>
+    </div>
+</div>
+
+<!-- Hired Star Players -->
+{% if hired_stars %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="bi bi-star-fill me-2"></i>{% if get_locale() == 'es' %}Jugadores Estrella Contratados{% else %}Hired Star Players{% endif %} ({{ hired_stars | length }})
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>{% if get_locale() == 'es' %}Nombre{% else %}Name{% endif %}</th>
+                        <th class="text-center">MA</th>
+                        <th class="text-center">ST</th>
+                        <th class="text-center">AG</th>
+                        <th class="text-center">PA</th>
+                        <th class="text-center">AV</th>
+                        <th>{% if get_locale() == 'es' %}Habilidades{% else %}Skills{% endif %}</th>
+                        <th class="text-end">{% if get_locale() == 'es' %}Coste{% else %}Cost{% endif %}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for star in hired_stars %}
+                    <tr>
+                        <td>
+                            <strong class="text-gold">{{ tr_star(star.name) }}</strong>
+                        </td>
+                        <td class="text-center">{{ star.movement }}</td>
+                        <td class="text-center">{{ star.strength }}</td>
+                        <td class="text-center">{{ star.agility }}+</td>
+                        <td class="text-center">{{ star.passing }}+</td>
+                        <td class="text-center">{{ star.armor }}+</td>
+                        <td>
+                            {% for skill in star.get_skill_list()[:3] %}
+                            <span class="badge bg-secondary">{{ tr_skill(skill) }}</span>
+                            {% endfor %}
+                            {% if star.get_skill_list() | length > 3 %}
+                            <span class="badge bg-dark">+{{ star.get_skill_list() | length - 3 }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end">{{ "{:,}".format(star.cost) }}g</td>
+                        <td class="text-end">
+                            <form action="{{ url_for('teams.fire_star_player', team_id=team.id, star_id=star.id) }}" method="POST" class="d-inline" onsubmit="return confirm('{% if get_locale() == 'es' %}¿Liberar a {{ star.name }}?{% else %}Release {{ star.name }}?{% endif %}');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="{% if get_locale() == 'es' %}Liberar{% else %}Release{% endif %}">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Available Star Players -->
+<div class="card">
+    <div class="card-header">
+        <i class="bi bi-star me-2"></i>{% if get_locale() == 'es' %}Jugadores Estrella Disponibles{% else %}Available Star Players{% endif %} ({{ available_stars | length }})
+    </div>
+    {% if available_stars %}
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>{% if get_locale() == 'es' %}Nombre{% else %}Name{% endif %}</th>
+                        <th class="text-center">MA</th>
+                        <th class="text-center">ST</th>
+                        <th class="text-center">AG</th>
+                        <th class="text-center">PA</th>
+                        <th class="text-center">AV</th>
+                        <th>{% if get_locale() == 'es' %}Habilidades{% else %}Skills{% endif %}</th>
+                        <th class="text-end">{% if get_locale() == 'es' %}Coste{% else %}Cost{% endif %}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for star in available_stars %}
+                    <tr class="{% if team.treasury < star.cost %}text-muted{% endif %}">
+                        <td>
+                            <strong>{{ tr_star(star.name) }}</strong>
+                            {% if star.special_abilities %}
+                            <br><small class="text-warning"><i class="bi bi-lightning-fill"></i> {{ star.get_special_abilities() | join(', ') }}</small>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">{{ star.movement }}</td>
+                        <td class="text-center">{{ star.strength }}</td>
+                        <td class="text-center">{{ star.agility }}+</td>
+                        <td class="text-center">{% if star.passing %}{{ star.passing }}+{% else %}-{% endif %}</td>
+                        <td class="text-center">{{ star.armor }}+</td>
+                        <td>
+                            {% for skill in star.get_skill_list() %}
+                            <span class="badge bg-secondary">{{ tr_skill(skill) }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="text-end">
+                            <strong class="{% if team.treasury >= star.cost %}text-gold{% else %}text-danger{% endif %}">
+                                {{ "{:,}".format(star.cost) }}g
+                            </strong>
+                        </td>
+                        <td class="text-end">
+                            <form action="{{ url_for('teams.hire_star_player', team_id=team.id, star_id=star.id) }}" method="POST" class="d-inline">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-sm btn-primary" {% if team.treasury < star.cost %}disabled{% endif %} title="{% if get_locale() == 'es' %}Contratar{% else %}Hire{% endif %}">
+                                    <i class="bi bi-plus-lg"></i> {% if get_locale() == 'es' %}Contratar{% else %}Hire{% endif %}
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="card-body text-center py-5">
+        <i class="bi bi-star display-1 text-muted mb-3"></i>
+        <h4>{% if get_locale() == 'es' %}No hay jugadores estrella disponibles{% else %}No star players available{% endif %}</h4>
+        <p class="text-muted">
+            {% if get_locale() == 'es' %}
+            Todos los jugadores estrella disponibles para {{ tr_race(team.race.name) }} ya han sido contratados.
+            {% else %}
+            All star players available for {{ tr_race(team.race.name) }} have been hired.
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('teams.view', team_id=team.id) }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>{% if get_locale() == 'es' %}Volver al Equipo{% else %}Back to Team{% endif %}
+    </a>
+</div>
+{% endblock %}
+

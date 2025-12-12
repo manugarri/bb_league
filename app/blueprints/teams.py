@@ -1,14 +1,15 @@
 """Teams blueprint."""
-from flask import Blueprint, render_template, redirect, url_for, flash, request, abort
+from flask import Blueprint, render_template, redirect, url_for, flash, request, abort, session
 from flask_login import login_required, current_user
 from app.extensions import db
-from app.models import Team, Race, Position, Player
+from app.models import Team, Race, Position, Player, Skill, PlayerSkill
 from app.forms.team import CreateTeamForm, HirePlayerForm, EditTeamForm, EditPlayerForm
 
 teams_bp = Blueprint("teams", __name__)
 
 
 @teams_bp.route("/")
+@login_required
 def index():
     """List all teams."""
     page = request.args.get("page", 1, type=int)
@@ -60,6 +61,7 @@ def create():
 
 
 @teams_bp.route("/<int:team_id>")
+@login_required
 def view(team_id: int):
     """View team details."""
     team = Team.query.get_or_404(team_id)
@@ -79,13 +81,16 @@ def view(team_id: int):
         if current_count < pos.max_count:
             available_positions.append(pos)
     
+    # Admins can manage any team
+    is_owner = current_user.is_authenticated and (current_user.id == team.coach_id or current_user.is_admin)
+    
     return render_template(
         "teams/view.html",
         team=team,
         players=players,
         positions=available_positions,
         position_counts=position_counts,
-        is_owner=current_user.is_authenticated and current_user.id == team.coach_id
+        is_owner=is_owner
     )
 
 
@@ -115,7 +120,7 @@ def hire_player(team_id: int):
     """Hire a new player."""
     team = Team.query.get_or_404(team_id)
     
-    if team.coach_id != current_user.id:
+    if team.coach_id != current_user.id and not current_user.is_admin:
         abort(403)
     
     form = HirePlayerForm()
@@ -173,6 +178,7 @@ def hire_player(team_id: int):
 
 
 @teams_bp.route("/<int:team_id>/player/<int:player_id>")
+@login_required
 def view_player(team_id: int, player_id: int):
     """View player details."""
     team = Team.query.get_or_404(team_id)
@@ -184,12 +190,15 @@ def view_player(team_id: int, player_id: int):
     # Get match history
     match_stats = player.match_stats.order_by(player.match_stats.c.id.desc()).limit(10).all() if hasattr(player.match_stats, 'c') else player.match_stats.limit(10).all()
     
+    # Admins can manage any team
+    is_owner = current_user.is_authenticated and (current_user.id == team.coach_id or current_user.is_admin)
+    
     return render_template(
         "teams/player.html",
         team=team,
         player=player,
         match_stats=match_stats,
-        is_owner=current_user.is_authenticated and current_user.id == team.coach_id
+        is_owner=is_owner
     )
 
 
@@ -215,7 +224,45 @@ def edit_player(team_id: int, player_id: int):
         flash("Player updated successfully.", "success")
         return redirect(url_for("teams.view_player", team_id=team.id, player_id=player.id))
     
-    return render_template("teams/edit_player.html", form=form, team=team, player=player)
+    # Get player's current skills
+    current_skills = player.skills.all()
+    current_skill_ids = [ps.skill_id for ps in current_skills]
+    
+    # Get available skills based on position's skill access
+    position = player.position
+    primary_categories = list(position.primary_skills or "")
+    secondary_categories = list(position.secondary_skills or "")
+    all_categories = primary_categories + secondary_categories
+    
+    # Query available skills (not already learned)
+    available_skills = Skill.query.filter(
+        Skill.category.in_(all_categories),
+        ~Skill.id.in_(current_skill_ids) if current_skill_ids else True
+    ).order_by(Skill.category, Skill.name).all()
+    
+    # Organize by category for display
+    skills_by_category = {}
+    for skill in available_skills:
+        cat = skill.category
+        if cat not in skills_by_category:
+            skills_by_category[cat] = {
+                'name': skill.category_name,
+                'name_es': skill.category_name_es,
+                'is_primary': cat in primary_categories,
+                'skills': []
+            }
+        skills_by_category[cat]['skills'].append(skill)
+    
+    return render_template(
+        "teams/edit_player.html",
+        form=form,
+        team=team,
+        player=player,
+        current_skills=current_skills,
+        skills_by_category=skills_by_category,
+        primary_categories=primary_categories,
+        secondary_categories=secondary_categories
+    )
 
 
 @teams_bp.route("/<int:team_id>/player/<int:player_id>/fire", methods=["POST"])
@@ -228,7 +275,7 @@ def fire_player(team_id: int, player_id: int):
     if player.team_id != team.id:
         abort(404)
     
-    if team.coach_id != current_user.id:
+    if team.coach_id != current_user.id and not current_user.is_admin:
         abort(403)
     
     player.is_active = False
@@ -241,13 +288,124 @@ def fire_player(team_id: int, player_id: int):
     return redirect(url_for("teams.view", team_id=team.id))
 
 
+@teams_bp.route("/<int:team_id>/player/<int:player_id>/add-skill/<int:skill_id>", methods=["POST"])
+@login_required
+def add_player_skill(team_id: int, player_id: int, skill_id: int):
+    """Add a skill to a player."""
+    team = Team.query.get_or_404(team_id)
+    player = Player.query.get_or_404(player_id)
+    skill = Skill.query.get_or_404(skill_id)
+    
+    if player.team_id != team.id:
+        abort(404)
+    
+    if team.coach_id != current_user.id and not current_user.is_admin:
+        abort(403)
+    
+    lang = session.get('language', 'en')
+    
+    # Check if player already has this skill
+    existing = PlayerSkill.query.filter_by(player_id=player.id, skill_id=skill.id).first()
+    if existing:
+        if lang == 'es':
+            flash(f"{player.name} ya tiene la habilidad {skill.name_es or skill.name}.", "warning")
+        else:
+            flash(f"{player.name} already has the skill {skill.name}.", "warning")
+        return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
+    
+    # Verify skill category is accessible to this position
+    position = player.position
+    primary_categories = list(position.primary_skills or "")
+    secondary_categories = list(position.secondary_skills or "")
+    all_categories = primary_categories + secondary_categories
+    
+    if skill.category not in all_categories:
+        if lang == 'es':
+            flash(f"Esta posición no puede aprender habilidades de {skill.category_name_es}.", "danger")
+        else:
+            flash(f"This position cannot learn {skill.category_name} skills.", "danger")
+        return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
+    
+    # Add the skill
+    player_skill = PlayerSkill(
+        player_id=player.id,
+        skill_id=skill.id,
+        is_starting=False
+    )
+    db.session.add(player_skill)
+    
+    # Update player value (skills add 20,000 to player value)
+    player.calculate_value()
+    team.calculate_tv()
+    db.session.commit()
+    
+    skill_display = skill.name_es if lang == 'es' and skill.name_es else skill.name
+    if lang == 'es':
+        flash(f"¡Habilidad '{skill_display}' añadida a {player.name}!", "success")
+    else:
+        flash(f"Skill '{skill.name}' added to {player.name}!", "success")
+    
+    return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
+
+
+@teams_bp.route("/<int:team_id>/player/<int:player_id>/remove-skill/<int:skill_id>", methods=["POST"])
+@login_required
+def remove_player_skill(team_id: int, player_id: int, skill_id: int):
+    """Remove a skill from a player."""
+    team = Team.query.get_or_404(team_id)
+    player = Player.query.get_or_404(player_id)
+    skill = Skill.query.get_or_404(skill_id)
+    
+    if player.team_id != team.id:
+        abort(404)
+    
+    if team.coach_id != current_user.id and not current_user.is_admin:
+        abort(403)
+    
+    lang = session.get('language', 'en')
+    
+    # Find the player skill
+    player_skill = PlayerSkill.query.filter_by(player_id=player.id, skill_id=skill.id).first()
+    
+    if not player_skill:
+        if lang == 'es':
+            flash(f"{player.name} no tiene la habilidad {skill.name_es or skill.name}.", "warning")
+        else:
+            flash(f"{player.name} doesn't have the skill {skill.name}.", "warning")
+        return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
+    
+    # Cannot remove starting skills
+    if player_skill.is_starting:
+        if lang == 'es':
+            flash("No se pueden eliminar las habilidades iniciales.", "danger")
+        else:
+            flash("Cannot remove starting skills.", "danger")
+        return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
+    
+    # Remove the skill
+    db.session.delete(player_skill)
+    
+    # Update player value
+    player.calculate_value()
+    team.calculate_tv()
+    db.session.commit()
+    
+    skill_display = skill.name_es if lang == 'es' and skill.name_es else skill.name
+    if lang == 'es':
+        flash(f"Habilidad '{skill_display}' eliminada de {player.name}.", "warning")
+    else:
+        flash(f"Skill '{skill.name}' removed from {player.name}.", "warning")
+    
+    return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
+
+
 @teams_bp.route("/<int:team_id>/purchase", methods=["POST"])
 @login_required
 def purchase(team_id: int):
     """Purchase team upgrades (rerolls, staff, etc.)."""
     team = Team.query.get_or_404(team_id)
     
-    if team.coach_id != current_user.id:
+    if team.coach_id != current_user.id and not current_user.is_admin:
         abort(403)
     
     item = request.form.get("item")
@@ -290,4 +448,118 @@ def purchase(team_id: int):
     
     flash(f"Purchased {item.replace('_', ' ')} for {cost:,}g!", "success")
     return redirect(url_for("teams.view", team_id=team.id))
+
+
+@teams_bp.route("/<int:team_id>/star-players")
+@login_required
+def star_players(team_id: int):
+    """View available star players to hire."""
+    from app.models import StarPlayer
+    
+    team = Team.query.get_or_404(team_id)
+    
+    if team.coach_id != current_user.id and not current_user.is_admin:
+        abort(403)
+    
+    # Get star players available to this team's race
+    available_stars = StarPlayer.query.filter(
+        StarPlayer.available_to_races.any(id=team.race_id)
+    ).order_by(StarPlayer.name).all()
+    
+    # Filter out already hired star players
+    hired_ids = [sp.id for sp in team.star_players]
+    available_stars = [sp for sp in available_stars if sp.id not in hired_ids]
+    
+    return render_template(
+        "teams/star_players.html",
+        team=team,
+        available_stars=available_stars,
+        hired_stars=team.star_players
+    )
+
+
+@teams_bp.route("/<int:team_id>/hire-star/<int:star_id>", methods=["POST"])
+@login_required
+def hire_star_player(team_id: int, star_id: int):
+    """Hire a star player."""
+    from app.models import StarPlayer
+    from flask import session
+    
+    team = Team.query.get_or_404(team_id)
+    star = StarPlayer.query.get_or_404(star_id)
+    
+    if team.coach_id != current_user.id and not current_user.is_admin:
+        abort(403)
+    
+    lang = session.get('language', 'en')
+    
+    # Check if star player is available to this race
+    if team.race not in star.available_to_races:
+        if lang == 'es':
+            flash(f"{star.name} no está disponible para equipos {team.race.name}.", "danger")
+        else:
+            flash(f"{star.name} is not available for {team.race.name} teams.", "danger")
+        return redirect(url_for("teams.star_players", team_id=team.id))
+    
+    # Check if already hired
+    if star in team.star_players:
+        if lang == 'es':
+            flash(f"{star.name} ya está contratado.", "warning")
+        else:
+            flash(f"{star.name} is already hired.", "warning")
+        return redirect(url_for("teams.star_players", team_id=team.id))
+    
+    # Check treasury
+    if team.treasury < star.cost:
+        if lang == 'es':
+            flash(f"No hay suficiente oro en la tesorería. Necesitas {star.cost:,}g.", "danger")
+        else:
+            flash(f"Not enough gold in treasury. Need {star.cost:,}g.", "danger")
+        return redirect(url_for("teams.star_players", team_id=team.id))
+    
+    # Hire star player
+    team.star_players.append(star)
+    team.treasury -= star.cost
+    team.calculate_tv()
+    db.session.commit()
+    
+    if lang == 'es':
+        flash(f"¡{star.name} contratado por {star.cost:,}g!", "success")
+    else:
+        flash(f"{star.name} hired for {star.cost:,}g!", "success")
+    return redirect(url_for("teams.star_players", team_id=team.id))
+
+
+@teams_bp.route("/<int:team_id>/fire-star/<int:star_id>", methods=["POST"])
+@login_required
+def fire_star_player(team_id: int, star_id: int):
+    """Release a star player."""
+    from app.models import StarPlayer
+    from flask import session
+    
+    team = Team.query.get_or_404(team_id)
+    star = StarPlayer.query.get_or_404(star_id)
+    
+    if team.coach_id != current_user.id and not current_user.is_admin:
+        abort(403)
+    
+    lang = session.get('language', 'en')
+    
+    if star not in team.star_players:
+        if lang == 'es':
+            flash(f"{star.name} no está en este equipo.", "warning")
+        else:
+            flash(f"{star.name} is not on this team.", "warning")
+        return redirect(url_for("teams.star_players", team_id=team.id))
+    
+    # Release star player (no refund in Blood Bowl)
+    team.star_players.remove(star)
+    team.calculate_tv()
+    db.session.commit()
+    
+    if lang == 'es':
+        flash(f"{star.name} ha sido liberado.", "warning")
+    else:
+        flash(f"{star.name} has been released.", "warning")
+    return redirect(url_for("teams.star_players", team_id=team.id))
 

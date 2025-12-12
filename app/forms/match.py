@@ -1,7 +1,7 @@
 """Match forms."""
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, TextAreaField, SelectField, BooleanField
-from wtforms.validators import DataRequired, NumberRange, Optional
+from wtforms.validators import InputRequired, NumberRange, Optional
 
 
 class RecordMatchForm(FlaskForm):
@@ -9,32 +9,32 @@ class RecordMatchForm(FlaskForm):
     home_score = IntegerField(
         "Home Score",
         default=0,
-        validators=[DataRequired(), NumberRange(min=0, max=20)]
+        validators=[InputRequired(), NumberRange(min=0, max=20)]
     )
     away_score = IntegerField(
         "Away Score",
         default=0,
-        validators=[DataRequired(), NumberRange(min=0, max=20)]
+        validators=[InputRequired(), NumberRange(min=0, max=20)]
     )
     home_casualties = IntegerField(
         "Home Casualties Inflicted",
         default=0,
-        validators=[DataRequired(), NumberRange(min=0, max=20)]
+        validators=[InputRequired(), NumberRange(min=0, max=20)]
     )
     away_casualties = IntegerField(
         "Away Casualties Inflicted",
         default=0,
-        validators=[DataRequired(), NumberRange(min=0, max=20)]
+        validators=[InputRequired(), NumberRange(min=0, max=20)]
     )
     home_winnings = IntegerField(
         "Home Winnings",
         default=0,
-        validators=[DataRequired(), NumberRange(min=0)]
+        validators=[InputRequired(), NumberRange(min=0)]
     )
     away_winnings = IntegerField(
         "Away Winnings",
         default=0,
-        validators=[DataRequired(), NumberRange(min=0)]
+        validators=[InputRequired(), NumberRange(min=0)]
     )
     notes = TextAreaField(
         "Match Notes",

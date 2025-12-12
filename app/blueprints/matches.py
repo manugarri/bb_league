@@ -10,6 +10,7 @@ matches_bp = Blueprint("matches", __name__)
 
 
 @matches_bp.route("/")
+@login_required
 def index():
     """List all matches."""
     page = request.args.get("page", 1, type=int)
@@ -30,6 +31,7 @@ def index():
 
 
 @matches_bp.route("/<int:match_id>")
+@login_required
 def view(match_id: int):
     """View match details."""
     match = Match.query.get_or_404(match_id)
@@ -69,7 +71,8 @@ def record(match_id: int):
     if not (is_home_coach or is_away_coach or is_commissioner or current_user.is_admin):
         abort(403)
     
-    if match.status == "completed":
+    # Only admins can edit completed matches
+    if match.status == "completed" and not current_user.is_admin:
         flash("This match has already been recorded.", "warning")
         return redirect(url_for("matches.view", match_id=match.id))
     

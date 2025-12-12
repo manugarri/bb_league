@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Edit {{ league.name }} - Blood Bowl League Tracker{% endblock %}
+{% block title %}{% if get_locale() == 'es' %}Editar{% else %}Edit{% endif %} {{ league.name }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">Leagues</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">{{ _('Leagues') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=league.id) }}">{{ league.name }}</a></li>
-        <li class="breadcrumb-item active">Edit</li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Editar{% else %}Edit{% endif %}</li>
     </ol>
 </nav>
 
@@ -15,14 +15,14 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
-                <i class="bi bi-pencil me-2"></i>Edit League
+                <i class="bi bi-pencil me-2"></i>{% if get_locale() == 'es' %}Editar Liga{% else %}Edit League{% endif %}
             </div>
             <div class="card-body p-4">
                 <form method="POST">
                     {{ form.hidden_tag() }}
                     
                     <div class="mb-4">
-                        {{ form.name.label(class="form-label") }}
+                        <label class="form-label">{% if get_locale() == 'es' %}Nombre de la Liga{% else %}League Name{% endif %}</label>
                         {{ form.name(class="form-control form-control-lg") }}
                         {% for error in form.name.errors %}
                         <div class="text-danger small">{{ error }}</div>
@@ -30,7 +30,7 @@
                     </div>
                     
                     <div class="mb-4">
-                        {{ form.description.label(class="form-label") }}
+                        <label class="form-label">{% if get_locale() == 'es' %}Descripción{% else %}Description{% endif %}</label>
                         {{ form.description(class="form-control", rows=3) }}
                         {% for error in form.description.errors %}
                         <div class="text-danger small">{{ error }}</div>
@@ -39,39 +39,69 @@
                     
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
-                            {{ form.max_teams.label(class="form-label") }}
+                            <label class="form-label">{% if get_locale() == 'es' %}Máximo de Equipos{% else %}Maximum Teams{% endif %}</label>
                             {{ form.max_teams(class="form-control") }}
                             {% for error in form.max_teams.errors %}
                             <div class="text-danger small">{{ error }}</div>
                             {% endfor %}
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Format</label>
-                            <input type="text" class="form-control" value="{{ league.format | replace('_', ' ') | title }}" disabled>
-                            <div class="form-text">Format cannot be changed after creation.</div>
+                            <label class="form-label">{% if get_locale() == 'es' %}Formato{% else %}Format{% endif %}</label>
+                            <input type="text" class="form-control" value="{% if get_locale() == 'es' %}{% if league.format == 'round_robin' %}Todos contra Todos{% elif league.format == 'swiss' %}Sistema Suizo{% elif league.format == 'knockout' %}Eliminación Directa{% else %}{{ league.format | replace('_', ' ') | title }}{% endif %}{% else %}{{ league.format | replace('_', ' ') | title }}{% endif %}" disabled>
+                            <div class="form-text">{% if get_locale() == 'es' %}El formato no puede cambiarse después de la creación.{% else %}Format cannot be changed after creation.{% endif %}</div>
                         </div>
                     </div>
                     
+                    <h5 class="text-gold mb-3"><i class="bi bi-people me-2"></i>{% if get_locale() == 'es' %}Reglas de Plantilla{% else %}Roster Rules{% endif %}</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">{% if get_locale() == 'es' %}Tamaño Mínimo de Plantilla{% else %}Minimum Roster Size{% endif %}</label>
+                            {{ form.min_roster_size(class="form-control") }}
+                            {% for error in form.min_roster_size.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                            <div class="form-text">{% if get_locale() == 'es' %}Mínimo de jugadores requeridos{% else %}Minimum players required{% endif %}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">{% if get_locale() == 'es' %}Tamaño Máximo de Plantilla{% else %}Maximum Roster Size{% endif %}</label>
+                            {{ form.max_roster_size(class="form-control") }}
+                            {% for error in form.max_roster_size.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                            <div class="form-text">{% if get_locale() == 'es' %}Máximo de jugadores permitidos{% else %}Maximum players allowed{% endif %}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check mt-4 pt-2">
+                                {{ form.allow_star_players(class="form-check-input") }}
+                                <label class="form-check-label">{% if get_locale() == 'es' %}Permitir Jugadores Estrella{% else %}Allow Star Players{% endif %}</label>
+                                <div class="form-text">{% if get_locale() == 'es' %}Permitir contratar jugadores estrella{% else %}Allow hiring star players{% endif %}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5 class="text-gold mb-3"><i class="bi bi-sliders me-2"></i>{% if get_locale() == 'es' %}Estado de la Liga{% else %}League Status{% endif %}</h5>
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <div class="form-check">
                                 {{ form.is_public(class="form-check-input") }}
-                                {{ form.is_public.label(class="form-check-label") }}
+                                <label class="form-check-label">{% if get_locale() == 'es' %}Liga Pública{% else %}Public League{% endif %}</label>
+                                <div class="form-text">{% if get_locale() == 'es' %}Visible para todos los usuarios{% else %}Visible to all users{% endif %}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-check">
                                 {{ form.registration_open(class="form-check-input") }}
-                                {{ form.registration_open.label(class="form-check-label") }}
+                                <label class="form-check-label">{% if get_locale() == 'es' %}Inscripciones Abiertas{% else %}Registration Open{% endif %}</label>
+                                <div class="form-text">{% if get_locale() == 'es' %}Aceptar nuevos equipos{% else %}Accept new teams{% endif %}</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-check-lg me-1"></i>Save Changes
+                            <i class="bi bi-check-lg me-1"></i>{% if get_locale() == 'es' %}Guardar Cambios{% else %}Save Changes{% endif %}
                         </button>
-                        <a href="{{ url_for('leagues.view', league_id=league.id) }}" class="btn btn-outline-secondary">Cancel</a>
+                        <a href="{{ url_for('leagues.view', league_id=league.id) }}" class="btn btn-outline-secondary">{{ _('Cancel') }}</a>
                     </div>
                 </form>
             </div>
@@ -79,4 +109,3 @@
     </div>
 </div>
 {% endblock %}
-

@@ -1,7 +1,7 @@
 # Blood Bowl League Tracker - Makefile
 # Use: make <command>
 
-.PHONY: help run dev seed reset clean install test
+.PHONY: help run dev seed reset clean install test upsert-user
 
 # Default target
 help:
@@ -14,19 +14,26 @@ help:
 	@echo "  make reset      - Reset the database (delete and recreate)"
 	@echo "  make clean      - Remove database and cache files"
 	@echo "  make test       - Run tests"
+	@echo "  make upsert-user USERNAME=<name> [PASSWORD=<pass>] [ADMIN=1]"
+	@echo "                  - Create or update a user"
 	@echo ""
 
 # Install dependencies
-install:
+install-prod:
 	uv venv
 	uv pip install -e .
 
-# Start the application
-run:
-	uv run flask run
+# Start the application in prod (ubuntu only)
+run-prod:
+	uv run gunicorn --bind 127.0.0.1:5000 run:gunicorn_app
+
+# local dev is on a windows machine
+install-dev:
+	uv venv
+	uv pip install -e .
 
 # Start in debug mode
-dev:
+run-dev:
 	uv run flask run --debug
 
 # Seed the database
@@ -54,4 +61,15 @@ clean:
 # Run tests
 test:
 	uv run pytest -v
+
+# Create or update a user
+# Usage: make upsert-user USERNAME=myuser PASSWORD=mypass ADMIN=1
+upsert-user:
+ifndef USERNAME
+	$(error USERNAME is required. Usage: make upsert-user USERNAME=<name> [PASSWORD=<pass>] [ADMIN=1|0])
+endif
+	@uv run python scripts/upsert_user.py $(USERNAME) \
+		$(if $(PASSWORD),--password $(PASSWORD)) \
+		$(if $(filter 1 true yes,$(ADMIN)),--admin) \
+		$(if $(filter 0 false no,$(ADMIN)),--no-admin)
 

@@ -1,8 +1,17 @@
 """Flask application factory."""
 import click
-from flask import Flask
+from flask import Flask, request, session
 from app.config import config
-from app.extensions import db, migrate, jwt, login_manager, csrf
+from app.extensions import db, jwt, login_manager, csrf, babel
+
+
+def get_locale():
+    """Select the best matching language for the user."""
+    # Check if user has set a preferred language in session
+    if 'language' in session:
+        return session['language']
+    # Otherwise, use the browser's accept language header
+    return request.accept_languages.best_match(['es', 'en'], default='en')
 
 
 def create_app(config_name: str = "development") -> Flask:
@@ -12,10 +21,10 @@ def create_app(config_name: str = "development") -> Flask:
     
     # Initialize extensions
     db.init_app(app)
-    migrate.init_app(app, db)
     jwt.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
+    babel.init_app(app, locale_selector=get_locale)
     
     # Register blueprints
     from app.blueprints.main import main_bp
@@ -37,6 +46,24 @@ def create_app(config_name: str = "development") -> Flask:
     
     # Register CLI commands
     register_cli_commands(app)
+    
+    # Context processor for templates
+    @app.context_processor
+    def inject_locale():
+        from app.utils.translations import (
+            translate_race, translate_position, translate_skill, 
+            translate_star_player, translate_skills_list, get_team_description
+        )
+        return {
+            'get_locale': get_locale, 
+            'languages': app.config.get('LANGUAGES', ['en']),
+            'tr_race': translate_race,
+            'tr_position': translate_position,
+            'tr_skill': translate_skill,
+            'tr_star': translate_star_player,
+            'tr_skills_list': translate_skills_list,
+            'get_team_desc': get_team_description,
+        }
     
     # Create database tables
     with app.app_context():

@@ -1,0 +1,1464 @@
+# Spanish translations for Blood Bowl League Tracker.
+# Copyright (C) 2025
+# This file is distributed under the same license as the project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Blood Bowl League Tracker 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-01 00:00+0000\n"
+"PO-Revision-Date: 2025-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language: es\n"
+"Language-Team: Spanish\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel\n"
+
+# ============================================================================
+# NAVIGATION & MENUS
+# ============================================================================
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Teams"
+msgstr "Equipos"
+
+msgid "Leagues"
+msgstr "Ligas"
+
+msgid "Matches"
+msgstr "Partidos"
+
+msgid "Dashboard"
+msgstr "Panel"
+
+msgid "Profile"
+msgstr "Perfil"
+
+msgid "Logout"
+msgstr "Cerrar Sesión"
+
+msgid "Login"
+msgstr "Iniciar Sesión"
+
+msgid "Register"
+msgstr "Registrarse"
+
+msgid "About"
+msgstr "Acerca de"
+
+msgid "Rules"
+msgstr "Reglas"
+
+# ============================================================================
+# COMMON ACTIONS & LABELS
+# ============================================================================
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Submit"
+msgstr "Enviar"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Back"
+msgstr "Volver"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Details"
+msgstr "Detalles"
+
+msgid "Settings"
+msgstr "Configuración"
+
+# ============================================================================
+# HOME PAGE
+# ============================================================================
+
+msgid "Blood Bowl League Tracker"
+msgstr "Gestor de Ligas Blood Bowl"
+
+msgid "Welcome to the Blood Bowl League Tracker"
+msgstr "Bienvenido al Gestor de Ligas Blood Bowl"
+
+msgid "Manage your Blood Bowl leagues, teams, and matches in one place."
+msgstr "Gestiona tus ligas, equipos y partidos de Blood Bowl en un solo lugar."
+
+msgid "Get Started"
+msgstr "Comenzar"
+
+msgid "View Leagues"
+msgstr "Ver Ligas"
+
+msgid "Active Leagues"
+msgstr "Ligas Activas"
+
+msgid "Recent Matches"
+msgstr "Partidos Recientes"
+
+msgid "Top Teams"
+msgstr "Mejores Equipos"
+
+msgid "Featured Leagues"
+msgstr "Ligas Destacadas"
+
+# ============================================================================
+# AUTHENTICATION
+# ============================================================================
+
+msgid "Username"
+msgstr "Nombre de Usuario"
+
+msgid "Email"
+msgstr "Correo Electrónico"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Confirm Password"
+msgstr "Confirmar Contraseña"
+
+msgid "Remember Me"
+msgstr "Recordarme"
+
+msgid "Forgot Password?"
+msgstr "¿Olvidaste tu Contraseña?"
+
+msgid "Don't have an account?"
+msgstr "¿No tienes una cuenta?"
+
+msgid "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
+
+msgid "Sign up now"
+msgstr "Regístrate ahora"
+
+msgid "Log in here"
+msgstr "Inicia sesión aquí"
+
+msgid "Welcome back!"
+msgstr "¡Bienvenido de nuevo!"
+
+msgid "Create your account"
+msgstr "Crea tu cuenta"
+
+msgid "Login successful!"
+msgstr "¡Inicio de sesión exitoso!"
+
+msgid "You have been logged out."
+msgstr "Has cerrado sesión."
+
+msgid "Registration successful! Please log in."
+msgstr "¡Registro exitoso! Por favor inicia sesión."
+
+msgid "Invalid username or password."
+msgstr "Usuario o contraseña inválidos."
+
+msgid "Please log in to access this page."
+msgstr "Por favor inicia sesión para acceder a esta página."
+
+# ============================================================================
+# TEAMS
+# ============================================================================
+
+msgid "My Teams"
+msgstr "Mis Equipos"
+
+msgid "All Teams"
+msgstr "Todos los Equipos"
+
+msgid "Create Team"
+msgstr "Crear Equipo"
+
+msgid "Create New Team"
+msgstr "Crear Nuevo Equipo"
+
+msgid "Edit Team"
+msgstr "Editar Equipo"
+
+msgid "Team Name"
+msgstr "Nombre del Equipo"
+
+msgid "Race"
+msgstr "Raza"
+
+msgid "Select Race"
+msgstr "Seleccionar Raza"
+
+msgid "Coach"
+msgstr "Entrenador"
+
+msgid "Team Value"
+msgstr "Valor del Equipo"
+
+msgid "Treasury"
+msgstr "Tesorería"
+
+msgid "Roster"
+msgstr "Plantilla"
+
+msgid "Players"
+msgstr "Jugadores"
+
+msgid "Hire Player"
+msgstr "Contratar Jugador"
+
+msgid "Fire Player"
+msgstr "Despedir Jugador"
+
+msgid "Team created successfully!"
+msgstr "¡Equipo creado exitosamente!"
+
+msgid "Team updated successfully!"
+msgstr "¡Equipo actualizado exitosamente!"
+
+msgid "Team deleted successfully!"
+msgstr "¡Equipo eliminado exitosamente!"
+
+msgid "No teams found."
+msgstr "No se encontraron equipos."
+
+msgid "Team Statistics"
+msgstr "Estadísticas del Equipo"
+
+msgid "Reroll Cost"
+msgstr "Coste de Repetición"
+
+msgid "Apothecary"
+msgstr "Boticario"
+
+msgid "Fan Factor"
+msgstr "Factor de Fans"
+
+msgid "Dedicated Fans"
+msgstr "Aficionados Dedicados"
+
+msgid "Rerolls"
+msgstr "Repeticiones"
+
+msgid "Assistant Coaches"
+msgstr "Entrenadores Asistentes"
+
+msgid "Cheerleaders"
+msgstr "Animadoras"
+
+msgid "TV (Team Value)"
+msgstr "VE (Valor del Equipo)"
+
+msgid "Current TV"
+msgstr "VE Actual"
+
+# ============================================================================
+# PLAYERS
+# ============================================================================
+
+msgid "Player"
+msgstr "Jugador"
+
+msgid "Player Name"
+msgstr "Nombre del Jugador"
+
+msgid "Position"
+msgstr "Posición"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "Cost"
+msgstr "Coste"
+
+msgid "Skills"
+msgstr "Habilidades"
+
+msgid "Injuries"
+msgstr "Lesiones"
+
+msgid "Star Player Points"
+msgstr "Puntos de Estrella"
+
+msgid "SPP"
+msgstr "PE"
+
+msgid "Level"
+msgstr "Nivel"
+
+msgid "Touchdowns"
+msgstr "Touchdowns"
+
+msgid "Casualties"
+msgstr "Bajas"
+
+msgid "Completions"
+msgstr "Pases Completados"
+
+msgid "Interceptions"
+msgstr "Intercepciones"
+
+msgid "MVP Awards"
+msgstr "Premios MVP"
+
+msgid "Games Played"
+msgstr "Partidos Jugados"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Dead"
+msgstr "Muerto"
+
+msgid "Miss Next Game"
+msgstr "Pierde Próximo Partido"
+
+msgid "Niggling Injury"
+msgstr "Lesión Persistente"
+
+# Player Stats
+msgid "MA"
+msgstr "MO"
+
+msgid "ST"
+msgstr "FU"
+
+msgid "AG"
+msgstr "AG"
+
+msgid "PA"
+msgstr "PA"
+
+msgid "AV"
+msgstr "AR"
+
+msgid "Movement"
+msgstr "Movimiento"
+
+msgid "Strength"
+msgstr "Fuerza"
+
+msgid "Agility"
+msgstr "Agilidad"
+
+msgid "Passing"
+msgstr "Pase"
+
+msgid "Armor"
+msgstr "Armadura"
+
+msgid "Armor Value"
+msgstr "Valor de Armadura"
+
+# ============================================================================
+# STAR PLAYERS
+# ============================================================================
+
+msgid "Star Players"
+msgstr "Jugadores Estrella"
+
+msgid "Star Player"
+msgstr "Jugador Estrella"
+
+msgid "Hire Star Player"
+msgstr "Contratar Jugador Estrella"
+
+msgid "Legendary"
+msgstr "Legendario"
+
+msgid "Available to"
+msgstr "Disponible para"
+
+msgid "Special Abilities"
+msgstr "Habilidades Especiales"
+
+msgid "Hiring Fee"
+msgstr "Coste de Contratación"
+
+# ============================================================================
+# LEAGUES
+# ============================================================================
+
+msgid "My Leagues"
+msgstr "Mis Ligas"
+
+msgid "All Leagues"
+msgstr "Todas las Ligas"
+
+msgid "Create League"
+msgstr "Crear Liga"
+
+msgid "Create New League"
+msgstr "Crear Nueva Liga"
+
+msgid "Edit League"
+msgstr "Editar Liga"
+
+msgid "League Name"
+msgstr "Nombre de la Liga"
+
+msgid "Commissioner"
+msgstr "Comisionado"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Round Robin"
+msgstr "Todos contra Todos"
+
+msgid "Swiss System"
+msgstr "Sistema Suizo"
+
+msgid "Knockout"
+msgstr "Eliminación Directa"
+
+msgid "Custom"
+msgstr "Personalizado"
+
+msgid "Max Teams"
+msgstr "Máx. Equipos"
+
+msgid "Min Teams"
+msgstr "Mín. Equipos"
+
+msgid "Maximum Teams"
+msgstr "Máximo de Equipos"
+
+msgid "Minimum Teams"
+msgstr "Mínimo de Equipos"
+
+msgid "Starting Treasury"
+msgstr "Tesorería Inicial"
+
+msgid "Win Points"
+msgstr "Puntos por Victoria"
+
+msgid "Draw Points"
+msgstr "Puntos por Empate"
+
+msgid "Loss Points"
+msgstr "Puntos por Derrota"
+
+msgid "Points for Win"
+msgstr "Puntos por Victoria"
+
+msgid "Points for Draw"
+msgstr "Puntos por Empate"
+
+msgid "Points for Loss"
+msgstr "Puntos por Derrota"
+
+msgid "Public League"
+msgstr "Liga Pública"
+
+msgid "Private League"
+msgstr "Liga Privada"
+
+msgid "Registration"
+msgstr "Inscripción"
+
+msgid "Registration Open"
+msgstr "Inscripción Abierta"
+
+msgid "Registration Closed"
+msgstr "Inscripción Cerrada"
+
+msgid "Join League"
+msgstr "Unirse a Liga"
+
+msgid "Leave League"
+msgstr "Abandonar Liga"
+
+msgid "Start League"
+msgstr "Iniciar Liga"
+
+msgid "League created successfully!"
+msgstr "¡Liga creada exitosamente!"
+
+msgid "League updated successfully!"
+msgstr "¡Liga actualizada exitosamente!"
+
+msgid "You have joined the league!"
+msgstr "¡Te has unido a la liga!"
+
+msgid "You have left the league."
+msgstr "Has abandonado la liga."
+
+msgid "No leagues found."
+msgstr "No se encontraron ligas."
+
+msgid "Standings"
+msgstr "Clasificación"
+
+msgid "Schedule"
+msgstr "Calendario"
+
+msgid "Full Table"
+msgstr "Tabla Completa"
+
+msgid "Full Schedule"
+msgstr "Calendario Completo"
+
+msgid "Registered Teams"
+msgstr "Equipos Registrados"
+
+msgid "Pending Approval"
+msgstr "Pendiente de Aprobación"
+
+msgid "Upcoming Matches"
+msgstr "Próximos Partidos"
+
+msgid "Round"
+msgstr "Jornada"
+
+msgid "Current Round"
+msgstr "Jornada Actual"
+
+# League Status
+msgid "Draft"
+msgstr "Borrador"
+
+msgid "Active"
+msgstr "Activa"
+
+msgid "Playoffs"
+msgstr "Playoffs"
+
+msgid "Completed"
+msgstr "Completada"
+
+msgid "Cancelled"
+msgstr "Cancelada"
+
+# Standings Table
+msgid "P"
+msgstr "PJ"
+
+msgid "W"
+msgstr "V"
+
+msgid "D"
+msgstr "E"
+
+msgid "L"
+msgstr "D"
+
+msgid "Pts"
+msgstr "Pts"
+
+msgid "TD+/-"
+msgstr "TD+/-"
+
+msgid "Played"
+msgstr "Jugados"
+
+msgid "Won"
+msgstr "Ganados"
+
+msgid "Drawn"
+msgstr "Empatados"
+
+msgid "Lost"
+msgstr "Perdidos"
+
+msgid "Points"
+msgstr "Puntos"
+
+msgid "TD Difference"
+msgstr "Diferencia de TD"
+
+# ============================================================================
+# MATCHES
+# ============================================================================
+
+msgid "All Matches"
+msgstr "Todos los Partidos"
+
+msgid "My Matches"
+msgstr "Mis Partidos"
+
+msgid "Match"
+msgstr "Partido"
+
+msgid "Match Details"
+msgstr "Detalles del Partido"
+
+msgid "Record Match"
+msgstr "Registrar Partido"
+
+msgid "Record Match Result"
+msgstr "Registrar Resultado del Partido"
+
+msgid "Home Team"
+msgstr "Equipo Local"
+
+msgid "Away Team"
+msgstr "Equipo Visitante"
+
+msgid "Home Score"
+msgstr "Puntuación Local"
+
+msgid "Away Score"
+msgstr "Puntuación Visitante"
+
+msgid "Final Score"
+msgstr "Resultado Final"
+
+msgid "Score"
+msgstr "Puntuación"
+
+msgid "vs"
+msgstr "vs"
+
+msgid "Winner"
+msgstr "Ganador"
+
+msgid "Draw"
+msgstr "Empate"
+
+msgid "Scheduled"
+msgstr "Programado"
+
+msgid "In Progress"
+msgstr "En Curso"
+
+msgid "Finished"
+msgstr "Finalizado"
+
+msgid "Forfeit"
+msgstr "No Presentado"
+
+msgid "Match recorded successfully!"
+msgstr "¡Partido registrado exitosamente!"
+
+msgid "No matches found."
+msgstr "No se encontraron partidos."
+
+msgid "No upcoming matches."
+msgstr "No hay próximos partidos."
+
+msgid "No matches completed yet."
+msgstr "No hay partidos completados aún."
+
+msgid "Player Statistics"
+msgstr "Estadísticas de Jugadores"
+
+msgid "Gate"
+msgstr "Entrada"
+
+msgid "Weather"
+msgstr "Clima"
+
+msgid "Notes"
+msgstr "Notas"
+
+# ============================================================================
+# RULES PAGE
+# ============================================================================
+
+msgid "Blood Bowl Rules"
+msgstr "Reglas de Blood Bowl"
+
+msgid "Game Overview"
+msgstr "Resumen del Juego"
+
+msgid "Blood Bowl is a fantasy football game created by Games Workshop."
+msgstr "Blood Bowl es un juego de fútbol fantástico creado por Games Workshop."
+
+msgid "Two coaches select a team and attempt to score touchdowns against each other."
+msgstr "Dos entrenadores seleccionan un equipo e intentan anotar touchdowns contra el otro."
+
+msgid "The game is played on a pitch divided into squares."
+msgstr "El juego se desarrolla en un campo dividido en casillas."
+
+msgid "Each team has 16 turns per half to score as many touchdowns as possible."
+msgstr "Cada equipo tiene 16 turnos por mitad para anotar tantos touchdowns como sea posible."
+
+msgid "Turn Sequence"
+msgstr "Secuencia de Turno"
+
+msgid "Players can Move, Block, Blitz, Pass, or Hand-off during their turn."
+msgstr "Los jugadores pueden Mover, Placar, Blitz, Pasar o Entregar durante su turno."
+
+msgid "Only one Blitz and one Pass action per turn."
+msgstr "Solo una acción de Blitz y un Pase por turno."
+
+msgid "Turnovers occur when a player falls, fumbles, or fails a pass."
+msgstr "Los cambios de turno ocurren cuando un jugador cae, pierde el balón o falla un pase."
+
+msgid "Blocking"
+msgstr "Placaje"
+
+msgid "Players can block adjacent opponents to knock them down."
+msgstr "Los jugadores pueden placar a oponentes adyacentes para derribarlos."
+
+msgid "Block dice determine the outcome: Defender Down, Pushed, etc."
+msgstr "Los dados de bloqueo determinan el resultado: Defensor Caído, Empujado, etc."
+
+msgid "Assists from teammates can add extra block dice."
+msgstr "La ayuda de compañeros puede añadir dados de bloqueo extra."
+
+msgid "Scoring"
+msgstr "Puntuación"
+
+msgid "A touchdown is scored when a player carries the ball into the opponent's End Zone."
+msgstr "Un touchdown se anota cuando un jugador lleva el balón a la Zona de Anotación rival."
+
+msgid "After scoring, teams set up again and the scoring team kicks off."
+msgstr "Después de anotar, los equipos se colocan de nuevo y el equipo que anotó realiza el saque."
+
+msgid "Skills"
+msgstr "Habilidades"
+
+msgid "Players can have skills that modify their abilities."
+msgstr "Los jugadores pueden tener habilidades que modifican sus capacidades."
+
+msgid "Skills are gained through Star Player Points (SPP)."
+msgstr "Las habilidades se obtienen a través de Puntos de Estrella (PE)."
+
+msgid "Common skills include Block, Dodge, Sure Hands, and Tackle."
+msgstr "Habilidades comunes incluyen Bloqueo, Esquiva, Manos Seguras y Placaje."
+
+msgid "Injuries"
+msgstr "Lesiones"
+
+msgid "When a player is knocked down, they may be injured."
+msgstr "Cuando un jugador es derribado, puede resultar lesionado."
+
+msgid "Injuries range from Stunned to Badly Hurt to Dead."
+msgstr "Las lesiones van desde Aturdido hasta Gravemente Herido o Muerto."
+
+msgid "Apothecaries can be used to prevent serious injuries."
+msgstr "Los Boticarios pueden usarse para prevenir lesiones graves."
+
+msgid "Team Building"
+msgstr "Creación de Equipo"
+
+msgid "Teams are built using a treasury budget."
+msgstr "Los equipos se construyen usando un presupuesto de tesorería."
+
+msgid "Each race has different available positions and costs."
+msgstr "Cada raza tiene diferentes posiciones disponibles y costes."
+
+msgid "Teams can hire staff like Coaches and Cheerleaders."
+msgstr "Los equipos pueden contratar personal como Entrenadores y Animadoras."
+
+msgid "League Play"
+msgstr "Juego de Liga"
+
+msgid "Teams earn gold and SPP through matches."
+msgstr "Los equipos ganan oro y PE a través de partidos."
+
+msgid "Players develop skills and can suffer lasting injuries."
+msgstr "Los jugadores desarrollan habilidades y pueden sufrir lesiones permanentes."
+
+msgid "Standings determine league champions and playoffs."
+msgstr "La clasificación determina los campeones de liga y playoffs."
+
+# ============================================================================
+# SKILL CATEGORIES
+# ============================================================================
+
+msgid "General"
+msgstr "General"
+
+msgid "Agility"
+msgstr "Agilidad"
+
+msgid "Passing"
+msgstr "Pase"
+
+msgid "Strength"
+msgstr "Fuerza"
+
+msgid "Mutation"
+msgstr "Mutación"
+
+msgid "Extraordinary"
+msgstr "Extraordinario"
+
+# ============================================================================
+# COMMON SKILLS
+# ============================================================================
+
+msgid "Block"
+msgstr "Bloqueo"
+
+msgid "Dodge"
+msgstr "Esquiva"
+
+msgid "Sure Hands"
+msgstr "Manos Seguras"
+
+msgid "Tackle"
+msgstr "Placaje"
+
+msgid "Mighty Blow"
+msgstr "Golpe Poderoso"
+
+msgid "Guard"
+msgstr "Guardia"
+
+msgid "Catch"
+msgstr "Recepción"
+
+msgid "Pass"
+msgstr "Pase"
+
+msgid "Frenzy"
+msgstr "Frenesí"
+
+msgid "Claw"
+msgstr "Garra"
+
+msgid "Horns"
+msgstr "Cuernos"
+
+msgid "Regeneration"
+msgstr "Regeneración"
+
+msgid "Thick Skull"
+msgstr "Cráneo Grueso"
+
+msgid "Stand Firm"
+msgstr "Posición Firme"
+
+msgid "Leap"
+msgstr "Salto"
+
+msgid "Very Long Legs"
+msgstr "Piernas Muy Largas"
+
+msgid "Prehensile Tail"
+msgstr "Cola Prensil"
+
+msgid "Tentacles"
+msgstr "Tentáculos"
+
+msgid "Foul Appearance"
+msgstr "Apariencia Repugnante"
+
+msgid "Disturbing Presence"
+msgstr "Presencia Perturbadora"
+
+msgid "Hypnotic Gaze"
+msgstr "Mirada Hipnótica"
+
+msgid "Right Stuff"
+msgstr "Material Adecuado"
+
+msgid "Stunty"
+msgstr "Menudo"
+
+msgid "Titchy"
+msgstr "Diminuto"
+
+msgid "Big Hand"
+msgstr "Mano Grande"
+
+msgid "Extra Arms"
+msgstr "Brazos Extra"
+
+msgid "Two Heads"
+msgstr "Dos Cabezas"
+
+msgid "Always Hungry"
+msgstr "Siempre Hambriento"
+
+msgid "Throw Team-Mate"
+msgstr "Lanzar Compañero"
+
+msgid "Ball & Chain"
+msgstr "Bola y Cadena"
+
+msgid "Chainsaw"
+msgstr "Motosierra"
+
+msgid "Bombardier"
+msgstr "Bombardero"
+
+msgid "Secret Weapon"
+msgstr "Arma Secreta"
+
+msgid "Animosity"
+msgstr "Animosidad"
+
+msgid "Bone Head"
+msgstr "Cabeza Hueca"
+
+msgid "Really Stupid"
+msgstr "Muy Estúpido"
+
+msgid "Wild Animal"
+msgstr "Animal Salvaje"
+
+msgid "Loner"
+msgstr "Solitario"
+
+msgid "Decay"
+msgstr "Putrefacción"
+
+msgid "No Hands"
+msgstr "Sin Manos"
+
+msgid "Stab"
+msgstr "Apuñalar"
+
+msgid "Shadowing"
+msgstr "Persecución"
+
+msgid "Side Step"
+msgstr "Paso Lateral"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "Dauntless"
+msgstr "Intrépido"
+
+msgid "Fend"
+msgstr "Rechazar"
+
+msgid "Kick"
+msgstr "Patada"
+
+msgid "Strip Ball"
+msgstr "Robar Balón"
+
+msgid "Wrestle"
+msgstr "Lucha"
+
+msgid "Diving Catch"
+msgstr "Recepción en Plancha"
+
+msgid "Diving Tackle"
+msgstr "Placaje en Plancha"
+
+msgid "Jump Up"
+msgstr "Levantarse Rápido"
+
+msgid "Safe Pair of Hands"
+msgstr "Manos Firmes"
+
+msgid "Sneaky Git"
+msgstr "Rata Furtiva"
+
+msgid "Sprint"
+msgstr "Sprint"
+
+msgid "Sure Feet"
+msgstr "Pies Seguros"
+
+msgid "Arm Bar"
+msgstr "Llave de Brazo"
+
+msgid "Brawler"
+msgstr "Peleón"
+
+msgid "Break Tackle"
+msgstr "Romper Placaje"
+
+msgid "Grab"
+msgstr "Agarrar"
+
+msgid "Juggernaut"
+msgstr "Juggernaut"
+
+msgid "Multiple Block"
+msgstr "Bloqueo Múltiple"
+
+msgid "Pile Driver"
+msgstr "Martinete"
+
+msgid "Strong Arm"
+msgstr "Brazo Fuerte"
+
+msgid "Accurate"
+msgstr "Preciso"
+
+msgid "Cannoneer"
+msgstr "Cañonero"
+
+msgid "Cloud Burster"
+msgstr "Rompe Nubes"
+
+msgid "Dump-Off"
+msgstr "Pase Rápido"
+
+msgid "Fumblerooskie"
+msgstr "Fumblerooskie"
+
+msgid "Hail Mary Pass"
+msgstr "Pase Ave María"
+
+msgid "Leader"
+msgstr "Líder"
+
+msgid "Nerves of Steel"
+msgstr "Nervios de Acero"
+
+msgid "On the Ball"
+msgstr "Atento al Balón"
+
+msgid "Running Pass"
+msgstr "Pase en Carrera"
+
+msgid "Safe Pass"
+msgstr "Pase Seguro"
+
+msgid "Iron Hard Skin"
+msgstr "Piel de Hierro"
+
+msgid "Monstrous Mouth"
+msgstr "Boca Monstruosa"
+
+# ============================================================================
+# BLOOD BOWL RACES
+# ============================================================================
+
+msgid "Amazon"
+msgstr "Amazona"
+
+msgid "Black Orc"
+msgstr "Orco Negro"
+
+msgid "Chaos Chosen"
+msgstr "Elegido del Caos"
+
+msgid "Chaos Dwarf"
+msgstr "Enano del Caos"
+
+msgid "Chaos Renegade"
+msgstr "Renegado del Caos"
+
+msgid "Dark Elf"
+msgstr "Elfo Oscuro"
+
+msgid "Dwarf"
+msgstr "Enano"
+
+msgid "Elven Union"
+msgstr "Unión Élfica"
+
+msgid "Goblin"
+msgstr "Goblin"
+
+msgid "Halfling"
+msgstr "Halfling"
+
+msgid "High Elf"
+msgstr "Alto Elfo"
+
+msgid "Human"
+msgstr "Humano"
+
+msgid "Imperial Nobility"
+msgstr "Nobleza Imperial"
+
+msgid "Khorne"
+msgstr "Khorne"
+
+msgid "Lizardmen"
+msgstr "Hombres Lagarto"
+
+msgid "Necromantic Horror"
+msgstr "Horror Necromántico"
+
+msgid "Norse"
+msgstr "Nórdico"
+
+msgid "Nurgle"
+msgstr "Nurgle"
+
+msgid "Ogre"
+msgstr "Ogro"
+
+msgid "Old World Alliance"
+msgstr "Alianza del Viejo Mundo"
+
+msgid "Orc"
+msgstr "Orco"
+
+msgid "Shambling Undead"
+msgstr "Muertos Vivientes"
+
+msgid "Skaven"
+msgstr "Skaven"
+
+msgid "Snotling"
+msgstr "Snotling"
+
+msgid "Tomb Kings"
+msgstr "Reyes Funerarios"
+
+msgid "Underworld Denizens"
+msgstr "Habitantes del Submundo"
+
+msgid "Vampire"
+msgstr "Vampiro"
+
+msgid "Wood Elf"
+msgstr "Elfo Silvano"
+
+# ============================================================================
+# POSITION NAMES
+# ============================================================================
+
+# Common Positions
+msgid "Lineman"
+msgstr "Hombre de Línea"
+
+msgid "Linemen"
+msgstr "Hombres de Línea"
+
+msgid "Blitzer"
+msgstr "Blitzer"
+
+msgid "Thrower"
+msgstr "Lanzador"
+
+msgid "Catcher"
+msgstr "Receptor"
+
+msgid "Blocker"
+msgstr "Bloqueador"
+
+msgid "Runner"
+msgstr "Corredor"
+
+# Specific Positions
+msgid "Gutter Runner"
+msgstr "Corredor de Alcantarilla"
+
+msgid "Stormvermin"
+msgstr "Guardia de Asalto"
+
+msgid "Rat Ogre"
+msgstr "Ogro Rata"
+
+msgid "Big Un"
+msgstr "Grandullón"
+
+msgid "Black Orc Blocker"
+msgstr "Bloqueador Orco Negro"
+
+msgid "Troll"
+msgstr "Trol"
+
+msgid "Gobbo"
+msgstr "Goblin"
+
+msgid "Wardancer"
+msgstr "Danzarín de Guerra"
+
+msgid "Treeman"
+msgstr "Hombre Árbol"
+
+msgid "Saurus"
+msgstr "Saurio"
+
+msgid "Skink"
+msgstr "Eslizón"
+
+msgid "Kroxigor"
+msgstr "Kroxigor"
+
+msgid "Wight"
+msgstr "Tumulario"
+
+msgid "Mummy"
+msgstr "Momia"
+
+msgid "Ghoul"
+msgstr "Ghoul"
+
+msgid "Zombie"
+msgstr "Zombi"
+
+msgid "Skeleton"
+msgstr "Esqueleto"
+
+msgid "Werewolf"
+msgstr "Hombre Lobo"
+
+msgid "Flesh Golem"
+msgstr "Gólem de Carne"
+
+msgid "Chaos Warrior"
+msgstr "Guerrero del Caos"
+
+msgid "Beastman"
+msgstr "Hombre Bestia"
+
+msgid "Minotaur"
+msgstr "Minotauro"
+
+msgid "Witch Elf"
+msgstr "Elfa Bruja"
+
+msgid "Assassin"
+msgstr "Asesino"
+
+msgid "Dragon Warrior"
+msgstr "Guerrero Dragón"
+
+msgid "Phoenix Warrior"
+msgstr "Guerrero Fénix"
+
+msgid "Lion Warrior"
+msgstr "Guerrero León"
+
+msgid "Berserker"
+msgstr "Berserker"
+
+msgid "Ulfwerener"
+msgstr "Ulfwerener"
+
+msgid "Valkyrie"
+msgstr "Valquiria"
+
+msgid "Yhetee"
+msgstr "Yhetee"
+
+msgid "Snow Troll"
+msgstr "Trol de Nieve"
+
+msgid "Bodyguard"
+msgstr "Guardaespaldas"
+
+msgid "Noble"
+msgstr "Noble"
+
+msgid "Retainer"
+msgstr "Vasallo"
+
+msgid "Pestigor"
+msgstr "Pestigor"
+
+msgid "Bloater"
+msgstr "Hinchado"
+
+msgid "Rotspawn"
+msgstr "Engendro Pútrido"
+
+msgid "Rotter"
+msgstr "Podrido"
+
+msgid "Bloodseeker"
+msgstr "Buscasangre"
+
+msgid "Bloodletter"
+msgstr "Sanguinario"
+
+msgid "Herald"
+msgstr "Heraldo"
+
+msgid "Pit Fighter"
+msgstr "Luchador de Arena"
+
+msgid "Akhorn"
+msgstr "Akhorn"
+
+msgid "Bull Centaur"
+msgstr "Centauro Toro"
+
+msgid "Hobgoblin"
+msgstr "Hobgoblin"
+
+msgid "Deathroller"
+msgstr "Rodillo de la Muerte"
+
+msgid "Halfling Hopeful"
+msgstr "Halfling Esperanzado"
+
+msgid "Catcher Halfling"
+msgstr "Receptor Halfling"
+
+msgid "Hefty"
+msgstr "Corpulento"
+
+msgid "Ogre"
+msgstr "Ogro"
+
+msgid "Gnoblar"
+msgstr "Gnoblar"
+
+msgid "Runt Punter"
+msgstr "Pateador de Enanos"
+
+msgid "Snotling"
+msgstr "Snotling"
+
+msgid "Fungus Flinga"
+msgstr "Lanzahongos"
+
+msgid "Fun-Hoppa"
+msgstr "Saltador"
+
+msgid "Stilty Runna"
+msgstr "Corredor en Zancos"
+
+msgid "Pump Wagon"
+msgstr "Vagón Bomba"
+
+msgid "Tomb Guardian"
+msgstr "Guardián de Tumba"
+
+msgid " Skeleton Lineman"
+msgstr "Esqueleto de Línea"
+
+msgid "Throw-Ra"
+msgstr "Lanzador-Ra"
+
+msgid "Blitz-Ra"
+msgstr "Blitzer-Ra"
+
+msgid "Underworld Goblin"
+msgstr "Goblin del Submundo"
+
+msgid "Skaven Lineman"
+msgstr "Skaven de Línea"
+
+msgid "Skaven Blitzer"
+msgstr "Blitzer Skaven"
+
+msgid "Skaven Thrower"
+msgstr "Lanzador Skaven"
+
+msgid "Mutant Rat Ogre"
+msgstr "Ogro Rata Mutante"
+
+msgid "Vampire"
+msgstr "Vampiro"
+
+msgid "Thrall"
+msgstr "Esclavo"
+
+msgid "Vargheist"
+msgstr "Vargheist"
+
+msgid "Blood Thrall"
+msgstr "Esclavo de Sangre"
+
+# ============================================================================
+# WEATHER CONDITIONS
+# ============================================================================
+
+msgid "Perfect Conditions"
+msgstr "Condiciones Perfectas"
+
+msgid "Sweltering Heat"
+msgstr "Calor Sofocante"
+
+msgid "Very Sunny"
+msgstr "Muy Soleado"
+
+msgid "Pouring Rain"
+msgstr "Lluvia Torrencial"
+
+msgid "Blizzard"
+msgstr "Ventisca"
+
+# ============================================================================
+# ERROR MESSAGES
+# ============================================================================
+
+msgid "Page Not Found"
+msgstr "Página No Encontrada"
+
+msgid "The page you are looking for does not exist."
+msgstr "La página que buscas no existe."
+
+msgid "Access Denied"
+msgstr "Acceso Denegado"
+
+msgid "You do not have permission to access this page."
+msgstr "No tienes permiso para acceder a esta página."
+
+msgid "Server Error"
+msgstr "Error del Servidor"
+
+msgid "Something went wrong. Please try again later."
+msgstr "Algo salió mal. Por favor, inténtalo de nuevo más tarde."
+
+msgid "Go Back Home"
+msgstr "Volver al Inicio"
+
+msgid "You do not have permission to manage this team."
+msgstr "No tienes permiso para gestionar este equipo."
+
+msgid "Not enough treasury to hire this player."
+msgstr "No hay suficiente tesorería para contratar este jugador."
+
+msgid "Roster is full! Maximum 16 players."
+msgstr "¡Plantilla completa! Máximo 16 jugadores."
+
+msgid "Invalid position selected."
+msgstr "Posición seleccionada inválida."
+
+# ============================================================================
+# FOOTER
+# ============================================================================
+
+msgid "Blood Bowl is a trademark of Games Workshop Ltd."
+msgstr "Blood Bowl es una marca registrada de Games Workshop Ltd."
+
+# ============================================================================
+# LANGUAGE SELECTION
+# ============================================================================
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Change Language"
+msgstr "Cambiar Idioma"
+

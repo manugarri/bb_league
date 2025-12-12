@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Leagues - Blood Bowl League Tracker{% endblock %}
+{% block title %}{{ _('Leagues') }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1><i class="bi bi-trophy text-gold me-2"></i>Leagues</h1>
-    {% if current_user.is_authenticated %}
+    <h1><i class="bi bi-trophy text-gold me-2"></i>{{ _('Leagues') }}</h1>
+    {% if current_user.is_authenticated and current_user.is_admin %}
     <a href="{{ url_for('leagues.create') }}" class="btn btn-primary">
-        <i class="bi bi-plus-circle me-1"></i>Create League
+        <i class="bi bi-plus-circle me-1"></i>{{ _('Create League') }}
     </a>
     {% endif %}
 </div>
@@ -17,26 +17,26 @@
     <div class="card-body py-3">
         <form method="GET" class="row g-3 align-items-end">
             <div class="col-md-4">
-                <label class="form-label">Search</label>
-                <input type="text" name="search" class="form-control" placeholder="League name..." value="{{ search }}">
+                <label class="form-label">{{ _('Search') }}</label>
+                <input type="text" name="search" class="form-control" placeholder="{% if get_locale() == 'es' %}Nombre de la liga...{% else %}League name...{% endif %}" value="{{ search }}">
             </div>
             <div class="col-md-3">
-                <label class="form-label">Status</label>
+                <label class="form-label">{{ _('Status') }}</label>
                 <select name="status" class="form-select">
-                    <option value="">All Statuses</option>
-                    <option value="registration" {% if current_status == 'registration' %}selected{% endif %}>Registration Open</option>
-                    <option value="active" {% if current_status == 'active' %}selected{% endif %}>Active</option>
-                    <option value="playoffs" {% if current_status == 'playoffs' %}selected{% endif %}>Playoffs</option>
-                    <option value="completed" {% if current_status == 'completed' %}selected{% endif %}>Completed</option>
+                    <option value="">{% if get_locale() == 'es' %}Todos los Estados{% else %}All Statuses{% endif %}</option>
+                    <option value="registration" {% if current_status == 'registration' %}selected{% endif %}>{% if get_locale() == 'es' %}Inscripción Abierta{% else %}Registration Open{% endif %}</option>
+                    <option value="active" {% if current_status == 'active' %}selected{% endif %}>{% if get_locale() == 'es' %}Activa{% else %}Active{% endif %}</option>
+                    <option value="playoffs" {% if current_status == 'playoffs' %}selected{% endif %}>{% if get_locale() == 'es' %}Playoffs{% else %}Playoffs{% endif %}</option>
+                    <option value="completed" {% if current_status == 'completed' %}selected{% endif %}>{% if get_locale() == 'es' %}Completada{% else %}Completed{% endif %}</option>
                 </select>
             </div>
             <div class="col-md-2">
                 <button type="submit" class="btn btn-secondary w-100">
-                    <i class="bi bi-search me-1"></i>Filter
+                    <i class="bi bi-search me-1"></i>{{ _('Filter') }}
                 </button>
             </div>
             <div class="col-md-2">
-                <a href="{{ url_for('leagues.index') }}" class="btn btn-outline-secondary w-100">Clear</a>
+                <a href="{{ url_for('leagues.index') }}" class="btn btn-outline-secondary w-100">{% if get_locale() == 'es' %}Limpiar{% else %}Clear{% endif %}</a>
             </div>
         </form>
     </div>
@@ -51,7 +51,11 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span class="text-truncate">{{ league.name }}</span>
                 <span class="badge {% if league.status == 'registration' %}bg-success{% elif league.status == 'active' %}bg-warning{% elif league.status == 'playoffs' %}bg-danger{% else %}bg-secondary{% endif %}">
-                    {{ league.status | capitalize }}
+                    {% if get_locale() == 'es' %}
+                        {% if league.status == 'registration' %}Inscripción{% elif league.status == 'active' %}Activa{% elif league.status == 'playoffs' %}Playoffs{% elif league.status == 'completed' %}Completada{% else %}{{ league.status | capitalize }}{% endif %}
+                    {% else %}
+                        {{ league.status | capitalize }}
+                    {% endif %}
                 </span>
             </div>
             <div class="card-body">
@@ -64,7 +68,12 @@
                         <i class="bi bi-person me-1"></i>{{ league.commissioner.username }}
                     </span>
                     <span class="text-muted">
-                        <i class="bi bi-calendar me-1"></i>{{ league.format | replace('_', ' ') | title }}
+                        <i class="bi bi-calendar me-1"></i>
+                        {% if get_locale() == 'es' %}
+                            {% if league.format == 'round_robin' %}Todos contra Todos{% elif league.format == 'swiss' %}Sistema Suizo{% elif league.format == 'knockout' %}Eliminación{% else %}{{ league.format | replace('_', ' ') | title }}{% endif %}
+                        {% else %}
+                            {{ league.format | replace('_', ' ') | title }}
+                        {% endif %}
                     </span>
                 </div>
                 
@@ -72,12 +81,12 @@
                     <div class="progress-bar bg-gold" style="width: {{ (league.team_count / league.max_teams * 100) | int }}%"></div>
                 </div>
                 <small class="text-muted">
-                    {{ league.team_count }}/{{ league.max_teams }} teams registered
+                    {{ league.team_count }}/{{ league.max_teams }} {% if get_locale() == 'es' %}equipos registrados{% else %}teams registered{% endif %}
                 </small>
             </div>
             <div class="card-footer bg-transparent">
                 <a href="{{ url_for('leagues.view', league_id=league.id) }}" class="btn btn-sm btn-outline-primary w-100">
-                    View League
+                    {% if get_locale() == 'es' %}Ver Liga{% else %}View League{% endif %}
                 </a>
             </div>
         </div>
@@ -124,21 +133,20 @@
 <div class="card">
     <div class="card-body text-center py-5">
         <i class="bi bi-trophy display-1 text-muted mb-3"></i>
-        <h4>No leagues found</h4>
+        <h4>{{ _('No leagues found.') }}</h4>
         <p class="text-muted">
             {% if search or current_status %}
-            No leagues match your search criteria.
+            {% if get_locale() == 'es' %}No hay ligas que coincidan con tu búsqueda.{% else %}No leagues match your search criteria.{% endif %}
             {% else %}
-            Be the first to create a league!
+            {% if get_locale() == 'es' %}¡Sé el primero en crear una liga!{% else %}Be the first to create a league!{% endif %}
             {% endif %}
         </p>
-        {% if current_user.is_authenticated %}
+        {% if current_user.is_authenticated and current_user.is_admin %}
         <a href="{{ url_for('leagues.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle me-1"></i>Create League
+            <i class="bi bi-plus-circle me-1"></i>{{ _('Create League') }}
         </a>
         {% endif %}
     </div>
 </div>
 {% endif %}
 {% endblock %}
-

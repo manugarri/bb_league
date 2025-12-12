@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 
-{% block title %}Login - Blood Bowl League Tracker{% endblock %}
+{% block title %}{{ _('Login') }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-5">
         <div class="card">
             <div class="card-header text-center">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Login to Your Account
+                <i class="bi bi-box-arrow-in-right me-2"></i>{% if get_locale() == 'es' %}Inicia Sesión en tu Cuenta{% else %}Login to Your Account{% endif %}
             </div>
             <div class="card-body p-4">
                 <form method="POST">
                     {{ form.hidden_tag() }}
                     
                     <div class="mb-3">
-                        {{ form.email.label(class="form-label") }}
-                        {{ form.email(class="form-control form-control-lg", placeholder="coach@bloodbowl.com") }}
-                        {% for error in form.email.errors %}
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control form-control-lg", placeholder=(_('Username') if get_locale() == 'es' else "username")) }}
+                        {% for error in form.username.errors %}
                         <div class="text-danger small">{{ error }}</div>
                         {% endfor %}
                     </div>
@@ -37,14 +37,14 @@
                     </div>
                     
                     <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
-                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                        <i class="bi bi-box-arrow-in-right me-2"></i>{{ _('Login') }}
                     </button>
                 </form>
                 
                 <div class="text-center">
                     <p class="text-muted mb-0">
-                        Don't have an account?
-                        <a href="{{ url_for('auth.register') }}" class="text-gold">Register here</a>
+                        {{ _("Don't have an account?") }}
+                        <a href="{{ url_for('auth.register') }}" class="text-gold">{% if get_locale() == 'es' %}Regístrate aquí{% else %}Register here{% endif %}</a>
                     </p>
                 </div>
             </div>

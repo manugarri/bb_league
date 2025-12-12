@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Player Stats - Blood Bowl League Tracker{% endblock %}
+{% block title %}{% if get_locale() == 'es' %}Estadísticas de Jugadores{% else %}Player Stats{% endif %} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">Matches</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">{{ _('Matches') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ url_for('matches.view', match_id=match.id) }}">{{ match.home_team.name }} vs {{ match.away_team.name }}</a></li>
-        <li class="breadcrumb-item active">Player Stats</li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Estadísticas de Jugadores{% else %}Player Stats{% endif %}</li>
     </ol>
 </nav>
 
-<h1 class="mb-4"><i class="bi bi-person-lines-fill text-gold me-2"></i>Record Player Statistics</h1>
+<h1 class="mb-4"><i class="bi bi-person-lines-fill text-gold me-2"></i>{% if get_locale() == 'es' %}Registrar Estadísticas de Jugadores{% else %}Record Player Statistics{% endif %}</h1>
 
 <!-- Match Summary -->
 <div class="alert alert-info mb-4">
@@ -36,20 +36,20 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <i class="bi bi-house me-2"></i>{{ match.home_team.name }}
+                    <i class="bi bi-house me-2"></i>{{ match.home_team.name }} ({% if get_locale() == 'es' %}Local{% else %}Home{% endif %})
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-sm mb-0">
                             <thead>
                                 <tr>
-                                    <th>Player</th>
+                                    <th>{% if get_locale() == 'es' %}Jugador{% else %}Player{% endif %}</th>
                                     <th class="text-center" style="width: 50px;">TD</th>
-                                    <th class="text-center" style="width: 50px;">CAS</th>
-                                    <th class="text-center" style="width: 50px;">CMP</th>
+                                    <th class="text-center" style="width: 50px;">{% if get_locale() == 'es' %}BAJ{% else %}CAS{% endif %}</th>
+                                    <th class="text-center" style="width: 50px;">{% if get_locale() == 'es' %}PAS{% else %}CMP{% endif %}</th>
                                     <th class="text-center" style="width: 50px;">INT</th>
                                     <th class="text-center" style="width: 50px;">MVP</th>
-                                    <th style="width: 120px;">Injury</th>
+                                    <th style="width: 120px;">{% if get_locale() == 'es' %}Lesión{% else %}Injury{% endif %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +59,7 @@
                                     <td>
                                         <small class="text-muted">#{{ player.number or '?' }}</small>
                                         {{ player.name }}
-                                        <br><small class="text-muted">{{ player.position.name }}</small>
+                                        <br><small class="text-muted">{{ tr_position(player.position.name) }}</small>
                                     </td>
                                     <td>
                                         <input type="number" name="player_{{ player.id }}_touchdowns" 
@@ -88,15 +88,15 @@
                                     </td>
                                     <td>
                                         <select name="player_{{ player.id }}_injury" class="form-select form-select-sm">
-                                            <option value="">None</option>
-                                            <option value="badly_hurt" {% if stat and stat.injury_result == 'badly_hurt' %}selected{% endif %}>Badly Hurt</option>
-                                            <option value="miss_next_game" {% if stat and stat.injury_result == 'miss_next_game' %}selected{% endif %}>MNG</option>
-                                            <option value="niggling" {% if stat and stat.injury_result == 'niggling' %}selected{% endif %}>Niggling</option>
+                                            <option value="">{% if get_locale() == 'es' %}Ninguna{% else %}None{% endif %}</option>
+                                            <option value="badly_hurt" {% if stat and stat.injury_result == 'badly_hurt' %}selected{% endif %}>{% if get_locale() == 'es' %}Mal Herido{% else %}Badly Hurt{% endif %}</option>
+                                            <option value="miss_next_game" {% if stat and stat.injury_result == 'miss_next_game' %}selected{% endif %}>{% if get_locale() == 'es' %}Pierde Partido{% else %}MNG{% endif %}</option>
+                                            <option value="niggling" {% if stat and stat.injury_result == 'niggling' %}selected{% endif %}>{% if get_locale() == 'es' %}Lesión Persistente{% else %}Niggling{% endif %}</option>
                                             <option value="-1ma" {% if stat and stat.injury_result == '-1ma' %}selected{% endif %}>-1 MA</option>
                                             <option value="-1av" {% if stat and stat.injury_result == '-1av' %}selected{% endif %}>-1 AV</option>
                                             <option value="-1ag" {% if stat and stat.injury_result == '-1ag' %}selected{% endif %}>-1 AG</option>
                                             <option value="-1st" {% if stat and stat.injury_result == '-1st' %}selected{% endif %}>-1 ST</option>
-                                            <option value="dead" {% if stat and stat.injury_result == 'dead' %}selected{% endif %}>Dead</option>
+                                            <option value="dead" {% if stat and stat.injury_result == 'dead' %}selected{% endif %}>{% if get_locale() == 'es' %}Muerto{% else %}Dead{% endif %}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -112,20 +112,20 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <i class="bi bi-airplane me-2"></i>{{ match.away_team.name }}
+                    <i class="bi bi-airplane me-2"></i>{{ match.away_team.name }} ({% if get_locale() == 'es' %}Visitante{% else %}Away{% endif %})
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-sm mb-0">
                             <thead>
                                 <tr>
-                                    <th>Player</th>
+                                    <th>{% if get_locale() == 'es' %}Jugador{% else %}Player{% endif %}</th>
                                     <th class="text-center" style="width: 50px;">TD</th>
-                                    <th class="text-center" style="width: 50px;">CAS</th>
-                                    <th class="text-center" style="width: 50px;">CMP</th>
+                                    <th class="text-center" style="width: 50px;">{% if get_locale() == 'es' %}BAJ{% else %}CAS{% endif %}</th>
+                                    <th class="text-center" style="width: 50px;">{% if get_locale() == 'es' %}PAS{% else %}CMP{% endif %}</th>
                                     <th class="text-center" style="width: 50px;">INT</th>
                                     <th class="text-center" style="width: 50px;">MVP</th>
-                                    <th style="width: 120px;">Injury</th>
+                                    <th style="width: 120px;">{% if get_locale() == 'es' %}Lesión{% else %}Injury{% endif %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -135,7 +135,7 @@
                                     <td>
                                         <small class="text-muted">#{{ player.number or '?' }}</small>
                                         {{ player.name }}
-                                        <br><small class="text-muted">{{ player.position.name }}</small>
+                                        <br><small class="text-muted">{{ tr_position(player.position.name) }}</small>
                                     </td>
                                     <td>
                                         <input type="number" name="player_{{ player.id }}_touchdowns" 
@@ -164,15 +164,15 @@
                                     </td>
                                     <td>
                                         <select name="player_{{ player.id }}_injury" class="form-select form-select-sm">
-                                            <option value="">None</option>
-                                            <option value="badly_hurt" {% if stat and stat.injury_result == 'badly_hurt' %}selected{% endif %}>Badly Hurt</option>
-                                            <option value="miss_next_game" {% if stat and stat.injury_result == 'miss_next_game' %}selected{% endif %}>MNG</option>
-                                            <option value="niggling" {% if stat and stat.injury_result == 'niggling' %}selected{% endif %}>Niggling</option>
+                                            <option value="">{% if get_locale() == 'es' %}Ninguna{% else %}None{% endif %}</option>
+                                            <option value="badly_hurt" {% if stat and stat.injury_result == 'badly_hurt' %}selected{% endif %}>{% if get_locale() == 'es' %}Mal Herido{% else %}Badly Hurt{% endif %}</option>
+                                            <option value="miss_next_game" {% if stat and stat.injury_result == 'miss_next_game' %}selected{% endif %}>{% if get_locale() == 'es' %}Pierde Partido{% else %}MNG{% endif %}</option>
+                                            <option value="niggling" {% if stat and stat.injury_result == 'niggling' %}selected{% endif %}>{% if get_locale() == 'es' %}Lesión Persistente{% else %}Niggling{% endif %}</option>
                                             <option value="-1ma" {% if stat and stat.injury_result == '-1ma' %}selected{% endif %}>-1 MA</option>
                                             <option value="-1av" {% if stat and stat.injury_result == '-1av' %}selected{% endif %}>-1 AV</option>
                                             <option value="-1ag" {% if stat and stat.injury_result == '-1ag' %}selected{% endif %}>-1 AG</option>
                                             <option value="-1st" {% if stat and stat.injury_result == '-1st' %}selected{% endif %}>-1 ST</option>
-                                            <option value="dead" {% if stat and stat.injury_result == 'dead' %}selected{% endif %}>Dead</option>
+                                            <option value="dead" {% if stat and stat.injury_result == 'dead' %}selected{% endif %}>{% if get_locale() == 'es' %}Muerto{% else %}Dead{% endif %}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -187,34 +187,33 @@
     
     <div class="d-flex gap-2 mt-4">
         <button type="submit" class="btn btn-primary btn-lg">
-            <i class="bi bi-check-lg me-1"></i>Save Player Stats
+            <i class="bi bi-check-lg me-1"></i>{% if get_locale() == 'es' %}Guardar Estadísticas{% else %}Save Player Stats{% endif %}
         </button>
-        <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-outline-secondary btn-lg">Skip / Cancel</a>
+        <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-outline-secondary btn-lg">{% if get_locale() == 'es' %}Omitir / Cancelar{% else %}Skip / Cancel{% endif %}</a>
     </div>
 </form>
 
 <div class="card mt-4">
     <div class="card-header">
-        <i class="bi bi-info-circle me-2"></i>SPP Reference
+        <i class="bi bi-info-circle me-2"></i>{% if get_locale() == 'es' %}Referencia de PEJ (Puntos de Estrella del Jugador){% else %}SPP Reference{% endif %}
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
                 <table class="table table-sm mb-0">
-                    <tr><td>Touchdown (TD)</td><td class="text-end text-gold">+3 SPP</td></tr>
-                    <tr><td>Casualty (CAS)</td><td class="text-end text-gold">+2 SPP</td></tr>
-                    <tr><td>Interception (INT)</td><td class="text-end text-gold">+2 SPP</td></tr>
+                    <tr><td>{% if get_locale() == 'es' %}Touchdown (TD){% else %}Touchdown (TD){% endif %}</td><td class="text-end text-gold">+3 {% if get_locale() == 'es' %}PEJ{% else %}SPP{% endif %}</td></tr>
+                    <tr><td>{% if get_locale() == 'es' %}Baja (BAJ){% else %}Casualty (CAS){% endif %}</td><td class="text-end text-gold">+2 {% if get_locale() == 'es' %}PEJ{% else %}SPP{% endif %}</td></tr>
+                    <tr><td>{% if get_locale() == 'es' %}Intercepción (INT){% else %}Interception (INT){% endif %}</td><td class="text-end text-gold">+2 {% if get_locale() == 'es' %}PEJ{% else %}SPP{% endif %}</td></tr>
                 </table>
             </div>
             <div class="col-md-6">
                 <table class="table table-sm mb-0">
-                    <tr><td>Completion (CMP)</td><td class="text-end text-gold">+1 SPP</td></tr>
-                    <tr><td>Deflection (DEF)</td><td class="text-end text-gold">+1 SPP</td></tr>
-                    <tr><td>MVP Award</td><td class="text-end text-gold">+4 SPP</td></tr>
+                    <tr><td>{% if get_locale() == 'es' %}Pase Completado (PAS){% else %}Completion (CMP){% endif %}</td><td class="text-end text-gold">+1 {% if get_locale() == 'es' %}PEJ{% else %}SPP{% endif %}</td></tr>
+                    <tr><td>{% if get_locale() == 'es' %}Deflexión (DEF){% else %}Deflection (DEF){% endif %}</td><td class="text-end text-gold">+1 {% if get_locale() == 'es' %}PEJ{% else %}SPP{% endif %}</td></tr>
+                    <tr><td>{% if get_locale() == 'es' %}Premio MVP{% else %}MVP Award{% endif %}</td><td class="text-end text-gold">+4 {% if get_locale() == 'es' %}PEJ{% else %}SPP{% endif %}</td></tr>
                 </table>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
-

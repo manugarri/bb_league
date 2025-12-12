@@ -50,10 +50,10 @@ def login():
     
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data.lower()).first()
+        user = User.query.filter_by(username=form.username.data).first()
         
         if user is None or not user.check_password(form.password.data):
-            flash("Invalid email or password.", "danger")
+            flash("Invalid username or password.", "danger")
             return render_template("auth/login.html", form=form)
         
         if not user.is_active:

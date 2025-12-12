@@ -1,32 +1,32 @@
 {% extends "base.html" %}
 
-{% block title %}Rules Reference - Blood Bowl League Tracker{% endblock %}
+{% block title %}{{ _('Rules') }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
-<h1 class="mb-4"><i class="bi bi-book text-gold me-2"></i>Rules Reference</h1>
+<h1 class="mb-4"><i class="bi bi-book text-gold me-2"></i>{{ _('Blood Bowl Rules') }}</h1>
 
 <div class="row g-4">
     <div class="col-md-6">
         <div class="card h-100">
             <div class="card-header">
-                <i class="bi bi-star-fill me-2"></i>Star Player Points (SPP)
+                <i class="bi bi-star-fill me-2"></i>{{ _('Star Player Points') }} ({{ _('SPP') }})
             </div>
             <div class="card-body">
-                <p>Players earn SPP through the following actions:</p>
+                <p>{{ _('Players can have skills that modify their abilities.') }}</p>
                 <table class="table table-sm">
                     <thead>
                         <tr>
-                            <th>Action</th>
-                            <th class="text-end">SPP</th>
+                            <th>{{ _('Actions') if get_locale() == 'es' else 'Action' }}</th>
+                            <th class="text-end">{{ _('SPP') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Touchdown</td><td class="text-end text-gold">3</td></tr>
-                        <tr><td>Casualty</td><td class="text-end text-gold">2</td></tr>
-                        <tr><td>Interception</td><td class="text-end text-gold">2</td></tr>
-                        <tr><td>Completion</td><td class="text-end text-gold">1</td></tr>
-                        <tr><td>Deflection</td><td class="text-end text-gold">1</td></tr>
-                        <tr><td>MVP Award</td><td class="text-end text-gold">4</td></tr>
+                        <tr><td>{{ _('Touchdowns') }}</td><td class="text-end text-gold">3</td></tr>
+                        <tr><td>{{ _('Casualties') }}</td><td class="text-end text-gold">2</td></tr>
+                        <tr><td>{{ _('Interceptions') }}</td><td class="text-end text-gold">2</td></tr>
+                        <tr><td>{{ _('Completions') }}</td><td class="text-end text-gold">1</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Desviación{% else %}Deflection{% endif %}</td><td class="text-end text-gold">1</td></tr>
+                        <tr><td>{{ _('MVP Awards') }}</td><td class="text-end text-gold">4</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -36,25 +36,25 @@
     <div class="col-md-6">
         <div class="card h-100">
             <div class="card-header">
-                <i class="bi bi-graph-up me-2"></i>Level Up Thresholds
+                <i class="bi bi-graph-up me-2"></i>{% if get_locale() == 'es' %}Umbrales de Subida de Nivel{% else %}Level Up Thresholds{% endif %}
             </div>
             <div class="card-body">
-                <p>Players level up when they reach these SPP totals:</p>
+                <p>{% if get_locale() == 'es' %}Los jugadores suben de nivel cuando alcanzan estos totales de PE:{% else %}Players level up when they reach these SPP totals:{% endif %}</p>
                 <table class="table table-sm">
                     <thead>
                         <tr>
-                            <th>Level</th>
-                            <th class="text-end">SPP Required</th>
+                            <th>{{ _('Level') }}</th>
+                            <th class="text-end">{% if get_locale() == 'es' %}PE Requeridos{% else %}SPP Required{% endif %}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Rookie</td><td class="text-end">0</td></tr>
-                        <tr><td>Experienced</td><td class="text-end">6</td></tr>
-                        <tr><td>Veteran</td><td class="text-end">16</td></tr>
-                        <tr><td>Emerging Star</td><td class="text-end">31</td></tr>
-                        <tr><td>Star</td><td class="text-end">51</td></tr>
-                        <tr><td>Super Star</td><td class="text-end">76</td></tr>
-                        <tr><td>Legend</td><td class="text-end">176</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Novato{% else %}Rookie{% endif %}</td><td class="text-end">0</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Experimentado{% else %}Experienced{% endif %}</td><td class="text-end">6</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Veterano{% else %}Veteran{% endif %}</td><td class="text-end">16</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Estrella Emergente{% else %}Emerging Star{% endif %}</td><td class="text-end">31</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Estrella{% else %}Star{% endif %}</td><td class="text-end">51</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Super Estrella{% else %}Super Star{% endif %}</td><td class="text-end">76</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Leyenda{% else %}Legend{% endif %}</td><td class="text-end">176</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -64,26 +64,26 @@
     <div class="col-md-6">
         <div class="card h-100">
             <div class="card-header">
-                <i class="bi bi-bandaid me-2"></i>Injury Results
+                <i class="bi bi-bandaid me-2"></i>{% if get_locale() == 'es' %}Resultados de Lesiones{% else %}Injury Results{% endif %}
             </div>
             <div class="card-body">
                 <table class="table table-sm">
                     <thead>
                         <tr>
-                            <th>Result</th>
-                            <th>Effect</th>
+                            <th>{% if get_locale() == 'es' %}Resultado{% else %}Result{% endif %}</th>
+                            <th>{% if get_locale() == 'es' %}Efecto{% else %}Effect{% endif %}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>Badly Hurt</td><td>No lasting effect</td></tr>
-                        <tr><td>Miss Next Game</td><td>Cannot play next match</td></tr>
-                        <tr><td>Niggling Injury</td><td>Permanent, cumulative</td></tr>
-                        <tr><td>-1 MA</td><td>Permanent stat reduction</td></tr>
-                        <tr><td>-1 AV</td><td>Permanent stat reduction</td></tr>
-                        <tr><td>-1 AG</td><td>Permanent stat reduction</td></tr>
-                        <tr><td>-1 ST</td><td>Permanent stat reduction</td></tr>
-                        <tr><td>-1 PA</td><td>Permanent stat reduction</td></tr>
-                        <tr><td class="text-danger">Dead</td><td class="text-danger">Removed from roster</td></tr>
+                        <tr><td>{% if get_locale() == 'es' %}Gravemente Herido{% else %}Badly Hurt{% endif %}</td><td>{% if get_locale() == 'es' %}Sin efecto duradero{% else %}No lasting effect{% endif %}</td></tr>
+                        <tr><td>{{ _('Miss Next Game') }}</td><td>{% if get_locale() == 'es' %}No puede jugar el próximo partido{% else %}Cannot play next match{% endif %}</td></tr>
+                        <tr><td>{{ _('Niggling Injury') }}</td><td>{% if get_locale() == 'es' %}Permanente, acumulativa{% else %}Permanent, cumulative{% endif %}</td></tr>
+                        <tr><td>-1 {{ _('MA') }}</td><td>{% if get_locale() == 'es' %}Reducción permanente de estadística{% else %}Permanent stat reduction{% endif %}</td></tr>
+                        <tr><td>-1 {{ _('AV') }}</td><td>{% if get_locale() == 'es' %}Reducción permanente de estadística{% else %}Permanent stat reduction{% endif %}</td></tr>
+                        <tr><td>-1 {{ _('AG') }}</td><td>{% if get_locale() == 'es' %}Reducción permanente de estadística{% else %}Permanent stat reduction{% endif %}</td></tr>
+                        <tr><td>-1 {{ _('ST') }}</td><td>{% if get_locale() == 'es' %}Reducción permanente de estadística{% else %}Permanent stat reduction{% endif %}</td></tr>
+                        <tr><td>-1 {{ _('PA') }}</td><td>{% if get_locale() == 'es' %}Reducción permanente de estadística{% else %}Permanent stat reduction{% endif %}</td></tr>
+                        <tr><td class="text-danger">{{ _('Dead') }}</td><td class="text-danger">{% if get_locale() == 'es' %}Eliminado de la plantilla{% else %}Removed from roster{% endif %}</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -93,29 +93,126 @@
     <div class="col-md-6">
         <div class="card h-100">
             <div class="card-header">
-                <i class="bi bi-trophy me-2"></i>Default League Scoring
+                <i class="bi bi-trophy me-2"></i>{% if get_locale() == 'es' %}Puntuación por Defecto de Liga{% else %}Default League Scoring{% endif %}
             </div>
             <div class="card-body">
                 <table class="table table-sm">
                     <thead>
                         <tr>
-                            <th>Result</th>
-                            <th class="text-end">Points</th>
+                            <th>{% if get_locale() == 'es' %}Resultado{% else %}Result{% endif %}</th>
+                            <th class="text-end">{{ _('Points') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td class="text-success">Win</td><td class="text-end text-gold">3</td></tr>
-                        <tr><td class="text-warning">Draw</td><td class="text-end text-gold">1</td></tr>
-                        <tr><td class="text-danger">Loss</td><td class="text-end text-gold">0</td></tr>
+                        <tr><td class="text-success">{% if get_locale() == 'es' %}Victoria{% else %}Win{% endif %}</td><td class="text-end text-gold">3</td></tr>
+                        <tr><td class="text-warning">{{ _('Draw') }}</td><td class="text-end text-gold">1</td></tr>
+                        <tr><td class="text-danger">{% if get_locale() == 'es' %}Derrota{% else %}Loss{% endif %}</td><td class="text-end text-gold">0</td></tr>
                     </tbody>
                 </table>
                 <p class="small text-muted mt-3">
-                    Tiebreakers are typically: Touchdown difference, then Total touchdowns scored, 
-                    then Casualties inflicted.
+                    {% if get_locale() == 'es' %}
+                    Los desempates son típicamente: Diferencia de touchdowns, luego Total de touchdowns anotados, luego Bajas infligidas.
+                    {% else %}
+                    Tiebreakers are typically: Touchdown difference, then Total touchdowns scored, then Casualties inflicted.
+                    {% endif %}
                 </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Game Overview Section -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-info-circle me-2"></i>{{ _('Game Overview') }}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="text-gold">{% if get_locale() == 'es' %}¿Qué es Blood Bowl?{% else %}What is Blood Bowl?{% endif %}</h5>
+                        <p>{{ _('Blood Bowl is a fantasy football game created by Games Workshop.') }}</p>
+                        <p>{{ _('Two coaches select a team and attempt to score touchdowns against each other.') }}</p>
+                        <p>{{ _('The game is played on a pitch divided into squares.') }}</p>
+                        <p>{{ _('Each team has 16 turns per half to score as many touchdowns as possible.') }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-gold">{{ _('Turn Sequence') }}</h5>
+                        <p>{{ _('Players can Move, Block, Blitz, Pass, or Hand-off during their turn.') }}</p>
+                        <p>{{ _('Only one Blitz and one Pass action per turn.') }}</p>
+                        <p>{{ _('Turnovers occur when a player falls, fumbles, or fails a pass.') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Blocking Section -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-shield-fill me-2"></i>{{ _('Blocking') }}
+            </div>
+            <div class="card-body">
+                <p>{{ _('Players can block adjacent opponents to knock them down.') }}</p>
+                <p>{{ _('Block dice determine the outcome: Defender Down, Pushed, etc.') }}</p>
+                <p>{{ _('Assists from teammates can add extra block dice.') }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scoring Section -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-bullseye me-2"></i>{{ _('Scoring') }}
+            </div>
+            <div class="card-body">
+                <p>{{ _('A touchdown is scored when a player carries the ball into the opponent\'s End Zone.') }}</p>
+                <p>{{ _('After scoring, teams set up again and the scoring team kicks off.') }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Skills Section -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-lightning-fill me-2"></i>{{ _('Skills') }}
+            </div>
+            <div class="card-body">
+                <p>{{ _('Players can have skills that modify their abilities.') }}</p>
+                <p>{{ _('Skills are gained through Star Player Points (SPP).') }}</p>
+                <p>{{ _('Common skills include Block, Dodge, Sure Hands, and Tackle.') }}</p>
+                <h6 class="text-gold mt-3">{% if get_locale() == 'es' %}Categorías de Habilidades:{% else %}Skill Categories:{% endif %}</h6>
+                <ul class="list-unstyled">
+                    <li><span class="badge bg-secondary">G</span> {{ _('General') }}</li>
+                    <li><span class="badge bg-info">A</span> {{ _('Agility') }}</li>
+                    <li><span class="badge bg-danger">S</span> {{ _('Strength') }}</li>
+                    <li><span class="badge bg-primary">P</span> {{ _('Passing') }}</li>
+                    <li><span class="badge bg-success">M</span> {{ _('Mutation') }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Team Building Section -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-people-fill me-2"></i>{{ _('Team Building') }}
+            </div>
+            <div class="card-body">
+                <p>{{ _('Teams are built using a treasury budget.') }}</p>
+                <p>{{ _('Each race has different available positions and costs.') }}</p>
+                <p>{{ _('Teams can hire staff like Coaches and Cheerleaders.') }}</p>
+                <h6 class="text-gold mt-3">{% if get_locale() == 'es' %}Límites de Plantilla:{% else %}Roster Limits:{% endif %}</h6>
+                <ul>
+                    <li>{% if get_locale() == 'es' %}Máximo 16 jugadores{% else %}Maximum 16 players{% endif %}</li>
+                    <li>{% if get_locale() == 'es' %}Mínimo 11 jugadores para jugar{% else %}Minimum 11 players to play{% endif %}</li>
+                    <li>{% if get_locale() == 'es' %}Hasta 8 repeticiones{% else %}Up to 8 re-rolls{% endif %}</li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
-

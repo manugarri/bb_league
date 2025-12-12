@@ -20,6 +20,11 @@ class Config:
     
     # WTF Forms
     WTF_CSRF_ENABLED = True
+    
+    # Babel / i18n Configuration
+    LANGUAGES = ['en', 'es']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
 class DevelopmentConfig(Config):

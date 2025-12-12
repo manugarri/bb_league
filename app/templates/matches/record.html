@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Record Match - Blood Bowl League Tracker{% endblock %}
+{% block title %}{% if get_locale() == 'es' %}Registrar Partido{% else %}Record Match{% endif %} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">Matches</a></li>
-        <li class="breadcrumb-item active">Record Result</li>
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">{{ _('Matches') }}</a></li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Registrar Resultado{% else %}Record Result{% endif %}</li>
     </ol>
 </nav>
 
-<h1 class="mb-4"><i class="bi bi-pencil-square text-gold me-2"></i>Record Match Result</h1>
+<h1 class="mb-4"><i class="bi bi-pencil-square text-gold me-2"></i>{% if get_locale() == 'es' %}Registrar Resultado del Partido{% else %}Record Match Result{% endif %}</h1>
 
 <!-- Match Info -->
 <div class="card mb-4">
@@ -18,19 +18,19 @@
         <div class="row align-items-center">
             <div class="col-md-5">
                 <h4 class="text-gold">{{ match.home_team.name }}</h4>
-                <span class="badge bg-secondary">{{ match.home_team.race.name }}</span>
+                <span class="badge bg-secondary">{{ tr_race(match.home_team.race.name) }}</span>
             </div>
             <div class="col-md-2">
                 <span class="display-6 text-muted">VS</span>
             </div>
             <div class="col-md-5">
                 <h4 class="text-gold">{{ match.away_team.name }}</h4>
-                <span class="badge bg-secondary">{{ match.away_team.race.name }}</span>
+                <span class="badge bg-secondary">{{ tr_race(match.away_team.race.name) }}</span>
             </div>
         </div>
         {% if match.league %}
         <p class="text-muted mb-0 mt-3">
-            {{ match.league.name }} · Round {{ match.round_number or 'N/A' }}
+            {{ match.league.name }} · {{ _('Round') }} {{ match.round_number or 'N/A' }}
         </p>
         {% endif %}
     </div>
@@ -41,7 +41,7 @@
     
     <div class="card mb-4">
         <div class="card-header">
-            <i class="bi bi-trophy me-2"></i>Final Score
+            <i class="bi bi-trophy me-2"></i>{% if get_locale() == 'es' %}Resultado Final{% else %}Final Score{% endif %}
         </div>
         <div class="card-body">
             <div class="row g-4 align-items-center">
@@ -62,16 +62,16 @@
     
     <div class="card mb-4">
         <div class="card-header">
-            <i class="bi bi-bandaid me-2"></i>Casualties
+            <i class="bi bi-bandaid me-2"></i>{{ _('Casualties') }}
         </div>
         <div class="card-body">
             <div class="row g-4">
                 <div class="col-md-6">
-                    <label class="form-label">{{ match.home_team.name }} Casualties Inflicted</label>
+                    <label class="form-label">{{ match.home_team.name }} {% if get_locale() == 'es' %}Bajas Infligidas{% else %}Casualties Inflicted{% endif %}</label>
                     {{ form.home_casualties(class="form-control text-center") }}
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">{{ match.away_team.name }} Casualties Inflicted</label>
+                    <label class="form-label">{{ match.away_team.name }} {% if get_locale() == 'es' %}Bajas Infligidas{% else %}Casualties Inflicted{% endif %}</label>
                     {{ form.away_casualties(class="form-control text-center") }}
                 </div>
             </div>
@@ -80,16 +80,16 @@
     
     <div class="card mb-4">
         <div class="card-header">
-            <i class="bi bi-coin me-2"></i>Winnings
+            <i class="bi bi-coin me-2"></i>{% if get_locale() == 'es' %}Ganancias{% else %}Winnings{% endif %}
         </div>
         <div class="card-body">
             <div class="row g-4">
                 <div class="col-md-6">
-                    <label class="form-label">{{ match.home_team.name }} Winnings (gold)</label>
+                    <label class="form-label">{{ match.home_team.name }} {% if get_locale() == 'es' %}Ganancias (oro){% else %}Winnings (gold){% endif %}</label>
                     {{ form.home_winnings(class="form-control text-center", placeholder="0") }}
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">{{ match.away_team.name }} Winnings (gold)</label>
+                    <label class="form-label">{{ match.away_team.name }} {% if get_locale() == 'es' %}Ganancias (oro){% else %}Winnings (gold){% endif %}</label>
                     {{ form.away_winnings(class="form-control text-center", placeholder="0") }}
                 </div>
             </div>
@@ -98,19 +98,18 @@
     
     <div class="card mb-4">
         <div class="card-header">
-            <i class="bi bi-journal-text me-2"></i>Notes (Optional)
+            <i class="bi bi-journal-text me-2"></i>{{ _('Notes') }} ({% if get_locale() == 'es' %}Opcional{% else %}Optional{% endif %})
         </div>
         <div class="card-body">
-            {{ form.notes(class="form-control", rows=3, placeholder="Any notable events, highlights, or comments about the match...") }}
+            {{ form.notes(class="form-control", rows=3, placeholder=(_('Notes') if get_locale() == 'es' else "Any notable events, highlights, or comments about the match...")) }}
         </div>
     </div>
     
     <div class="d-flex gap-2">
         <button type="submit" class="btn btn-primary btn-lg">
-            <i class="bi bi-check-lg me-1"></i>Save & Continue to Player Stats
+            <i class="bi bi-check-lg me-1"></i>{% if get_locale() == 'es' %}Guardar y Continuar a Estadísticas de Jugadores{% else %}Save & Continue to Player Stats{% endif %}
         </button>
-        <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+        <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-outline-secondary btn-lg">{{ _('Cancel') }}</a>
     </div>
 </form>
 {% endblock %}
-

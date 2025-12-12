@@ -19,6 +19,11 @@ class League(db.Model):
     starting_treasury = db.Column(db.Integer, default=1000000)
     max_team_value = db.Column(db.Integer)  # Optional TV cap
     
+    # Roster rules
+    min_roster_size = db.Column(db.Integer, default=11)
+    max_roster_size = db.Column(db.Integer, default=16)
+    allow_star_players = db.Column(db.Boolean, default=True)
+    
     # Scoring system
     win_points = db.Column(db.Integer, default=3)
     draw_points = db.Column(db.Integer, default=1)

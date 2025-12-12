@@ -1,12 +1,21 @@
 """Main blueprint for home and general pages."""
-from flask import Blueprint, render_template
-from flask_login import current_user
+from flask import Blueprint, render_template, session, redirect, request, url_for, current_app
+from flask_login import current_user, login_required
 from app.models import League, Match, Team
 
 main_bp = Blueprint("main", __name__)
 
 
+@main_bp.route("/set-language/<language>")
+def set_language(language):
+    """Set the user's preferred language."""
+    if language in current_app.config.get('LANGUAGES', ['en']):
+        session['language'] = language
+    return redirect(request.referrer or url_for('auth.login'))
+
+
 @main_bp.route("/")
+@login_required
 def index():
     """Home page."""
     # Get recent matches
@@ -19,10 +28,8 @@ def index():
         League.status.in_(["registration", "active"])
     ).order_by(League.created_at.desc()).limit(5).all()
     
-    # Get user's teams if logged in
-    user_teams = []
-    if current_user.is_authenticated:
-        user_teams = current_user.teams.limit(5).all()
+    # Get user's teams
+    user_teams = current_user.teams.limit(5).all()
     
     return render_template(
         "main/index.html",
@@ -33,23 +40,23 @@ def index():
 
 
 @main_bp.route("/about")
+@login_required
 def about():
     """About page."""
     return render_template("main/about.html")
 
 
 @main_bp.route("/rules")
+@login_required
 def rules():
     """Blood Bowl rules reference."""
     return render_template("main/rules.html")
 
 
 @main_bp.route("/dashboard")
+@login_required
 def dashboard():
     """User dashboard."""
-    if not current_user.is_authenticated:
-        return render_template("main/index.html")
-    
     # User's teams
     teams = current_user.teams.all()
     
@@ -72,4 +79,3 @@ def dashboard():
         upcoming_matches=upcoming_matches,
         recent_results=recent_results
     )
-

@@ -144,11 +144,11 @@ class MatchPlayerStats(db.Model):
     def calculate_spp(self) -> int:
         """Calculate SPP earned in this match."""
         spp = 0
-        spp += self.touchdowns * 3
-        spp += self.casualties_inflicted * 2
-        spp += self.completions * 1
-        spp += self.interceptions * 2
-        spp += self.deflections * 1
+        spp += (self.touchdowns or 0) * 3
+        spp += (self.casualties_inflicted or 0) * 2
+        spp += (self.completions or 0) * 1
+        spp += (self.interceptions or 0) * 2
+        spp += (self.deflections or 0) * 1
         if self.is_mvp:
             spp += 4
         

@@ -1,7 +1,7 @@
 """Database models."""
 from app.models.user import User
-from app.models.team import Team, Race, Position, TeamStaff
-from app.models.player import Player, Skill, PlayerSkill, Injury, StarPlayer
+from app.models.team import Team, Race, Position, TeamStaff, TeamStarPlayer
+from app.models.player import Player, Skill, PlayerSkill, Trait, PlayerTrait, Injury, StarPlayer
 from app.models.league import League, Season, LeagueTeam, Standing
 from app.models.match import Match, MatchPlayerStats
 
@@ -11,9 +11,12 @@ __all__ = [
     "Race",
     "Position",
     "TeamStaff",
+    "TeamStarPlayer",
     "Player",
     "Skill",
     "PlayerSkill",
+    "Trait",
+    "PlayerTrait",
     "Injury",
     "StarPlayer",
     "League",
