@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}{{ player.name }} - {{ team.name }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('teams.index') }}">Teams</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('teams.view', team_id=team.id) }}">{{ team.name }}</a></li>
+        <li class="breadcrumb-item active">{{ player.name }}</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    <!-- Player Info -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>
+                    {% if player.number %}#{{ player.number }} {% endif %}{{ player.name }}
+                </span>
+                {% if is_owner %}
+                <a href="{{ url_for('teams.edit_player', team_id=team.id, player_id=player.id) }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-pencil me-1"></i>Edit
+                </a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <span class="badge bg-secondary fs-6 mb-2">{{ player.position.name }}</span>
+                        <p class="text-muted mb-0">{{ team.race.name }}</p>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row g-2 text-center">
+                            <div class="col">
+                                <div class="stat-box">
+                                    <div class="stat-value {% if player.movement != player.position.movement %}text-danger{% endif %}">
+                                        {{ player.movement }}
+                                    </div>
+                                    <div class="stat-label">MA</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="stat-box">
+                                    <div class="stat-value {% if player.strength != player.position.strength %}{% if player.strength > player.position.strength %}text-success{% else %}text-danger{% endif %}{% endif %}">
+                                        {{ player.strength }}
+                                    </div>
+                                    <div class="stat-label">ST</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="stat-box">
+                                    <div class="stat-value {% if player.agility != player.position.agility %}{% if player.agility > player.position.agility %}text-success{% else %}text-danger{% endif %}{% endif %}">
+                                        {{ player.agility }}+
+                                    </div>
+                                    <div class="stat-label">AG</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="stat-box">
+                                    <div class="stat-value">{{ player.passing }}+</div>
+                                    <div class="stat-label">PA</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="stat-box">
+                                    <div class="stat-value {% if player.armor != player.position.armor %}text-danger{% endif %}">
+                                        {{ player.armor }}+
+                                    </div>
+                                    <div class="stat-label">AV</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status -->
+                {% if player.miss_next_game or player.niggling_injuries > 0 or not player.is_active %}
+                <div class="alert {% if player.is_dead %}alert-danger{% else %}alert-warning{% endif %} mb-4">
+                    <h6 class="mb-2"><i class="bi bi-exclamation-triangle me-2"></i>Status</h6>
+                    <ul class="mb-0">
+                        {% if player.is_dead %}
+                        <li><strong>DEAD</strong> - This player has been killed.</li>
+                        {% endif %}
+                        {% if player.miss_next_game %}
+                        <li><strong>Miss Next Game</strong> - Cannot play in the next match.</li>
+                        {% endif %}
+                        {% if player.niggling_injuries > 0 %}
+                        <li><strong>{{ player.niggling_injuries }} Niggling Injury(s)</strong></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                <!-- Skills -->
+                <h5 class="text-gold mb-3"><i class="bi bi-lightning me-2"></i>Skills</h5>
+                {% set skills = player.get_skill_list() %}
+                {% if skills %}
+                <div class="mb-4">
+                    {% for skill in skills %}
+                    <span class="badge bg-secondary me-1 mb-1">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted mb-4">No skills yet.</p>
+                {% endif %}
+                
+                <!-- Level Up Check -->
+                {% if player.check_level_up() %}
+                <div class="alert alert-success">
+                    <h6 class="mb-2"><i class="bi bi-arrow-up-circle me-2"></i>Ready for Level Up!</h6>
+                    <p class="mb-0">This player has enough SPP to advance. Choose a new skill!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stats Sidebar -->
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-star me-2"></i>Experience
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <div class="stat-value">{{ player.spp }}</div>
+                    <div class="stat-label">Star Player Points</div>
+                </div>
+                
+                {% set spp = player.get_spp_breakdown() %}
+                <table class="table table-sm mb-0">
+                    <tr>
+                        <td>Touchdowns (x3)</td>
+                        <td class="text-end">{{ player.touchdowns }} = {{ spp.touchdowns }}</td>
+                    </tr>
+                    <tr>
+                        <td>Casualties (x2)</td>
+                        <td class="text-end">{{ player.casualties_inflicted }} = {{ spp.casualties }}</td>
+                    </tr>
+                    <tr>
+                        <td>Completions (x1)</td>
+                        <td class="text-end">{{ player.completions }} = {{ spp.completions }}</td>
+                    </tr>
+                    <tr>
+                        <td>Interceptions (x2)</td>
+                        <td class="text-end">{{ player.interceptions }} = {{ spp.interceptions }}</td>
+                    </tr>
+                    <tr>
+                        <td>MVP Awards (x4)</td>
+                        <td class="text-end">{{ player.mvp_awards }} = {{ spp.mvps }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-bar-chart me-2"></i>Career Stats
+            </div>
+            <div class="card-body">
+                <table class="table table-sm mb-0">
+                    <tr>
+                        <td>Games Played</td>
+                        <td class="text-end fw-bold">{{ player.games_played }}</td>
+                    </tr>
+                    <tr>
+                        <td>Touchdowns</td>
+                        <td class="text-end fw-bold text-gold">{{ player.touchdowns }}</td>
+                    </tr>
+                    <tr>
+                        <td>Casualties</td>
+                        <td class="text-end fw-bold text-danger">{{ player.casualties_inflicted }}</td>
+                    </tr>
+                    <tr>
+                        <td>Completions</td>
+                        <td class="text-end fw-bold">{{ player.completions }}</td>
+                    </tr>
+                    <tr>
+                        <td>Interceptions</td>
+                        <td class="text-end fw-bold">{{ player.interceptions }}</td>
+                    </tr>
+                    <tr>
+                        <td>MVP Awards</td>
+                        <td class="text-end fw-bold">{{ player.mvp_awards }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

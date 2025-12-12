@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ league.name }} - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">Leagues</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=league.id) }}">{{ league.name }}</a></li>
+        <li class="breadcrumb-item active">Edit</li>
+    </ol>
+</nav>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-pencil me-2"></i>Edit League
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-4">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control form-control-lg") }}
+                        {% for error in form.name.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        {{ form.description.label(class="form-label") }}
+                        {{ form.description(class="form-control", rows=3) }}
+                        {% for error in form.description.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            {{ form.max_teams.label(class="form-label") }}
+                            {{ form.max_teams(class="form-control") }}
+                            {% for error in form.max_teams.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Format</label>
+                            <input type="text" class="form-control" value="{{ league.format | replace('_', ' ') | title }}" disabled>
+                            <div class="form-text">Format cannot be changed after creation.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                {{ form.is_public(class="form-check-input") }}
+                                {{ form.is_public.label(class="form-check-label") }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                {{ form.registration_open(class="form-check-input") }}
+                                {{ form.registration_open.label(class="form-check-label") }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg me-1"></i>Save Changes
+                        </button>
+                        <a href="{{ url_for('leagues.view', league_id=league.id) }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

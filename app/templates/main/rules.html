@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Rules Reference - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<h1 class="mb-4"><i class="bi bi-book text-gold me-2"></i>Rules Reference</h1>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-star-fill me-2"></i>Star Player Points (SPP)
+            </div>
+            <div class="card-body">
+                <p>Players earn SPP through the following actions:</p>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th class="text-end">SPP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Touchdown</td><td class="text-end text-gold">3</td></tr>
+                        <tr><td>Casualty</td><td class="text-end text-gold">2</td></tr>
+                        <tr><td>Interception</td><td class="text-end text-gold">2</td></tr>
+                        <tr><td>Completion</td><td class="text-end text-gold">1</td></tr>
+                        <tr><td>Deflection</td><td class="text-end text-gold">1</td></tr>
+                        <tr><td>MVP Award</td><td class="text-end text-gold">4</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-graph-up me-2"></i>Level Up Thresholds
+            </div>
+            <div class="card-body">
+                <p>Players level up when they reach these SPP totals:</p>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th class="text-end">SPP Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Rookie</td><td class="text-end">0</td></tr>
+                        <tr><td>Experienced</td><td class="text-end">6</td></tr>
+                        <tr><td>Veteran</td><td class="text-end">16</td></tr>
+                        <tr><td>Emerging Star</td><td class="text-end">31</td></tr>
+                        <tr><td>Star</td><td class="text-end">51</td></tr>
+                        <tr><td>Super Star</td><td class="text-end">76</td></tr>
+                        <tr><td>Legend</td><td class="text-end">176</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-bandaid me-2"></i>Injury Results
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Result</th>
+                            <th>Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Badly Hurt</td><td>No lasting effect</td></tr>
+                        <tr><td>Miss Next Game</td><td>Cannot play next match</td></tr>
+                        <tr><td>Niggling Injury</td><td>Permanent, cumulative</td></tr>
+                        <tr><td>-1 MA</td><td>Permanent stat reduction</td></tr>
+                        <tr><td>-1 AV</td><td>Permanent stat reduction</td></tr>
+                        <tr><td>-1 AG</td><td>Permanent stat reduction</td></tr>
+                        <tr><td>-1 ST</td><td>Permanent stat reduction</td></tr>
+                        <tr><td>-1 PA</td><td>Permanent stat reduction</td></tr>
+                        <tr><td class="text-danger">Dead</td><td class="text-danger">Removed from roster</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-trophy me-2"></i>Default League Scoring
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Result</th>
+                            <th class="text-end">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="text-success">Win</td><td class="text-end text-gold">3</td></tr>
+                        <tr><td class="text-warning">Draw</td><td class="text-end text-gold">1</td></tr>
+                        <tr><td class="text-danger">Loss</td><td class="text-end text-gold">0</td></tr>
+                    </tbody>
+                </table>
+                <p class="small text-muted mt-3">
+                    Tiebreakers are typically: Touchdown difference, then Total touchdowns scored, 
+                    then Casualties inflicted.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

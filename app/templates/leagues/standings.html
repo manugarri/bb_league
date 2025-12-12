@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Standings - {{ league.name }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">Leagues</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=league.id) }}">{{ league.name }}</a></li>
+        <li class="breadcrumb-item active">Standings</li>
+    </ol>
+</nav>
+
+<h1 class="mb-4"><i class="bi bi-list-ol text-gold me-2"></i>{{ league.name }} - Standings</h1>
+
+{% if standings %}
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 50px;">Pos</th>
+                        <th>Team</th>
+                        <th>Race</th>
+                        <th class="text-center">P</th>
+                        <th class="text-center">W</th>
+                        <th class="text-center">D</th>
+                        <th class="text-center">L</th>
+                        <th class="text-center">TF</th>
+                        <th class="text-center">TA</th>
+                        <th class="text-center">TD+/-</th>
+                        <th class="text-center">CAS</th>
+                        <th class="text-center">Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for standing in standings %}
+                    <tr class="{% if loop.index <= 1 %}table-success{% elif loop.index <= 4 %}{% endif %}">
+                        <td class="text-center">
+                            {% if loop.index == 1 %}
+                            <i class="bi bi-trophy-fill text-gold"></i>
+                            {% elif loop.index == 2 %}
+                            <span class="text-muted">2</span>
+                            {% elif loop.index == 3 %}
+                            <span class="text-muted">3</span>
+                            {% else %}
+                            {{ loop.index }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('teams.view', team_id=standing.team.id) }}" class="text-gold text-decoration-none fw-bold">
+                                {{ standing.team.name }}
+                            </a>
+                        </td>
+                        <td><span class="badge bg-secondary">{{ standing.team.race.name }}</span></td>
+                        <td class="text-center">{{ standing.played }}</td>
+                        <td class="text-center text-success fw-bold">{{ standing.wins }}</td>
+                        <td class="text-center text-muted">{{ standing.draws }}</td>
+                        <td class="text-center text-danger">{{ standing.losses }}</td>
+                        <td class="text-center">{{ standing.touchdowns_for }}</td>
+                        <td class="text-center">{{ standing.touchdowns_against }}</td>
+                        <td class="text-center {% if standing.touchdown_diff > 0 %}text-success{% elif standing.touchdown_diff < 0 %}text-danger{% endif %}">
+                            {{ '%+d' % standing.touchdown_diff }}
+                        </td>
+                        <td class="text-center">{{ standing.casualties_inflicted }}</td>
+                        <td class="text-center fw-bold text-gold fs-5">{{ standing.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <h5 class="text-gold mb-3">Legend</h5>
+    <div class="row g-3">
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">P</span> Played
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">W</span> Wins
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">D</span> Draws
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">L</span> Losses
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">TF</span> Touchdowns For
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">TA</span> Touchdowns Against
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">TD+/-</span> Touchdown Difference
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">CAS</span> Casualties Inflicted
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">Pts</span> Points
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="card">
+    <div class="card-body text-center py-5">
+        <i class="bi bi-list-ol display-1 text-muted mb-3"></i>
+        <h4>No standings available</h4>
+        <p class="text-muted">The league hasn't started yet or no matches have been played.</p>
+        <a href="{{ url_for('leagues.view', league_id=league.id) }}" class="btn btn-primary">
+            Back to League
+        </a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+

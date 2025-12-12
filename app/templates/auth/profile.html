@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-person-gear me-2"></i>Profile Settings
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="rounded-circle bg-dark d-inline-flex align-items-center justify-content-center mb-3" style="width: 120px; height: 120px;">
+                                    <i class="bi bi-person-circle display-1 text-muted"></i>
+                                </div>
+                                <h5 class="text-gold mb-0">{{ current_user.username }}</h5>
+                                <p class="text-muted small">{{ current_user.email }}</p>
+                                <span class="badge bg-secondary">{{ current_user.role | capitalize }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="text-gold mb-3">Account Details</h5>
+                            
+                            <div class="mb-3">
+                                {{ form.display_name.label(class="form-label") }}
+                                {{ form.display_name(class="form-control") }}
+                                {% for error in form.display_name.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.bio.label(class="form-label") }}
+                                {{ form.bio(class="form-control", rows=3, placeholder="Tell us about yourself...") }}
+                                {% for error in form.bio.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <h5 class="text-gold mb-3"><i class="bi bi-key me-2"></i>Change Password</h5>
+                    <p class="text-muted small">Leave blank to keep current password</p>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.current_password.label(class="form-label") }}
+                                {{ form.current_password(class="form-control", placeholder="Current password") }}
+                                {% for error in form.current_password.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.new_password.label(class="form-label") }}
+                                {{ form.new_password(class="form-control", placeholder="New password") }}
+                                {% for error in form.new_password.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                {{ form.confirm_password.label(class="form-label") }}
+                                {{ form.confirm_password(class="form-control", placeholder="Confirm new") }}
+                                {% for error in form.confirm_password.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg me-1"></i>Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Statistics -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="bi bi-bar-chart me-2"></i>Your Statistics
+            </div>
+            <div class="card-body">
+                <div class="row g-3 text-center">
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <div class="stat-value">{{ current_user.teams.count() }}</div>
+                            <div class="stat-label">Teams</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <div class="stat-value">{{ current_user.leagues_created.count() }}</div>
+                            <div class="stat-label">Leagues Created</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <div class="stat-value">
+                                {{ current_user.created_at.strftime('%b %Y') }}
+                            </div>
+                            <div class="stat-label">Member Since</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

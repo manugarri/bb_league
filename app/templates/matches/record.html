@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Record Match - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">Matches</a></li>
+        <li class="breadcrumb-item active">Record Result</li>
+    </ol>
+</nav>
+
+<h1 class="mb-4"><i class="bi bi-pencil-square text-gold me-2"></i>Record Match Result</h1>
+
+<!-- Match Info -->
+<div class="card mb-4">
+    <div class="card-body text-center">
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <h4 class="text-gold">{{ match.home_team.name }}</h4>
+                <span class="badge bg-secondary">{{ match.home_team.race.name }}</span>
+            </div>
+            <div class="col-md-2">
+                <span class="display-6 text-muted">VS</span>
+            </div>
+            <div class="col-md-5">
+                <h4 class="text-gold">{{ match.away_team.name }}</h4>
+                <span class="badge bg-secondary">{{ match.away_team.race.name }}</span>
+            </div>
+        </div>
+        {% if match.league %}
+        <p class="text-muted mb-0 mt-3">
+            {{ match.league.name }} · Round {{ match.round_number or 'N/A' }}
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="bi bi-trophy me-2"></i>Final Score
+        </div>
+        <div class="card-body">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-5">
+                    <label class="form-label">{{ match.home_team.name }}</label>
+                    {{ form.home_score(class="form-control form-control-lg text-center", placeholder="0") }}
+                </div>
+                <div class="col-md-2 text-center">
+                    <span class="display-6 text-muted">-</span>
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label">{{ match.away_team.name }}</label>
+                    {{ form.away_score(class="form-control form-control-lg text-center", placeholder="0") }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="bi bi-bandaid me-2"></i>Casualties
+        </div>
+        <div class="card-body">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label">{{ match.home_team.name }} Casualties Inflicted</label>
+                    {{ form.home_casualties(class="form-control text-center") }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">{{ match.away_team.name }} Casualties Inflicted</label>
+                    {{ form.away_casualties(class="form-control text-center") }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="bi bi-coin me-2"></i>Winnings
+        </div>
+        <div class="card-body">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label">{{ match.home_team.name }} Winnings (gold)</label>
+                    {{ form.home_winnings(class="form-control text-center", placeholder="0") }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">{{ match.away_team.name }} Winnings (gold)</label>
+                    {{ form.away_winnings(class="form-control text-center", placeholder="0") }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="bi bi-journal-text me-2"></i>Notes (Optional)
+        </div>
+        <div class="card-body">
+            {{ form.notes(class="form-control", rows=3, placeholder="Any notable events, highlights, or comments about the match...") }}
+        </div>
+    </div>
+    
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary btn-lg">
+            <i class="bi bi-check-lg me-1"></i>Save & Continue to Player Stats
+        </button>
+        <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+    </div>
+</form>
+{% endblock %}
+

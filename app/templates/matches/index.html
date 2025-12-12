@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Matches - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-calendar-event text-gold me-2"></i>Matches</h1>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-body py-3">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select">
+                    <option value="">All Matches</option>
+                    <option value="scheduled" {% if current_status == 'scheduled' %}selected{% endif %}>Scheduled</option>
+                    <option value="completed" {% if current_status == 'completed' %}selected{% endif %}>Completed</option>
+                    <option value="cancelled" {% if current_status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary w-100">
+                    <i class="bi bi-search me-1"></i>Filter
+                </button>
+            </div>
+            <div class="col-md-2">
+                <a href="{{ url_for('matches.index') }}" class="btn btn-outline-secondary w-100">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Matches List -->
+{% if matches.items %}
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Home</th>
+                        <th class="text-center">Score</th>
+                        <th>Away</th>
+                        <th>League</th>
+                        <th class="text-center">Round</th>
+                        <th class="text-center">Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in matches.items %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('teams.view', team_id=match.home_team.id) }}" class="text-decoration-none {% if match.is_completed and match.home_score > match.away_score %}text-gold fw-bold{% else %}text-light{% endif %}">
+                                {{ match.home_team.name }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            {% if match.is_completed %}
+                            <span class="badge bg-dark fs-6">{{ match.home_score }} - {{ match.away_score }}</span>
+                            {% else %}
+                            <span class="text-muted">vs</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('teams.view', team_id=match.away_team.id) }}" class="text-decoration-none {% if match.is_completed and match.away_score > match.home_score %}text-gold fw-bold{% else %}text-light{% endif %}">
+                                {{ match.away_team.name }}
+                            </a>
+                        </td>
+                        <td>
+                            {% if match.league %}
+                            <a href="{{ url_for('leagues.view', league_id=match.league.id) }}" class="text-decoration-none text-muted">
+                                {{ match.league.name }}
+                            </a>
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">{{ match.round_number or '-' }}</td>
+                        <td class="text-center">
+                            <span class="badge {% if match.status == 'completed' %}bg-success{% elif match.status == 'scheduled' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                {{ match.status | capitalize }}
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-sm btn-outline-primary">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+{% if matches.pages > 1 %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if matches.has_prev %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('matches.index', page=matches.prev_num, status=current_status) }}">
+                <i class="bi bi-chevron-left"></i>
+            </a>
+        </li>
+        {% endif %}
+        
+        {% for page in matches.iter_pages() %}
+            {% if page %}
+            <li class="page-item {% if page == matches.page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('matches.index', page=page, status=current_status) }}">
+                    {{ page }}
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if matches.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('matches.index', page=matches.next_num, status=current_status) }}">
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% else %}
+<div class="card">
+    <div class="card-body text-center py-5">
+        <i class="bi bi-calendar-x display-1 text-muted mb-3"></i>
+        <h4>No matches found</h4>
+        <p class="text-muted">
+            {% if current_status %}
+            No matches match your filter criteria.
+            {% else %}
+            No matches have been scheduled yet.
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+

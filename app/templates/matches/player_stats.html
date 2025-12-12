@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}Player Stats - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">Matches</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.view', match_id=match.id) }}">{{ match.home_team.name }} vs {{ match.away_team.name }}</a></li>
+        <li class="breadcrumb-item active">Player Stats</li>
+    </ol>
+</nav>
+
+<h1 class="mb-4"><i class="bi bi-person-lines-fill text-gold me-2"></i>Record Player Statistics</h1>
+
+<!-- Match Summary -->
+<div class="alert alert-info mb-4">
+    <div class="row text-center align-items-center">
+        <div class="col-md-5">
+            <strong>{{ match.home_team.name }}</strong>
+        </div>
+        <div class="col-md-2">
+            <span class="badge bg-dark fs-5">{{ match.home_score }} - {{ match.away_score }}</span>
+        </div>
+        <div class="col-md-5">
+            <strong>{{ match.away_team.name }}</strong>
+        </div>
+    </div>
+</div>
+
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+    <div class="row g-4">
+        <!-- Home Team Players -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-house me-2"></i>{{ match.home_team.name }}
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th class="text-center" style="width: 50px;">TD</th>
+                                    <th class="text-center" style="width: 50px;">CAS</th>
+                                    <th class="text-center" style="width: 50px;">CMP</th>
+                                    <th class="text-center" style="width: 50px;">INT</th>
+                                    <th class="text-center" style="width: 50px;">MVP</th>
+                                    <th style="width: 120px;">Injury</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for player in home_players %}
+                                {% set stat = existing_stats.get(player.id) %}
+                                <tr>
+                                    <td>
+                                        <small class="text-muted">#{{ player.number or '?' }}</small>
+                                        {{ player.name }}
+                                        <br><small class="text-muted">{{ player.position.name }}</small>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="player_{{ player.id }}_touchdowns" 
+                                            class="form-control form-control-sm text-center" 
+                                            value="{{ stat.touchdowns if stat else 0 }}" min="0" max="10">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="player_{{ player.id }}_casualties" 
+                                            class="form-control form-control-sm text-center" 
+                                            value="{{ stat.casualties_inflicted if stat else 0 }}" min="0" max="10">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="player_{{ player.id }}_completions" 
+                                            class="form-control form-control-sm text-center" 
+                                            value="{{ stat.completions if stat else 0 }}" min="0" max="20">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="player_{{ player.id }}_interceptions" 
+                                            class="form-control form-control-sm text-center" 
+                                            value="{{ stat.interceptions if stat else 0 }}" min="0" max="10">
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" name="player_{{ player.id }}_mvp" 
+                                            class="form-check-input" 
+                                            {% if stat and stat.is_mvp %}checked{% endif %}>
+                                    </td>
+                                    <td>
+                                        <select name="player_{{ player.id }}_injury" class="form-select form-select-sm">
+                                            <option value="">None</option>
+                                            <option value="badly_hurt" {% if stat and stat.injury_result == 'badly_hurt' %}selected{% endif %}>Badly Hurt</option>
+                                            <option value="miss_next_game" {% if stat and stat.injury_result == 'miss_next_game' %}selected{% endif %}>MNG</option>
+                                            <option value="niggling" {% if stat and stat.injury_result == 'niggling' %}selected{% endif %}>Niggling</option>
+                                            <option value="-1ma" {% if stat and stat.injury_result == '-1ma' %}selected{% endif %}>-1 MA</option>
+                                            <option value="-1av" {% if stat and stat.injury_result == '-1av' %}selected{% endif %}>-1 AV</option>
+                                            <option value="-1ag" {% if stat and stat.injury_result == '-1ag' %}selected{% endif %}>-1 AG</option>
+                                            <option value="-1st" {% if stat and stat.injury_result == '-1st' %}selected{% endif %}>-1 ST</option>
+                                            <option value="dead" {% if stat and stat.injury_result == 'dead' %}selected{% endif %}>Dead</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Away Team Players -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-airplane me-2"></i>{{ match.away_team.name }}
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th class="text-center" style="width: 50px;">TD</th>
+                                    <th class="text-center" style="width: 50px;">CAS</th>
+                                    <th class="text-center" style="width: 50px;">CMP</th>
+                                    <th class="text-center" style="width: 50px;">INT</th>
+                                    <th class="text-center" style="width: 50px;">MVP</th>
+                                    <th style="width: 120px;">Injury</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for player in away_players %}
+                                {% set stat = existing_stats.get(player.id) %}
+                                <tr>
+                                    <td>
+                                        <small class="text-muted">#{{ player.number or '?' }}</small>
+                                        {{ player.name }}
+                                        <br><small class="text-muted">{{ player.position.name }}</small>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="player_{{ player.id }}_touchdowns" 
+                                            class="form-control form-control-sm text-center" 
+                                            value="{{ stat.touchdowns if stat else 0 }}" min="0" max="10">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="player_{{ player.id }}_casualties" 
+                                            class="form-control form-control-sm text-center" 
+                                            value="{{ stat.casualties_inflicted if stat else 0 }}" min="0" max="10">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="player_{{ player.id }}_completions" 
+                                            class="form-control form-control-sm text-center" 
+                                            value="{{ stat.completions if stat else 0 }}" min="0" max="20">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="player_{{ player.id }}_interceptions" 
+                                            class="form-control form-control-sm text-center" 
+                                            value="{{ stat.interceptions if stat else 0 }}" min="0" max="10">
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" name="player_{{ player.id }}_mvp" 
+                                            class="form-check-input" 
+                                            {% if stat and stat.is_mvp %}checked{% endif %}>
+                                    </td>
+                                    <td>
+                                        <select name="player_{{ player.id }}_injury" class="form-select form-select-sm">
+                                            <option value="">None</option>
+                                            <option value="badly_hurt" {% if stat and stat.injury_result == 'badly_hurt' %}selected{% endif %}>Badly Hurt</option>
+                                            <option value="miss_next_game" {% if stat and stat.injury_result == 'miss_next_game' %}selected{% endif %}>MNG</option>
+                                            <option value="niggling" {% if stat and stat.injury_result == 'niggling' %}selected{% endif %}>Niggling</option>
+                                            <option value="-1ma" {% if stat and stat.injury_result == '-1ma' %}selected{% endif %}>-1 MA</option>
+                                            <option value="-1av" {% if stat and stat.injury_result == '-1av' %}selected{% endif %}>-1 AV</option>
+                                            <option value="-1ag" {% if stat and stat.injury_result == '-1ag' %}selected{% endif %}>-1 AG</option>
+                                            <option value="-1st" {% if stat and stat.injury_result == '-1st' %}selected{% endif %}>-1 ST</option>
+                                            <option value="dead" {% if stat and stat.injury_result == 'dead' %}selected{% endif %}>Dead</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="d-flex gap-2 mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">
+            <i class="bi bi-check-lg me-1"></i>Save Player Stats
+        </button>
+        <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-outline-secondary btn-lg">Skip / Cancel</a>
+    </div>
+</form>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <i class="bi bi-info-circle me-2"></i>SPP Reference
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-sm mb-0">
+                    <tr><td>Touchdown (TD)</td><td class="text-end text-gold">+3 SPP</td></tr>
+                    <tr><td>Casualty (CAS)</td><td class="text-end text-gold">+2 SPP</td></tr>
+                    <tr><td>Interception (INT)</td><td class="text-end text-gold">+2 SPP</td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm mb-0">
+                    <tr><td>Completion (CMP)</td><td class="text-end text-gold">+1 SPP</td></tr>
+                    <tr><td>Deflection (DEF)</td><td class="text-end text-gold">+1 SPP</td></tr>
+                    <tr><td>MVP Award</td><td class="text-end text-gold">+4 SPP</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

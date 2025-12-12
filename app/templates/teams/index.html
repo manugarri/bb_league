@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Teams - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-people-fill text-gold me-2"></i>Teams</h1>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('teams.create') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Create Team
+    </a>
+    {% endif %}
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-body py-3">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">Search</label>
+                <input type="text" name="search" class="form-control" placeholder="Team name..." value="{{ search }}">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Race</label>
+                <select name="race" class="form-select">
+                    <option value="">All Races</option>
+                    {% for race in races %}
+                    <option value="{{ race.id }}" {% if current_race == race.id %}selected{% endif %}>
+                        {{ race.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary w-100">
+                    <i class="bi bi-search me-1"></i>Filter
+                </button>
+            </div>
+            <div class="col-md-2">
+                <a href="{{ url_for('teams.index') }}" class="btn btn-outline-secondary w-100">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Teams List -->
+{% if teams.items %}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Race</th>
+                <th>Coach</th>
+                <th class="text-center">TV</th>
+                <th class="text-center">Record</th>
+                <th class="text-center">TD+/-</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in teams.items %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('teams.view', team_id=team.id) }}" class="text-gold text-decoration-none fw-bold">
+                        {{ team.name }}
+                    </a>
+                </td>
+                <td>
+                    <span class="badge bg-secondary">{{ team.race.name }}</span>
+                </td>
+                <td>{{ team.coach.get_display_name() }}</td>
+                <td class="text-center">{{ "{:,}".format(team.current_tv) }}</td>
+                <td class="text-center">
+                    <span class="text-success">{{ team.wins }}</span> /
+                    <span class="text-muted">{{ team.draws }}</span> /
+                    <span class="text-danger">{{ team.losses }}</span>
+                </td>
+                <td class="text-center {% if team.touchdowns_for - team.touchdowns_against > 0 %}text-success{% elif team.touchdowns_for - team.touchdowns_against < 0 %}text-danger{% endif %}">
+                    {{ team.touchdowns_for - team.touchdowns_against }}
+                </td>
+                <td class="text-end">
+                    <a href="{{ url_for('teams.view', team_id=team.id) }}" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-eye"></i> View
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+{% if teams.pages > 1 %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if teams.has_prev %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('teams.index', page=teams.prev_num, race=current_race, search=search) }}">
+                <i class="bi bi-chevron-left"></i>
+            </a>
+        </li>
+        {% endif %}
+        
+        {% for page in teams.iter_pages() %}
+            {% if page %}
+            <li class="page-item {% if page == teams.page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('teams.index', page=page, race=current_race, search=search) }}">
+                    {{ page }}
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if teams.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('teams.index', page=teams.next_num, race=current_race, search=search) }}">
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% else %}
+<div class="card">
+    <div class="card-body text-center py-5">
+        <i class="bi bi-people display-1 text-muted mb-3"></i>
+        <h4>No teams found</h4>
+        <p class="text-muted">
+            {% if search or current_race %}
+            No teams match your search criteria.
+            {% else %}
+            Be the first to create a team!
+            {% endif %}
+        </p>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('teams.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i>Create Team
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Blood Bowl League Tracker{% endblock %}</title>
+    
+    <!-- Google Fonts - Orbitron for headers, Rajdhani for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bb-blood: #8B0000;
+            --bb-blood-light: #B22222;
+            --bb-gold: #DAA520;
+            --bb-gold-light: #FFD700;
+            --bb-dark: #0d1117;
+            --bb-darker: #010409;
+            --bb-card: #161b22;
+            --bb-border: #30363d;
+            --bb-text: #c9d1d9;
+            --bb-text-muted: #8b949e;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bb-darker);
+            color: var(--bb-text);
+            font-size: 1.05rem;
+            min-height: 100vh;
+        }
+        
+        /* Gradient background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(218, 165, 32, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bb-darker) 0%, var(--bb-dark) 100%);
+            z-index: -1;
+        }
+        
+        h1, h2, h3, h4, h5, h6, .navbar-brand, .btn {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(180deg, var(--bb-card) 0%, var(--bb-darker) 100%);
+            border-bottom: 2px solid var(--bb-blood);
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.3);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--bb-gold) !important;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+        }
+        
+        .navbar-brand i {
+            color: var(--bb-blood-light);
+        }
+        
+        .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--bb-text) !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--bb-gold) !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: var(--bb-gold);
+            box-shadow: 0 0 10px var(--bb-gold);
+        }
+        
+        .card {
+            background: var(--bb-card);
+            border: 1px solid var(--bb-border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 0, 0, 0.2);
+        }
+        
+        .card-header {
+            background: linear-gradient(90deg, var(--bb-blood) 0%, transparent 100%);
+            border-bottom: 1px solid var(--bb-border);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--bb-blood) 0%, var(--bb-blood-light) 100%);
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.6rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--bb-blood-light) 0%, var(--bb-blood) 100%);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+            transform: translateY(-1px);
+        }
+        
+        .btn-outline-primary {
+            border-color: var(--bb-blood);
+            color: var(--bb-blood-light);
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--bb-blood);
+            border-color: var(--bb-blood);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--bb-gold) 0%, #B8860B 100%);
+            border: none;
+            color: var(--bb-darker);
+            font-weight: 600;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--bb-gold-light) 0%, var(--bb-gold) 100%);
+            color: var(--bb-darker);
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.5);
+        }
+        
+        .table {
+            --bs-table-bg: transparent;
+            --bs-table-border-color: var(--bb-border);
+        }
+        
+        .table thead {
+            background: linear-gradient(90deg, var(--bb-blood) 0%, var(--bb-card) 100%);
+        }
+        
+        .table thead th {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--bb-blood);
+        }
+        
+        .table-hover tbody tr:hover {
+            background-color: rgba(139, 0, 0, 0.1);
+        }
+        
+        .badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge.bg-success {
+            background: linear-gradient(135deg, #28a745 0%, #1e7b34 100%) !important;
+        }
+        
+        .badge.bg-warning {
+            background: linear-gradient(135deg, var(--bb-gold) 0%, #B8860B 100%) !important;
+            color: var(--bb-darker);
+        }
+        
+        .badge.bg-danger {
+            background: linear-gradient(135deg, var(--bb-blood-light) 0%, var(--bb-blood) 100%) !important;
+        }
+        
+        .form-control, .form-select {
+            background: var(--bb-darker);
+            border: 1px solid var(--bb-border);
+            color: var(--bb-text);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background: var(--bb-darker);
+            border-color: var(--bb-blood);
+            box-shadow: 0 0 0 0.25rem rgba(139, 0, 0, 0.25);
+            color: var(--bb-text);
+        }
+        
+        .form-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--bb-gold);
+        }
+        
+        /* Stats display */
+        .stat-box {
+            background: var(--bb-darker);
+            border: 1px solid var(--bb-border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--bb-gold);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--bb-text-muted);
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
+                        linear-gradient(225deg, rgba(218, 165, 32, 0.2) 0%, transparent 50%);
+            border-bottom: 2px solid var(--bb-blood);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            text-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
+        }
+        
+        /* Gold text utility */
+        .text-gold {
+            color: var(--bb-gold) !important;
+        }
+        
+        /* Blood text utility */
+        .text-blood {
+            color: var(--bb-blood-light) !important;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bb-card);
+            border-top: 2px solid var(--bb-blood);
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        /* Alert styling */
+        .alert {
+            border: none;
+            border-left: 4px solid;
+            border-radius: 4px;
+        }
+        
+        .alert-success {
+            background: rgba(40, 167, 69, 0.2);
+            border-color: #28a745;
+        }
+        
+        .alert-danger {
+            background: rgba(139, 0, 0, 0.2);
+            border-color: var(--bb-blood);
+        }
+        
+        .alert-warning {
+            background: rgba(218, 165, 32, 0.2);
+            border-color: var(--bb-gold);
+        }
+        
+        .alert-info {
+            background: rgba(23, 162, 184, 0.2);
+            border-color: #17a2b8;
+        }
+        
+        /* Pagination */
+        .page-link {
+            background: var(--bb-card);
+            border-color: var(--bb-border);
+            color: var(--bb-text);
+        }
+        
+        .page-link:hover {
+            background: var(--bb-blood);
+            border-color: var(--bb-blood);
+            color: white;
+        }
+        
+        .page-item.active .page-link {
+            background: var(--bb-blood);
+            border-color: var(--bb-blood);
+        }
+        
+        /* Animations */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px var(--bb-blood); }
+            50% { box-shadow: 0 0 20px var(--bb-blood), 0 0 30px var(--bb-blood); }
+        }
+        
+        .glow-effect {
+            animation: glow 2s ease-in-out infinite;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <i class="bi bi-trophy-fill me-2"></i>BB League
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}" href="{{ url_for('main.index') }}">
+                            <i class="bi bi-house-fill me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint and 'teams' in request.endpoint %}active{% endif %}" href="{{ url_for('teams.index') }}">
+                            <i class="bi bi-people-fill me-1"></i> Teams
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint and 'leagues' in request.endpoint %}active{% endif %}" href="{{ url_for('leagues.index') }}">
+                            <i class="bi bi-trophy me-1"></i> Leagues
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint and 'matches' in request.endpoint %}active{% endif %}" href="{{ url_for('matches.index') }}">
+                            <i class="bi bi-calendar-event me-1"></i> Matches
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i> {{ current_user.get_display_name() }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ url_for('main.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.profile') }}"><i class="bi bi-gear me-2"></i>Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.login') }}"><i class="bi bi-box-arrow-in-right me-1"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary btn-sm ms-2" href="{{ url_for('auth.register') }}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container py-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer class="text-center">
+        <div class="container">
+            <p class="text-muted mb-1">
+                <span class="text-gold">Blood Bowl League Tracker</span> &copy; 2025
+            </p>
+            <p class="small text-muted">
+                Blood Bowl is a trademark of Games Workshop Ltd.
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}{{ league.name }} - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<!-- League Header -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="d-flex align-items-center mb-2">
+                    <h1 class="text-gold mb-0 me-3">{{ league.name }}</h1>
+                    <span class="badge fs-6 {% if league.status == 'registration' %}bg-success{% elif league.status == 'active' %}bg-warning{% elif league.status == 'playoffs' %}bg-danger{% else %}bg-secondary{% endif %}">
+                        {{ league.status | capitalize }}
+                    </span>
+                </div>
+                <p class="text-muted mb-2">{{ league.description }}</p>
+                <p class="mb-0">
+                    <i class="bi bi-person me-1"></i>Commissioner: <strong>{{ league.commissioner.username }}</strong>
+                    &nbsp;|&nbsp;
+                    <i class="bi bi-calendar me-1"></i>Format: <strong>{{ league.format | replace('_', ' ') | title }}</strong>
+                </p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                {% if is_commissioner %}
+                <a href="{{ url_for('leagues.edit', league_id=league.id) }}" class="btn btn-outline-secondary me-2">
+                    <i class="bi bi-pencil me-1"></i>Edit
+                </a>
+                {% if league.status == 'registration' and teams | length >= league.min_teams %}
+                <form action="{{ url_for('leagues.generate_schedule', league_id=league.id) }}" method="POST" class="d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Generate schedule and start the league?');">
+                        <i class="bi bi-play-fill me-1"></i>Start League
+                    </button>
+                </form>
+                {% endif %}
+                {% elif can_join %}
+                <form action="{{ url_for('leagues.join', league_id=league.id) }}" method="POST" class="d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <select name="team_id" class="form-select form-select-sm d-inline-block w-auto me-2">
+                        {% for team in user_teams %}
+                        <option value="{{ team.id }}">{{ team.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Join League
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Row -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="stat-box">
+            <div class="stat-value">{{ teams | length }}/{{ league.max_teams }}</div>
+            <div class="stat-label">Teams</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-box">
+            <div class="stat-value">{{ league.win_points }}/{{ league.draw_points }}/{{ league.loss_points }}</div>
+            <div class="stat-label">W/D/L Points</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-box">
+            <div class="stat-value">{{ league.current_season.current_round if league.current_season else '-' }}</div>
+            <div class="stat-label">Current Round</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-box">
+            <div class="stat-value">{{ recent_matches | length }}</div>
+            <div class="stat-label">Completed Matches</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Standings -->
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-list-ol me-2"></i>Standings</span>
+                <a href="{{ url_for('leagues.standings', league_id=league.id) }}" class="btn btn-sm btn-outline-secondary">Full Table</a>
+            </div>
+            <div class="card-body p-0">
+                {% if standings %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 40px;">#</th>
+                                <th>Team</th>
+                                <th class="text-center">P</th>
+                                <th class="text-center">W</th>
+                                <th class="text-center">D</th>
+                                <th class="text-center">L</th>
+                                <th class="text-center">TD+/-</th>
+                                <th class="text-center">Pts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for standing in standings[:8] %}
+                            <tr>
+                                <td class="text-center">{{ loop.index }}</td>
+                                <td>
+                                    <a href="{{ url_for('teams.view', team_id=standing.team.id) }}" class="text-gold text-decoration-none">
+                                        {{ standing.team.name }}
+                                    </a>
+                                    <small class="text-muted ms-1">({{ standing.team.race.name }})</small>
+                                </td>
+                                <td class="text-center">{{ standing.played }}</td>
+                                <td class="text-center text-success">{{ standing.wins }}</td>
+                                <td class="text-center text-muted">{{ standing.draws }}</td>
+                                <td class="text-center text-danger">{{ standing.losses }}</td>
+                                <td class="text-center {% if standing.touchdown_diff > 0 %}text-success{% elif standing.touchdown_diff < 0 %}text-danger{% endif %}">
+                                    {{ standing.touchdown_diff }}
+                                </td>
+                                <td class="text-center fw-bold text-gold">{{ standing.points }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-list-ol display-3 text-muted mb-3"></i>
+                    <p class="text-muted">No standings yet. The league hasn't started.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Recent Matches -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-clock-history me-2"></i>Recent Matches</span>
+                <a href="{{ url_for('leagues.schedule', league_id=league.id) }}" class="btn btn-sm btn-outline-secondary">Full Schedule</a>
+            </div>
+            <div class="card-body p-0">
+                {% if recent_matches %}
+                <div class="list-group list-group-flush">
+                    {% for match in recent_matches[:5] %}
+                    <a href="{{ url_for('matches.view', match_id=match.id) }}" class="list-group-item list-group-item-action bg-transparent">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-end flex-grow-1">
+                                <span class="{% if match.home_score > match.away_score %}text-gold fw-bold{% endif %}">
+                                    {{ match.home_team.name }}
+                                </span>
+                            </div>
+                            <div class="px-3">
+                                <span class="badge bg-dark fs-6">{{ match.home_score }} - {{ match.away_score }}</span>
+                            </div>
+                            <div class="text-start flex-grow-1">
+                                <span class="{% if match.away_score > match.home_score %}text-gold fw-bold{% endif %}">
+                                    {{ match.away_team.name }}
+                                </span>
+                            </div>
+                        </div>
+                        <small class="text-muted d-block text-center">Round {{ match.round_number or 'N/A' }}</small>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-calendar-x display-3 text-muted mb-3"></i>
+                    <p class="text-muted">No matches completed yet.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        <!-- Registered Teams -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-people me-2"></i>Registered Teams ({{ teams | length }})
+            </div>
+            <div class="card-body p-0">
+                {% if teams %}
+                <ul class="list-group list-group-flush">
+                    {% for team in teams %}
+                    <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center">
+                        <a href="{{ url_for('teams.view', team_id=team.id) }}" class="text-gold text-decoration-none">
+                            {{ team.name }}
+                        </a>
+                        <span class="badge bg-secondary">{{ team.race.name }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="text-center py-4">
+                    <p class="text-muted mb-0">No teams registered yet.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Pending Teams (Commissioner only) -->
+        {% if is_commissioner and pending_teams %}
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-dark">
+                <i class="bi bi-hourglass me-2"></i>Pending Approval ({{ pending_teams | length }})
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% for team in pending_teams %}
+                    <li class="list-group-item bg-transparent">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>{{ team.name }}</span>
+                            <div>
+                                <form action="{{ url_for('leagues.approve_team', league_id=league.id, team_id=team.id) }}" method="POST" class="d-inline">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        <i class="bi bi-check"></i>
+                                    </button>
+                                </form>
+                                <form action="{{ url_for('leagues.reject_team', league_id=league.id, team_id=team.id) }}" method="POST" class="d-inline">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-x"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Upcoming Matches -->
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-calendar-event me-2"></i>Upcoming Matches
+            </div>
+            <div class="card-body p-0">
+                {% if upcoming_matches %}
+                <ul class="list-group list-group-flush">
+                    {% for match in upcoming_matches[:5] %}
+                    <li class="list-group-item bg-transparent">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>{{ match.home_team.name }} vs {{ match.away_team.name }}</small>
+                            <span class="badge bg-secondary">R{{ match.round_number or '?' }}</span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="text-center py-4">
+                    <p class="text-muted mb-0">No upcoming matches.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+
+{% block title %}{{ match.home_team.name }} vs {{ match.away_team.name }} - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">Matches</a></li>
+        {% if match.league %}
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=match.league.id) }}">{{ match.league.name }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active">Match Details</li>
+    </ol>
+</nav>
+
+<!-- Match Header -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row align-items-center text-center">
+            <!-- Home Team -->
+            <div class="col-md-4">
+                <a href="{{ url_for('teams.view', team_id=match.home_team.id) }}" class="text-decoration-none">
+                    <h3 class="{% if match.is_completed and match.home_score > match.away_score %}text-gold{% else %}text-light{% endif %} mb-1">
+                        {{ match.home_team.name }}
+                    </h3>
+                </a>
+                <span class="badge bg-secondary">{{ match.home_team.race.name }}</span>
+                <p class="text-muted small mb-0 mt-1">{{ match.home_team.coach.username }}</p>
+            </div>
+            
+            <!-- Score -->
+            <div class="col-md-4 py-3">
+                {% if match.is_completed %}
+                <div class="display-3 fw-bold">
+                    <span class="{% if match.home_score > match.away_score %}text-gold{% endif %}">{{ match.home_score }}</span>
+                    <span class="text-muted mx-2">-</span>
+                    <span class="{% if match.away_score > match.home_score %}text-gold{% endif %}">{{ match.away_score }}</span>
+                </div>
+                <span class="badge bg-success mt-2">Completed</span>
+                {% else %}
+                <div class="display-5 text-muted">VS</div>
+                <span class="badge bg-warning mt-2">{{ match.status | capitalize }}</span>
+                {% endif %}
+                
+                {% if match.league %}
+                <p class="text-muted small mt-2 mb-0">
+                    {{ match.league.name }} · Round {{ match.round_number or 'N/A' }}
+                </p>
+                {% endif %}
+            </div>
+            
+            <!-- Away Team -->
+            <div class="col-md-4">
+                <a href="{{ url_for('teams.view', team_id=match.away_team.id) }}" class="text-decoration-none">
+                    <h3 class="{% if match.is_completed and match.away_score > match.home_score %}text-gold{% else %}text-light{% endif %} mb-1">
+                        {{ match.away_team.name }}
+                    </h3>
+                </a>
+                <span class="badge bg-secondary">{{ match.away_team.race.name }}</span>
+                <p class="text-muted small mb-0 mt-1">{{ match.away_team.coach.username }}</p>
+            </div>
+        </div>
+        
+        {% if can_record %}
+        <div class="text-center mt-4">
+            <a href="{{ url_for('matches.record', match_id=match.id) }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-pencil-square me-2"></i>Record Result
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if match.is_completed %}
+<!-- Match Stats -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-house me-2"></i>{{ match.home_team.name }} Stats
+            </div>
+            <div class="card-body">
+                <table class="table table-sm mb-0">
+                    <tr>
+                        <td>Touchdowns</td>
+                        <td class="text-end text-gold fw-bold">{{ match.home_score }}</td>
+                    </tr>
+                    <tr>
+                        <td>Casualties Inflicted</td>
+                        <td class="text-end">{{ match.home_casualties }}</td>
+                    </tr>
+                    <tr>
+                        <td>Winnings</td>
+                        <td class="text-end text-gold">{{ "{:,}".format(match.home_winnings) }}g</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-airplane me-2"></i>{{ match.away_team.name }} Stats
+            </div>
+            <div class="card-body">
+                <table class="table table-sm mb-0">
+                    <tr>
+                        <td>Touchdowns</td>
+                        <td class="text-end text-gold fw-bold">{{ match.away_score }}</td>
+                    </tr>
+                    <tr>
+                        <td>Casualties Inflicted</td>
+                        <td class="text-end">{{ match.away_casualties }}</td>
+                    </tr>
+                    <tr>
+                        <td>Winnings</td>
+                        <td class="text-end text-gold">{{ "{:,}".format(match.away_winnings) }}g</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Player Stats -->
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-people me-2"></i>{{ match.home_team.name }} Players
+            </div>
+            <div class="card-body p-0">
+                {% if home_stats %}
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th class="text-center">TD</th>
+                                <th class="text-center">CAS</th>
+                                <th class="text-center">COMP</th>
+                                <th class="text-center">INT</th>
+                                <th class="text-center">MVP</th>
+                                <th class="text-center">SPP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for stat in home_stats %}
+                            <tr>
+                                <td>
+                                    <a href="{{ url_for('teams.view_player', team_id=match.home_team.id, player_id=stat.player.id) }}" class="text-decoration-none text-light">
+                                        {{ stat.player.name }}
+                                    </a>
+                                    {% if stat.injury_result %}
+                                    <span class="badge bg-danger ms-1">{{ stat.injury_result | upper }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center {% if stat.touchdowns > 0 %}text-gold fw-bold{% endif %}">{{ stat.touchdowns }}</td>
+                                <td class="text-center {% if stat.casualties_inflicted > 0 %}text-danger{% endif %}">{{ stat.casualties_inflicted }}</td>
+                                <td class="text-center">{{ stat.completions }}</td>
+                                <td class="text-center">{{ stat.interceptions }}</td>
+                                <td class="text-center">{% if stat.is_mvp %}<i class="bi bi-star-fill text-gold"></i>{% endif %}</td>
+                                <td class="text-center text-gold">{{ stat.spp_earned }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4 text-muted">
+                    No player statistics recorded.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-people me-2"></i>{{ match.away_team.name }} Players
+            </div>
+            <div class="card-body p-0">
+                {% if away_stats %}
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Player</th>
+                                <th class="text-center">TD</th>
+                                <th class="text-center">CAS</th>
+                                <th class="text-center">COMP</th>
+                                <th class="text-center">INT</th>
+                                <th class="text-center">MVP</th>
+                                <th class="text-center">SPP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for stat in away_stats %}
+                            <tr>
+                                <td>
+                                    <a href="{{ url_for('teams.view_player', team_id=match.away_team.id, player_id=stat.player.id) }}" class="text-decoration-none text-light">
+                                        {{ stat.player.name }}
+                                    </a>
+                                    {% if stat.injury_result %}
+                                    <span class="badge bg-danger ms-1">{{ stat.injury_result | upper }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center {% if stat.touchdowns > 0 %}text-gold fw-bold{% endif %}">{{ stat.touchdowns }}</td>
+                                <td class="text-center {% if stat.casualties_inflicted > 0 %}text-danger{% endif %}">{{ stat.casualties_inflicted }}</td>
+                                <td class="text-center">{{ stat.completions }}</td>
+                                <td class="text-center">{{ stat.interceptions }}</td>
+                                <td class="text-center">{% if stat.is_mvp %}<i class="bi bi-star-fill text-gold"></i>{% endif %}</td>
+                                <td class="text-center text-gold">{{ stat.spp_earned }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4 text-muted">
+                    No player statistics recorded.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if match.notes %}
+<div class="card mt-4">
+    <div class="card-header">
+        <i class="bi bi-journal-text me-2"></i>Match Notes
+    </div>
+    <div class="card-body">
+        <p class="mb-0">{{ match.notes }}</p>
+    </div>
+</div>
+{% endif %}
+
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule - {{ league.name }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">Leagues</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=league.id) }}">{{ league.name }}</a></li>
+        <li class="breadcrumb-item active">Schedule</li>
+    </ol>
+</nav>
+
+<h1 class="mb-4"><i class="bi bi-calendar-event text-gold me-2"></i>{{ league.name }} - Schedule</h1>
+
+{% if matches_by_round %}
+{% for round_num, matches in matches_by_round.items() | sort %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="bi bi-{{ loop.index }} me-2"></i>Round {{ round_num }}
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Home</th>
+                        <th class="text-center">Score</th>
+                        <th>Away</th>
+                        <th class="text-center">Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in matches %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('teams.view', team_id=match.home_team.id) }}" class="text-decoration-none {% if match.is_completed and match.home_score > match.away_score %}text-gold fw-bold{% else %}text-light{% endif %}">
+                                {{ match.home_team.name }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            {% if match.is_completed %}
+                            <span class="badge bg-dark fs-6">{{ match.home_score }} - {{ match.away_score }}</span>
+                            {% else %}
+                            <span class="text-muted">vs</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('teams.view', team_id=match.away_team.id) }}" class="text-decoration-none {% if match.is_completed and match.away_score > match.home_score %}text-gold fw-bold{% else %}text-light{% endif %}">
+                                {{ match.away_team.name }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge {% if match.status == 'completed' %}bg-success{% elif match.status == 'scheduled' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                {{ match.status | capitalize }}
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-sm btn-outline-primary">
+                                {% if match.is_completed %}Details{% else %}View{% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% else %}
+<div class="card">
+    <div class="card-body text-center py-5">
+        <i class="bi bi-calendar-x display-1 text-muted mb-3"></i>
+        <h4>No schedule generated</h4>
+        <p class="text-muted">The league schedule hasn't been generated yet.</p>
+        <a href="{{ url_for('leagues.view', league_id=league.id) }}" class="btn btn-primary">
+            Back to League
+        </a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+

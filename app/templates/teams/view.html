@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}{{ team.name }} - Blood Bowl League Tracker{% endblock %}
+
+{% block content %}
+<!-- Team Header -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="d-flex align-items-center mb-3">
+                    <h1 class="text-gold mb-0 me-3">{{ team.name }}</h1>
+                    <span class="badge bg-secondary fs-6">{{ team.race.name }}</span>
+                </div>
+                <p class="text-muted mb-0">
+                    <i class="bi bi-person me-1"></i>Coach: <strong>{{ team.coach.get_display_name() }}</strong>
+                </p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                {% if is_owner %}
+                <a href="{{ url_for('teams.edit', team_id=team.id) }}" class="btn btn-outline-secondary me-2">
+                    <i class="bi bi-pencil me-1"></i>Edit
+                </a>
+                <a href="{{ url_for('teams.hire_player', team_id=team.id) }}" class="btn btn-primary">
+                    <i class="bi bi-person-plus me-1"></i>Hire Player
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Row -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-2">
+        <div class="stat-box">
+            <div class="stat-value">{{ "{:,}".format(team.current_tv) }}</div>
+            <div class="stat-label">Team Value</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-2">
+        <div class="stat-box">
+            <div class="stat-value">{{ "{:,}".format(team.treasury) }}</div>
+            <div class="stat-label">Treasury</div>
+        </div>
+    </div>
+    <div class="col-4 col-md-2">
+        <div class="stat-box">
+            <div class="stat-value text-success">{{ team.wins }}</div>
+            <div class="stat-label">Wins</div>
+        </div>
+    </div>
+    <div class="col-4 col-md-2">
+        <div class="stat-box">
+            <div class="stat-value text-muted">{{ team.draws }}</div>
+            <div class="stat-label">Draws</div>
+        </div>
+    </div>
+    <div class="col-4 col-md-2">
+        <div class="stat-box">
+            <div class="stat-value text-danger">{{ team.losses }}</div>
+            <div class="stat-label">Losses</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-2">
+        <div class="stat-box">
+            <div class="stat-value">{{ team.touchdowns_for }}</div>
+            <div class="stat-label">Touchdowns</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Roster -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-people me-2"></i>Roster ({{ players | length }}/16)</span>
+                {% if is_owner and players | length < 16 %}
+                <a href="{{ url_for('teams.hire_player', team_id=team.id) }}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-plus"></i> Hire
+                </a>
+                {% endif %}
+            </div>
+            <div class="card-body p-0">
+                {% if players %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th class="text-center">MA</th>
+                                <th class="text-center">ST</th>
+                                <th class="text-center">AG</th>
+                                <th class="text-center">PA</th>
+                                <th class="text-center">AV</th>
+                                <th class="text-center">SPP</th>
+                                <th class="text-center">TD</th>
+                                <th class="text-center">CAS</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for player in players %}
+                            <tr class="{% if player.miss_next_game %}table-warning{% endif %}{% if not player.is_active %}table-secondary{% endif %}">
+                                <td>{{ player.number or '-' }}</td>
+                                <td>
+                                    <a href="{{ url_for('teams.view_player', team_id=team.id, player_id=player.id) }}" class="text-gold text-decoration-none">
+                                        {{ player.name }}
+                                    </a>
+                                    {% if player.niggling_injuries > 0 %}
+                                    <span class="badge bg-warning text-dark ms-1" title="Niggling Injuries">
+                                        N{{ player.niggling_injuries }}
+                                    </span>
+                                    {% endif %}
+                                    {% if player.miss_next_game %}
+                                    <span class="badge bg-danger ms-1" title="Miss Next Game">MNG</span>
+                                    {% endif %}
+                                </td>
+                                <td><small class="text-muted">{{ player.position.name }}</small></td>
+                                <td class="text-center {% if player.movement != player.position.movement %}text-danger{% endif %}">
+                                    {{ player.movement }}
+                                </td>
+                                <td class="text-center {% if player.strength != player.position.strength %}{% if player.strength > player.position.strength %}text-success{% else %}text-danger{% endif %}{% endif %}">
+                                    {{ player.strength }}
+                                </td>
+                                <td class="text-center {% if player.agility != player.position.agility %}{% if player.agility > player.position.agility %}text-success{% else %}text-danger{% endif %}{% endif %}">
+                                    {{ player.agility }}+
+                                </td>
+                                <td class="text-center">{{ player.passing }}+{% if player.passing %} {% endif %}</td>
+                                <td class="text-center {% if player.armor != player.position.armor %}text-danger{% endif %}">
+                                    {{ player.armor }}+
+                                </td>
+                                <td class="text-center">
+                                    <span class="{% if player.check_level_up() %}text-gold fw-bold{% endif %}">
+                                        {{ player.spp }}
+                                    </span>
+                                </td>
+                                <td class="text-center">{{ player.touchdowns }}</td>
+                                <td class="text-center">{{ player.casualties_inflicted }}</td>
+                                <td class="text-end">
+                                    {% if is_owner %}
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{{ url_for('teams.edit_player', team_id=team.id, player_id=player.id) }}" class="btn btn-outline-secondary" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form action="{{ url_for('teams.fire_player', team_id=team.id, player_id=player.id) }}" method="POST" class="d-inline" onsubmit="return confirm('Fire {{ player.name }}?');">
+                                            <button type="submit" class="btn btn-outline-danger" title="Fire">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-person-x display-3 text-muted mb-3"></i>
+                    <p class="text-muted">No players on the roster yet.</p>
+                    {% if is_owner %}
+                    <a href="{{ url_for('teams.hire_player', team_id=team.id) }}" class="btn btn-primary">
+                        <i class="bi bi-person-plus me-1"></i>Hire Your First Player
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Team Assets & Info -->
+    <div class="col-lg-4">
+        <!-- Team Assets -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-box-seam me-2"></i>Team Assets
+            </div>
+            <div class="card-body">
+                <table class="table table-sm mb-0">
+                    <tr>
+                        <td>Re-Rolls</td>
+                        <td class="text-end text-gold fw-bold">{{ team.rerolls }}</td>
+                    </tr>
+                    <tr>
+                        <td>Assistant Coaches</td>
+                        <td class="text-end text-gold fw-bold">{{ team.assistant_coaches }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cheerleaders</td>
+                        <td class="text-end text-gold fw-bold">{{ team.cheerleaders }}</td>
+                    </tr>
+                    <tr>
+                        <td>Apothecary</td>
+                        <td class="text-end">
+                            {% if team.has_apothecary %}
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            {% else %}
+                            <i class="bi bi-x-circle-fill text-muted"></i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fan Factor</td>
+                        <td class="text-end text-gold fw-bold">{{ team.fan_factor }}</td>
+                    </tr>
+                </table>
+                
+                {% if is_owner %}
+                <hr>
+                <h6 class="text-gold mb-3">Purchase</h6>
+                <div class="d-grid gap-2">
+                    <form action="{{ url_for('teams.purchase', team_id=team.id) }}" method="POST" class="d-inline">
+                        <input type="hidden" name="item" value="reroll">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary w-100" {% if team.treasury < team.race.reroll_cost %}disabled{% endif %}>
+                            Re-Roll ({{ "{:,}".format(team.race.reroll_cost) }}g)
+                        </button>
+                    </form>
+                    <form action="{{ url_for('teams.purchase', team_id=team.id) }}" method="POST" class="d-inline">
+                        <input type="hidden" name="item" value="assistant_coach">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary w-100" {% if team.treasury < 10000 %}disabled{% endif %}>
+                            Asst. Coach (10,000g)
+                        </button>
+                    </form>
+                    <form action="{{ url_for('teams.purchase', team_id=team.id) }}" method="POST" class="d-inline">
+                        <input type="hidden" name="item" value="cheerleader">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary w-100" {% if team.treasury < 10000 %}disabled{% endif %}>
+                            Cheerleader (10,000g)
+                        </button>
+                    </form>
+                    {% if team.race.apothecary_allowed and not team.has_apothecary %}
+                    <form action="{{ url_for('teams.purchase', team_id=team.id) }}" method="POST" class="d-inline">
+                        <input type="hidden" name="item" value="apothecary">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary w-100" {% if team.treasury < 50000 %}disabled{% endif %}>
+                            Apothecary (50,000g)
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Match Statistics -->
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-bar-chart me-2"></i>Statistics
+            </div>
+            <div class="card-body">
+                <table class="table table-sm mb-0">
+                    <tr>
+                        <td>Games Played</td>
+                        <td class="text-end fw-bold">{{ team.games_played }}</td>
+                    </tr>
+                    <tr>
+                        <td>Touchdowns For</td>
+                        <td class="text-end fw-bold text-success">{{ team.touchdowns_for }}</td>
+                    </tr>
+                    <tr>
+                        <td>Touchdowns Against</td>
+                        <td class="text-end fw-bold text-danger">{{ team.touchdowns_against }}</td>
+                    </tr>
+                    <tr>
+                        <td>TD Difference</td>
+                        <td class="text-end fw-bold {% if team.touchdowns_for > team.touchdowns_against %}text-success{% elif team.touchdowns_for < team.touchdowns_against %}text-danger{% endif %}">
+                            {{ team.touchdowns_for - team.touchdowns_against }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Casualties Inflicted</td>
+                        <td class="text-end fw-bold">{{ team.casualties_inflicted }}</td>
+                    </tr>
+                    <tr>
+                        <td>Casualties Suffered</td>
+                        <td class="text-end fw-bold">{{ team.casualties_suffered }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
