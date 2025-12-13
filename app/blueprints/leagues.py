@@ -168,6 +168,32 @@ def edit(league_id: int):
     return render_template("leagues/edit.html", form=form, league=league)
 
 
+@leagues_bp.route("/<int:league_id>/delete", methods=["POST"])
+@login_required
+def delete(league_id: int):
+    """Delete a league (admin only)."""
+    if not current_user.is_admin:
+        abort(403)
+    
+    league = League.query.get_or_404(league_id)
+    league_name = league.name
+    
+    # Get language for flash messages
+    from flask import session
+    lang = session.get('language', 'en')
+    
+    # Delete the league (cascade will handle teams, matches, etc.)
+    db.session.delete(league)
+    db.session.commit()
+    
+    if lang == 'es':
+        flash(f"Liga '{league_name}' eliminada correctamente.", "success")
+    else:
+        flash(f"League '{league_name}' deleted successfully.", "success")
+    
+    return redirect(url_for("leagues.index"))
+
+
 @leagues_bp.route("/<int:league_id>/join", methods=["POST"])
 @login_required
 def join(league_id: int):

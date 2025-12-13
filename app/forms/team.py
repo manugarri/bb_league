@@ -15,6 +15,11 @@ class CreateTeamForm(FlaskForm):
         coerce=int,
         validators=[DataRequired()]
     )
+    treasury = IntegerField(
+        "Treasury",
+        validators=[Optional(), NumberRange(min=0, max=10000000)],
+        default=1000000
+    )
 
 
 class EditTeamForm(FlaskForm):
@@ -22,6 +27,10 @@ class EditTeamForm(FlaskForm):
     name = StringField(
         "Team Name",
         validators=[DataRequired(), Length(min=3, max=64)]
+    )
+    treasury = IntegerField(
+        "Treasury",
+        validators=[Optional(), NumberRange(min=0, max=10000000)]
     )
 
 

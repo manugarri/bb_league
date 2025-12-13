@@ -105,9 +105,9 @@ class Team(db.Model):
     players = db.relationship("Player", backref="team", lazy="dynamic", cascade="all, delete-orphan")
     staff = db.relationship("TeamStaff", backref="team", lazy="dynamic", cascade="all, delete-orphan")
     star_players = db.relationship("StarPlayer", secondary=team_star_players, backref=db.backref("teams", lazy="dynamic"))
-    league_entries = db.relationship("LeagueTeam", backref="team", lazy="dynamic")
-    home_matches = db.relationship("Match", foreign_keys="Match.home_team_id", backref="home_team", lazy="dynamic")
-    away_matches = db.relationship("Match", foreign_keys="Match.away_team_id", backref="away_team", lazy="dynamic")
+    league_entries = db.relationship("LeagueTeam", backref="team", lazy="dynamic", cascade="all, delete-orphan")
+    home_matches = db.relationship("Match", foreign_keys="Match.home_team_id", backref="home_team", lazy="dynamic", cascade="all, delete-orphan")
+    away_matches = db.relationship("Match", foreign_keys="Match.away_team_id", backref="away_team", lazy="dynamic", cascade="all, delete-orphan")
     
     def __repr__(self) -> str:
         return f"<Team {self.name}>"

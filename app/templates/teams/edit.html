@@ -35,6 +35,18 @@
                         <div class="form-text">Race cannot be changed after team creation.</div>
                     </div>
                     
+                    <div class="mb-4">
+                        {{ form.treasury.label(class="form-label") }}
+                        <div class="input-group">
+                            {{ form.treasury(class="form-control") }}
+                            <span class="input-group-text">gold</span>
+                        </div>
+                        {% for error in form.treasury.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                        <div class="form-text">Available gold in the team's treasury.</div>
+                    </div>
+                    
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-check-lg me-1"></i>Save Changes
@@ -44,6 +56,27 @@
                 </form>
             </div>
         </div>
+        
+        {% if current_user.is_admin %}
+        <!-- Admin: Delete Team -->
+        <div class="card mt-4 border-danger">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-exclamation-triangle me-2"></i>Danger Zone
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-3">
+                    Deleting a team is permanent and cannot be undone. All players, statistics, and match history associated with this team will be removed.
+                </p>
+                <form action="{{ url_for('teams.delete', team_id=team.id) }}" method="POST" 
+                      onsubmit="return confirm('Are you sure you want to delete this team? This action cannot be undone.');">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Delete Team
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

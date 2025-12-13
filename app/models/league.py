@@ -44,7 +44,7 @@ class League(db.Model):
     # Relationships
     seasons = db.relationship("Season", backref="league", lazy="dynamic", cascade="all, delete-orphan")
     teams = db.relationship("LeagueTeam", backref="league", lazy="dynamic", cascade="all, delete-orphan")
-    matches = db.relationship("Match", backref="league", lazy="dynamic")
+    matches = db.relationship("Match", backref="league", lazy="dynamic", cascade="all, delete-orphan")
     
     def __repr__(self) -> str:
         return f"<League {self.name}>"

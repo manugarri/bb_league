@@ -44,11 +44,12 @@ def create():
     form.race_id.choices = [(r.id, r.name) for r in Race.query.order_by(Race.name).all()]
     
     if form.validate_on_submit():
+        treasury = form.treasury.data if form.treasury.data is not None else 1000000
         team = Team(
             name=form.name.data,
             coach_id=current_user.id,
             race_id=form.race_id.data,
-            treasury=1000000
+            treasury=treasury
         )
         db.session.add(team)
         db.session.commit()
@@ -107,11 +108,38 @@ def edit(team_id: int):
     
     if form.validate_on_submit():
         team.name = form.name.data
+        if form.treasury.data is not None:
+            team.treasury = form.treasury.data
         db.session.commit()
         flash("Team updated successfully.", "success")
         return redirect(url_for("teams.view", team_id=team.id))
     
     return render_template("teams/edit.html", form=form, team=team)
+
+
+@teams_bp.route("/<int:team_id>/delete", methods=["POST"])
+@login_required
+def delete(team_id: int):
+    """Delete a team (admin only)."""
+    if not current_user.is_admin:
+        abort(403)
+    
+    team = Team.query.get_or_404(team_id)
+    team_name = team.name
+    
+    # Get language for flash messages
+    lang = session.get('language', 'en')
+    
+    # Delete the team (cascade will handle players, etc.)
+    db.session.delete(team)
+    db.session.commit()
+    
+    if lang == 'es':
+        flash(f"Equipo '{team_name}' eliminado correctamente.", "success")
+    else:
+        flash(f"Team '{team_name}' deleted successfully.", "success")
+    
+    return redirect(url_for("teams.index"))
 
 
 @teams_bp.route("/<int:team_id>/hire", methods=["GET", "POST"])

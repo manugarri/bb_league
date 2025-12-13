@@ -30,6 +30,18 @@
                         {% endfor %}
                     </div>
                     
+                    <div class="mb-4">
+                        {{ form.treasury.label(class="form-label") }}
+                        <div class="input-group">
+                            {{ form.treasury(class="form-control form-control-lg", placeholder="1000000") }}
+                            <span class="input-group-text">{% if get_locale() == 'es' %}oro{% else %}gold{% endif %}</span>
+                        </div>
+                        {% for error in form.treasury.errors %}
+                        <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                        <div class="form-text">{% if get_locale() == 'es' %}Oro inicial disponible para el equipo (por defecto: 1,000,000){% else %}Starting gold available for the team (default: 1,000,000){% endif %}</div>
+                    </div>
+                    
                     <!-- Race Info Cards -->
                     <div id="race-info" class="mb-4">
                         <h5 class="text-gold mb-3"><i class="bi bi-info-circle me-2"></i>{% if get_locale() == 'es' %}Selecciona una Raza para Ver Detalles{% else %}Select a Race to See Details{% endif %}</h5>
