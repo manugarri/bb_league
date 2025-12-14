@@ -44,8 +44,58 @@
                         {% for error in form.treasury.errors %}
                         <div class="text-danger small">{{ error }}</div>
                         {% endfor %}
-                        <div class="form-text">Available gold in the team's treasury.</div>
+                        <div class="form-text">{% if get_locale() == 'es' %}Oro disponible en la tesorería del equipo.{% else %}Available gold in the team's treasury.{% endif %}</div>
                     </div>
+                    
+                    <!-- Team Assets Section -->
+                    <h5 class="text-gold mb-3 mt-4"><i class="bi bi-box-seam me-2"></i>{% if get_locale() == 'es' %}Recursos del Equipo{% else %}Team Assets{% endif %}</h5>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            {{ form.rerolls.label(class="form-label") }}
+                            {{ form.rerolls(class="form-control") }}
+                            {% for error in form.rerolls.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                            <div class="form-text">{% if get_locale() == 'es' %}Coste: {{ "{:,}".format(team.race.reroll_cost) }}g cada uno{% else %}Cost: {{ "{:,}".format(team.race.reroll_cost) }}g each{% endif %}</div>
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.fan_factor.label(class="form-label") }}
+                            {{ form.fan_factor(class="form-control") }}
+                            {% for error in form.fan_factor.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            {{ form.assistant_coaches.label(class="form-label") }}
+                            {{ form.assistant_coaches(class="form-control") }}
+                            {% for error in form.assistant_coaches.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                            <div class="form-text">{% if get_locale() == 'es' %}Coste: 10,000g cada uno{% else %}Cost: 10,000g each{% endif %}</div>
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.cheerleaders.label(class="form-label") }}
+                            {{ form.cheerleaders(class="form-control") }}
+                            {% for error in form.cheerleaders.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                            <div class="form-text">{% if get_locale() == 'es' %}Coste: 10,000g cada una{% else %}Cost: 10,000g each{% endif %}</div>
+                        </div>
+                    </div>
+                    
+                    {% if team.race.apothecary_allowed %}
+                    <div class="mb-4">
+                        <div class="form-check">
+                            {{ form.has_apothecary(class="form-check-input") }}
+                            {{ form.has_apothecary.label(class="form-check-label") }}
+                        </div>
+                        <div class="form-text">{% if get_locale() == 'es' %}Coste: 50,000g{% else %}Cost: 50,000g{% endif %}</div>
+                    </div>
+                    {% endif %}
                     
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">

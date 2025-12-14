@@ -1,3 +1,4 @@
+ignore_this.txt
 # Python
 __pycache__/
 *.py[cod]

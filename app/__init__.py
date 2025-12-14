@@ -32,6 +32,7 @@ def create_app(config_name: str = "development") -> Flask:
     from app.blueprints.teams import teams_bp
     from app.blueprints.leagues import leagues_bp
     from app.blueprints.matches import matches_bp
+    from app.blueprints.bets import bets_bp
     from app.blueprints.api import api_bp
     
     app.register_blueprint(main_bp)
@@ -39,6 +40,7 @@ def create_app(config_name: str = "development") -> Flask:
     app.register_blueprint(teams_bp, url_prefix="/teams")
     app.register_blueprint(leagues_bp, url_prefix="/leagues")
     app.register_blueprint(matches_bp, url_prefix="/matches")
+    app.register_blueprint(bets_bp, url_prefix="/bets")
     app.register_blueprint(api_bp, url_prefix="/api")
     
     # Register error handlers

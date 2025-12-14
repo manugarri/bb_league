@@ -23,7 +23,7 @@ class Config:
     
     # Babel / i18n Configuration
     LANGUAGES = ['en', 'es']
-    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_LOCALE = 'es'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 

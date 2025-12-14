@@ -61,13 +61,50 @@
             </div>
         </div>
         
-        {% if can_record %}
         <div class="text-center mt-4">
-            <a href="{{ url_for('matches.record', match_id=match.id) }}" class="btn btn-primary btn-lg">
-                <i class="bi bi-pencil-square me-2"></i>Record Result
+            {% if can_record %}
+            <a href="{{ url_for('matches.record', match_id=match.id) }}" class="btn btn-primary btn-lg me-2">
+                <i class="bi bi-pencil-square me-2"></i>{% if get_locale() == 'es' %}Registrar Resultado{% else %}Record Result{% endif %}
             </a>
+            {% endif %}
+            
+            {% if not match.is_completed %}
+            {% set user_team_ids = current_user.teams | map(attribute='id') | list %}
+            {% if match.home_team_id not in user_team_ids and match.away_team_id not in user_team_ids %}
+            {% set existing_bet = current_user.bets.filter_by(match_id=match.id).first() %}
+            {% if existing_bet %}
+            <a href="{{ url_for('bets.view_bet', bet_id=existing_bet.id) }}" class="btn btn-outline-secondary btn-lg">
+                <i class="bi bi-cash-coin me-2"></i>{% if get_locale() == 'es' %}Ver Apuesta{% else %}View Bet{% endif %}
+            </a>
+            {% else %}
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-cash-coin me-2"></i>{% if get_locale() == 'es' %}Apostar{% else %}Place Bet{% endif %}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li>
+                        <a class="dropdown-item" href="{{ url_for('bets.place_bet', match_id=match.id) }}">
+                            <i class="bi bi-cash-stack me-2 text-warning"></i>
+                            {% if get_locale() == 'es' %}Apuesta Estándar{% else %}Standard Bet{% endif %}
+                            <br>
+                            <small class="text-muted">{% if get_locale() == 'es' %}Multiplicadores fijos (2x, 5x, 7x){% else %}Fixed multipliers (2x, 5x, 7x){% endif %}</small>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ url_for('bets.ai_bet_match', match_id=match.id) }}">
+                            <i class="bi bi-robot me-2 text-primary"></i>
+                            {% if get_locale() == 'es' %}Apuesta IA{% else %}AI Bet{% endif %}
+                            <br>
+                            <small class="text-muted">{% if get_locale() == 'es' %}Multiplicador calculado por IA{% else %}AI-calculated multiplier{% endif %}</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 </div>
 
@@ -236,6 +273,30 @@
         <p class="mb-0">{{ match.notes }}</p>
     </div>
 </div>
+{% endif %}
+
+<!-- Pending AI Bets Alert (for match recorders) -->
+{% set pending_ai_bets = match.bets.filter_by(bet_type='ai_custom', status='pending').count() %}
+{% if pending_ai_bets > 0 %}
+{% set is_home_coach = current_user.id == match.home_team.coach_id %}
+{% set is_away_coach = current_user.id == match.away_team.coach_id %}
+{% set is_commissioner = match.league and current_user.id == match.league.commissioner_id %}
+{% if is_home_coach or is_away_coach or is_commissioner or current_user.is_admin %}
+<div class="alert alert-warning mt-4 d-flex justify-content-between align-items-center">
+    <div>
+        <i class="bi bi-robot me-2"></i>
+        {% if get_locale() == 'es' %}
+        <strong>{{ pending_ai_bets }}</strong> apuesta(s) IA pendiente(s) de confirmación.
+        {% else %}
+        <strong>{{ pending_ai_bets }}</strong> AI bet(s) pending confirmation.
+        {% endif %}
+    </div>
+    <a href="{{ url_for('matches.confirm_ai_bets', match_id=match.id) }}" class="btn btn-warning">
+        <i class="bi bi-check-circle me-2"></i>
+        {% if get_locale() == 'es' %}Confirmar Apuestas{% else %}Confirm Bets{% endif %}
+    </a>
+</div>
+{% endif %}
 {% endif %}
 
 {% endif %}

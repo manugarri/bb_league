@@ -1,10 +1,11 @@
 """Matches blueprint."""
 from datetime import datetime
-from flask import Blueprint, render_template, redirect, url_for, flash, request, abort
+from flask import Blueprint, render_template, redirect, url_for, flash, request, abort, session
 from flask_login import login_required, current_user
 from app.extensions import db
 from app.models import Match, MatchPlayerStats, Player, Standing, Team
 from app.forms.match import RecordMatchForm, MatchPlayerStatsForm
+from app.blueprints.bets import resolve_match_bets, get_pending_ai_bets, resolve_ai_bet
 
 matches_bp = Blueprint("matches", __name__)
 
@@ -107,7 +108,19 @@ def record(match_id: int):
         
         db.session.commit()
         
-        flash("Match result recorded successfully!", "success")
+        # Resolve any bets on this match
+        bets_resolved = resolve_match_bets(match)
+        
+        lang = session.get('language', 'en')
+        if lang == 'es':
+            flash("¡Resultado del partido registrado!", "success")
+            if bets_resolved > 0:
+                flash(f"Se resolvieron {bets_resolved} apuesta(s).", "info")
+        else:
+            flash("Match result recorded successfully!", "success")
+            if bets_resolved > 0:
+                flash(f"{bets_resolved} bet(s) have been resolved.", "info")
+        
         return redirect(url_for("matches.player_stats", match_id=match.id))
     
     return render_template(
@@ -189,7 +202,21 @@ def player_stats(match_id: int):
         match.away_team.calculate_tv()
         db.session.commit()
         
-        flash("Player statistics recorded!", "success")
+        lang = session.get('language', 'en')
+        
+        # Check if there are any pending AI bets that need manual confirmation
+        pending_ai_bets = get_pending_ai_bets(match)
+        if pending_ai_bets:
+            if lang == 'es':
+                flash(f"Estadísticas de jugadores registradas. Hay {len(pending_ai_bets)} apuesta(s) IA que requieren confirmación.", "info")
+            else:
+                flash(f"Player statistics recorded! There are {len(pending_ai_bets)} AI bet(s) that need confirmation.", "info")
+            return redirect(url_for("matches.confirm_ai_bets", match_id=match.id))
+        
+        if lang == 'es':
+            flash("¡Estadísticas de jugadores registradas!", "success")
+        else:
+            flash("Player statistics recorded!", "success")
         return redirect(url_for("matches.view", match_id=match.id))
     
     # Get existing stats
@@ -203,6 +230,87 @@ def player_stats(match_id: int):
         home_players=home_players,
         away_players=away_players,
         existing_stats=existing_stats
+    )
+
+
+@matches_bp.route("/<int:match_id>/confirm-ai-bets", methods=["GET", "POST"])
+@login_required
+def confirm_ai_bets(match_id: int):
+    """Confirm AI bet outcomes after match result is recorded."""
+    match = Match.query.get_or_404(match_id)
+    lang = session.get('language', 'en')
+    
+    # Check permission - same as record
+    is_home_coach = current_user.id == match.home_team.coach_id
+    is_away_coach = current_user.id == match.away_team.coach_id
+    is_commissioner = match.league and current_user.id == match.league.commissioner_id
+    
+    if not (is_home_coach or is_away_coach or is_commissioner or current_user.is_admin):
+        abort(403)
+    
+    # Get pending AI bets for this match
+    pending_ai_bets = get_pending_ai_bets(match)
+    
+    if not pending_ai_bets:
+        if lang == 'es':
+            flash("No hay apuestas IA pendientes para este partido.", "info")
+        else:
+            flash("No pending AI bets for this match.", "info")
+        return redirect(url_for("matches.view", match_id=match.id))
+    
+    if request.method == "POST":
+        resolved_count = 0
+        
+        for bet in pending_ai_bets:
+            # Get the confirmation value from form
+            bet_result = request.form.get(f"bet_{bet.id}")
+            
+            if bet_result == "won":
+                resolve_ai_bet(bet, is_won=True, lang=lang)
+                resolved_count += 1
+            elif bet_result == "lost":
+                resolve_ai_bet(bet, is_won=False, lang=lang)
+                resolved_count += 1
+        
+        db.session.commit()
+        
+        if lang == 'es':
+            flash(f"Se resolvieron {resolved_count} apuesta(s) IA.", "success")
+        else:
+            flash(f"{resolved_count} AI bet(s) have been resolved.", "success")
+        
+        return redirect(url_for("matches.view", match_id=match.id))
+    
+    # Prepare bet data for display
+    ai_bets_data = []
+    for bet in pending_ai_bets:
+        # Extract bet description from rationale
+        bet_description = ""
+        if bet.ai_rationale and "Bet:" in bet.ai_rationale:
+            parts = bet.ai_rationale.split("Bet:")
+            if len(parts) > 1:
+                bet_description = parts[1].split("Analysis:")[0].strip()
+        
+        # Extract analysis from rationale
+        analysis = ""
+        if bet.ai_rationale and "Analysis:" in bet.ai_rationale:
+            analysis = bet.ai_rationale.split("Analysis:")[1].strip()
+        
+        ai_bets_data.append({
+            "bet": bet,
+            "description": bet_description or "Custom AI bet",
+            "analysis": analysis,
+            "multiplier": bet.ai_multiplier or bet.multiplier,
+            "amount": bet.amount,
+            "potential_payout": int(bet.amount * (bet.ai_multiplier or bet.multiplier or 2)),
+            "user": bet.user,
+            "confidence": bet.ai_confidence
+        })
+    
+    return render_template(
+        "matches/confirm_ai_bets.html",
+        match=match,
+        ai_bets=ai_bets_data
     )
 
 

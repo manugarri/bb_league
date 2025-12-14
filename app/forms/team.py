@@ -1,6 +1,6 @@
 """Team forms."""
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, IntegerField
+from wtforms import StringField, SelectField, IntegerField, BooleanField
 from wtforms.validators import DataRequired, Length, NumberRange, Optional
 
 
@@ -31,6 +31,24 @@ class EditTeamForm(FlaskForm):
     treasury = IntegerField(
         "Treasury",
         validators=[Optional(), NumberRange(min=0, max=10000000)]
+    )
+    # Team assets
+    rerolls = IntegerField(
+        "Rerolls",
+        validators=[Optional(), NumberRange(min=0, max=8)]
+    )
+    assistant_coaches = IntegerField(
+        "Assistant Coaches",
+        validators=[Optional(), NumberRange(min=0, max=6)]
+    )
+    cheerleaders = IntegerField(
+        "Cheerleaders",
+        validators=[Optional(), NumberRange(min=0, max=12)]
+    )
+    has_apothecary = BooleanField("Apothecary")
+    fan_factor = IntegerField(
+        "Fan Factor",
+        validators=[Optional(), NumberRange(min=0, max=20)]
     )
 
 

@@ -2,6 +2,23 @@
 
 {% block title %}{{ team.name }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
+{% block extra_css %}
+<style>
+.skill-more-badge {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.skill-more-badge:hover {
+    background-color: var(--bb-gold) !important;
+    color: var(--bb-darker) !important;
+    transform: scale(1.1);
+}
+.popover-body .badge {
+    display: inline-block;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <!-- Team Header -->
 <div class="card mb-4">
@@ -144,7 +161,15 @@
                                         <span class="badge bg-secondary">{{ tr_skill(skill) }}</span>
                                         {% endfor %}
                                         {% if skills | length > 3 %}
-                                        <span class="badge bg-dark" title="{{ skills[3:] | join(', ') }}">+{{ skills | length - 3 }}</span>
+                                        <span class="badge bg-dark skill-more-badge" 
+                                              role="button"
+                                              data-bs-toggle="popover" 
+                                              data-bs-trigger="click"
+                                              data-bs-html="true"
+                                              data-bs-title="{% if get_locale() == 'es' %}Todas las Habilidades{% else %}All Skills{% endif %}"
+                                              data-bs-content="{% for skill in skills %}<span class='badge bg-secondary me-1 mb-1'>{{ tr_skill(skill) }}</span>{% endfor %}">
+                                            +{{ skills | length - 3 }}
+                                        </span>
                                         {% endif %}
                                     {% else %}
                                     <span class="text-muted">-</span>
@@ -349,4 +374,31 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Initialize Bootstrap popovers for skill badges
+document.addEventListener('DOMContentLoaded', function() {
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl, {
+            container: 'body',
+            placement: 'top'
+        });
+    });
+    
+    // Close popover when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.classList.contains('skill-more-badge')) {
+            popoverTriggerList.forEach(function(popover) {
+                var instance = bootstrap.Popover.getInstance(popover);
+                if (instance) {
+                    instance.hide();
+                }
+            });
+        }
+    });
+});
+</script>
 {% endblock %}

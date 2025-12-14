@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}{% if get_locale() == 'es' %}Mis Apuestas{% else %}My Bets{% endif %} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-gold mb-0">
+        <i class="bi bi-cash-coin me-2"></i>{% if get_locale() == 'es' %}Mis Apuestas{% else %}My Bets{% endif %}
+    </h1>
+    <div>
+        <a href="{{ url_for('bets.ai_bet_index') }}" class="btn btn-primary me-2">
+            <i class="bi bi-robot me-1"></i>{% if get_locale() == 'es' %}Apuesta IA{% else %}AI Bet{% endif %}
+        </a>
+        <a href="{{ url_for('bets.notifications') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-bell me-1"></i>{% if get_locale() == 'es' %}Notificaciones{% else %}Notifications{% endif %}
+            {% set unread_count = current_user.bet_notifications.filter_by(is_read=False).count() %}
+            {% if unread_count > 0 %}
+            <span class="badge bg-danger">{{ unread_count }}</span>
+            {% endif %}
+        </a>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="stat-box">
+            <div class="stat-value text-success">{{ "{:,}".format(total_won) }}g</div>
+            <div class="stat-label">{% if get_locale() == 'es' %}Total Ganado{% else %}Total Won{% endif %}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-box">
+            <div class="stat-value text-danger">{{ "{:,}".format(total_lost) }}g</div>
+            <div class="stat-label">{% if get_locale() == 'es' %}Total Perdido{% else %}Total Lost{% endif %}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-box">
+            <div class="stat-value">{{ "{:,}".format(total_won - total_lost) }}g</div>
+            <div class="stat-label">{% if get_locale() == 'es' %}Balance Neto{% else %}Net Balance{% endif %}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-box">
+            <div class="stat-value text-warning">{{ "{:,}".format(total_pending) }}g</div>
+            <div class="stat-label">{% if get_locale() == 'es' %}En Juego{% else %}At Stake{% endif %}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Pending Bets -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-hourglass-split me-2"></i>{% if get_locale() == 'es' %}Apuestas Pendientes{% else %}Pending Bets{% endif %}
+                <span class="badge bg-warning text-dark ms-2">{{ pending_bets | length }}</span>
+            </div>
+            <div class="card-body p-0">
+                {% if pending_bets %}
+                <div class="list-group list-group-flush">
+                    {% for bet in pending_bets %}
+                    <a href="{{ url_for('bets.view_bet', bet_id=bet.id) }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1">
+                                    {% if bet.bet_type == 'ai_custom' %}
+                                    <i class="bi bi-robot text-primary me-1" title="AI Bet"></i>
+                                    {% endif %}
+                                    {{ bet.match.home_team.name }} vs {{ bet.match.away_team.name }}
+                                </h6>
+                                <small class="text-muted">
+                                    {% if bet.bet_type == 'ai_custom' and bet.ai_rationale and 'Bet:' in bet.ai_rationale %}
+                                    {{ bet.ai_rationale.split('Bet:')[1].split('Analysis:')[0].strip()[:50] }}{% if bet.ai_rationale.split('Bet:')[1].split('Analysis:')[0].strip()|length > 50 %}...{% endif %}
+                                    {% else %}
+                                    {{ bet.get_bet_description(get_locale()) }}
+                                    {% endif %}
+                                </small>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-warning text-dark">{{ "{:,}".format(bet.amount) }}g</span>
+                                {% if bet.bet_type == 'ai_custom' %}
+                                <span class="badge bg-primary">{{ "%.2f"|format(bet.multiplier) }}x</span>
+                                {% endif %}
+                                <br>
+                                <small class="text-muted">{% if get_locale() == 'es' %}Potencial{% else %}Potential{% endif %}: {{ "{:,}".format(bet.potential_payout) }}g</small>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-cash-stack display-3 text-muted mb-3"></i>
+                    <p class="text-muted">{% if get_locale() == 'es' %}No tienes apuestas pendientes.{% else %}No pending bets.{% endif %}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Resolved Bets -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-check-circle me-2"></i>{% if get_locale() == 'es' %}Apuestas Resueltas{% else %}Resolved Bets{% endif %}
+                <span class="badge bg-secondary ms-2">{{ resolved_bets | length }}</span>
+            </div>
+            <div class="card-body p-0">
+                {% if resolved_bets %}
+                <div class="list-group list-group-flush">
+                    {% for bet in resolved_bets[:10] %}
+                    <a href="{{ url_for('bets.view_bet', bet_id=bet.id) }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1">
+                                    {% if bet.status == 'won' %}
+                                    <i class="bi bi-trophy-fill text-success me-1"></i>
+                                    {% else %}
+                                    <i class="bi bi-x-circle text-danger me-1"></i>
+                                    {% endif %}
+                                    {% if bet.bet_type == 'ai_custom' %}
+                                    <i class="bi bi-robot text-primary me-1" title="AI Bet"></i>
+                                    {% endif %}
+                                    {{ bet.match.home_team.name }} {{ bet.match.home_score }} - {{ bet.match.away_score }} {{ bet.match.away_team.name }}
+                                </h6>
+                                <small class="text-muted">
+                                    {% if bet.bet_type == 'ai_custom' and bet.ai_rationale and 'Bet:' in bet.ai_rationale %}
+                                    {{ bet.ai_rationale.split('Bet:')[1].split('Analysis:')[0].strip()[:50] }}{% if bet.ai_rationale.split('Bet:')[1].split('Analysis:')[0].strip()|length > 50 %}...{% endif %}
+                                    {% else %}
+                                    {{ bet.get_bet_description(get_locale()) }}
+                                    {% endif %}
+                                </small>
+                            </div>
+                            <div class="text-end">
+                                {% if bet.status == 'won' %}
+                                <span class="badge bg-success">+{{ "{:,}".format(bet.payout) }}g</span>
+                                {% else %}
+                                <span class="badge bg-danger">-{{ "{:,}".format(bet.amount) }}g</span>
+                                {% endif %}
+                                {% if bet.bet_type == 'ai_custom' %}
+                                <br><span class="badge bg-primary small">{{ "%.2f"|format(bet.multiplier) }}x</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% if resolved_bets | length > 10 %}
+                <div class="text-center py-2">
+                    <small class="text-muted">{% if get_locale() == 'es' %}Mostrando las 10 más recientes{% else %}Showing 10 most recent{% endif %}</small>
+                </div>
+                {% endif %}
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-clock-history display-3 text-muted mb-3"></i>
+                    <p class="text-muted">{% if get_locale() == 'es' %}Aún no hay apuestas resueltas.{% else %}No resolved bets yet.{% endif %}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -3,9 +3,39 @@
 {% block title %}{{ _('Dashboard') }} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
 
 {% block content %}
+<!-- Bet Notifications Alert -->
+{% set unread_notifications = current_user.bet_notifications.filter_by(is_read=False).all() %}
+{% if unread_notifications %}
+<div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
+    <h5 class="alert-heading"><i class="bi bi-bell-fill me-2"></i>{% if get_locale() == 'es' %}Notificaciones de Apuestas{% else %}Bet Notifications{% endif %}</h5>
+    {% for notification in unread_notifications[:3] %}
+    <p class="mb-1">{{ notification.get_message(get_locale()) }}</p>
+    {% endfor %}
+    {% if unread_notifications | length > 3 %}
+    <p class="mb-0 text-muted">{% if get_locale() == 'es' %}...y {{ unread_notifications | length - 3 }} más{% else %}...and {{ unread_notifications | length - 3 }} more{% endif %}</p>
+    {% endif %}
+    <hr>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('bets.notifications') }}" class="btn btn-sm btn-info">
+            <i class="bi bi-eye me-1"></i>{% if get_locale() == 'es' %}Ver Todas{% else %}View All{% endif %}
+        </a>
+        <form action="{{ url_for('bets.mark_all_notifications_read') }}" method="POST" class="d-inline">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-sm btn-outline-info">
+                <i class="bi bi-check-all me-1"></i>{% if get_locale() == 'es' %}Marcar Leídas{% else %}Mark as Read{% endif %}
+            </button>
+        </form>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endif %}
+
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1><i class="bi bi-speedometer2 text-gold me-2"></i>{{ _('Dashboard') }}</h1>
     <div>
+        <a href="{{ url_for('bets.index') }}" class="btn btn-outline-secondary me-2">
+            <i class="bi bi-cash-coin me-1"></i>{% if get_locale() == 'es' %}Mis Apuestas{% else %}My Bets{% endif %}
+        </a>
         <a href="{{ url_for('teams.create') }}" class="btn btn-primary me-2">
             <i class="bi bi-plus-circle me-1"></i>{{ _('Create Team') }}
         </a>

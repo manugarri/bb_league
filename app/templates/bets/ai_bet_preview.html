@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}{% if get_locale() == 'es' %}Confirmar Apuesta IA{% else %}Confirm AI Bet{% endif %} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-gold mb-0">
+        <i class="bi bi-robot me-2"></i>{% if get_locale() == 'es' %}Análisis de Apuesta IA{% else %}AI Bet Analysis{% endif %}
+    </h1>
+    <a href="{{ url_for('bets.ai_bet_index') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>{% if get_locale() == 'es' %}Volver{% else %}Back{% endif %}
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Match Info -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-trophy me-2"></i>
+                {% if get_locale() == 'es' %}Partido{% else %}Match{% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-5 text-center">
+                        <h4 class="text-gold mb-1">{{ match.home_team.name }}</h4>
+                        <small class="text-muted">{{ match.home_team.race.name }}</small>
+                    </div>
+                    <div class="col-2 text-center">
+                        <span class="display-6 text-muted">VS</span>
+                    </div>
+                    <div class="col-5 text-center">
+                        <h4 class="text-gold mb-1">{{ match.away_team.name }}</h4>
+                        <small class="text-muted">{{ match.away_team.race.name }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Your Bet -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-chat-quote me-2"></i>
+                {% if get_locale() == 'es' %}Tu Apuesta{% else %}Your Bet{% endif %}
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p class="lead">"{{ bet_description }}"</p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- AI Analysis -->
+        <div class="card mb-4 border-primary">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-stars me-2"></i>
+                {% if get_locale() == 'es' %}Análisis de la IA{% else %}AI Analysis{% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row g-4">
+                    <!-- Multiplier -->
+                    <div class="col-md-4 text-center">
+                        <div class="display-3 text-gold fw-bold">{{ "%.2f"|format(multiplier) }}x</div>
+                        <div class="text-muted">{% if get_locale() == 'es' %}Multiplicador{% else %}Multiplier{% endif %}</div>
+                    </div>
+                    
+                    <!-- Confidence -->
+                    <div class="col-md-4 text-center">
+                        <div class="display-3 
+                            {% if confidence >= 0.7 %}text-success
+                            {% elif confidence >= 0.4 %}text-warning
+                            {% else %}text-danger{% endif %}">
+                            {{ "%.0f"|format(confidence * 100) }}%
+                        </div>
+                        <div class="text-muted">{% if get_locale() == 'es' %}Confianza{% else %}Confidence{% endif %}</div>
+                    </div>
+                    
+                    <!-- Potential Payout -->
+                    <div class="col-md-4 text-center">
+                        <div class="display-4 text-success fw-bold">{{ "{:,}".format(potential_payout) }}g</div>
+                        <div class="text-muted">{% if get_locale() == 'es' %}Ganancia Potencial{% else %}Potential Win{% endif %}</div>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <!-- Rationale -->
+                <div>
+                    <h5>
+                        <i class="bi bi-lightbulb me-2 text-warning"></i>
+                        {% if get_locale() == 'es' %}Razonamiento{% else %}Rationale{% endif %}
+                    </h5>
+                    <p class="mb-0">{{ rationale }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bet Summary -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-calculator me-2"></i>
+                {% if get_locale() == 'es' %}Resumen de la Apuesta{% else %}Bet Summary{% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless mb-0">
+                    <tr>
+                        <td class="text-muted">{% if get_locale() == 'es' %}Cantidad Apostada{% else %}Bet Amount{% endif %}</td>
+                        <td class="text-end fw-bold">{{ "{:,}".format(amount) }}g</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">{% if get_locale() == 'es' %}Multiplicador IA{% else %}AI Multiplier{% endif %}</td>
+                        <td class="text-end fw-bold">{{ "%.2f"|format(multiplier) }}x</td>
+                    </tr>
+                    <tr class="border-top">
+                        <td class="text-muted">{% if get_locale() == 'es' %}Ganancia Potencial{% else %}Potential Win{% endif %}</td>
+                        <td class="text-end fw-bold text-success fs-4">{{ "{:,}".format(potential_payout) }}g</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row g-3">
+            <div class="col-md-6">
+                <a href="{{ url_for('bets.ai_bet_index') }}" class="btn btn-outline-secondary btn-lg w-100">
+                    <i class="bi bi-x-circle me-2"></i>
+                    {% if get_locale() == 'es' %}Rechazar{% else %}Reject{% endif %}
+                </a>
+            </div>
+            <div class="col-md-6">
+                <form method="POST" action="{{ url_for('bets.ai_bet_confirm') }}" class="d-grid">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="bi bi-check-circle me-2"></i>
+                        {% if get_locale() == 'es' %}Aceptar Apuesta{% else %}Accept Bet{% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Warning -->
+        <div class="alert alert-warning mt-4">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            {% if get_locale() == 'es' %}
+            <strong>Nota:</strong> Una vez aceptada, la apuesta no puede ser cancelada. 
+            El multiplicador ha sido calculado por IA basándose en las estadísticas actuales de los equipos.
+            {% else %}
+            <strong>Note:</strong> Once accepted, this bet cannot be cancelled.
+            The multiplier has been calculated by AI based on current team statistics.
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

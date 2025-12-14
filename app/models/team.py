@@ -78,7 +78,7 @@ class Team(db.Model):
     # Team resources
     treasury = db.Column(db.Integer, default=1000000)
     rerolls = db.Column(db.Integer, default=0)
-    fan_factor = db.Column(db.Integer, default=0)
+    fan_factor = db.Column(db.Integer, default=1)
     assistant_coaches = db.Column(db.Integer, default=0)
     cheerleaders = db.Column(db.Integer, default=0)
     has_apothecary = db.Column(db.Boolean, default=False)

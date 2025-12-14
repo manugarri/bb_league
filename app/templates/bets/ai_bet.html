@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}{% if get_locale() == 'es' %}Apuesta IA{% else %}AI Bet{% endif %} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-gold mb-0">
+        <i class="bi bi-robot me-2"></i>{% if get_locale() == 'es' %}Crear Apuesta IA{% else %}Create AI Bet{% endif %}
+    </h1>
+    <a href="{{ url_for('bets.index') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>{% if get_locale() == 'es' %}Volver{% else %}Back{% endif %}
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-stars me-2"></i>
+                {% if get_locale() == 'es' %}
+                Apuesta Personalizada con IA
+                {% else %}
+                AI-Powered Custom Bet
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info mb-4">
+                    <i class="bi bi-info-circle me-2"></i>
+                    {% if get_locale() == 'es' %}
+                    <strong>¿Cómo funciona?</strong> Describe tu predicción en lenguaje natural y nuestra IA analizará 
+                    las estadísticas de ambos equipos para calcular un multiplicador justo basado en la dificultad 
+                    de tu apuesta.
+                    {% else %}
+                    <strong>How it works:</strong> Describe your prediction in natural language and our AI will analyze 
+                    both teams' statistics to calculate a fair multiplier based on your bet's difficulty.
+                    {% endif %}
+                </div>
+
+                <form method="POST" action="{{ url_for('bets.ai_bet_preview') }}">
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Match Selection -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">
+                            <i class="bi bi-trophy me-1"></i>
+                            {% if get_locale() == 'es' %}Seleccionar Partido{% else %}Select Match{% endif %}
+                        </label>
+                        {{ form.match_id(class="form-select form-select-lg") }}
+                    </div>
+
+                    <!-- Match Details (populated by JS) -->
+                    <div id="match-details" class="mb-4" style="display: none;">
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <div class="card bg-dark h-100">
+                                    <div class="card-body text-center">
+                                        <h5 class="text-gold" id="home-team-name">-</h5>
+                                        <small class="text-muted" id="home-team-race">-</small>
+                                        <hr>
+                                        <div class="row text-center small">
+                                            <div class="col-4">
+                                                <div class="fw-bold" id="home-wins">0</div>
+                                                <div class="text-muted">W</div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="fw-bold" id="home-draws">0</div>
+                                                <div class="text-muted">D</div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="fw-bold" id="home-losses">0</div>
+                                                <div class="text-muted">L</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="display-6 text-muted">VS</span>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="card bg-dark h-100">
+                                    <div class="card-body text-center">
+                                        <h5 class="text-gold" id="away-team-name">-</h5>
+                                        <small class="text-muted" id="away-team-race">-</small>
+                                        <hr>
+                                        <div class="row text-center small">
+                                            <div class="col-4">
+                                                <div class="fw-bold" id="away-wins">0</div>
+                                                <div class="text-muted">W</div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="fw-bold" id="away-draws">0</div>
+                                                <div class="text-muted">D</div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="fw-bold" id="away-losses">0</div>
+                                                <div class="text-muted">L</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bet Description -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">
+                            <i class="bi bi-chat-left-text me-1"></i>
+                            {% if get_locale() == 'es' %}Describe tu Apuesta{% else %}Describe Your Bet{% endif %}
+                        </label>
+                        {{ form.bet_description(class="form-control", rows=4) }}
+                        <div class="form-text">
+                            {% if get_locale() == 'es' %}
+                            <strong>Ejemplos:</strong>
+                            <ul class="mb-0 mt-1">
+                                <li>"Los Orcos ganarán el partido con al menos 2 touchdowns de diferencia"</li>
+                                <li>"El equipo local causará más de 3 bajas"</li>
+                                <li>"Ningún equipo anotará más de 1 touchdown"</li>
+                                <li>"Los Elfos ganarán a pesar de tener menor valor de equipo"</li>
+                            </ul>
+                            {% else %}
+                            <strong>Examples:</strong>
+                            <ul class="mb-0 mt-1">
+                                <li>"The Orcs will win the match by at least 2 touchdowns"</li>
+                                <li>"The home team will cause more than 3 casualties"</li>
+                                <li>"Neither team will score more than 1 touchdown"</li>
+                                <li>"The Elves will win despite having lower team value"</li>
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Bet Amount -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">
+                            <i class="bi bi-coin me-1"></i>
+                            {% if get_locale() == 'es' %}Cantidad a Apostar{% else %}Bet Amount{% endif %}
+                        </label>
+                        <div class="input-group">
+                            {{ form.amount(class="form-control form-control-lg", min=1000, max=max_bet) }}
+                            <span class="input-group-text">g</span>
+                        </div>
+                        <div class="form-text">
+                            {% if get_locale() == 'es' %}
+                            Mínimo: 1,000g | Máximo: {{ "{:,}".format(max_bet) }}g
+                            {% else %}
+                            Minimum: 1,000g | Maximum: {{ "{:,}".format(max_bet) }}g
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-robot me-2"></i>
+                            {% if get_locale() == 'es' %}Analizar Apuesta con IA{% else %}Analyze Bet with AI{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-lightbulb text-warning me-2"></i>
+                    {% if get_locale() == 'es' %}Consejos para Mejores Apuestas{% else %}Tips for Better Bets{% endif %}
+                </h5>
+                <ul class="mb-0">
+                    {% if get_locale() == 'es' %}
+                    <li>Sé específico en tu predicción para obtener mejores multiplicadores</li>
+                    <li>Cuanto más difícil sea la predicción, mayor será el multiplicador</li>
+                    <li>La IA considera las estadísticas históricas de ambos equipos</li>
+                    <li>Las predicciones sobre números exactos (touchdowns, bajas) suelen tener multiplicadores más altos</li>
+                    {% else %}
+                    <li>Be specific in your prediction for better multipliers</li>
+                    <li>The harder the prediction, the higher the multiplier</li>
+                    <li>The AI considers historical stats of both teams</li>
+                    <li>Predictions about exact numbers (touchdowns, casualties) usually have higher multipliers</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Match data from server
+const matchData = {
+    {% for match in matches %}
+    {{ match.id }}: {
+        home: {
+            name: "{{ match.home_team.name }}",
+            race: "{{ match.home_team.race.name }}",
+            wins: {{ match.home_team.wins }},
+            draws: {{ match.home_team.draws }},
+            losses: {{ match.home_team.losses }}
+        },
+        away: {
+            name: "{{ match.away_team.name }}",
+            race: "{{ match.away_team.race.name }}",
+            wins: {{ match.away_team.wins }},
+            draws: {{ match.away_team.draws }},
+            losses: {{ match.away_team.losses }}
+        }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+};
+
+document.getElementById('match_id').addEventListener('change', function() {
+    const matchId = this.value;
+    const detailsDiv = document.getElementById('match-details');
+    
+    if (matchId && matchData[matchId]) {
+        const match = matchData[matchId];
+        
+        // Home team
+        document.getElementById('home-team-name').textContent = match.home.name;
+        document.getElementById('home-team-race').textContent = match.home.race;
+        document.getElementById('home-wins').textContent = match.home.wins;
+        document.getElementById('home-draws').textContent = match.home.draws;
+        document.getElementById('home-losses').textContent = match.home.losses;
+        
+        // Away team
+        document.getElementById('away-team-name').textContent = match.away.name;
+        document.getElementById('away-team-race').textContent = match.away.race;
+        document.getElementById('away-wins').textContent = match.away.wins;
+        document.getElementById('away-draws').textContent = match.away.draws;
+        document.getElementById('away-losses').textContent = match.away.losses;
+        
+        detailsDiv.style.display = 'block';
+    } else {
+        detailsDiv.style.display = 'none';
+    }
+});
+
+// Trigger on page load if a match is already selected
+document.addEventListener('DOMContentLoaded', function() {
+    const matchSelect = document.getElementById('match_id');
+    {% if preselected_match_id %}
+    matchSelect.value = '{{ preselected_match_id }}';
+    {% endif %}
+    if (matchSelect.value) {
+        matchSelect.dispatchEvent(new Event('change'));
+    }
+});
+</script>
+{% endblock %}
+

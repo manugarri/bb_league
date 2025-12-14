@@ -1,7 +1,7 @@
 # Blood Bowl League Tracker - Makefile
 # Use: make <command>
 
-.PHONY: help run dev seed reset clean install test upsert-user
+.PHONY: help run dev seed seed-test reset clean install test upsert-user
 
 # Default target
 help:
@@ -11,6 +11,7 @@ help:
 	@echo "  make run        - Start the application"
 	@echo "  make dev        - Start the application in debug mode"
 	@echo "  make seed       - Seed the database with initial data"
+	@echo "  make seed-test  - Seed test data (users, teams, league)"
 	@echo "  make reset      - Reset the database (delete and recreate)"
 	@echo "  make clean      - Remove database and cache files"
 	@echo "  make test       - Run tests"
@@ -36,9 +37,20 @@ install-dev:
 run-dev:
 	uv run flask run --debug
 
-# Seed the database
+# Seed the database with game data
 seed:
-	uv run python seed.py
+	uv run python scripts/seed.py
+
+# Seed test data (users, teams, league)
+# Usage: make seed-test-data [PLAYERS=4] [ADMINS=1] [TEAMS=1] [LEAGUES=1] [ROSTER=4] [IN_PROGRESS=0]
+seed-test-data:
+	uv run python scripts/seed_test_data.py \
+		--n-players $(or $(PLAYERS),4) \
+		--n-admin-players $(or $(ADMINS),1) \
+		--n-teams-per-player $(or $(TEAMS),1) \
+		--n-leagues $(or $(LEAGUES),1) \
+		--n-roster-players $(or $(ROSTER),4) \
+		--n-leagues-in-progress $(or $(IN_PROGRESS),0)
 
 # Reset the database (delete and recreate with seed data)
 reset:
@@ -46,7 +58,7 @@ reset:
 	-del /Q instance\*.db 2>nul || rm -f instance/*.db 2>/dev/null || true
 	-del /Q *.db 2>nul || rm -f *.db 2>/dev/null || true
 	uv run python -c "from app import create_app; from app.extensions import db; app = create_app(); app.app_context().push(); db.drop_all(); db.create_all(); print('Database reset complete.')"
-	uv run python seed.py
+	uv run python scripts/seed.py
 	@echo "Database reset and seeded successfully!"
 
 # Clean up generated files

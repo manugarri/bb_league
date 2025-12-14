@@ -110,6 +110,18 @@ def edit(team_id: int):
         team.name = form.name.data
         if form.treasury.data is not None:
             team.treasury = form.treasury.data
+        # Update team assets
+        if form.rerolls.data is not None:
+            team.rerolls = form.rerolls.data
+        if form.assistant_coaches.data is not None:
+            team.assistant_coaches = form.assistant_coaches.data
+        if form.cheerleaders.data is not None:
+            team.cheerleaders = form.cheerleaders.data
+        team.has_apothecary = form.has_apothecary.data
+        if form.fan_factor.data is not None:
+            team.fan_factor = form.fan_factor.data
+        # Recalculate team value
+        team.calculate_tv()
         db.session.commit()
         flash("Team updated successfully.", "success")
         return redirect(url_for("teams.view", team_id=team.id))

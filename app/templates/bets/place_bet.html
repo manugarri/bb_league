@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block title %}{% if get_locale() == 'es' %}Apostar{% else %}Place Bet{% endif %} - {{ _('Blood Bowl League Tracker') }}{% endblock %}
+
+{% block extra_css %}
+<style>
+.bet-type-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+.bet-type-card:hover {
+    border-color: var(--bb-gold);
+    transform: translateY(-2px);
+}
+.bet-type-card.selected {
+    border-color: var(--bb-gold);
+    background: rgba(218, 165, 32, 0.1);
+}
+.bet-type-card input[type="radio"] {
+    display: none;
+}
+.multiplier-badge {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">{% if get_locale() == 'es' %}Partidos{% else %}Matches{% endif %}</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.view', match_id=match.id) }}">{{ match.home_team.name }} vs {{ match.away_team.name }}</a></li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Apostar{% else %}Place Bet{% endif %}</li>
+    </ol>
+</nav>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-cash-coin me-2"></i>{% if get_locale() == 'es' %}Realizar Apuesta{% else %}Place Your Bet{% endif %}
+            </div>
+            <div class="card-body p-4">
+                <!-- Match Info -->
+                <div class="text-center mb-4">
+                    <h4 class="text-gold">{{ match.home_team.name }} vs {{ match.away_team.name }}</h4>
+                    <p class="text-muted mb-0">
+                        {% if match.league %}
+                        <i class="bi bi-trophy me-1"></i>{{ match.league.name }}
+                        {% endif %}
+                        {% if match.scheduled_date %}
+                        <i class="bi bi-calendar ms-2 me-1"></i>{{ match.scheduled_date.strftime('%d/%m/%Y') }}
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <form method="POST" id="betForm">
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Bet Type Selection -->
+                    <h5 class="text-gold mb-3"><i class="bi bi-dice-5 me-2"></i>{% if get_locale() == 'es' %}Tipo de Apuesta{% else %}Bet Type{% endif %}</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="bet-type-card card h-100" for="bet_type_win">
+                                <input type="radio" name="bet_type" id="bet_type_win" value="win" {% if form.bet_type.data == 'win' %}checked{% endif %}>
+                                <div class="card-body text-center">
+                                    <i class="bi bi-trophy-fill display-5 text-gold mb-2"></i>
+                                    <h6>{% if get_locale() == 'es' %}Victoria{% else %}Win{% endif %}</h6>
+                                    <p class="small text-muted mb-2">{% if get_locale() == 'es' %}El equipo gana el partido{% else %}Team wins the match{% endif %}</p>
+                                    <span class="badge bg-success multiplier-badge">2x</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="bet-type-card card h-100" for="bet_type_touchdowns">
+                                <input type="radio" name="bet_type" id="bet_type_touchdowns" value="touchdowns" {% if form.bet_type.data == 'touchdowns' %}checked{% endif %}>
+                                <div class="card-body text-center">
+                                    <i class="bi bi-bullseye display-5 text-gold mb-2"></i>
+                                    <h6>Touchdowns</h6>
+                                    <p class="small text-muted mb-2">{% if get_locale() == 'es' %}TDs exactos anotados{% else %}Exact TDs scored{% endif %}</p>
+                                    <span class="badge bg-warning text-dark multiplier-badge">5x</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="bet-type-card card h-100" for="bet_type_injuries">
+                                <input type="radio" name="bet_type" id="bet_type_injuries" value="injuries" {% if form.bet_type.data == 'injuries' %}checked{% endif %}>
+                                <div class="card-body text-center">
+                                    <i class="bi bi-bandaid display-5 text-gold mb-2"></i>
+                                    <h6>{% if get_locale() == 'es' %}Bajas{% else %}Casualties{% endif %}</h6>
+                                    <p class="small text-muted mb-2">{% if get_locale() == 'es' %}Bajas exactas infligidas{% else %}Exact casualties inflicted{% endif %}</p>
+                                    <span class="badge bg-danger multiplier-badge">7x</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Team Selection -->
+                    <h5 class="text-gold mb-3"><i class="bi bi-people me-2"></i>{% if get_locale() == 'es' %}Equipo{% else %}Team{% endif %}</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="bet-type-card card h-100" for="team_home">
+                                <input type="radio" name="team_id" id="team_home" value="{{ match.home_team_id }}" {% if form.team_id.data == match.home_team_id %}checked{% endif %}>
+                                <div class="card-body text-center">
+                                    <h5 class="mb-1">{{ match.home_team.name }}</h5>
+                                    <small class="text-muted">{{ tr_race(match.home_team.race.name) }}</small>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="bet-type-card card h-100" for="team_away">
+                                <input type="radio" name="team_id" id="team_away" value="{{ match.away_team_id }}" {% if form.team_id.data == match.away_team_id %}checked{% endif %}>
+                                <div class="card-body text-center">
+                                    <h5 class="mb-1">{{ match.away_team.name }}</h5>
+                                    <small class="text-muted">{{ tr_race(match.away_team.race.name) }}</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Target Value (for touchdowns/injuries) -->
+                    <div id="targetValueSection" class="mb-4" style="display: none;">
+                        <h5 class="text-gold mb-3"><i class="bi bi-hash me-2"></i>{% if get_locale() == 'es' %}Valor Predicho{% else %}Predicted Value{% endif %}</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form.target_value(class="form-control form-control-lg text-center", min=0, max=20) }}
+                                <div class="form-text">{% if get_locale() == 'es' %}Número exacto que predices{% else %}Exact number you predict{% endif %}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bet Amount -->
+                    <h5 class="text-gold mb-3"><i class="bi bi-coin me-2"></i>{% if get_locale() == 'es' %}Cantidad{% else %}Amount{% endif %}</h5>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                {{ form.amount(class="form-control form-control-lg", min=1000, max=max_bet) }}
+                                <span class="input-group-text">gold</span>
+                            </div>
+                            <div class="form-text">{% if get_locale() == 'es' %}Mínimo: 1,000g | Máximo: {{ "{:,}".format(max_bet) }}g{% else %}Min: 1,000g | Max: {{ "{:,}".format(max_bet) }}g{% endif %}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="btn-group w-100" role="group">
+                                <button type="button" class="btn btn-outline-secondary bet-preset" data-amount="5000">5k</button>
+                                <button type="button" class="btn btn-outline-secondary bet-preset" data-amount="10000">10k</button>
+                                <button type="button" class="btn btn-outline-secondary bet-preset" data-amount="25000">25k</button>
+                                <button type="button" class="btn btn-outline-secondary bet-preset" data-amount="50000">50k</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payout Preview -->
+                    <div class="card bg-dark mb-4">
+                        <div class="card-body text-center">
+                            <h6 class="text-muted mb-2">{% if get_locale() == 'es' %}Ganancia Potencial{% else %}Potential Winnings{% endif %}</h6>
+                            <h2 class="text-gold mb-0" id="potentialPayout">0g</h2>
+                            <small class="text-muted">(<span id="multiplierDisplay">2</span>x {% if get_locale() == 'es' %}multiplicador{% else %}multiplier{% endif %})</small>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-cash-coin me-1"></i>{% if get_locale() == 'es' %}Realizar Apuesta{% else %}Place Bet{% endif %}
+                        </button>
+                        <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-outline-secondary btn-lg">{% if get_locale() == 'es' %}Cancelar{% else %}Cancel{% endif %}</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const betTypeCards = document.querySelectorAll('.bet-type-card');
+    const targetValueSection = document.getElementById('targetValueSection');
+    const amountInput = document.querySelector('input[name="amount"]');
+    const potentialPayout = document.getElementById('potentialPayout');
+    const multiplierDisplay = document.getElementById('multiplierDisplay');
+    const presetButtons = document.querySelectorAll('.bet-preset');
+    
+    const multipliers = {
+        'win': 2,
+        'touchdowns': 5,
+        'injuries': 7
+    };
+    
+    function updateSelected() {
+        betTypeCards.forEach(card => {
+            const input = card.querySelector('input');
+            if (input && input.checked) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+        });
+    }
+    
+    function updatePayout() {
+        const betType = document.querySelector('input[name="bet_type"]:checked');
+        const amount = parseInt(amountInput.value) || 0;
+        
+        if (betType) {
+            const mult = multipliers[betType.value];
+            multiplierDisplay.textContent = mult;
+            potentialPayout.textContent = (amount * mult).toLocaleString() + 'g';
+            
+            // Show/hide target value section
+            if (betType.value === 'win') {
+                targetValueSection.style.display = 'none';
+            } else {
+                targetValueSection.style.display = 'block';
+            }
+        }
+    }
+    
+    // Event listeners
+    betTypeCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const input = this.querySelector('input');
+            if (input) {
+                input.checked = true;
+                updateSelected();
+                updatePayout();
+            }
+        });
+    });
+    
+    amountInput.addEventListener('input', updatePayout);
+    
+    presetButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            amountInput.value = this.dataset.amount;
+            updatePayout();
+        });
+    });
+    
+    // Initial update
+    updateSelected();
+    updatePayout();
+});
+</script>
+{% endblock %}
+
