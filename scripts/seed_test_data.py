@@ -6,7 +6,7 @@ import sys
 from datetime import datetime, timedelta
 from app import create_app
 from app.extensions import db
-from app.models import User, Team, Player, Race, Position, League, LeagueTeam, Match, MatchPlayerStats
+from app.models import User, Team, Player, Race, Position, League, LeagueTeam, Match, MatchPlayerStats, Standing, Season
 
 
 def create_test_users(n_players: int = 4, n_admin_players: int = 1) -> list[User]:
@@ -226,6 +226,16 @@ def create_test_leagues(commissioner: User, teams: list[Team], n_leagues: int = 
             is_public=True
         )
         db.session.add(league)
+        db.session.flush()
+        
+        # Create initial season for the league
+        season = Season(
+            league_id=league.id,
+            name="Season 1",
+            number=1,
+            is_active=True
+        )
+        db.session.add(season)
         db.session.flush()
         
         print(f"  [+] Created league '{league_name}' (max {max_teams_per_league} teams)")
@@ -459,6 +469,57 @@ def simulate_match_results(match: Match) -> None:
     else:
         match.home_team.draws = (match.home_team.draws or 0) + 1
         match.away_team.draws = (match.away_team.draws or 0) + 1
+    
+    # Update league standings
+    update_standings(match)
+
+
+def update_standings(match: Match) -> None:
+    """Update league standings from match result.
+    
+    League points are awarded as follows:
+    - Victory: +3 league points
+    - Tie: +1 league point
+    - 3+ touchdowns scored: +1 league point
+    - Opponent scores 3+ touchdowns: +1 league point
+    - 3+ casualties caused: +1 league point
+    """
+    if not match.league:
+        return
+    
+    season = match.league.current_season
+    if not season:
+        return
+    
+    # Get or create standings for home team
+    home_standing = Standing.query.filter_by(
+        season_id=season.id,
+        team_id=match.home_team_id
+    ).first()
+    
+    if not home_standing:
+        home_standing = Standing(
+            season_id=season.id,
+            team_id=match.home_team_id
+        )
+        db.session.add(home_standing)
+    
+    # Get or create standings for away team
+    away_standing = Standing.query.filter_by(
+        season_id=season.id,
+        team_id=match.away_team_id
+    ).first()
+    
+    if not away_standing:
+        away_standing = Standing(
+            season_id=season.id,
+            team_id=match.away_team_id
+        )
+        db.session.add(away_standing)
+    
+    # Update standings using the model's method
+    home_standing.update_from_match(True, match)
+    away_standing.update_from_match(False, match)
 
 
 def generate_round_robin_rounds(teams: list, n_rounds: int = 3) -> list[list[tuple]]:
@@ -540,8 +601,8 @@ def create_league_matches(leagues: list[League], n_leagues_in_progress: int,
             print(f"  [!] League '{league.name}' has fewer than 2 teams, skipping")
             continue
         
-        # Update league status to in_progress
-        league.status = "in_progress"
+        # Update league status to active
+        league.status = "active"
         league.registration_open = False
         
         print(f"\n  [+] Creating {n_rounds} rounds for league '{league.name}' ({len(league_teams)} teams)")
@@ -577,9 +638,10 @@ def create_league_matches(leagues: list[League], n_leagues_in_progress: int,
                     # Future date for scheduled rounds
                     scheduled_date = datetime.utcnow() + timedelta(days=(round_num - n_completed_rounds) * 7 + random.randint(0, 3))
                 
-                # Create the match
+                # Create the match (include season_id for standings)
                 match = Match(
                     league_id=league.id,
+                    season_id=league.current_season.id if league.current_season else None,
                     home_team_id=home_team.id,
                     away_team_id=away_team.id,
                     round_number=round_num,

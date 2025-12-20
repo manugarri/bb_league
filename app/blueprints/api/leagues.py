@@ -57,6 +57,7 @@ def get_league(league_id: int):
             "draws": s.draws,
             "losses": s.losses,
             "points": s.points,
+            "bonus_points": s.bonus_points or 0,
             "td_diff": s.touchdown_diff
         } for i, s in enumerate(standings_query)]
     
@@ -106,6 +107,12 @@ def get_league_standings(league_id: int):
             "draws": s.draws,
             "losses": s.losses,
             "points": s.points,
+            "bonus_points": s.bonus_points or 0,
+            "bonus_breakdown": {
+                "high_scoring": s.bonus_high_scoring or 0,
+                "opponent_high_scoring": s.bonus_opponent_high_scoring or 0,
+                "casualties": s.bonus_casualties or 0
+            },
             "touchdowns_for": s.touchdowns_for,
             "touchdowns_against": s.touchdowns_against,
             "td_diff": s.touchdown_diff,

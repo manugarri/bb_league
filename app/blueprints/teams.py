@@ -1,5 +1,6 @@
 """Teams blueprint."""
 from flask import Blueprint, render_template, redirect, url_for, flash, request, abort, session
+from flask_babel import get_locale
 from flask_login import login_required, current_user
 from app.extensions import db
 from app.models import Team, Race, Position, Player, Skill, PlayerSkill
@@ -54,7 +55,10 @@ def create():
         db.session.add(team)
         db.session.commit()
         
-        flash(f"Team '{team.name}' created successfully!", "success")
+        if str(get_locale()) == 'es':
+            flash(f"¡Equipo '{team.name}' creado correctamente!", "success")
+        else:
+            flash(f"Team '{team.name}' created successfully!", "success")
         return redirect(url_for("teams.view", team_id=team.id))
     
     races = Race.query.order_by(Race.name).all()
@@ -123,7 +127,10 @@ def edit(team_id: int):
         # Recalculate team value
         team.calculate_tv()
         db.session.commit()
-        flash("Team updated successfully.", "success")
+        if str(get_locale()) == 'es':
+            flash("Equipo actualizado correctamente.", "success")
+        else:
+            flash("Team updated successfully.", "success")
         return redirect(url_for("teams.view", team_id=team.id))
     
     return render_template("teams/edit.html", form=form, team=team)
@@ -172,18 +179,27 @@ def hire_player(team_id: int):
         
         # Check treasury
         if team.treasury < position.cost:
-            flash("Not enough gold in treasury!", "danger")
+            if str(get_locale()) == 'es':
+                flash("¡No hay suficiente oro en la tesorería!", "danger")
+            else:
+                flash("Not enough gold in treasury!", "danger")
             return render_template("teams/hire_player.html", form=form, team=team)
         
         # Check roster limit
         if team.roster_count >= 16:
-            flash("Roster is full! Maximum 16 players.", "danger")
+            if str(get_locale()) == 'es':
+                flash("¡Plantilla completa! Máximo 16 jugadores.", "danger")
+            else:
+                flash("Roster is full! Maximum 16 players.", "danger")
             return render_template("teams/hire_player.html", form=form, team=team)
         
         # Check position limit
         current_count = team.players.filter_by(position_id=position.id, is_active=True).count()
         if current_count >= position.max_count:
-            flash(f"Maximum {position.max_count} {position.name}(s) allowed.", "danger")
+            if str(get_locale()) == 'es':
+                flash(f"Máximo {position.max_count} {position.name}(s) permitido(s).", "danger")
+            else:
+                flash(f"Maximum {position.max_count} {position.name}(s) allowed.", "danger")
             return render_template("teams/hire_player.html", form=form, team=team)
         
         # Create player
@@ -211,7 +227,10 @@ def hire_player(team_id: int):
         team.calculate_tv()
         db.session.commit()
         
-        flash(f"Player '{player.name}' hired successfully!", "success")
+        if str(get_locale()) == 'es':
+            flash(f"¡Jugador '{player.name}' contratado correctamente!", "success")
+        else:
+            flash(f"Player '{player.name}' hired successfully!", "success")
         return redirect(url_for("teams.view", team_id=team.id))
     
     return render_template("teams/hire_player.html", form=form, team=team, positions=positions)
@@ -261,7 +280,10 @@ def edit_player(team_id: int, player_id: int):
         player.name = form.name.data
         player.number = form.number.data
         db.session.commit()
-        flash("Player updated successfully.", "success")
+        if str(get_locale()) == 'es':
+            flash("Jugador actualizado correctamente.", "success")
+        else:
+            flash("Player updated successfully.", "success")
         return redirect(url_for("teams.view_player", team_id=team.id, player_id=player.id))
     
     # Get player's current skills
@@ -324,7 +346,10 @@ def fire_player(team_id: int, player_id: int):
     team.calculate_tv()
     db.session.commit()
     
-    flash(f"Player '{player.name}' has been released.", "warning")
+    if str(get_locale()) == 'es':
+        flash(f"Jugador '{player.name}' ha sido liberado.", "warning")
+    else:
+        flash(f"Player '{player.name}' has been released.", "warning")
     return redirect(url_for("teams.view", team_id=team.id))
 
 
@@ -457,22 +482,34 @@ def purchase(team_id: int):
     }
     
     if item not in costs:
-        flash("Invalid purchase.", "danger")
+        if str(get_locale()) == 'es':
+            flash("Compra inválida.", "danger")
+        else:
+            flash("Invalid purchase.", "danger")
         return redirect(url_for("teams.view", team_id=team.id))
     
     cost = costs[item]
     
     if team.treasury < cost:
-        flash("Not enough gold in treasury!", "danger")
+        if str(get_locale()) == 'es':
+            flash("¡No hay suficiente oro en la tesorería!", "danger")
+        else:
+            flash("Not enough gold in treasury!", "danger")
         return redirect(url_for("teams.view", team_id=team.id))
     
     # Check limits
     if item == "apothecary":
         if team.has_apothecary:
-            flash("Team already has an apothecary.", "warning")
+            if str(get_locale()) == 'es':
+                flash("El equipo ya tiene un boticario.", "warning")
+            else:
+                flash("Team already has an apothecary.", "warning")
             return redirect(url_for("teams.view", team_id=team.id))
         if not team.race.apothecary_allowed:
-            flash("This race cannot hire an apothecary.", "warning")
+            if str(get_locale()) == 'es':
+                flash("Esta raza no puede contratar un boticario.", "warning")
+            else:
+                flash("This race cannot hire an apothecary.", "warning")
             return redirect(url_for("teams.view", team_id=team.id))
         team.has_apothecary = True
     elif item == "reroll":
@@ -486,7 +523,10 @@ def purchase(team_id: int):
     team.calculate_tv()
     db.session.commit()
     
-    flash(f"Purchased {item.replace('_', ' ')} for {cost:,}g!", "success")
+    if str(get_locale()) == 'es':
+        flash(f"¡{item.replace('_', ' ').title()} comprado por {cost:,}g!", "success")
+    else:
+        flash(f"Purchased {item.replace('_', ' ')} for {cost:,}g!", "success")
     return redirect(url_for("teams.view", team_id=team.id))
 
 

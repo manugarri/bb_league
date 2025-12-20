@@ -11,11 +11,12 @@ This document tracks all design decisions and changes made during development.
 4. [Team Management](#team-management)
 5. [Match Recording](#match-recording)
 6. [Betting System](#betting-system)
-7. [Internationalization (i18n)](#internationalization-i18n)
-8. [Database & Migrations](#database--migrations)
-9. [UI/UX Decisions](#uiux-decisions)
-10. [CLI Tools](#cli-tools)
-11. [Skills and Traits System](#skills-and-traits-system)
+7. [League Points System](#league-points-system)
+8. [Internationalization (i18n)](#internationalization-i18n)
+9. [Database & Migrations](#database--migrations)
+10. [UI/UX Decisions](#uiux-decisions)
+11. [CLI Tools](#cli-tools)
+12. [Skills and Traits System](#skills-and-traits-system)
 
 ---
 
@@ -250,6 +251,87 @@ When a match result is recorded (`matches.record` route):
 
 ---
 
+## League Points System
+
+### Overview
+A comprehensive points system that rewards teams for match results and exceptional performances. Points determine league standings.
+
+### Points Allocation
+
+#### Match Result Points
+| Result | Points |
+|--------|--------|
+| Victory | +3 |
+| Draw | +1 |
+| Loss | +0 |
+
+#### Bonus Points
+| Achievement | Points | Description |
+|-------------|--------|-------------|
+| High Scoring | +1 | Scoring 3 or more touchdowns in a match |
+| High-Scoring Opponent | +1 | When opponent scores 3+ touchdowns against you |
+| Brutal | +1 | Causing 3 or more casualties in a match |
+
+### Database Schema Changes
+
+New columns added to `Standing` model (`app/models/league.py`):
+```python
+# Bonus points tracking
+bonus_points = db.Column(db.Integer, default=0)  # Total bonus points
+bonus_high_scoring = db.Column(db.Integer, default=0)  # 3+ TD games count
+bonus_opponent_high_scoring = db.Column(db.Integer, default=0)  # Games where opponent scored 3+ TDs
+bonus_casualties = db.Column(db.Integer, default=0)  # 3+ CAS games count
+```
+
+### Standing Update Logic
+
+The `update_from_match()` method now calculates:
+1. Base points from match result (win/draw/loss)
+2. Bonus for scoring 3+ touchdowns
+3. Bonus for opponent scoring 3+ touchdowns (high-scoring game reward)
+4. Bonus for causing 3+ casualties
+
+### User Interface
+
+#### Standings Table
+- Added **BP** (Bonus Points) column showing bonus points earned
+- Tooltip on BP cells shows breakdown (TDs, Opp TDs, CAS bonuses)
+- Added "League Points System" explanation card below standings table
+
+#### League View
+- Quick standings table now includes BP column
+- Teams sorted by total points (base + bonus)
+
+### API Changes
+
+`GET /api/leagues/<id>/standings` now returns:
+```json
+{
+  "standings": [{
+    "points": 10,
+    "bonus_points": 2,
+    "bonus_breakdown": {
+      "high_scoring": 1,
+      "opponent_high_scoring": 0,
+      "casualties": 1
+    }
+  }]
+}
+```
+
+### Implementation Notes
+
+1. **Standings Auto-Creation**: The `update_standings()` function in `app/blueprints/matches.py` now creates Standing records if they don't exist (previously only updated existing ones)
+
+2. **Null Safety**: All numeric fields use `(field or 0)` pattern to handle newly created standings with None values
+
+3. **Seed Script Updates**: `scripts/seed_test_data.py` now:
+   - Creates Season records for leagues
+   - Sets `season_id` on matches
+   - Calls `update_standings()` when simulating match results
+
+---
+
 ## Internationalization (i18n)
 
 ### Supported Languages
@@ -440,5 +522,5 @@ Skills and traits extracted from the official Blood Bowl 3rd Edition rulebook (P
 
 ---
 
-*Last updated: December 14, 2025*
+*Last updated: December 20, 2025*
 

@@ -45,12 +45,12 @@ seed:
 # Usage: make seed-test-data [PLAYERS=4] [ADMINS=1] [TEAMS=1] [LEAGUES=1] [ROSTER=4] [IN_PROGRESS=0]
 seed-test-data:
 	uv run python scripts/seed_test_data.py \
-		--n-players $(or $(PLAYERS),4) \
+		--n-players $(or $(PLAYERS),6) \
 		--n-admin-players $(or $(ADMINS),1) \
 		--n-teams-per-player $(or $(TEAMS),1) \
-		--n-leagues $(or $(LEAGUES),1) \
+		--n-leagues $(or $(LEAGUES),2) \
 		--n-roster-players $(or $(ROSTER),4) \
-		--n-leagues-in-progress $(or $(IN_PROGRESS),0)
+		--n-leagues-in-progress $(or $(IN_PROGRESS),1)
 
 # Reset the database (delete and recreate with seed data)
 reset:

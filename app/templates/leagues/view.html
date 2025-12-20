@@ -154,6 +154,7 @@
                                 <th class="text-center">{{ _('D') }}</th>
                                 <th class="text-center">{{ _('L') }}</th>
                                 <th class="text-center">{{ _('TD+/-') }}</th>
+                                <th class="text-center text-info" title="{% if get_locale() == 'es' %}Bonus{% else %}Bonus{% endif %}">{{ _('BP') }}</th>
                                 <th class="text-center">{{ _('Pts') }}</th>
                             </tr>
                         </thead>
@@ -174,6 +175,7 @@
                                 <td class="text-center {% if standing.touchdown_diff > 0 %}text-success{% elif standing.touchdown_diff < 0 %}text-danger{% endif %}">
                                     {{ standing.touchdown_diff }}
                                 </td>
+                                <td class="text-center text-info">{% if standing.bonus_points %}+{{ standing.bonus_points }}{% else %}0{% endif %}</td>
                                 <td class="text-center fw-bold text-gold">{{ standing.points }}</td>
                             </tr>
                             {% endfor %}

@@ -1462,3 +1462,467 @@ msgstr "Español"
 msgid "Change Language"
 msgstr "Cambiar Idioma"
 
+# ============================================================================
+# STANDINGS - LEAGUE POINTS
+# ============================================================================
+
+msgid "Standings"
+msgstr "Clasificación"
+
+msgid "Team"
+msgstr "Equipo"
+
+msgid "Pos"
+msgstr "Pos"
+
+msgid "TF"
+msgstr "TF"
+
+msgid "TA"
+msgstr "TC"
+
+msgid "CAS"
+msgstr "BAJ"
+
+msgid "BP"
+msgstr "PB"
+
+msgid "Bonus Points"
+msgstr "Puntos Bonus"
+
+msgid "League Points System"
+msgstr "Sistema de Puntos de Liga"
+
+msgid "Match Result Points"
+msgstr "Puntos por Resultado"
+
+msgid "Victory"
+msgstr "Victoria"
+
+msgid "Loss"
+msgstr "Derrota"
+
+msgid "Scoring 3+ touchdowns"
+msgstr "Anotar 3+ touchdowns"
+
+msgid "Opponent scores 3+ touchdowns"
+msgstr "Rival anota 3+ touchdowns"
+
+msgid "Causing 3+ casualties"
+msgstr "Causar 3+ bajas"
+
+msgid "Legend"
+msgstr "Leyenda"
+
+msgid "Touchdowns For"
+msgstr "Touchdowns a Favor"
+
+msgid "Touchdowns Against"
+msgstr "Touchdowns en Contra"
+
+msgid "Casualties Inflicted"
+msgstr "Bajas Infligidas"
+
+msgid "Total Points"
+msgstr "Puntos Totales"
+
+msgid "No standings available"
+msgstr "No hay clasificación disponible"
+
+msgid "The league hasn't started yet or no matches have been played."
+msgstr "La liga no ha comenzado todavía o no se han jugado partidos."
+
+msgid "Back to League"
+msgstr "Volver a la Liga"
+
+# ============================================================================
+# BETTING
+# ============================================================================
+
+msgid "My Bets"
+msgstr "Mis Apuestas"
+
+msgid "AI Bet"
+msgstr "Apuesta IA"
+
+msgid "Notifications"
+msgstr "Notificaciones"
+
+msgid "Total Won"
+msgstr "Total Ganado"
+
+msgid "Total Lost"
+msgstr "Total Perdido"
+
+msgid "Net Balance"
+msgstr "Balance Neto"
+
+msgid "At Stake"
+msgstr "En Juego"
+
+msgid "Pending Bets"
+msgstr "Apuestas Pendientes"
+
+msgid "Resolved Bets"
+msgstr "Apuestas Resueltas"
+
+msgid "Potential"
+msgstr "Potencial"
+
+msgid "No pending bets."
+msgstr "No tienes apuestas pendientes."
+
+msgid "Showing 10 most recent"
+msgstr "Mostrando las 10 más recientes"
+
+msgid "No resolved bets yet."
+msgstr "Aún no hay apuestas resueltas."
+
+msgid "Create AI Bet"
+msgstr "Crear Apuesta IA"
+
+msgid "AI-Powered Custom Bet"
+msgstr "Apuesta Personalizada con IA"
+
+msgid "How it works:"
+msgstr "¿Cómo funciona?"
+
+msgid "Select Match"
+msgstr "Seleccionar Partido"
+
+msgid "Describe Your Bet"
+msgstr "Describe tu Apuesta"
+
+msgid "Bet Amount"
+msgstr "Cantidad a Apostar"
+
+msgid "Analyze Bet with AI"
+msgstr "Analizar Apuesta con IA"
+
+msgid "Tips for Better Bets"
+msgstr "Consejos para Mejores Apuestas"
+
+msgid "Confirm AI Bet"
+msgstr "Confirmar Apuesta IA"
+
+msgid "AI Bet Analysis"
+msgstr "Análisis de Apuesta IA"
+
+msgid "Your Bet"
+msgstr "Tu Apuesta"
+
+msgid "AI Analysis"
+msgstr "Análisis de la IA"
+
+msgid "Multiplier"
+msgstr "Multiplicador"
+
+msgid "Confidence"
+msgstr "Confianza"
+
+msgid "Potential Win"
+msgstr "Ganancia Potencial"
+
+msgid "Rationale"
+msgstr "Razonamiento"
+
+msgid "Bet Summary"
+msgstr "Resumen de la Apuesta"
+
+msgid "AI Multiplier"
+msgstr "Multiplicador IA"
+
+msgid "Reject"
+msgstr "Rechazar"
+
+msgid "Accept Bet"
+msgstr "Aceptar Apuesta"
+
+msgid "Place Bet"
+msgstr "Apostar"
+
+msgid "Place Your Bet"
+msgstr "Realizar Apuesta"
+
+msgid "Bet Type"
+msgstr "Tipo de Apuesta"
+
+msgid "Win"
+msgstr "Victoria"
+
+msgid "Team wins the match"
+msgstr "El equipo gana el partido"
+
+msgid "Exact TDs scored"
+msgstr "TDs exactos anotados"
+
+msgid "Exact casualties inflicted"
+msgstr "Bajas exactas infligidas"
+
+msgid "Predicted Value"
+msgstr "Valor Predicho"
+
+msgid "Exact number you predict"
+msgstr "Número exacto que predices"
+
+msgid "Amount"
+msgstr "Cantidad"
+
+msgid "Potential Winnings"
+msgstr "Ganancia Potencial"
+
+msgid "multiplier"
+msgstr "multiplicador"
+
+msgid "Bet"
+msgstr "Apuesta"
+
+msgid "Pending Bet"
+msgstr "Apuesta Pendiente"
+
+msgid "You Won!"
+msgstr "¡Ganaste!"
+
+msgid "You Lost"
+msgstr "Perdiste"
+
+msgid "AI Confidence"
+msgstr "Confianza IA"
+
+msgid "Amount Bet"
+msgstr "Cantidad Apostada"
+
+msgid "Cancel Bet"
+msgstr "Cancelar Apuesta"
+
+msgid "Cancel this bet?"
+msgstr "¿Cancelar esta apuesta?"
+
+msgid "Bet Notifications"
+msgstr "Notificaciones de Apuestas"
+
+msgid "Mark All Read"
+msgstr "Marcar Todo Leído"
+
+msgid "Mark as read"
+msgstr "Marcar como leído"
+
+msgid "No new notifications"
+msgstr "No hay notificaciones nuevas"
+
+msgid "Notifications about your bets will appear here."
+msgstr "Las notificaciones de tus apuestas aparecerán aquí."
+
+msgid "Back to My Bets"
+msgstr "Volver a Mis Apuestas"
+
+msgid "Confirm AI Bets"
+msgstr "Confirmar Apuestas IA"
+
+msgid "Match Result"
+msgstr "Resultado del Partido"
+
+msgid "Instructions:"
+msgstr "Instrucciones:"
+
+msgid "Prediction:"
+msgstr "Predicción:"
+
+msgid "AI Analysis:"
+msgstr "Análisis IA:"
+
+msgid "Wagered"
+msgstr "Apostado"
+
+msgid "Potential Payout"
+msgstr "Pago Potencial"
+
+msgid "Did the prediction come true?"
+msgstr "¿La predicción se cumplió?"
+
+msgid "Yes, it did"
+msgstr "Sí, se cumplió"
+
+msgid "No, it didn't"
+msgstr "No, no se cumplió"
+
+msgid "Confirm All Bets"
+msgstr "Confirmar Todas las Apuestas"
+
+msgid "Skip for Now"
+msgstr "Omitir por Ahora"
+
+msgid "Bets will remain pending until confirmed."
+msgstr "Las apuestas permanecerán pendientes hasta que se confirmen."
+
+msgid "View Bet"
+msgstr "Ver Apuesta"
+
+msgid "Standard Bet"
+msgstr "Apuesta Estándar"
+
+msgid "Fixed multipliers (2x, 5x, 7x)"
+msgstr "Multiplicadores fijos (2x, 5x, 7x)"
+
+msgid "AI-calculated multiplier"
+msgstr "Multiplicador calculado por IA"
+
+msgid "AI bet(s) pending confirmation."
+msgstr "apuesta(s) IA pendiente(s) de confirmación."
+
+msgid "Confirm Bets"
+msgstr "Confirmar Apuestas"
+
+# ============================================================================
+# MATCH VIEW
+# ============================================================================
+
+msgid "Match Details"
+msgstr "Detalles del Partido"
+
+msgid "Completed"
+msgstr "Completado"
+
+msgid "Stats"
+msgstr "Estadísticas"
+
+msgid "Winnings"
+msgstr "Ganancias"
+
+msgid "No player statistics recorded."
+msgstr "No hay estadísticas de jugadores registradas."
+
+msgid "Match Notes"
+msgstr "Notas del Partido"
+
+msgid "Record Result"
+msgstr "Registrar Resultado"
+
+# ============================================================================
+# TEAM ASSETS
+# ============================================================================
+
+msgid "Edit Team Assets"
+msgstr "Editar Recursos del Equipo"
+
+msgid "Team Assets"
+msgstr "Recursos del Equipo"
+
+msgid "Available Treasury"
+msgstr "Tesorería Disponible"
+
+# ============================================================================
+# ADDITIONAL COMMON TERMS
+# ============================================================================
+
+msgid "All Matches"
+msgstr "Todos los Partidos"
+
+msgid "Home"
+msgstr "Local"
+
+msgid "Away"
+msgstr "Visitante"
+
+msgid "Clear"
+msgstr "Limpiar"
+
+msgid "Scheduled"
+msgstr "Programado"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "No matches match your filter criteria."
+msgstr "No hay partidos que coincidan con tu filtro."
+
+msgid "No matches have been scheduled yet."
+msgstr "Aún no se han programado partidos."
+
+msgid "Record Match"
+msgstr "Registrar Partido"
+
+msgid "Final Score"
+msgstr "Resultado Final"
+
+msgid "Winnings (gold)"
+msgstr "Ganancias (oro)"
+
+msgid "Optional"
+msgstr "Opcional"
+
+msgid "Save & Continue to Player Stats"
+msgstr "Guardar y Continuar a Estadísticas de Jugadores"
+
+msgid "Player Stats"
+msgstr "Estadísticas de Jugadores"
+
+msgid "Record Player Statistics"
+msgstr "Registrar Estadísticas de Jugadores"
+
+msgid "Injury"
+msgstr "Lesión"
+
+msgid "Badly Hurt"
+msgstr "Mal Herido"
+
+msgid "MNG"
+msgstr "Pierde Partido"
+
+msgid "Niggling"
+msgstr "Lesión Persistente"
+
+msgid "None"
+msgstr "Ninguna"
+
+msgid "Save Player Stats"
+msgstr "Guardar Estadísticas"
+
+msgid "Skip / Cancel"
+msgstr "Omitir / Cancelar"
+
+msgid "SPP Reference"
+msgstr "Referencia de PEJ"
+
+msgid "Touchdown (TD)"
+msgstr "Touchdown (TD)"
+
+msgid "Casualty (CAS)"
+msgstr "Baja (BAJ)"
+
+msgid "Completion (CMP)"
+msgstr "Pase Completado (PAS)"
+
+msgid "Deflection (DEF)"
+msgstr "Deflexión (DEF)"
+
+msgid "MVP Award"
+msgstr "Premio MVP"
+
+msgid "Roster Rules"
+msgstr "Reglas de Plantilla"
+
+msgid "Min. Players"
+msgstr "Mínimo de Jugadores"
+
+msgid "Max. Players"
+msgstr "Máximo de Jugadores"
+
+msgid "Allowed"
+msgstr "Permitidos"
+
+msgid "Not Allowed"
+msgstr "No Permitidos"
+
+msgid "No teams registered yet."
+msgstr "Aún no hay equipos registrados."
+
+msgid "Completed Matches"
+msgstr "Partidos Completados"
+
+msgid "W/D/L Points"
+msgstr "Pts V/E/D"
+
+msgid "No standings yet. The league hasn't started."
+msgstr "Aún no hay clasificación. La liga no ha comenzado."
+

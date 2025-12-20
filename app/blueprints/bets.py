@@ -1,6 +1,7 @@
 """Betting routes for match wagering."""
 import json
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
+from flask_babel import get_locale
 from flask_login import login_required, current_user
 from app.extensions import db
 from app.models import (
@@ -123,7 +124,10 @@ def view_bet(bet_id: int):
     
     # Only allow viewing own bets (or admin)
     if bet.user_id != current_user.id and not current_user.is_admin:
-        flash("You can only view your own bets.", "danger")
+        if str(get_locale()) == 'es':
+            flash("Solo puedes ver tus propias apuestas.", "danger")
+        else:
+            flash("You can only view your own bets.", "danger")
         return redirect(url_for("bets.index"))
     
     return render_template("bets/view_bet.html", bet=bet, payouts=BET_PAYOUTS)
@@ -138,7 +142,10 @@ def cancel_bet(bet_id: int):
     
     # Only allow canceling own bets
     if bet.user_id != current_user.id and not current_user.is_admin:
-        flash("You can only cancel your own bets.", "danger")
+        if str(get_locale()) == 'es':
+            flash("Solo puedes cancelar tus propias apuestas.", "danger")
+        else:
+            flash("You can only cancel your own bets.", "danger")
         return redirect(url_for("bets.index"))
     
     # Only allow canceling pending bets
@@ -494,13 +501,19 @@ def ai_bet_confirm():
     form = AIBetConfirmForm()
     
     if not form.validate_on_submit():
-        flash("Invalid form submission.", "danger")
+        if lang == 'es':
+            flash("Envío de formulario inválido.", "danger")
+        else:
+            flash("Invalid form submission.", "danger")
         return redirect(url_for("bets.ai_bet_index"))
     
     try:
         ai_bet_data = json.loads(form.ai_bet_data.data)
     except json.JSONDecodeError:
-        flash("Invalid bet data.", "danger")
+        if lang == 'es':
+            flash("Datos de apuesta inválidos.", "danger")
+        else:
+            flash("Invalid bet data.", "danger")
         return redirect(url_for("bets.ai_bet_index"))
     
     match_id = ai_bet_data["match_id"]

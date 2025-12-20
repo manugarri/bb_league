@@ -74,7 +74,10 @@ def record(match_id: int):
     
     # Only admins can edit completed matches
     if match.status == "completed" and not current_user.is_admin:
-        flash("This match has already been recorded.", "warning")
+        if get_locale() == "es":
+            flash("Este partido ya ha sido registrado.", "warning")
+        else:
+            flash("This match has already been recorded.", "warning")
         return redirect(url_for("matches.view", match_id=match.id))
     
     form = RecordMatchForm()
@@ -349,22 +352,35 @@ def update_standings(match: Match) -> None:
     if not season:
         return
     
-    # Get or create standings
+    # Get or create standings for home team
     home_standing = Standing.query.filter_by(
         season_id=season.id,
         team_id=match.home_team_id
     ).first()
     
+    if not home_standing:
+        home_standing = Standing(
+            season_id=season.id,
+            team_id=match.home_team_id
+        )
+        db.session.add(home_standing)
+    
+    # Get or create standings for away team
     away_standing = Standing.query.filter_by(
         season_id=season.id,
         team_id=match.away_team_id
     ).first()
     
-    if home_standing:
-        home_standing.update_from_match(True, match)
+    if not away_standing:
+        away_standing = Standing(
+            season_id=season.id,
+            team_id=match.away_team_id
+        )
+        db.session.add(away_standing)
     
-    if away_standing:
-        away_standing.update_from_match(False, match)
+    # Update standings
+    home_standing.update_from_match(True, match)
+    away_standing.update_from_match(False, match)
 
 
 def apply_injury(player: Player, injury_type: str, match_id: int) -> None:

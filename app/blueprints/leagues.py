@@ -1,5 +1,6 @@
 """Leagues blueprint."""
 from flask import Blueprint, render_template, redirect, url_for, flash, request, abort
+from flask_babel import get_locale
 from flask_login import login_required, current_user
 from app.extensions import db
 from app.models import League, Season, LeagueTeam, Standing, Match, Team
@@ -40,7 +41,10 @@ def index():
 def create():
     """Create a new league (admin only)."""
     if not current_user.is_admin:
-        flash("Only administrators can create leagues.", "danger")
+        if str(get_locale()) == 'es':
+            flash("Solo los administradores pueden crear ligas.", "danger")
+        else:
+            flash("Only administrators can create leagues.", "danger")
         return redirect(url_for("leagues.index"))
     
     form = CreateLeagueForm()
@@ -75,7 +79,10 @@ def create():
         db.session.add(season)
         db.session.commit()
         
-        flash(f"League '{league.name}' created successfully!", "success")
+        if str(get_locale()) == 'es':
+            flash(f"¡Liga '{league.name}' creada correctamente!", "success")
+        else:
+            flash(f"League '{league.name}' created successfully!", "success")
         return redirect(url_for("leagues.view", league_id=league.id))
     
     return render_template("leagues/create.html", form=form)
@@ -162,7 +169,10 @@ def edit(league_id: int):
         league.registration_open = form.registration_open.data
         
         db.session.commit()
-        flash("League updated successfully.", "success")
+        if str(get_locale()) == 'es':
+            flash("Liga actualizada correctamente.", "success")
+        else:
+            flash("League updated successfully.", "success")
         return redirect(url_for("leagues.view", league_id=league.id))
     
     return render_template("leagues/edit.html", form=form, league=league)
@@ -201,7 +211,10 @@ def join(league_id: int):
     league = League.query.get_or_404(league_id)
     
     if not league.can_register():
-        flash("This league is not accepting registrations.", "warning")
+        if str(get_locale()) == 'es':
+            flash("Esta liga no acepta inscripciones.", "warning")
+        else:
+            flash("This league is not accepting registrations.", "warning")
         return redirect(url_for("leagues.view", league_id=league.id))
     
     team_id = request.form.get("team_id", type=int)
@@ -214,7 +227,10 @@ def join(league_id: int):
     # Check if team is already registered
     existing = LeagueTeam.query.filter_by(league_id=league.id, team_id=team.id).first()
     if existing:
-        flash("This team is already registered in this league.", "warning")
+        if str(get_locale()) == 'es':
+            flash("Este equipo ya está registrado en esta liga.", "warning")
+        else:
+            flash("This team is already registered in this league.", "warning")
         return redirect(url_for("leagues.view", league_id=league.id))
     
     # Validate roster rules
@@ -248,7 +264,10 @@ def join(league_id: int):
     db.session.add(league_team)
     db.session.commit()
     
-    flash(f"Team '{team.name}' registered! Awaiting commissioner approval.", "success")
+    if str(get_locale()) == 'es':
+        flash(f"¡Equipo '{team.name}' registrado! Esperando aprobación del comisionado.", "success")
+    else:
+        flash(f"Team '{team.name}' registered! Awaiting commissioner approval.", "success")
     return redirect(url_for("leagues.view", league_id=league.id))
 
 
@@ -279,7 +298,10 @@ def approve_team(league_id: int, team_id: int):
     
     db.session.commit()
     
-    flash(f"Team approved!", "success")
+    if str(get_locale()) == 'es':
+        flash("¡Equipo aprobado!", "success")
+    else:
+        flash("Team approved!", "success")
     return redirect(url_for("leagues.view", league_id=league.id))
 
 
@@ -300,7 +322,10 @@ def reject_team(league_id: int, team_id: int):
     db.session.delete(league_team)
     db.session.commit()
     
-    flash("Team registration rejected.", "warning")
+    if str(get_locale()) == 'es':
+        flash("Inscripción de equipo rechazada.", "warning")
+    else:
+        flash("Team registration rejected.", "warning")
     return redirect(url_for("leagues.view", league_id=league.id))
 
 
@@ -318,14 +343,20 @@ def generate_schedule(league_id: int):
     teams = [lt.team for lt in league_teams]
     
     if len(teams) < league.min_teams:
-        flash(f"Need at least {league.min_teams} teams to generate schedule.", "warning")
+        if str(get_locale()) == 'es':
+            flash(f"Se necesitan al menos {league.min_teams} equipos para generar el calendario.", "warning")
+        else:
+            flash(f"Need at least {league.min_teams} teams to generate schedule.", "warning")
         return redirect(url_for("leagues.view", league_id=league.id))
     
     # Generate schedule based on format
     if league.format == "round_robin":
         schedule = generate_round_robin_schedule(teams)
     else:
-        flash("Schedule generation for this format not yet implemented.", "warning")
+        if str(get_locale()) == 'es':
+            flash("La generación de calendario para este formato aún no está implementada.", "warning")
+        else:
+            flash("Schedule generation for this format not yet implemented.", "warning")
         return redirect(url_for("leagues.view", league_id=league.id))
     
     # Create matches
@@ -352,7 +383,11 @@ def generate_schedule(league_id: int):
     
     db.session.commit()
     
-    flash(f"Schedule generated! {sum(len(r) for r in schedule)} matches created.", "success")
+    match_count = sum(len(r) for r in schedule)
+    if str(get_locale()) == 'es':
+        flash(f"¡Calendario generado! {match_count} partidos creados.", "success")
+    else:
+        flash(f"Schedule generated! {match_count} matches created.", "success")
     return redirect(url_for("leagues.view", league_id=league.id))
 
 

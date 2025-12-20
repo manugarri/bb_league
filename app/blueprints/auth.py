@@ -1,5 +1,6 @@
 """Authentication blueprint."""
 from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask_babel import get_locale
 from flask_login import login_user, logout_user, login_required, current_user
 from app.extensions import db
 from app.models import User
@@ -18,11 +19,17 @@ def register():
     if form.validate_on_submit():
         # Check if user exists
         if User.query.filter_by(email=form.email.data.lower()).first():
-            flash("Email address already registered.", "danger")
+            if str(get_locale()) == 'es':
+                flash("El correo electrónico ya está registrado.", "danger")
+            else:
+                flash("Email address already registered.", "danger")
             return render_template("auth/register.html", form=form)
         
         if User.query.filter_by(username=form.username.data).first():
-            flash("Username already taken.", "danger")
+            if str(get_locale()) == 'es':
+                flash("El nombre de usuario ya está en uso.", "danger")
+            else:
+                flash("Username already taken.", "danger")
             return render_template("auth/register.html", form=form)
         
         # Create new user
@@ -36,7 +43,10 @@ def register():
         db.session.add(user)
         db.session.commit()
         
-        flash("Registration successful! Please log in.", "success")
+        if str(get_locale()) == 'es':
+            flash("¡Registro exitoso! Por favor inicia sesión.", "success")
+        else:
+            flash("Registration successful! Please log in.", "success")
         return redirect(url_for("auth.login"))
     
     return render_template("auth/register.html", form=form)
@@ -53,11 +63,17 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         
         if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password.", "danger")
+            if str(get_locale()) == 'es':
+                flash("Usuario o contraseña inválidos.", "danger")
+            else:
+                flash("Invalid username or password.", "danger")
             return render_template("auth/login.html", form=form)
         
         if not user.is_active:
-            flash("This account has been deactivated.", "danger")
+            if str(get_locale()) == 'es':
+                flash("Esta cuenta ha sido desactivada.", "danger")
+            else:
+                flash("This account has been deactivated.", "danger")
             return render_template("auth/login.html", form=form)
         
         login_user(user, remember=form.remember_me.data)
@@ -75,7 +91,10 @@ def login():
 def logout():
     """User logout."""
     logout_user()
-    flash("You have been logged out.", "info")
+    if str(get_locale()) == 'es':
+        flash("Has cerrado sesión.", "info")
+    else:
+        flash("You have been logged out.", "info")
     return redirect(url_for("main.index"))
 
 
@@ -92,12 +111,18 @@ def profile():
         # Change password if provided
         if form.new_password.data:
             if not current_user.check_password(form.current_password.data):
-                flash("Current password is incorrect.", "danger")
+                if str(get_locale()) == 'es':
+                    flash("La contraseña actual es incorrecta.", "danger")
+                else:
+                    flash("Current password is incorrect.", "danger")
                 return render_template("auth/profile.html", form=form)
             current_user.set_password(form.new_password.data)
         
         db.session.commit()
-        flash("Profile updated successfully.", "success")
+        if str(get_locale()) == 'es':
+            flash("Perfil actualizado correctamente.", "success")
+        else:
+            flash("Profile updated successfully.", "success")
         return redirect(url_for("auth.profile"))
     
     return render_template("auth/profile.html", form=form)

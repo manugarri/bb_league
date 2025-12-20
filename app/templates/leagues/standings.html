@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Standings - {{ league.name }}{% endblock %}
+{% block title %}{% if get_locale() == 'es' %}Clasificación{% else %}Standings{% endif %} - {{ league.name }}{% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">Leagues</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">{{ _('Leagues') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=league.id) }}">{{ league.name }}</a></li>
-        <li class="breadcrumb-item active">Standings</li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Clasificación{% else %}Standings{% endif %}</li>
     </ol>
 </nav>
 
-<h1 class="mb-4"><i class="bi bi-list-ol text-gold me-2"></i>{{ league.name }} - Standings</h1>
+<h1 class="mb-4"><i class="bi bi-list-ol text-gold me-2"></i>{{ league.name }} - {% if get_locale() == 'es' %}Clasificación{% else %}Standings{% endif %}</h1>
 
 {% if standings %}
 <div class="card">
@@ -20,18 +20,19 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 50px;">Pos</th>
-                        <th>Team</th>
-                        <th>Race</th>
-                        <th class="text-center">P</th>
-                        <th class="text-center">W</th>
-                        <th class="text-center">D</th>
-                        <th class="text-center">L</th>
-                        <th class="text-center">TF</th>
-                        <th class="text-center">TA</th>
+                        <th class="text-center" style="width: 50px;">{% if get_locale() == 'es' %}Pos{% else %}Pos{% endif %}</th>
+                        <th>{{ _('Team') }}</th>
+                        <th>{{ _('Race') }}</th>
+                        <th class="text-center">{% if get_locale() == 'es' %}PJ{% else %}P{% endif %}</th>
+                        <th class="text-center">{% if get_locale() == 'es' %}V{% else %}W{% endif %}</th>
+                        <th class="text-center">{% if get_locale() == 'es' %}E{% else %}D{% endif %}</th>
+                        <th class="text-center">{% if get_locale() == 'es' %}D{% else %}L{% endif %}</th>
+                        <th class="text-center">{% if get_locale() == 'es' %}TF{% else %}TF{% endif %}</th>
+                        <th class="text-center">{% if get_locale() == 'es' %}TC{% else %}TA{% endif %}</th>
                         <th class="text-center">TD+/-</th>
-                        <th class="text-center">CAS</th>
-                        <th class="text-center">Pts</th>
+                        <th class="text-center">{% if get_locale() == 'es' %}BAJ{% else %}CAS{% endif %}</th>
+                        <th class="text-center" title="{% if get_locale() == 'es' %}Puntos Bonus{% else %}Bonus Points{% endif %}">{% if get_locale() == 'es' %}PB{% else %}BP{% endif %}</th>
+                        <th class="text-center">{% if get_locale() == 'es' %}Pts{% else %}Pts{% endif %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,6 +65,11 @@
                             {{ '%+d' % standing.touchdown_diff }}
                         </td>
                         <td class="text-center">{{ standing.casualties_inflicted }}</td>
+                        <td class="text-center text-info" 
+                            title="{% if get_locale() == 'es' %}3+ TDs: {{ standing.bonus_high_scoring or 0 }}, Rival 3+ TDs: {{ standing.bonus_opponent_high_scoring or 0 }}, 3+ Bajas: {{ standing.bonus_casualties or 0 }}{% else %}3+ TDs: {{ standing.bonus_high_scoring or 0 }}, Opp 3+ TDs: {{ standing.bonus_opponent_high_scoring or 0 }}, 3+ CAS: {{ standing.bonus_casualties or 0 }}{% endif %}"
+                            data-bs-toggle="tooltip">
+                            {% if standing.bonus_points %}+{{ standing.bonus_points }}{% else %}0{% endif %}
+                        </td>
                         <td class="text-center fw-bold text-gold fs-5">{{ standing.points }}</td>
                     </tr>
                     {% endfor %}
@@ -73,35 +79,65 @@
     </div>
 </div>
 
+<!-- Points System Explanation -->
+<div class="card mt-4">
+    <div class="card-header">
+        <i class="bi bi-info-circle me-2"></i>{% if get_locale() == 'es' %}Sistema de Puntos de Liga{% else %}League Points System{% endif %}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="text-gold mb-3"><i class="bi bi-trophy me-2"></i>{% if get_locale() == 'es' %}Puntos por Resultado{% else %}Match Result Points{% endif %}</h6>
+                <ul class="list-unstyled mb-0">
+                    <li><span class="badge bg-success me-2">+3</span> {% if get_locale() == 'es' %}Victoria{% else %}Victory{% endif %}</li>
+                    <li><span class="badge bg-secondary me-2">+1</span> {% if get_locale() == 'es' %}Empate{% else %}Draw{% endif %}</li>
+                    <li><span class="badge bg-danger me-2">+0</span> {% if get_locale() == 'es' %}Derrota{% else %}Loss{% endif %}</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6 class="text-info mb-3"><i class="bi bi-star me-2"></i>{% if get_locale() == 'es' %}Puntos Bonus{% else %}Bonus Points{% endif %}</h6>
+                <ul class="list-unstyled mb-0">
+                    <li><span class="badge bg-info me-2">+1</span> {% if get_locale() == 'es' %}Anotar 3+ touchdowns{% else %}Scoring 3+ touchdowns{% endif %}</li>
+                    <li><span class="badge bg-info me-2">+1</span> {% if get_locale() == 'es' %}Rival anota 3+ touchdowns{% else %}Opponent scores 3+ touchdowns{% endif %}</li>
+                    <li><span class="badge bg-info me-2">+1</span> {% if get_locale() == 'es' %}Causar 3+ bajas{% else %}Causing 3+ casualties{% endif %}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="mt-4">
-    <h5 class="text-gold mb-3">Legend</h5>
+    <h5 class="text-gold mb-3">{% if get_locale() == 'es' %}Leyenda{% else %}Legend{% endif %}</h5>
     <div class="row g-3">
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">P</span> Played
+            <span class="badge bg-secondary me-1">{% if get_locale() == 'es' %}PJ{% else %}P{% endif %}</span> {% if get_locale() == 'es' %}Jugados{% else %}Played{% endif %}
         </div>
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">W</span> Wins
+            <span class="badge bg-secondary me-1">{% if get_locale() == 'es' %}V{% else %}W{% endif %}</span> {% if get_locale() == 'es' %}Victorias{% else %}Wins{% endif %}
         </div>
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">D</span> Draws
+            <span class="badge bg-secondary me-1">{% if get_locale() == 'es' %}E{% else %}D{% endif %}</span> {% if get_locale() == 'es' %}Empates{% else %}Draws{% endif %}
         </div>
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">L</span> Losses
+            <span class="badge bg-secondary me-1">{% if get_locale() == 'es' %}D{% else %}L{% endif %}</span> {% if get_locale() == 'es' %}Derrotas{% else %}Losses{% endif %}
         </div>
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">TF</span> Touchdowns For
+            <span class="badge bg-secondary me-1">{% if get_locale() == 'es' %}TF{% else %}TF{% endif %}</span> {% if get_locale() == 'es' %}Touchdowns a Favor{% else %}Touchdowns For{% endif %}
         </div>
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">TA</span> Touchdowns Against
+            <span class="badge bg-secondary me-1">{% if get_locale() == 'es' %}TC{% else %}TA{% endif %}</span> {% if get_locale() == 'es' %}Touchdowns en Contra{% else %}Touchdowns Against{% endif %}
         </div>
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">TD+/-</span> Touchdown Difference
+            <span class="badge bg-secondary me-1">TD+/-</span> {% if get_locale() == 'es' %}Diferencia de TD{% else %}Touchdown Difference{% endif %}
         </div>
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">CAS</span> Casualties Inflicted
+            <span class="badge bg-secondary me-1">{% if get_locale() == 'es' %}BAJ{% else %}CAS{% endif %}</span> {% if get_locale() == 'es' %}Bajas Infligidas{% else %}Casualties Inflicted{% endif %}
         </div>
         <div class="col-auto">
-            <span class="badge bg-secondary me-1">Pts</span> Points
+            <span class="badge bg-info me-1">{% if get_locale() == 'es' %}PB{% else %}BP{% endif %}</span> {% if get_locale() == 'es' %}Puntos Bonus{% else %}Bonus Points{% endif %}
+        </div>
+        <div class="col-auto">
+            <span class="badge bg-secondary me-1">Pts</span> {% if get_locale() == 'es' %}Puntos Totales{% else %}Total Points{% endif %}
         </div>
     </div>
 </div>
@@ -110,10 +146,10 @@
 <div class="card">
     <div class="card-body text-center py-5">
         <i class="bi bi-list-ol display-1 text-muted mb-3"></i>
-        <h4>No standings available</h4>
-        <p class="text-muted">The league hasn't started yet or no matches have been played.</p>
+        <h4>{% if get_locale() == 'es' %}No hay clasificación disponible{% else %}No standings available{% endif %}</h4>
+        <p class="text-muted">{% if get_locale() == 'es' %}La liga no ha comenzado todavía o no se han jugado partidos.{% else %}The league hasn't started yet or no matches have been played.{% endif %}</p>
         <a href="{{ url_for('leagues.view', league_id=league.id) }}" class="btn btn-primary">
-            Back to League
+            {% if get_locale() == 'es' %}Volver a la Liga{% else %}Back to League{% endif %}
         </a>
     </div>
 </div>

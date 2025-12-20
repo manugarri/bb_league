@@ -5,11 +5,11 @@
 {% block content %}
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">Matches</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">{{ _('Matches') }}</a></li>
         {% if match.league %}
         <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=match.league.id) }}">{{ match.league.name }}</a></li>
         {% endif %}
-        <li class="breadcrumb-item active">Match Details</li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Detalles del Partido{% else %}Match Details{% endif %}</li>
     </ol>
 </nav>
 
@@ -36,15 +36,15 @@
                     <span class="text-muted mx-2">-</span>
                     <span class="{% if match.away_score > match.home_score %}text-gold{% endif %}">{{ match.away_score }}</span>
                 </div>
-                <span class="badge bg-success mt-2">Completed</span>
+                <span class="badge bg-success mt-2">{% if get_locale() == 'es' %}Completado{% else %}Completed{% endif %}</span>
                 {% else %}
                 <div class="display-5 text-muted">VS</div>
-                <span class="badge bg-warning mt-2">{{ match.status | capitalize }}</span>
+                <span class="badge bg-warning mt-2">{% if get_locale() == 'es' %}{% if match.status == 'scheduled' %}Programado{% elif match.status == 'in_progress' %}En Curso{% else %}{{ match.status | capitalize }}{% endif %}{% else %}{{ match.status | capitalize }}{% endif %}</span>
                 {% endif %}
                 
                 {% if match.league %}
                 <p class="text-muted small mt-2 mb-0">
-                    {{ match.league.name }} · Round {{ match.round_number or 'N/A' }}
+                    {{ match.league.name }} · {% if get_locale() == 'es' %}Jornada{% else %}Round{% endif %} {{ match.round_number or 'N/A' }}
                 </p>
                 {% endif %}
             </div>
@@ -114,7 +114,7 @@
     <div class="col-md-6">
         <div class="card h-100">
             <div class="card-header">
-                <i class="bi bi-house me-2"></i>{{ match.home_team.name }} Stats
+                <i class="bi bi-house me-2"></i>{{ match.home_team.name }} {% if get_locale() == 'es' %}Estadísticas{% else %}Stats{% endif %}
             </div>
             <div class="card-body">
                 <table class="table table-sm mb-0">
@@ -123,11 +123,11 @@
                         <td class="text-end text-gold fw-bold">{{ match.home_score }}</td>
                     </tr>
                     <tr>
-                        <td>Casualties Inflicted</td>
+                        <td>{% if get_locale() == 'es' %}Bajas Infligidas{% else %}Casualties Inflicted{% endif %}</td>
                         <td class="text-end">{{ match.home_casualties }}</td>
                     </tr>
                     <tr>
-                        <td>Winnings</td>
+                        <td>{% if get_locale() == 'es' %}Ganancias{% else %}Winnings{% endif %}</td>
                         <td class="text-end text-gold">{{ "{:,}".format(match.home_winnings) }}g</td>
                     </tr>
                 </table>
@@ -137,7 +137,7 @@
     <div class="col-md-6">
         <div class="card h-100">
             <div class="card-header">
-                <i class="bi bi-airplane me-2"></i>{{ match.away_team.name }} Stats
+                <i class="bi bi-airplane me-2"></i>{{ match.away_team.name }} {% if get_locale() == 'es' %}Estadísticas{% else %}Stats{% endif %}
             </div>
             <div class="card-body">
                 <table class="table table-sm mb-0">
@@ -146,11 +146,11 @@
                         <td class="text-end text-gold fw-bold">{{ match.away_score }}</td>
                     </tr>
                     <tr>
-                        <td>Casualties Inflicted</td>
+                        <td>{% if get_locale() == 'es' %}Bajas Infligidas{% else %}Casualties Inflicted{% endif %}</td>
                         <td class="text-end">{{ match.away_casualties }}</td>
                     </tr>
                     <tr>
-                        <td>Winnings</td>
+                        <td>{% if get_locale() == 'es' %}Ganancias{% else %}Winnings{% endif %}</td>
                         <td class="text-end text-gold">{{ "{:,}".format(match.away_winnings) }}g</td>
                     </tr>
                 </table>
@@ -164,7 +164,7 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
-                <i class="bi bi-people me-2"></i>{{ match.home_team.name }} Players
+                <i class="bi bi-people me-2"></i>{{ match.home_team.name }} {% if get_locale() == 'es' %}Jugadores{% else %}Players{% endif %}
             </div>
             <div class="card-body p-0">
                 {% if home_stats %}
@@ -172,13 +172,13 @@
                     <table class="table table-sm table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>Player</th>
+                                <th>{% if get_locale() == 'es' %}Jugador{% else %}Player{% endif %}</th>
                                 <th class="text-center">TD</th>
-                                <th class="text-center">CAS</th>
-                                <th class="text-center">COMP</th>
+                                <th class="text-center">{% if get_locale() == 'es' %}BAJ{% else %}CAS{% endif %}</th>
+                                <th class="text-center">{% if get_locale() == 'es' %}PAS{% else %}COMP{% endif %}</th>
                                 <th class="text-center">INT</th>
                                 <th class="text-center">MVP</th>
-                                <th class="text-center">SPP</th>
+                                <th class="text-center">{% if get_locale() == 'es' %}PE{% else %}SPP{% endif %}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -205,7 +205,7 @@
                 </div>
                 {% else %}
                 <div class="text-center py-4 text-muted">
-                    No player statistics recorded.
+                    {% if get_locale() == 'es' %}No hay estadísticas de jugadores registradas.{% else %}No player statistics recorded.{% endif %}
                 </div>
                 {% endif %}
             </div>
@@ -215,7 +215,7 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
-                <i class="bi bi-people me-2"></i>{{ match.away_team.name }} Players
+                <i class="bi bi-people me-2"></i>{{ match.away_team.name }} {% if get_locale() == 'es' %}Jugadores{% else %}Players{% endif %}
             </div>
             <div class="card-body p-0">
                 {% if away_stats %}
@@ -223,13 +223,13 @@
                     <table class="table table-sm table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>Player</th>
+                                <th>{% if get_locale() == 'es' %}Jugador{% else %}Player{% endif %}</th>
                                 <th class="text-center">TD</th>
-                                <th class="text-center">CAS</th>
-                                <th class="text-center">COMP</th>
+                                <th class="text-center">{% if get_locale() == 'es' %}BAJ{% else %}CAS{% endif %}</th>
+                                <th class="text-center">{% if get_locale() == 'es' %}PAS{% else %}COMP{% endif %}</th>
                                 <th class="text-center">INT</th>
                                 <th class="text-center">MVP</th>
-                                <th class="text-center">SPP</th>
+                                <th class="text-center">{% if get_locale() == 'es' %}PE{% else %}SPP{% endif %}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -256,7 +256,7 @@
                 </div>
                 {% else %}
                 <div class="text-center py-4 text-muted">
-                    No player statistics recorded.
+                    {% if get_locale() == 'es' %}No hay estadísticas de jugadores registradas.{% else %}No player statistics recorded.{% endif %}
                 </div>
                 {% endif %}
             </div>
@@ -267,7 +267,7 @@
 {% if match.notes %}
 <div class="card mt-4">
     <div class="card-header">
-        <i class="bi bi-journal-text me-2"></i>Match Notes
+        <i class="bi bi-journal-text me-2"></i>{% if get_locale() == 'es' %}Notas del Partido{% else %}Match Notes{% endif %}
     </div>
     <div class="card-body">
         <p class="mb-0">{{ match.notes }}</p>

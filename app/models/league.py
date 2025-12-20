@@ -141,6 +141,12 @@ class Standing(db.Model):
     losses = db.Column(db.Integer, default=0)
     points = db.Column(db.Integer, default=0)
     
+    # Bonus points breakdown (for transparency)
+    bonus_points = db.Column(db.Integer, default=0)  # Total bonus points earned
+    bonus_high_scoring = db.Column(db.Integer, default=0)  # +1 for scoring 3+ TDs
+    bonus_opponent_high_scoring = db.Column(db.Integer, default=0)  # +1 for opponent scoring 3+ TDs
+    bonus_casualties = db.Column(db.Integer, default=0)  # +1 for causing 3+ casualties
+    
     # Statistics
     touchdowns_for = db.Column(db.Integer, default=0)
     touchdowns_against = db.Column(db.Integer, default=0)
@@ -163,27 +169,47 @@ class Standing(db.Model):
         """Calculate casualty differential."""
         return self.casualties_inflicted - self.casualties_suffered
     
+    @property
+    def base_points(self) -> int:
+        """Calculate base points from wins/draws/losses only."""
+        return self.points - (self.bonus_points or 0)
+    
     def update_from_match(self, is_home: bool, match) -> None:
-        """Update standing based on match result."""
-        self.played += 1
+        """Update standing based on match result.
+        
+        Points are awarded as follows:
+        - Victory: +3 league points
+        - Tie: +1 league point  
+        - 3+ touchdowns scored: +1 league point
+        - Opponent scores 3+ touchdowns: +1 league point
+        - 3+ casualties caused: +1 league point
+        """
+        # Initialize to 0 if None (for newly created standings)
+        self.played = (self.played or 0) + 1
         
         if is_home:
-            tds_for = match.home_score
-            tds_against = match.away_score
-            cas_for = match.home_casualties
-            cas_against = match.away_casualties
+            tds_for = match.home_score or 0
+            tds_against = match.away_score or 0
+            cas_for = match.home_casualties or 0
+            cas_against = match.away_casualties or 0
         else:
-            tds_for = match.away_score
-            tds_against = match.home_score
-            cas_for = match.away_casualties
-            cas_against = match.home_casualties
+            tds_for = match.away_score or 0
+            tds_against = match.home_score or 0
+            cas_for = match.away_casualties or 0
+            cas_against = match.home_casualties or 0
         
-        self.touchdowns_for += tds_for
-        self.touchdowns_against += tds_against
-        self.casualties_inflicted += cas_for
-        self.casualties_suffered += cas_against
+        self.touchdowns_for = (self.touchdowns_for or 0) + tds_for
+        self.touchdowns_against = (self.touchdowns_against or 0) + tds_against
+        self.casualties_inflicted = (self.casualties_inflicted or 0) + cas_for
+        self.casualties_suffered = (self.casualties_suffered or 0) + cas_against
         
-        # Determine result
+        # Initialize points if None
+        self.points = self.points or 0
+        self.wins = self.wins or 0
+        self.draws = self.draws or 0
+        self.losses = self.losses or 0
+        
+        # Base points from match result
         if tds_for > tds_against:
             self.wins += 1
             self.points += match.league.win_points
@@ -193,4 +219,26 @@ class Standing(db.Model):
         else:
             self.draws += 1
             self.points += match.league.draw_points
+        
+        # Bonus points calculation
+        match_bonus = 0
+        
+        # +1 for scoring 3+ touchdowns in one game
+        if tds_for >= 3:
+            match_bonus += 1
+            self.bonus_high_scoring = (self.bonus_high_scoring or 0) + 1
+        
+        # +1 for opponent scoring 3+ touchdowns against you
+        if tds_against >= 3:
+            match_bonus += 1
+            self.bonus_opponent_high_scoring = (self.bonus_opponent_high_scoring or 0) + 1
+        
+        # +1 for causing 3+ casualties in one game
+        if cas_for >= 3:
+            match_bonus += 1
+            self.bonus_casualties = (self.bonus_casualties or 0) + 1
+        
+        # Add bonus points to totals
+        self.bonus_points = (self.bonus_points or 0) + match_bonus
+        self.points += match_bonus
 
