@@ -1,7 +1,7 @@
 # Blood Bowl League Tracker - Makefile
 # Use: make <command>
 
-.PHONY: help run dev seed seed-test reset clean install test upsert-user
+.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams
 
 # Default target
 help:
@@ -11,12 +11,20 @@ help:
 	@echo "  make run        - Start the application"
 	@echo "  make dev        - Start the application in debug mode"
 	@echo "  make seed       - Seed the database with initial data"
-	@echo "  make seed-test  - Seed test data (users, teams, league)"
+	@echo "  make seed-test-data  - Seed test data (users, teams, league)"
 	@echo "  make reset      - Reset the database (delete and recreate)"
 	@echo "  make clean      - Remove database and cache files"
 	@echo "  make test       - Run tests"
 	@echo "  make upsert-user USERNAME=<name> [PASSWORD=<pass>] [ADMIN=1]"
 	@echo "                  - Create or update a user"
+	@echo "  make db-export [FILE=<path>]"
+	@echo "                  - Export database to JSON (default: backups/db_export.json)"
+	@echo "  make db-import [FILE=<path>]"
+	@echo "                  - Import database from JSON (default: backups/db_export.json)"
+	@echo "  make export-teams [FILE=<path>]"
+	@echo "                  - Export teams to JSON (default: backups/teams_export.json)"
+	@echo "  make import-teams [FILE=<path>] [RESET=1]"
+	@echo "                  - Import teams from JSON (RESET=1 clears existing teams)"
 	@echo ""
 
 # Install dependencies
@@ -84,4 +92,24 @@ endif
 		$(if $(PASSWORD),--password $(PASSWORD)) \
 		$(if $(filter 1 true yes,$(ADMIN)),--admin) \
 		$(if $(filter 0 false no,$(ADMIN)),--no-admin)
+
+# Export database to JSON file
+# Usage: make db-export [FILE=backups/db_export.json]
+db-export:
+	uv run python scripts/db_export_import.py export --output $(or $(FILE),backups/db_export.json)
+
+# Import database from JSON file
+# Usage: make db-import [FILE=backups/db_export.json]
+db-import:
+	uv run python scripts/db_export_import.py import --input $(or $(FILE),backups/db_export.json)
+
+# Export teams to JSON file
+# Usage: make export-teams [FILE=backups/teams_export.json]
+export-teams:
+	uv run python scripts/teams_export_import.py export --output $(or $(FILE),backups/teams_export.json)
+
+# Import teams from JSON file
+# Usage: make import-teams [FILE=backups/teams_export.json] [RESET=1]
+import-teams:
+	uv run python scripts/teams_export_import.py import --input $(or $(FILE),backups/teams_export.json) $(if $(filter 1 true yes,$(RESET)),--reset)
 

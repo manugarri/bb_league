@@ -95,3 +95,6 @@ alwaysApply: true
   - Use environment variables for sensitive information and configuration.
 
   Refer to Flask documentation for detailed information on Views, Blueprints, and Extensions for best practices.
+
+Other:
+- We will use a make file to add all utility scripts. The required utility scripts themselves will be in the scripts folder.

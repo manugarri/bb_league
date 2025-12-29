@@ -43,6 +43,7 @@ env/
 *.db
 *.sqlite
 *.sqlite3
+backups/
 
 # Logs
 *.log
@@ -54,12 +55,15 @@ htmlcov/
 .pytest_cache/
 
 # Migrations (keep structure, ignore generated)
-migrations/versions/*.pyc
+*.pyc
 
 # OS
 .DS_Store
 Thumbs.db
+.playwright-mcp/
 
 # Flask
 instance/
 
+backups/
+users.txt
