@@ -18,10 +18,8 @@
           "cost": 50000,
           "max": 16,
           "primary": "G",
-          "secondary": "AF",
-          "skills": [
-            "Dodge"
-          ]
+          "secondary": "AS",
+          "skills": ["Dodge"]
         },
         {
           "name": "Python Warrior Thrower",
@@ -33,13 +31,8 @@
           "cost": 80000,
           "max": 2,
           "primary": "GP",
-          "secondary": "AF",
-          "skills": [
-            "On the Ball",
-            "Dodge",
-            "Pass",
-            "Safe Pass"
-          ]
+          "secondary": "AS",
+          "skills": ["On the Ball", "Dodge", "Pass", "Safe Pass"]
         },
         {
           "name": "Piranha Warrior Blitzer",
@@ -51,12 +44,8 @@
           "cost": 90000,
           "max": 2,
           "primary": "AG",
-          "secondary": "F",
-          "skills": [
-            "Hit and Run",
-            "Jump Up",
-            "Dodge"
-          ]
+          "secondary": "S",
+          "skills": ["Hit and Run", "Jump Up", "Dodge"]
         },
         {
           "name": "Jaguar Warrior Blocker",
@@ -67,12 +56,9 @@
           "av": 9,
           "cost": 110000,
           "max": 2,
-          "primary": "GF",
+          "primary": "GS",
           "secondary": "A",
-          "skills": [
-            "Defensive",
-            "Dodge"
-          ]
+          "skills": ["Defensive", "Dodge"]
         }
       ],
       "league_types": [
@@ -105,14 +91,9 @@
           "av": 8,
           "cost": 45000,
           "max": 16,
-          "primary": "A",
-          "secondary": "G",
-          "skills": [
-            "Thick Skull",
-            "Right Stuff",
-            "Dodge",
-            "Stunty"
-          ]
+          "primary": "AE",
+          "secondary": "GSP",
+          "skills": ["Thick Skull", "Right Stuff", "Dodge", "Stunty"]
         },
         {
           "name": "Black Orc",
@@ -124,11 +105,8 @@
           "cost": 90000,
           "max": 6,
           "primary": "GS",
-          "secondary": "A",
-          "skills": [
-            "Brawler",
-            "Grab"
-          ]
+          "secondary": "AE",
+          "skills": ["Brawler", "Grab"]
         },
         {
           "name": "Trained Troll",
@@ -141,14 +119,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGP",
-          "skills": [
-            "Mighty Blow (+1)",
-            "Throw Team-mate",
-            "Projectile Vomit",
-            "Really Stupid",
-            "Regeneration",
-            "Always Hungry"
-          ]
+          "skills": ["Mighty Blow (+1)", "Throw Team-mate", "Projectile Vomit", "Really Stupid", "Regeneration", "Always Hungry"]
         }
       ],
       "league_types": [
@@ -173,10 +144,8 @@
           "cost": 50000,
           "max": 16,
           "primary": "G",
-          "secondary": "AF",
-          "skills": [
-            "Fend"
-          ]
+          "secondary": "AS",
+          "skills": ["Fend"]
         },
         {
           "name": "Knight Thrower",
@@ -188,12 +157,8 @@
           "cost": 80000,
           "max": 2,
           "primary": "GP",
-          "secondary": "AF",
-          "skills": [
-            "Dauntless",
-            "Nerves of Steel",
-            "Pass"
-          ]
+          "secondary": "AS",
+          "skills": ["Dauntless", "Nerves of Steel", "Pass"]
         },
         {
           "name": "Knight Catcher",
@@ -205,12 +170,8 @@
           "cost": 85000,
           "max": 2,
           "primary": "AG",
-          "secondary": "F",
-          "skills": [
-            "Dauntless",
-            "Catch",
-            "Nerves of Steel"
-          ]
+          "secondary": "S",
+          "skills": ["Dauntless", "Catch", "Nerves of Steel"]
         },
         {
           "name": "Grail Knight",
@@ -223,11 +184,7 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": [
-            "Dauntless",
-            "Stand Firm",
-            "Block"
-          ]
+          "skills": ["Dauntless", "Stand Firm", "Block"]
         }
       ],
       "league_types": [
@@ -256,8 +213,8 @@
           "av": 8,
           "cost": 40000,
           "max": 16,
-          "primary": "G",
-          "secondary": "AF",
+          "primary": "E",
+          "secondary": "ASG",
           "skills": []
         },
         {
@@ -270,11 +227,8 @@
           "cost": 60000,
           "max": 2,
           "primary": "GA",
-          "secondary": "AF",
-          "skills": [
-            "Stab",
-            "Shadowing"
-          ]
+          "secondary": "AS",
+          "skills": ["Stab", "Shadowing"]
         },
         {
           "name": "Chaos Dwarf Blocker",
@@ -286,12 +240,8 @@
           "cost": 70000,
           "max": 4,
           "primary": "GS",
-          "secondary": "AM",
-          "skills": [
-            "Block",
-            "Thick Skull",
-            "Iron Hard Skin"
-          ]
+          "secondary": "AME",
+          "skills": ["Block", "Thick Skull", "Iron Hard Skin"]
         },
         {
           "name": "Chaos Dwarf Flamesmith",
@@ -303,13 +253,8 @@
           "cost": 80000,
           "max": 2,
           "primary": "GS",
-          "secondary": "AM",
-          "skills": [
-            "Thick Skull",
-            "Breathe Fire",
-            "Brawler",
-            "Disturbing Presence"
-          ]
+          "secondary": "AME",
+          "skills": ["Thick Skull", "Breathe Fire", "Brawler", "Disturbing Presence"]
         },
         {
           "name": "Bull Centaur",
@@ -321,12 +266,8 @@
           "cost": 130000,
           "max": 2,
           "primary": "GS",
-          "secondary": "AM",
-          "skills": [
-            "Sprint",
-            "Sure Feet",
-            "Thick Skull"
-          ]
+          "secondary": "AME",
+          "skills": ["Sprint", "Sure Feet", "Thick Skull"]
         },
         {
           "name": "Minotaur",
@@ -339,14 +280,7 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": [
-            "Loner (4+)",
-            "Frenzy",
-            "Horns",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Unchannelled Fury"
-          ]
+          "skills": ["Loner (4+)", "Frenzy", "Horns", "Mighty Blow (+1)", "Thick Skull", "Unchannelled Fury"]
         }
       ],
       "league_types": [
@@ -376,11 +310,9 @@
           "av": 9,
           "cost": 50000,
           "max": 16,
-          "primary": "GM",
-          "secondary": "AF",
-          "skills": [
-            "Animosity (All)"
-          ]
+          "primary": "GME",
+          "secondary": "AS",
+          "skills": ["Animosity (All)"]
         },
         {
           "name": "Renegade Goblin",
@@ -391,14 +323,9 @@
           "av": 8,
           "cost": 40000,
           "max": 1,
-          "primary": "AM",
+          "primary": "AME",
           "secondary": "GP",
-          "skills": [
-            "Animosity (All)",
-            "Right Stuff",
-            "Dodge",
-            "Stunty"
-          ]
+          "skills": ["Animosity (All)", "Right Stuff", "Dodge", "Stunty"]
         },
         {
           "name": "Renegade Orc",
@@ -409,11 +336,9 @@
           "av": 10,
           "cost": 50000,
           "max": 1,
-          "primary": "GM",
-          "secondary": "AF",
-          "skills": [
-            "Animosity (All)"
-          ]
+          "primary": "GME",
+          "secondary": "AS",
+          "skills": ["Animosity (All)"]
         },
         {
           "name": "Renegade Skaven",
@@ -424,11 +349,9 @@
           "av": 8,
           "cost": 50000,
           "max": 1,
-          "primary": "GM",
-          "secondary": "AF",
-          "skills": [
-            "Animosity (All)"
-          ]
+          "primary": "GME",
+          "secondary": "AS",
+          "skills": ["Animosity (All)"]
         },
         {
           "name": "Renegade Dark Elf",
@@ -439,11 +362,9 @@
           "av": 9,
           "cost": 65000,
           "max": 1,
-          "primary": "AGM",
-          "secondary": "F",
-          "skills": [
-            "Animosity (All)"
-          ]
+          "primary": "AGME",
+          "secondary": "S",
+          "skills": ["Animosity (All)"]
         },
         {
           "name": "Renegade Human Thrower",
@@ -454,13 +375,9 @@
           "av": 9,
           "cost": 75000,
           "max": 1,
-          "primary": "GMP",
-          "secondary": "AF",
-          "skills": [
-            "Animosity (All)",
-            "Sure Hands",
-            "Pass"
-          ]
+          "primary": "GMPE",
+          "secondary": "AS",
+          "skills": ["Animosity (All)", "Sure Hands", "Pass"]
         },
         {
           "name": "Troll",
@@ -473,15 +390,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGMP",
-          "skills": [
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Throw Team-mate",
-            "Projectile Vomit",
-            "Really Stupid",
-            "Regeneration",
-            "Always Hungry"
-          ]
+          "skills": ["Loner (4+)", "Mighty Blow (+1)", "Throw Team-mate", "Projectile Vomit", "Really Stupid", "Regeneration", "Always Hungry"]
         },
         {
           "name": "Ogre",
@@ -494,13 +403,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": [
-            "Loner (4+)",
-            "Bone Head",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Throw Team-mate"
-          ]
+          "skills": ["Loner (4+)", "Bone Head", "Mighty Blow (+1)", "Thick Skull", "Throw Team-mate", "Mighty Blow (+1)"]
         },
         {
           "name": "Minotaur",
@@ -513,14 +416,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": [
-            "Loner (4+)",
-            "Frenzy",
-            "Horns",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Unchannelled Fury"
-          ]
+          "skills": ["Loner (4+)", "Frenzy", "Horns", "Mighty Blow (+1)", "Thick Skull", "Unchannelled Fury"]
         },
         {
           "name": "Rat Ogre",
@@ -533,13 +429,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": [
-            "Loner (4+)",
-            "Animal Savagery",
-            "Frenzy",
-            "Mighty Blow (+1)",
-            "Prehensile Tail"
-          ]
+          "skills": ["Loner (4+)", "Animal Savagery", "Frenzy", "Mighty Blow (+1)", "Prehensile Tail"]
         }
       ],
       "league_types": [
@@ -564,13 +454,8 @@
           "cost": 40000,
           "max": 16,
           "primary": "A",
-          "secondary": "GS",
-          "skills": [
-            "Jump Up",
-            "Right Stuff",
-            "Stunty",
-            "Wrestle"
-          ]
+          "secondary": "GSE",
+          "skills": ["Jump Up", "Right Stuff", "Stunty", "Wrestle"]
         },
         {
           "name": "Woodland Fox",
@@ -583,12 +468,7 @@
           "max": 2,
           "primary": "",
           "secondary": "A",
-          "skills": [
-            "Dodge",
-            "My Ball",
-            "Side Step",
-            "Stunty"
-          ]
+          "skills": ["Dodge", "My Ball", "Side Step", "Stunty"]
         },
         {
           "name": "Gnome Illusionist",
@@ -600,13 +480,8 @@
           "cost": 50000,
           "max": 2,
           "primary": "AP",
-          "secondary": "G",
-          "skills": [
-            "Jump Up",
-            "Stunty",
-            "Trickster",
-            "Wrestle"
-          ]
+          "secondary": "GE",
+          "skills": ["Jump Up", "Stunty", "Trickster", "Wrestle"]
         },
         {
           "name": "Gnome Beastmaster",
@@ -618,13 +493,8 @@
           "cost": 55000,
           "max": 2,
           "primary": "A",
-          "secondary": "GS",
-          "skills": [
-            "Guard",
-            "Jump Up",
-            "Stunty",
-            "Wrestle"
-          ]
+          "secondary": "GSE",
+          "skills": ["Guard", "Jump Up", "Stunty", "Wrestle"]
         },
         {
           "name": "Altern Forest Treeman",
@@ -637,15 +507,7 @@
           "max": 2,
           "primary": "S",
           "secondary": "AGP",
-          "skills": [
-            "Mighty Blow (+1)",
-            "Stand Firm",
-            "Strong Arm",
-            "Take Root",
-            "Thick Skull",
-            "Throw Team-mate",
-            "Timmm-ber!"
-          ]
+          "skills": ["Mighty Blow (+1)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-mate", "Timmm-ber!"]
         }
       ],
       "league_types": [
@@ -667,13 +529,11 @@
           "ag": 3,
           "pa": 4,
           "av": 9,
-          "cost": 60000,
+          "cost": 55000,
           "max": 16,
-          "primary": "GMS",
-          "secondary": "AP",
-          "skills": [
-            "Horns"
-          ]
+          "primary": "GM",
+          "secondary": "APSE",
+          "skills": ["Horns", "Thick Skull"]
         },
         {
           "name": "Chosen Blocker",
@@ -685,8 +545,8 @@
           "cost": 100000,
           "max": 4,
           "primary": "GSM",
-          "secondary": "A",
-          "skills": []
+          "secondary": "AE",
+          "skills": ["Arm Bar"]
         },
         {
           "name": "Chaos Ogre",
@@ -699,13 +559,7 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": [
-            "Bone Head",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Throw Team-Mate"
-          ]
+          "skills": ["Bone Head", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
         },
         {
           "name": "Chaos Troll",
@@ -717,16 +571,8 @@
           "cost": 115000,
           "max": 1,
           "primary": "SM",
-          "secondary": "AG",
-          "skills": [
-            "Always Hungry",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Projectile Vomit",
-            "Really Stupid",
-            "Regeneration",
-            "Throw Team-Mate"
-          ]
+          "secondary": "AGP",
+          "skills": ["Always Hungry", "Loner (4+)", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
         },
         {
           "name": "Minotaur",
@@ -739,14 +585,7 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": [
-            "Frenzy",
-            "Horns",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Unchannelled Fury"
-          ]
+          "skills": ["Frenzy", "Horns", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull", "Unchannelled Fury"]
         }
       ],
       "league_types": [
@@ -766,12 +605,12 @@
           "ma": 6,
           "st": 3,
           "ag": 2,
-          "pa": 4,
+          "pa": 3,
           "av": 9,
-          "cost": 70000,
+          "cost": 65000,
           "max": 16,
           "primary": "AG",
-          "secondary": "PS",
+          "secondary": "ES",
           "skills": []
         },
         {
@@ -784,58 +623,47 @@
           "cost": 80000,
           "max": 2,
           "primary": "AGP",
-          "secondary": "S",
-          "skills": [
-            "Dump-Off"
-          ]
+          "secondary": "SE",
+          "skills": ["Kick-Off Return", "Hail Mary Pass"]
         },
         {
           "name": "Dark Elf Assassin",
           "ma": 7,
           "st": 3,
           "ag": 2,
-          "pa": 5,
+          "pa": 4,
           "av": 8,
-          "cost": 85000,
+          "cost": 90000,
           "max": 2,
-          "primary": "AG",
-          "secondary": "PS",
-          "skills": [
-            "Shadowing",
-            "Stab"
-          ]
+          "primary": "AE",
+          "secondary": "GS",
+          "skills": ["Shadowing", "Stab", "Diving Tackle"]
         },
         {
           "name": "Dark Elf Blitzer",
           "ma": 7,
           "st": 3,
           "ag": 2,
-          "pa": 4,
+          "pa": 3,
           "av": 9,
-          "cost": 100000,
+          "cost": 105000,
           "max": 4,
           "primary": "AG",
-          "secondary": "PS",
-          "skills": [
-            "Block"
-          ]
+          "secondary": "PSE",
+          "skills": ["Block"]
         },
         {
           "name": "Witch Elf",
           "ma": 7,
           "st": 3,
           "ag": 2,
-          "pa": 5,
+          "pa": 4,
           "av": 8,
           "cost": 110000,
           "max": 2,
           "primary": "AG",
-          "secondary": "PS",
-          "skills": [
-            "Dodge",
-            "Frenzy",
-            "Jump Up"
-          ]
+          "secondary": "ES",
+          "skills": ["Dodge", "Frenzy", "Jump Up"]
         }
       ],
       "league_types": [
@@ -859,13 +687,9 @@
           "av": 10,
           "cost": 70000,
           "max": 12,
-          "primary": "GS",
-          "secondary": "A",
-          "skills": [
-            "Block",
-            "Tackle",
-            "Thick Skull"
-          ]
+          "primary": "GE",
+          "secondary": "S",
+          "skills": ["Block", "Defensive Tackle", "Thick Skull"]
         },
         {
           "name": "Dwarf Runner",
@@ -874,48 +698,37 @@
           "ag": 3,
           "pa": 4,
           "av": 9,
-          "cost": 85000,
+          "cost": 80000,
           "max": 2,
           "primary": "GP",
-          "secondary": "AS",
-          "skills": [
-            "Sure Hands",
-            "Thick Skull"
-          ]
+          "secondary": "S",
+          "skills": ["Sure Hands", "Thick Skull", "Sprint"]
         },
         {
           "name": "Dwarf Blitzer",
           "ma": 5,
           "st": 3,
-          "ag": 3,
+          "ag": 4,
           "pa": 4,
           "av": 10,
-          "cost": 80000,
+          "cost": 100000,
           "max": 2,
           "primary": "GS",
-          "secondary": "AP",
-          "skills": [
-            "Block",
-            "Thick Skull"
-          ]
+          "secondary": "P",
+          "skills": ["Block", "Thick Skull", "Tackle", "Diving Tackle"]
         },
         {
           "name": "Troll Slayer",
           "ma": 5,
           "st": 3,
           "ag": 4,
-          "pa": 0,
+          "pa": 5,
           "av": 9,
           "cost": 95000,
           "max": 2,
           "primary": "GS",
-          "secondary": "A",
-          "skills": [
-            "Block",
-            "Dauntless",
-            "Frenzy",
-            "Thick Skull"
-          ]
+          "secondary": "E",
+          "skills": ["Block", "Dauntless", "Frenzy", "Thick Skull", "Hate (Troll)"]
         },
         {
           "name": "Deathroller",
@@ -926,18 +739,9 @@
           "av": 11,
           "cost": 170000,
           "max": 1,
-          "primary": "S",
-          "secondary": "AG",
-          "skills": [
-            "Break Tackle",
-            "Dirty Player (+2)",
-            "Juggernaut",
-            "Loner (5+)",
-            "Mighty Blow (+1)",
-            "No Hands",
-            "Secret Weapon",
-            "Stand Firm"
-          ]
+          "primary": "SE",
+          "secondary": "G",
+          "skills": ["Break Tackle", "Dirty Player (+1)", "Juggernaut", "Loner (4+)", "Mighty Blow (+1)", "No Hands", "Secret Weapon", "Stand Firm"]
         }
       ],
       "league_types": [
@@ -958,13 +762,13 @@
           "ma": 6,
           "st": 3,
           "ag": 2,
-          "pa": 4,
+          "pa": 3,
           "av": 8,
-          "cost": 60000,
+          "cost": 65000,
           "max": 16,
           "primary": "AG",
-          "secondary": "PS",
-          "skills": []
+          "secondary": "S",
+          "skills": ["Dump-Off"]
         },
         {
           "name": "Elven Union Thrower",
@@ -977,9 +781,7 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": [
-            "Pass"
-          ]
+          "skills": ["Pass", "Fumblerooskie"]
         },
         {
           "name": "Elven Union Catcher",
@@ -989,29 +791,23 @@
           "pa": 4,
           "av": 8,
           "cost": 100000,
-          "max": 4,
+          "max": 2,
           "primary": "AG",
-          "secondary": "PS",
-          "skills": [
-            "Catch",
-            "Nerves of Steel"
-          ]
+          "secondary": "S",
+          "skills": ["Catch", "Nerves of Steel", "Diving Catch"]
         },
         {
           "name": "Elven Union Blitzer",
           "ma": 7,
           "st": 3,
           "ag": 2,
-          "pa": 4,
+          "pa": 3,
           "av": 9,
           "cost": 115000,
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": [
-            "Block",
-            "Side Step"
-          ]
+          "skills": ["Block", "Side Step"]
         }
       ],
       "league_types": [
@@ -1040,31 +836,22 @@
           "av": 8,
           "cost": 40000,
           "max": 16,
-          "primary": "A",
+          "primary": "AE",
           "secondary": "GPS",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Stunty"
-          ]
+          "skills": ["Dodge", "Right Stuff", "Stunty"]
         },
         {
           "name": "Bomma",
           "ma": 6,
           "st": 2,
           "ag": 3,
-          "pa": 3,
+          "pa": 4,
           "av": 8,
           "cost": 45000,
           "max": 1,
-          "primary": "A",
-          "secondary": "GPS",
-          "skills": [
-            "Bombardier",
-            "Dodge",
-            "Secret Weapon",
-            "Stunty"
-          ]
+          "primary": "PE",
+          "secondary": "AGS",
+          "skills": ["Bombardier", "Dodge", "Secret Weapon", "Stunty"]
         },
         {
           "name": "Looney",
@@ -1075,13 +862,9 @@
           "av": 8,
           "cost": 40000,
           "max": 1,
-          "primary": "A",
-          "secondary": "GS",
-          "skills": [
-            "Chainsaw",
-            "Secret Weapon",
-            "Stunty"
-          ]
+          "primary": "T",
+          "secondary": "AGS",
+          "skills": ["Chainsaw", "Secret Weapon", "Stunty"]
         },
         {
           "name": "Fanatic",
@@ -1092,50 +875,35 @@
           "av": 8,
           "cost": 70000,
           "max": 1,
-          "primary": "S",
+          "primary": "SE",
           "secondary": "AG",
-          "skills": [
-            "Ball & Chain",
-            "No Hands",
-            "Secret Weapon",
-            "Stunty"
-          ]
+          "skills": ["Ball & Chain", "No Hands", "Secret Weapon", "Stunty"]
         },
         {
           "name": "Pogoer",
           "ma": 7,
           "st": 2,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 8,
           "cost": 75000,
           "max": 1,
           "primary": "A",
-          "secondary": "GPS",
-          "skills": [
-            "Dodge",
-            "Pogo Stick",
-            "Stunty"
-          ]
+          "secondary": "GES",
+          "skills": ["Dodge", "Pogo Stick", "Stunty"]
         },
         {
           "name": "Ooligan",
           "ma": 6,
           "st": 2,
           "ag": 3,
-          "pa": 6,
+          "pa": 5,
           "av": 8,
-          "cost": 65000,
+          "cost": 60000,
           "max": 1,
-          "primary": "A",
-          "secondary": "GPS",
-          "skills": [
-            "Dirty Player (+1)",
-            "Disturbing Presence",
-            "Dodge",
-            "Right Stuff",
-            "Stunty"
-          ]
+          "primary": "AE",
+          "secondary": "GS",
+          "skills": ["Dirty Player (+1)", "Disturbing Presence", "Dodge", "Right Stuff", "Stunty"]
         },
         {
           "name": "Doom Diver",
@@ -1144,16 +912,11 @@
           "ag": 3,
           "pa": 6,
           "av": 8,
-          "cost": 60000,
+          "cost": 65000,
           "max": 2,
           "primary": "A",
-          "secondary": "GPS",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Stunty",
-            "Swoop"
-          ]
+          "secondary": "GES",
+          "skills": ["Dodge", "Right Stuff", "Stunty", "Swoop"]
         },
         {
           "name": "Trained Troll",
@@ -1165,16 +928,8 @@
           "cost": 115000,
           "max": 2,
           "primary": "S",
-          "secondary": "AGM",
-          "skills": [
-            "Always Hungry",
-            "Loner (3+)",
-            "Mighty Blow (+1)",
-            "Projectile Vomit",
-            "Really Stupid",
-            "Regeneration",
-            "Throw Team-Mate"
-          ]
+          "secondary": "AGP",
+          "skills": ["Always Hungry", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
         }
       ],
       "league_types": [
@@ -1200,12 +955,8 @@
           "cost": 30000,
           "max": 16,
           "primary": "A",
-          "secondary": "GS",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Stunty"
-          ]
+          "secondary": "GSE",
+          "skills": ["Dodge", "Right Stuff", "Stunty"]
         },
         {
           "name": "Halfling Hefty",
@@ -1217,31 +968,21 @@
           "cost": 50000,
           "max": 2,
           "primary": "AP",
-          "secondary": "GS",
-          "skills": [
-            "Dodge",
-            "Fend",
-            "Stunty"
-          ]
+          "secondary": "GSE",
+          "skills": ["Dodge", "Fend", "Stunty"]
         },
         {
           "name": "Halfling Catcher",
           "ma": 5,
           "st": 2,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 7,
           "cost": 55000,
           "max": 4,
           "primary": "A",
-          "secondary": "GPS",
-          "skills": [
-            "Catch",
-            "Dodge",
-            "Right Stuff",
-            "Sprint",
-            "Stunty"
-          ]
+          "secondary": "GES",
+          "skills": ["Catch", "Dodge", "Right Stuff", "Sprint", "Stunty"]
         },
         {
           "name": "Treeman",
@@ -1253,16 +994,8 @@
           "cost": 120000,
           "max": 2,
           "primary": "S",
-          "secondary": "AG",
-          "skills": [
-            "Mighty Blow (+1)",
-            "Stand Firm",
-            "Strong Arm",
-            "Take Root",
-            "Thick Skull",
-            "Throw Team-Mate",
-            "Timmm-ber!"
-          ]
+          "secondary": "AGP",
+          "skills": ["Mighty Blow (+1)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-Mate", "Timmm-ber!"]
         }
       ],
       "league_types": [
@@ -1285,7 +1018,7 @@
           "ag": 2,
           "pa": 4,
           "av": 9,
-          "cost": 70000,
+          "cost": 65000,
           "max": 16,
           "primary": "AG",
           "secondary": "S",
@@ -1302,11 +1035,7 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": [
-            "Cloud Burster",
-            "Pass",
-            "Safe Pair of Hands"
-          ]
+          "skills": ["Cloud Burster", "Pass", "Safe Pair of Hands"]
         },
         {
           "name": "High Elf Catcher",
@@ -1319,9 +1048,7 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": [
-            "Catch"
-          ]
+          "skills": ["Catch"]
         },
         {
           "name": "High Elf Blitzer",
@@ -1334,9 +1061,7 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": [
-            "Block"
-          ]
+          "skills": ["Block"]
         }
       ],
       "league_types": [
@@ -1361,40 +1086,47 @@
           "cost": 50000,
           "max": 16,
           "primary": "G",
-          "secondary": "AS",
+          "secondary": "AST",
           "skills": []
+        },
+        {
+          "name": "Halfling",
+          "ma": 5,
+          "st": 2,
+          "ag": 3,
+          "pa": 4,
+          "av": 7,
+          "cost": 30000,
+          "max": 2,
+          "primary": "A",
+          "secondary": "GS",
+          "skills": ["Dodge", "Right Stuff", "Stunty"]
         },
         {
           "name": "Human Thrower",
           "ma": 6,
           "st": 3,
           "ag": 3,
-          "pa": 2,
+          "pa": 3,
           "av": 9,
-          "cost": 80000,
+          "cost": 75000,
           "max": 2,
           "primary": "GP",
-          "secondary": "AS",
-          "skills": [
-            "Pass",
-            "Sure Hands"
-          ]
+          "secondary": "ASE",
+          "skills": ["Pass", "Sure Hands"]
         },
         {
           "name": "Human Catcher",
           "ma": 8,
-          "st": 2,
-          "ag": 2,
-          "pa": 5,
+          "st": 3,
+          "ag": 3,
+          "pa": 4,
           "av": 8,
-          "cost": 65000,
-          "max": 4,
+          "cost": 75000,
+          "max": 2,
           "primary": "AG",
-          "secondary": "PS",
-          "skills": [
-            "Catch",
-            "Dodge"
-          ]
+          "secondary": "PSE",
+          "skills": ["Catch", "Dodge"]
         },
         {
           "name": "Human Blitzer",
@@ -1404,12 +1136,10 @@
           "pa": 4,
           "av": 9,
           "cost": 85000,
-          "max": 4,
+          "max": 2,
           "primary": "GS",
-          "secondary": "AP",
-          "skills": [
-            "Block"
-          ]
+          "secondary": "AE",
+          "skills": ["Block", "Tackle"]
         },
         {
           "name": "Ogre",
@@ -1422,13 +1152,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": [
-            "Bone Head",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Throw Team-Mate"
-          ]
+          "skills": ["Bone Head", "Loner (3+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
         }
       ],
       "league_types": [
@@ -1454,25 +1178,20 @@
           "max": 16,
           "primary": "G",
           "secondary": "AS",
-          "skills": [
-            "Fend"
-          ]
+          "skills": ["Fend"]
         },
         {
           "name": "Imperial Thrower",
           "ma": 6,
           "st": 3,
           "ag": 3,
-          "pa": 3,
+          "pa": 2,
           "av": 9,
           "cost": 75000,
           "max": 2,
           "primary": "GP",
           "secondary": "AS",
-          "skills": [
-            "Pass",
-            "Running Pass"
-          ]
+          "skills": ["Pass", "Running Pass", "Pro"]
         },
         {
           "name": "Noble Blitzer",
@@ -1481,30 +1200,24 @@
           "ag": 3,
           "pa": 4,
           "av": 9,
-          "cost": 105000,
-          "max": 4,
+          "cost": 90000,
+          "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": [
-            "Block",
-            "Catch"
-          ]
+          "skills": ["Block", "Catch", "Pro"]
         },
         {
           "name": "Bodyguard",
-          "ma": 6,
+          "ma": 5,
           "st": 3,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 9,
-          "cost": 90000,
-          "max": 2,
+          "cost": 85000,
+          "max": 4,
           "primary": "GS",
           "secondary": "A",
-          "skills": [
-            "Stand Firm",
-            "Wrestle"
-          ]
+          "skills": ["Stand Firm", "Wrestle"]
         },
         {
           "name": "Ogre",
@@ -1517,13 +1230,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": [
-            "Bone Head",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Throw Team-Mate"
-          ]
+          "skills": ["Bone Head", "Loner (3+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
         }
       ],
       "league_types": [
@@ -1553,46 +1260,47 @@
           "cost": 50000,
           "max": 16,
           "primary": "GM",
-          "secondary": "AS",
-          "skills": [
-            "Frenzy"
-          ]
+          "secondary": "ASE",
+          "skills": ["Frenzy"]
         },
         {
-          "name": "Khorne Bloodseeker",
+          "name": "Khorgor",
           "ma": 6,
           "st": 3,
           "ag": 3,
           "pa": 4,
-          "av": 8,
-          "cost": 80000,
+          "av": 9,
+          "cost": 70000,
           "max": 2,
+          "primary": "SGM",
+          "secondary": "APE",
+          "skills": ["Jump Up", "Juggernaut", "Horns", "Thick Skull"]
+        },
+        {
+          "name": "Khorne Bloodseeker",
+          "ma": 5,
+          "st": 4,
+          "ag": 4,
+          "pa": 6,
+          "av": 10,
+          "cost": 105000,
+          "max": 4,
           "primary": "AGM",
           "secondary": "PS",
-          "skills": [
-            "Frenzy",
-            "Juggernaut",
-            "Horns"
-          ]
+          "skills": ["Frenzy"]
         },
         {
           "name": "Bloodspawn",
           "ma": 5,
           "st": 5,
           "ag": 4,
-          "pa": 0,
+          "pa": 6,
           "av": 9,
-          "cost": 140000,
+          "cost": 160000,
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": [
-            "Claws",
-            "Frenzy",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Unchannelled Fury"
-          ]
+          "skills": ["Claws", "Frenzy", "Loner (4+)", "Mighty Blow (+1)", "Unchannelled Fury"]
         }
       ],
       "league_types": [
@@ -1611,35 +1319,27 @@
           "name": "Skink Runner",
           "ma": 8,
           "st": 2,
-          "ag": 2,
+          "ag": 3,
           "pa": 4,
           "av": 8,
           "cost": 60000,
-          "max": 12,
+          "max": 16,
           "primary": "A",
-          "secondary": "GPS",
-          "skills": [
-            "Dodge",
-            "Stunty"
-          ]
+          "secondary": "GPSE",
+          "skills": ["Dodge", "Stunty"]
         },
         {
           "name": "Chameleon Skink",
           "ma": 7,
           "st": 2,
-          "ag": 2,
+          "ag": 3,
           "pa": 3,
           "av": 8,
           "cost": 70000,
           "max": 2,
-          "primary": "A",
-          "secondary": "GPS",
-          "skills": [
-            "Dodge",
-            "On the Ball",
-            "Shadowing",
-            "Stunty"
-          ]
+          "primary": "AP",
+          "secondary": "GES",
+          "skills": ["Dodge", "On the Ball", "Shadowing", "Stunty"]
         },
         {
           "name": "Saurus Blocker",
@@ -1652,7 +1352,7 @@
           "max": 6,
           "primary": "GS",
           "secondary": "A",
-          "skills": []
+          "skills": ["Juggernaut"]
         },
         {
           "name": "Kroxigor",
@@ -1665,13 +1365,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": [
-            "Bone Head",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Prehensile Tail",
-            "Thick Skull"
-          ]
+          "skills": ["Bone Head", "Loner (4+)", "Mighty Blow (+1)", "Prehensile Tail", "Thick Skull"]
         }
       ],
       "league_types": [
@@ -1700,26 +1394,22 @@
           "av": 9,
           "cost": 40000,
           "max": 16,
-          "primary": "G",
+          "primary": "GE",
           "secondary": "AS",
-          "skills": [
-            "Regeneration"
-          ]
+          "skills": ["Regeneration", "Eye Gouge"]
         },
         {
           "name": "Ghoul Runner",
           "ma": 7,
           "st": 3,
           "ag": 3,
-          "pa": 4,
+          "pa": 3,
           "av": 8,
           "cost": 75000,
-          "max": 4,
+          "max": 2,
           "primary": "AG",
-          "secondary": "PS",
-          "skills": [
-            "Dodge"
-          ]
+          "secondary": "PSE",
+          "skills": ["Dodge", "Regeneration"]
         },
         {
           "name": "Wraith",
@@ -1728,51 +1418,37 @@
           "ag": 3,
           "pa": 0,
           "av": 9,
-          "cost": 95000,
+          "cost": 85000,
           "max": 2,
           "primary": "GS",
-          "secondary": "A",
-          "skills": [
-            "Block",
-            "Foul Appearance",
-            "No Hands",
-            "Regeneration",
-            "Side Step"
-          ]
+          "secondary": "AT",
+          "skills": ["Block", "Foul Appearance", "No Hands", "Regeneration", "Side Step"]
         },
         {
           "name": "Werewolf",
           "ma": 8,
           "st": 3,
           "ag": 3,
-          "pa": 4,
+          "pa": 3,
           "av": 9,
-          "cost": 125000,
+          "cost": 120000,
           "max": 2,
           "primary": "AG",
-          "secondary": "PS",
-          "skills": [
-            "Claws",
-            "Frenzy",
-            "Regeneration"
-          ]
+          "secondary": "PSE",
+          "skills": ["Claws", "Frenzy", "Regeneration"]
         },
         {
           "name": "Flesh Golem",
           "ma": 4,
           "st": 4,
           "ag": 4,
-          "pa": 0,
+          "pa": 6,
           "av": 10,
-          "cost": 115000,
+          "cost": 110000,
           "max": 2,
           "primary": "GS",
-          "secondary": "A",
-          "skills": [
-            "Regeneration",
-            "Stand Firm",
-            "Thick Skull"
-          ]
+          "secondary": "AE",
+          "skills": ["Regeneration", "Stand Firm", "Thick Skull"]
         }
       ],
       "league_types": [
@@ -1797,11 +1473,21 @@
           "cost": 50000,
           "max": 16,
           "primary": "G",
-          "secondary": "AS",
-          "skills": [
-            "Block",
-            "Drunkard"
-          ]
+          "secondary": "ASE",
+          "skills": ["Block", "Drunkard", "Thick Skull"]
+        },
+        {
+          "name": "Beer Boar",
+          "ma": 5,
+          "st": 1,
+          "ag": 3,
+          "pa": 0,
+          "av": 6,
+          "cost": 20000,
+          "max": 2,
+          "primary": "",
+          "secondary": "A",
+          "skills": ["Dodge", "Stunty", "Thick Skull"]
         },
         {
           "name": "Norse Berserker",
@@ -1813,12 +1499,8 @@
           "cost": 90000,
           "max": 2,
           "primary": "GS",
-          "secondary": "A",
-          "skills": [
-            "Block",
-            "Frenzy",
-            "Jump Up"
-          ]
+          "secondary": "AP",
+          "skills": ["Block", "Frenzy", "Jump Up"]
         },
         {
           "name": "Valkyrie",
@@ -1831,26 +1513,20 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": [
-            "Catch",
-            "Dauntless",
-            "Pass"
-          ]
+          "skills": ["Catch", "Dauntless", "Strip Ball", "Pass"]
         },
         {
           "name": "Ulfwerener",
           "ma": 6,
           "st": 4,
           "ag": 4,
-          "pa": 0,
+          "pa": 6,
           "av": 9,
           "cost": 105000,
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": [
-            "Frenzy"
-          ]
+          "skills": ["Frenzy"]
         },
         {
           "name": "Yhetee",
@@ -1863,13 +1539,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": [
-            "Claws",
-            "Disturbing Presence",
-            "Frenzy",
-            "Loner (4+)",
-            "Unchannelled Fury"
-          ]
+          "skills": ["Claws", "Disturbing Presence", "Frenzy", "Loner (4+)", "Unchannelled Fury"]
         }
       ],
       "league_types": [
@@ -1896,14 +1566,11 @@
           "ag": 4,
           "pa": 6,
           "av": 9,
-          "cost": 35000,
+          "cost": 40000,
           "max": 16,
-          "primary": "GM",
+          "primary": "GME",
           "secondary": "AS",
-          "skills": [
-            "Decay",
-            "Plague Ridden"
-          ]
+          "skills": ["Decay", "Plague Ridden"]
         },
         {
           "name": "Pestigor",
@@ -1912,15 +1579,11 @@
           "ag": 3,
           "pa": 4,
           "av": 9,
-          "cost": 75000,
-          "max": 4,
+          "cost": 70000,
+          "max": 2,
           "primary": "GMS",
-          "secondary": "AP",
-          "skills": [
-            "Horns",
-            "Plague Ridden",
-            "Regeneration"
-          ]
+          "secondary": "APE",
+          "skills": ["Horns", "Plague Ridden", "Regeneration", "Steady Feet", "Thick Skull"]
         },
         {
           "name": "Bloater",
@@ -1929,38 +1592,24 @@
           "ag": 4,
           "pa": 6,
           "av": 10,
-          "cost": 115000,
+          "cost": 110000,
           "max": 4,
           "primary": "GSM",
-          "secondary": "A",
-          "skills": [
-            "Disturbing Presence",
-            "Foul Appearance",
-            "Plague Ridden",
-            "Regeneration"
-          ]
+          "secondary": "AE",
+          "skills": ["Disturbing Presence", "Foul Appearance", "Plague Ridden", "Regeneration", "Stand Firm"]
         },
         {
           "name": "Rotspawn",
           "ma": 4,
           "st": 5,
           "ag": 5,
-          "pa": 0,
+          "pa": 6,
           "av": 10,
           "cost": 140000,
           "max": 1,
-          "primary": "SM",
-          "secondary": "AG",
-          "skills": [
-            "Disturbing Presence",
-            "Foul Appearance",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Plague Ridden",
-            "Really Stupid",
-            "Regeneration",
-            "Tentacles"
-          ]
+          "primary": "S",
+          "secondary": "TGM",
+          "skills": ["Disturbing Presence", "Foul Appearance", "Loner (4+)", "Mighty Blow (+1)", "Plague Ridden", "Really Stupid", "Regeneration", "Tentacles"]
         }
       ],
       "league_types": [
@@ -1980,37 +1629,39 @@
           "ma": 5,
           "st": 1,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 6,
           "cost": 15000,
           "max": 16,
-          "primary": "A",
+          "primary": "AE",
           "secondary": "G",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Side Step",
-            "Stunty",
-            "Titchy"
-          ]
+          "skills": ["Dodge", "Right Stuff", "Side Step", "Stunty", "Titchy"]
         },
         {
-          "name": "Ogre",
+          "name": "Ogre Blocker",
           "ma": 5,
           "st": 5,
           "ag": 4,
           "pa": 5,
           "av": 10,
           "cost": 140000,
-          "max": 6,
+          "max": 5,
           "primary": "S",
-          "secondary": "AG",
-          "skills": [
-            "Bone Head",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Throw Team-Mate"
-          ]
+          "secondary": "AGPE",
+          "skills": ["Bone Head", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
+        },
+        {
+          "name": "Ogre Runt Punter",
+          "ma": 5,
+          "st": 5,
+          "ag": 4,
+          "pa": 4,
+          "av": 10,
+          "cost": 145000,
+          "max": 1,
+          "primary": "SP",
+          "secondary": "AGE",
+          "skills": ["Bone Head", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
         }
       ],
       "league_types": [
@@ -2044,34 +1695,26 @@
           "ma": 6,
           "st": 3,
           "ag": 3,
-          "pa": 2,
+          "pa": 3,
           "av": 9,
-          "cost": 80000,
+          "cost": 75000,
           "max": 1,
           "primary": "GP",
           "secondary": "AS",
-          "skills": [
-            "Animosity (Dwarf)",
-            "Pass",
-            "Sure Hands"
-          ]
+          "skills": ["Pass", "Sure Hands"]
         },
         {
           "name": "Human Catcher",
           "ma": 8,
-          "st": 2,
-          "ag": 2,
-          "pa": 5,
+          "st": 3,
+          "ag": 3,
+          "pa": 4,
           "av": 8,
           "cost": 65000,
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": [
-            "Animosity (Dwarf)",
-            "Catch",
-            "Dodge"
-          ]
+          "skills": ["Catch", "Dodge"]
         },
         {
           "name": "Human Blitzer",
@@ -2080,15 +1723,11 @@
           "ag": 3,
           "pa": 4,
           "av": 9,
-          "cost": 90000,
+          "cost": 85000,
           "max": 1,
           "primary": "GS",
           "secondary": "A",
-          "skills": [
-            "Animosity (Dwarf)",
-            "Block",
-            "Catch"
-          ]
+          "skills": ["Block", "Tackle"]
         },
         {
           "name": "Dwarf Blocker",
@@ -2101,12 +1740,7 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": [
-            "Animosity (Halfling)",
-            "Block",
-            "Tackle",
-            "Thick Skull"
-          ]
+          "skills": ["Block", "Tackle", "Thick Skull"]
         },
         {
           "name": "Dwarf Runner",
@@ -2115,30 +1749,37 @@
           "ag": 3,
           "pa": 4,
           "av": 9,
-          "cost": 85000,
+          "cost": 80000,
           "max": 1,
           "primary": "GP",
           "secondary": "AS",
-          "skills": [
-            "Sure Hands",
-            "Thick Skull"
-          ]
+          "skills": ["Sure Hands", "Thick Skull", "Sprint"]
         },
         {
           "name": "Dwarf Blitzer",
           "ma": 5,
           "st": 3,
-          "ag": 3,
+          "ag": 4,
           "pa": 4,
           "av": 10,
-          "cost": 80000,
+          "cost": 100000,
           "max": 1,
           "primary": "GS",
-          "secondary": "A",
-          "skills": [
-            "Block",
-            "Thick Skull"
-          ]
+          "secondary": "P",
+          "skills": ["Block", "Thick Skull", "Thick Skull", "Diving Tackle"]
+        },
+        {
+          "name": "Troll Slayer",
+          "ma": 5,
+          "st": 3,
+          "ag": 4,
+          "pa": 5,
+          "av": 9,
+          "cost": 95000,
+          "max": 2,
+          "primary": "GS",
+          "secondary": "E",
+          "skills": ["Block", "Dauntless", "Frenzy", "Thick Skull", "Hate (Troll)"]
         },
         {
           "name": "Halfling Hopeful",
@@ -2148,15 +1789,10 @@
           "pa": 4,
           "av": 7,
           "cost": 30000,
-          "max": 2,
+          "max": 5,
           "primary": "A",
           "secondary": "GS",
-          "skills": [
-            "Animosity (Big Guy)",
-            "Dodge",
-            "Right Stuff",
-            "Stunty"
-          ]
+          "skills": ["Dodge", "Right Stuff", "Stunty"]
         },
         {
           "name": "Ogre",
@@ -2169,13 +1805,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": [
-            "Bone Head",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Thick Skull",
-            "Throw Team-Mate"
-          ]
+          "skills": ["Bone Head", "Loner (3+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
         },
         {
           "name": "Treeman",
@@ -2187,17 +1817,8 @@
           "cost": 120000,
           "max": 1,
           "primary": "S",
-          "secondary": "AG",
-          "skills": [
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Stand Firm",
-            "Strong Arm",
-            "Take Root",
-            "Thick Skull",
-            "Throw Team-Mate",
-            "Timmm-ber!"
-          ]
+          "secondary": "AGP",
+          "skills": ["Mighty Blow (+1)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-Mate", "Timmm-ber!"]
         }
       ],
       "league_types": [
@@ -2221,55 +1842,48 @@
           "av": 10,
           "cost": 50000,
           "max": 16,
-          "primary": "G",
-          "secondary": "AS",
+          "primary": "GS",
+          "secondary": "AE",
           "skills": []
         },
         {
           "name": "Orc Thrower",
-          "ma": 5,
+          "ma": 6,
           "st": 3,
           "ag": 3,
           "pa": 3,
           "av": 9,
-          "cost": 65000,
+          "cost": 75000,
           "max": 2,
           "primary": "GP",
-          "secondary": "AS",
-          "skills": [
-            "Pass",
-            "Sure Hands"
-          ]
+          "secondary": "ASE",
+          "skills": ["Pass", "Sure Hands"]
         },
         {
           "name": "Goblin",
           "ma": 6,
           "st": 2,
           "ag": 3,
-          "pa": 4,
+          "pa": 3,
           "av": 8,
           "cost": 40000,
           "max": 4,
-          "primary": "A",
+          "primary": "AE",
           "secondary": "GPS",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Stunty"
-          ]
+          "skills": ["Dodge", "Right Stuff", "Stunty"]
         },
         {
           "name": "Big Un Blocker",
-          "ma": 4,
+          "ma": 5,
           "st": 4,
           "ag": 4,
-          "pa": 0,
+          "pa": 6,
           "av": 10,
-          "cost": 90000,
-          "max": 4,
+          "cost": 95000,
+          "max": 2,
           "primary": "GS",
-          "secondary": "A",
-          "skills": []
+          "secondary": "AE",
+          "skills": ["Thick Skull", "Mighty Blow (+1)", "Wrestle"]
         },
         {
           "name": "Orc Blitzer",
@@ -2278,13 +1892,11 @@
           "ag": 3,
           "pa": 4,
           "av": 10,
-          "cost": 80000,
-          "max": 4,
+          "cost": 85000,
+          "max": 2,
           "primary": "GS",
-          "secondary": "AP",
-          "skills": [
-            "Block"
-          ]
+          "secondary": "AE",
+          "skills": ["Block", "Break Tackle"]
         },
         {
           "name": "Troll",
@@ -2297,15 +1909,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": [
-            "Always Hungry",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Projectile Vomit",
-            "Really Stupid",
-            "Regeneration",
-            "Throw Team-Mate"
-          ]
+          "skills": ["Always Hungry", "Loner (4+)", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
         }
       ],
       "league_types": [
@@ -2335,11 +1939,8 @@
           "cost": 40000,
           "max": 16,
           "primary": "G",
-          "secondary": "AS",
-          "skills": [
-            "Regeneration",
-            "Thick Skull"
-          ]
+          "secondary": "ASE",
+          "skills": ["Regeneration", "Thick Skull"]
         },
         {
           "name": "Zombie Lineman",
@@ -2350,26 +1951,22 @@
           "av": 9,
           "cost": 40000,
           "max": 16,
-          "primary": "G",
+          "primary": "GE",
           "secondary": "AS",
-          "skills": [
-            "Regeneration"
-          ]
+          "skills": ["Regeneration", "Eye Gouge"]
         },
         {
           "name": "Ghoul Runner",
           "ma": 7,
           "st": 3,
           "ag": 3,
-          "pa": 4,
+          "pa": 3,
           "av": 8,
           "cost": 75000,
           "max": 4,
           "primary": "AG",
-          "secondary": "PS",
-          "skills": [
-            "Dodge"
-          ]
+          "secondary": "PSE",
+          "skills": ["Dodge", "Regeneration"]
         },
         {
           "name": "Wight Blitzer",
@@ -2378,14 +1975,11 @@
           "ag": 3,
           "pa": 5,
           "av": 9,
-          "cost": 90000,
+          "cost": 95000,
           "max": 2,
           "primary": "GS",
-          "secondary": "AP",
-          "skills": [
-            "Block",
-            "Regeneration"
-          ]
+          "secondary": "AE",
+          "skills": ["Block", "Regeneration", "Tackle", "Thick Skull"]
         },
         {
           "name": "Mummy",
@@ -2398,10 +1992,7 @@
           "max": 2,
           "primary": "S",
           "secondary": "AG",
-          "skills": [
-            "Mighty Blow (+1)",
-            "Regeneration"
-          ]
+          "skills": ["Mighty Blow (+1)", "Regeneration"]
         }
       ],
       "league_types": [
@@ -2425,7 +2016,7 @@
           "av": 8,
           "cost": 50000,
           "max": 16,
-          "primary": "G",
+          "primary": "GT",
           "secondary": "AMS",
           "skills": []
         },
@@ -2436,14 +2027,11 @@
           "ag": 3,
           "pa": 2,
           "av": 8,
-          "cost": 85000,
+          "cost": 80000,
           "max": 2,
           "primary": "GP",
-          "secondary": "AMS",
-          "skills": [
-            "Pass",
-            "Sure Hands"
-          ]
+          "secondary": "AMSE",
+          "skills": ["Pass", "Sure Hands"]
         },
         {
           "name": "Gutter Runner",
@@ -2453,46 +2041,36 @@
           "pa": 4,
           "av": 8,
           "cost": 85000,
-          "max": 4,
-          "primary": "AG",
-          "secondary": "MPS",
-          "skills": [
-            "Dodge"
-          ]
+          "max": 2,
+          "primary": "AGE",
+          "secondary": "MS",
+          "skills": ["Dodge", "Stab"]
         },
         {
           "name": "Skaven Blitzer",
-          "ma": 7,
+          "ma": 8,
           "st": 3,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 9,
           "cost": 90000,
           "max": 2,
           "primary": "GS",
-          "secondary": "APM",
-          "skills": [
-            "Block"
-          ]
+          "secondary": "AEM",
+          "skills": ["Block", "Strip Ball"]
         },
         {
           "name": "Rat Ogre",
           "ma": 6,
           "st": 5,
           "ag": 4,
-          "pa": 0,
+          "pa": 6,
           "av": 9,
           "cost": 150000,
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": [
-            "Animal Savagery",
-            "Frenzy",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Prehensile Tail"
-          ]
+          "skills": ["Animal Savagery", "Frenzy", "Loner (4+)", "Mighty Blow (+1)", "Prehensile Tail"]
         }
       ],
       "league_types": [
@@ -2521,19 +2099,13 @@
           "ma": 5,
           "st": 1,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 6,
           "cost": 15000,
           "max": 16,
-          "primary": "A",
+          "primary": "AE",
           "secondary": "G",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Side Step",
-            "Stunty",
-            "Titchy"
-          ]
+          "skills": ["Dodge", "Right Stuff", "Side Step", "Stunty", "Titchy"]
         },
         {
           "name": "Fungus Flinga",
@@ -2544,77 +2116,48 @@
           "av": 6,
           "cost": 30000,
           "max": 2,
-          "primary": "AP",
+          "primary": "APE",
           "secondary": "G",
-          "skills": [
-            "Bombardier",
-            "Dodge",
-            "Right Stuff",
-            "Secret Weapon",
-            "Side Step",
-            "Stunty",
-            "Titchy"
-          ]
+          "skills": ["Bombardier", "Dodge", "Right Stuff", "Secret Weapon", "Side Step", "Stunty", "Titchy"]
         },
         {
           "name": "Fun-hoppa",
           "ma": 6,
           "st": 1,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 6,
           "cost": 20000,
           "max": 2,
-          "primary": "A",
+          "primary": "AT",
           "secondary": "G",
-          "skills": [
-            "Dodge",
-            "Pogo Stick",
-            "Right Stuff",
-            "Side Step",
-            "Stunty",
-            "Titchy"
-          ]
+          "skills": ["Dodge", "Pogo Stick", "Right Stuff", "Side Step", "Stunty", "Titchy"]
         },
         {
           "name": "Stilty Runna",
           "ma": 6,
           "st": 1,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 6,
           "cost": 20000,
           "max": 2,
-          "primary": "A",
+          "primary": "AE",
           "secondary": "G",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Sprint",
-            "Stand Firm",
-            "Stunty",
-            "Titchy"
-          ]
+          "skills": ["Dodge", "Right Stuff", "Sprint", "Stand Firm", "Stunty", "Titchy"]
         },
         {
           "name": "Pump Wagon",
-          "ma": 2,
+          "ma": 5,
           "st": 5,
           "ag": 5,
-          "pa": 0,
+          "pa": 6,
           "av": 9,
-          "cost": 105000,
+          "cost": 100000,
           "max": 2,
-          "primary": "S",
-          "secondary": "A",
-          "skills": [
-            "Dirty Player (+1)",
-            "Juggernaut",
-            "Mighty Blow (+1)",
-            "Really Stupid",
-            "Secret Weapon",
-            "Stand Firm"
-          ]
+          "primary": "SE",
+          "secondary": "AG",
+          "skills": ["Dirty Player (+1)", "Juggernaut", "Mighty Blow (+1)", "Really Stupid", "Stand Firm"]
         },
         {
           "name": "Trained Troll",
@@ -2626,16 +2169,8 @@
           "cost": 115000,
           "max": 2,
           "primary": "S",
-          "secondary": "AGM",
-          "skills": [
-            "Always Hungry",
-            "Loner (3+)",
-            "Mighty Blow (+1)",
-            "Projectile Vomit",
-            "Really Stupid",
-            "Regeneration",
-            "Throw Team-Mate"
-          ]
+          "secondary": "AGP",
+          "skills": ["Always Hungry", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
         }
       ],
       "league_types": [
@@ -2666,44 +2201,34 @@
           "cost": 40000,
           "max": 16,
           "primary": "G",
-          "secondary": "AS",
-          "skills": [
-            "Regeneration",
-            "Thick Skull"
-          ]
+          "secondary": "AES",
+          "skills": ["Regeneration", "Thick Skull"]
         },
         {
           "name": "Anointed Thrower",
           "ma": 6,
           "st": 3,
-          "ag": 3,
-          "pa": 2,
-          "av": 8,
-          "cost": 70000,
+          "ag": 4,
+          "pa": 3,
+          "av": 9,
+          "cost": 65000,
           "max": 2,
           "primary": "GP",
-          "secondary": "AS",
-          "skills": [
-            "Pass",
-            "Regeneration",
-            "Sure Hands"
-          ]
+          "secondary": "AES",
+          "skills": ["Pass", "Regeneration", "Sure Hands", "Thick Skull"]
         },
         {
           "name": "Anointed Blitzer",
           "ma": 6,
           "st": 3,
-          "ag": 3,
+          "ag": 4,
           "pa": 5,
           "av": 9,
-          "cost": 90000,
+          "cost": 85000,
           "max": 2,
           "primary": "GS",
           "secondary": "AP",
-          "skills": [
-            "Block",
-            "Regeneration"
-          ]
+          "skills": ["Block", "Regeneration", "Thick Skull"]
         },
         {
           "name": "Tomb Guardian",
@@ -2712,14 +2237,11 @@
           "ag": 5,
           "pa": 0,
           "av": 10,
-          "cost": 100000,
+          "cost": 115000,
           "max": 4,
           "primary": "S",
           "secondary": "AG",
-          "skills": [
-            "Decay",
-            "Regeneration"
-          ]
+          "skills": ["Decay", "Regeneration", "Brawler"]
         }
       ],
       "league_types": [
@@ -2750,11 +2272,7 @@
           "max": 16,
           "primary": "AMT",
           "secondary": "GPS",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Stunty"
-          ]
+          "skills": ["Dodge", "Right Stuff", "Stunty"]
         },
         {
           "name": "Snotling Lineman",
@@ -2767,13 +2285,7 @@
           "max": 6,
           "primary": "AMT",
           "secondary": "G",
-          "skills": [
-            "Dodge",
-            "Right Stuff",
-            "Side Step",
-            "Stunty",
-            "Titchy"
-          ]
+          "skills": ["Dodge", "Right Stuff", "Side Step", "Stunty", "Titchy"]
         },
         {
           "name": "Skaven Clanrat",
@@ -2786,9 +2298,7 @@
           "max": 3,
           "primary": "GMT",
           "secondary": "AS",
-          "skills": [
-            "Animosity (Goblin)"
-          ]
+          "skills": ["Animosity (Goblin)"]
         },
         {
           "name": "Skaven Thrower",
@@ -2801,11 +2311,7 @@
           "max": 1,
           "primary": "GMP",
           "secondary": "AST",
-          "skills": [
-            "Animosity (Goblin)",
-            "Pass",
-            "Sure Hands"
-          ]
+          "skills": ["Animosity (Goblin)", "Pass", "Sure Hands"]
         },
         {
           "name": "Gutter Runner",
@@ -2818,26 +2324,20 @@
           "max": 1,
           "primary": "AGMT",
           "secondary": "PS",
-          "skills": [
-            "Animosity (Goblin)",
-            "Dodge"
-          ]
+          "skills": ["Animosity (Goblin)", "Dodge", "Stab"]
         },
         {
           "name": "Skaven Blitzer",
-          "ma": 7,
+          "ma": 8,
           "st": 3,
           "ag": 3,
-          "pa": 5,
+          "pa": 4,
           "av": 9,
           "cost": 90000,
-          "max": 1,
-          "primary": "GSM",
-          "secondary": "APT",
-          "skills": [
-            "Animosity (Goblin)",
-            "Block"
-          ]
+          "max": 2,
+          "primary": "GS",
+          "secondary": "AEM",
+          "skills": ["Animosity (Goblin)", "Block", "Strip Ball"]
         },
         {
           "name": "Troll",
@@ -2850,15 +2350,7 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AGP",
-          "skills": [
-            "Always Hungry",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Projectile Vomit",
-            "Really Stupid",
-            "Regeneration",
-            "Throw Team-Mate"
-          ]
+          "skills": ["Always Hungry", "Loner (4+)", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
         },
         {
           "name": "Rat Ogre",
@@ -2871,13 +2363,7 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": [
-            "Animal Savagery",
-            "Frenzy",
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Prehensile Tail"
-          ]
+          "skills": ["Animal Savagery", "Frenzy", "Loner (4+)", "Mighty Blow (+1)", "Prehensile Tail"]
         }
       ],
       "league_types": [
@@ -2913,19 +2399,15 @@
         {
           "name": "Vampire Runner",
           "ma": 8,
-          "st": 4,
+          "st": 3,
           "ag": 2,
-          "pa": 4,
-          "av": 9,
-          "cost": 110000,
+          "pa": 3,
+          "av": 8,
+          "cost": 100000,
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": [
-            "Animal Savagery",
-            "Hypnotic Gaze",
-            "Regeneration"
-          ]
+          "skills": ["Blood Lust (2+)", "Hypnotic Gaze", "Regeneration"]
         },
         {
           "name": "Vampire Thrower",
@@ -2934,34 +2416,37 @@
           "ag": 2,
           "pa": 2,
           "av": 9,
-          "cost": 130000,
+          "cost": 110000,
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": [
-            "Animal Savagery",
-            "Hypnotic Gaze",
-            "Pass",
-            "Regeneration"
-          ]
+          "skills": ["Blood Lust (2+)", "Hypnotic Gaze", "Pass", "Regeneration"]
         },
         {
           "name": "Vampire Blitzer",
-          "ma": 7,
+          "ma": 6,
           "st": 4,
           "ag": 2,
           "pa": 4,
           "av": 9,
-          "cost": 140000,
-          "max": 4,
+          "cost": 110000,
+          "max": 2,
           "primary": "AGS",
-          "secondary": "P",
-          "skills": [
-            "Animal Savagery",
-            "Hypnotic Gaze",
-            "Juggernaut",
-            "Regeneration"
-          ]
+          "secondary": "",
+          "skills": ["Blood Lust (3+)", "Hypnotic Gaze", "Juggernaut", "Regeneration"]
+        },
+        {
+          "name": "Vargheist",
+          "ma": 5,
+          "st": 5,
+          "ag": 4,
+          "pa": 6,
+          "av": 10,
+          "cost": 150000,
+          "max": 1,
+          "primary": "S",
+          "secondary": "AG",
+          "skills": ["Blood Lust (3+)", "Frenzy", "Regeneration", "Loner (4+)", "Claws"]
         }
       ],
       "league_types": [
@@ -2981,12 +2466,12 @@
           "ma": 7,
           "st": 3,
           "ag": 2,
-          "pa": 4,
+          "pa": 3,
           "av": 8,
-          "cost": 70000,
+          "cost": 65000,
           "max": 16,
           "primary": "AG",
-          "secondary": "PS",
+          "secondary": "S",
           "skills": []
         },
         {
@@ -3000,42 +2485,33 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": [
-            "Pass"
-          ]
+          "skills": ["Safe Pair of Hands", "Pass"]
         },
         {
           "name": "Wood Elf Catcher",
           "ma": 8,
           "st": 2,
           "ag": 2,
-          "pa": 4,
+          "pa": 3,
           "av": 8,
           "cost": 90000,
-          "max": 4,
+          "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": [
-            "Catch",
-            "Dodge"
-          ]
+          "skills": ["Catch", "Dodge", "Sprint"]
         },
         {
           "name": "Wardancer",
           "ma": 8,
           "st": 3,
           "ag": 2,
-          "pa": 4,
+          "pa": 3,
           "av": 8,
           "cost": 125000,
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": [
-            "Block",
-            "Dodge",
-            "Leap"
-          ]
+          "skills": ["Block", "Dodge", "Leap"]
         },
         {
           "name": "Treeman",
@@ -3048,16 +2524,7 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGP",
-          "skills": [
-            "Loner (4+)",
-            "Mighty Blow (+1)",
-            "Stand Firm",
-            "Strong Arm",
-            "Take Root",
-            "Thick Skull",
-            "Throw Team-Mate",
-            "Timmm-ber!"
-          ]
+          "skills": ["Loner (4+)", "Mighty Blow (+1)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-Mate", "Timmm-ber!"]
         }
       ],
       "league_types": [
