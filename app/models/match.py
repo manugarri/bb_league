@@ -1,6 +1,7 @@
 """Match and match statistics models."""
 from datetime import datetime
 from app.extensions import db
+from app.models.prematch import MatchInducement
 
 
 class Match(db.Model):
@@ -34,8 +35,12 @@ class Match(db.Model):
     home_fan_factor_change = db.Column(db.Integer, default=0)
     away_fan_factor_change = db.Column(db.Integer, default=0)
     
+    # Pre-match status
+    home_prematch_ready = db.Column(db.Boolean, default=False)
+    away_prematch_ready = db.Column(db.Boolean, default=False)
+    
     # Status
-    status = db.Column(db.String(20), default="scheduled")  # scheduled, in_progress, completed, cancelled
+    status = db.Column(db.String(20), default="scheduled")  # scheduled, prematch, in_progress, completed, cancelled
     is_validated = db.Column(db.Boolean, default=False)
     validated_by = db.Column(db.Integer, db.ForeignKey("users.id"))
     validated_at = db.Column(db.DateTime)
@@ -87,9 +92,41 @@ class Match(db.Model):
         """Check if match ended in a draw."""
         return self.is_completed and self.home_score == self.away_score
     
+    @property
+    def is_prematch_complete(self) -> bool:
+        """Check if both teams have completed pre-match activities."""
+        return self.home_prematch_ready and self.away_prematch_ready
+    
+    @property
+    def can_start_prematch(self) -> bool:
+        """Check if match can begin pre-match phase."""
+        return self.status == "scheduled"
+    
+    @property
+    def can_record_result(self) -> bool:
+        """Check if match result can be recorded."""
+        # Allow recording if pre-match is complete or if match is already in progress
+        return (self.is_prematch_complete or self.status == "in_progress") and self.status != "completed"
+    
     def get_score_string(self) -> str:
         """Return formatted score string."""
         return f"{self.home_score} - {self.away_score}"
+    
+    def get_team_prematch_submission(self, team_id: int):
+        """Get pre-match submission for a team."""
+        return self.prematch_submissions.filter_by(team_id=team_id).first()
+    
+    def get_team_inducements(self, team_id: int):
+        """Get inducements purchased by a team for this match."""
+        return self.inducements.filter_by(team_id=team_id).all()
+    
+    def get_team_inducements_total(self, team_id: int) -> int:
+        """Get total gold spent on inducements by a team."""
+        from sqlalchemy import func
+        result = self.inducements.filter_by(team_id=team_id).with_entities(
+            func.sum(MatchInducement.total_cost)
+        ).scalar()
+        return result or 0
     
     def get_team_stats(self, team_id: int) -> dict:
         """Get aggregated stats for a team in this match."""

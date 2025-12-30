@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}{% if get_locale() == 'es' %}Actividades Pre-Partido{% else %}Pre-Match Activities{% endif %} - {{ match.home_team.name }} vs {{ match.away_team.name }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">{{ _('Matches') }}</a></li>
+        {% if match.league %}
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=match.league.id) }}">{{ match.league.name }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.view', match_id=match.id) }}">{{ match.home_team.name }} vs {{ match.away_team.name }}</a></li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Pre-Partido{% else %}Pre-Match{% endif %}</li>
+    </ol>
+</nav>
+
+<!-- Match Header -->
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="bi bi-clipboard-check me-2"></i>
+        {% if get_locale() == 'es' %}Actividades Pre-Partido{% else %}Pre-Match Activities{% endif %}
+    </div>
+    <div class="card-body">
+        <div class="row align-items-center text-center">
+            <div class="col-md-4">
+                <h4 class="text-gold">{{ match.home_team.name }}</h4>
+                <span class="badge bg-secondary">{{ tr_race(match.home_team.race.name, get_locale()) }}</span>
+                <p class="text-muted small mb-0 mt-1">TV: {{ "{:,}".format(match.home_team.current_tv) }}g</p>
+            </div>
+            <div class="col-md-4">
+                <div class="display-6 text-muted">VS</div>
+                {% if match.league %}
+                <p class="text-muted small mb-0 mt-2">
+                    {{ match.league.name }} · {% if get_locale() == 'es' %}Jornada{% else %}Round{% endif %} {{ match.round_number or 'N/A' }}
+                </p>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <h4 class="text-gold">{{ match.away_team.name }}</h4>
+                <span class="badge bg-secondary">{{ tr_race(match.away_team.race.name, get_locale()) }}</span>
+                <p class="text-muted small mb-0 mt-1">TV: {{ "{:,}".format(match.away_team.current_tv) }}g</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pre-Match Status -->
+<div class="row g-4 mb-4">
+    <!-- Home Team Status -->
+    <div class="col-md-6">
+        <div class="card h-100 {% if match.home_prematch_ready %}border-success{% endif %}">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-house me-2"></i>{{ match.home_team.name }}</span>
+                {% if match.home_prematch_ready %}
+                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>{% if get_locale() == 'es' %}Listo{% else %}Ready{% endif %}</span>
+                {% else %}
+                <span class="badge bg-warning"><i class="bi bi-clock me-1"></i>{% if get_locale() == 'es' %}Pendiente{% else %}Pending{% endif %}</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">{% if get_locale() == 'es' %}Caja de Gastos:{% else %}Petty Cash:{% endif %}</span>
+                        <span class="text-gold fw-bold">{{ "{:,}".format(home_petty_cash) }}g</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">{% if get_locale() == 'es' %}Tesoro:{% else %}Treasury:{% endif %}</span>
+                        <span>{{ "{:,}".format(match.home_team.treasury) }}g</span>
+                    </div>
+                </div>
+                
+                {% if home_inducements %}
+                <h6 class="text-gold mb-2">{% if get_locale() == 'es' %}Incentivos{% else %}Inducements{% endif %}</h6>
+                <ul class="list-unstyled mb-3">
+                    {% for ind in home_inducements %}
+                    <li class="d-flex justify-content-between mb-1">
+                        <span>{{ ind.inducement_name }} {% if ind.quantity > 1 %}x{{ ind.quantity }}{% endif %}</span>
+                        <span class="text-muted">{{ "{:,}".format(ind.total_cost) }}g</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="d-flex justify-content-between border-top pt-2">
+                    <strong>{% if get_locale() == 'es' %}Total Incentivos:{% else %}Total Inducements:{% endif %}</strong>
+                    <strong class="text-gold">{{ "{:,}".format(home_inducements_cost) }}g</strong>
+                </div>
+                {% else %}
+                <p class="text-muted mb-0">{% if get_locale() == 'es' %}Sin incentivos adquiridos{% else %}No inducements purchased{% endif %}</p>
+                {% endif %}
+                
+                {% if can_edit_home and not match.home_prematch_ready %}
+                <div class="mt-4">
+                    <a href="{{ url_for('prematch.inducements', match_id=match.id, team_id=match.home_team_id) }}" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-cart-plus me-2"></i>{% if get_locale() == 'es' %}Gestionar Incentivos{% else %}Manage Inducements{% endif %}
+                    </a>
+                    <form action="{{ url_for('prematch.skip_inducements', match_id=match.id, team_id=match.home_team_id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-outline-secondary w-100">
+                            <i class="bi bi-skip-forward me-2"></i>{% if get_locale() == 'es' %}Saltar Sin Incentivos{% else %}Skip Without Inducements{% endif %}
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Away Team Status -->
+    <div class="col-md-6">
+        <div class="card h-100 {% if match.away_prematch_ready %}border-success{% endif %}">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-airplane me-2"></i>{{ match.away_team.name }}</span>
+                {% if match.away_prematch_ready %}
+                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>{% if get_locale() == 'es' %}Listo{% else %}Ready{% endif %}</span>
+                {% else %}
+                <span class="badge bg-warning"><i class="bi bi-clock me-1"></i>{% if get_locale() == 'es' %}Pendiente{% else %}Pending{% endif %}</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">{% if get_locale() == 'es' %}Caja de Gastos:{% else %}Petty Cash:{% endif %}</span>
+                        <span class="text-gold fw-bold">{{ "{:,}".format(away_petty_cash) }}g</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">{% if get_locale() == 'es' %}Tesoro:{% else %}Treasury:{% endif %}</span>
+                        <span>{{ "{:,}".format(match.away_team.treasury) }}g</span>
+                    </div>
+                </div>
+                
+                {% if away_inducements %}
+                <h6 class="text-gold mb-2">{% if get_locale() == 'es' %}Incentivos{% else %}Inducements{% endif %}</h6>
+                <ul class="list-unstyled mb-3">
+                    {% for ind in away_inducements %}
+                    <li class="d-flex justify-content-between mb-1">
+                        <span>{{ ind.inducement_name }} {% if ind.quantity > 1 %}x{{ ind.quantity }}{% endif %}</span>
+                        <span class="text-muted">{{ "{:,}".format(ind.total_cost) }}g</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="d-flex justify-content-between border-top pt-2">
+                    <strong>{% if get_locale() == 'es' %}Total Incentivos:{% else %}Total Inducements:{% endif %}</strong>
+                    <strong class="text-gold">{{ "{:,}".format(away_inducements_cost) }}g</strong>
+                </div>
+                {% else %}
+                <p class="text-muted mb-0">{% if get_locale() == 'es' %}Sin incentivos adquiridos{% else %}No inducements purchased{% endif %}</p>
+                {% endif %}
+                
+                {% if can_edit_away and not match.away_prematch_ready %}
+                <div class="mt-4">
+                    <a href="{{ url_for('prematch.inducements', match_id=match.id, team_id=match.away_team_id) }}" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-cart-plus me-2"></i>{% if get_locale() == 'es' %}Gestionar Incentivos{% else %}Manage Inducements{% endif %}
+                    </a>
+                    <form action="{{ url_for('prematch.skip_inducements', match_id=match.id, team_id=match.away_team_id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-outline-secondary w-100">
+                            <i class="bi bi-skip-forward me-2"></i>{% if get_locale() == 'es' %}Saltar Sin Incentivos{% else %}Skip Without Inducements{% endif %}
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Match Ready Status -->
+{% if match.is_prematch_complete %}
+<div class="alert alert-success d-flex justify-content-between align-items-center">
+    <div>
+        <i class="bi bi-check-circle-fill me-2"></i>
+        {% if get_locale() == 'es' %}
+        <strong>¡Ambos equipos están listos!</strong> El partido puede comenzar.
+        {% else %}
+        <strong>Both teams are ready!</strong> The match can begin.
+        {% endif %}
+    </div>
+    <a href="{{ url_for('matches.record', match_id=match.id) }}" class="btn btn-success">
+        <i class="bi bi-play-fill me-2"></i>{% if get_locale() == 'es' %}Registrar Resultado{% else %}Record Result{% endif %}
+    </a>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <i class="bi bi-info-circle me-2"></i>
+    {% if get_locale() == 'es' %}
+    Ambos equipos deben completar sus actividades pre-partido antes de que el partido pueda comenzar.
+    {% else %}
+    Both teams must complete their pre-match activities before the match can begin.
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- Petty Cash Explanation -->
+<div class="card">
+    <div class="card-header">
+        <i class="bi bi-question-circle me-2"></i>{% if get_locale() == 'es' %}¿Qué es la Caja de Gastos?{% else %}What is Petty Cash?{% endif %}
+    </div>
+    <div class="card-body">
+        {% if get_locale() == 'es' %}
+        <p class="mb-2">
+            La <strong>Caja de Gastos</strong> es oro gratuito que recibe el equipo con menor Valor de Equipo (VE) 
+            para gastar en incentivos. La cantidad es igual a la diferencia entre los VE de ambos equipos.
+        </p>
+        <p class="mb-0">
+            Además de la Caja de Gastos, puedes gastar oro de tu tesoro para adquirir incentivos adicionales.
+        </p>
+        {% else %}
+        <p class="mb-2">
+            <strong>Petty Cash</strong> is free gold given to the team with lower Team Value (TV) 
+            to spend on inducements. The amount equals the difference between both teams' TV.
+        </p>
+        <p class="mb-0">
+            In addition to Petty Cash, you may spend gold from your treasury to purchase additional inducements.
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

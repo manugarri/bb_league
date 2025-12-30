@@ -19,7 +19,9 @@
           "max": 16,
           "primary": "G",
           "secondary": "AF",
-          "skills": ["Dodge"]
+          "skills": [
+            "Dodge"
+          ]
         },
         {
           "name": "Python Warrior Thrower",
@@ -32,7 +34,12 @@
           "max": 2,
           "primary": "GP",
           "secondary": "AF",
-          "skills": ["On the Ball", "Dodge", "Pass", "Safe Pass"]
+          "skills": [
+            "On the Ball",
+            "Dodge",
+            "Pass",
+            "Safe Pass"
+          ]
         },
         {
           "name": "Piranha Warrior Blitzer",
@@ -45,7 +52,11 @@
           "max": 2,
           "primary": "AG",
           "secondary": "F",
-          "skills": ["Hit and Run", "Jump Up", "Dodge"]
+          "skills": [
+            "Hit and Run",
+            "Jump Up",
+            "Dodge"
+          ]
         },
         {
           "name": "Jaguar Warrior Blocker",
@@ -58,8 +69,14 @@
           "max": 2,
           "primary": "GF",
           "secondary": "A",
-          "skills": ["Defensive", "Dodge"]
+          "skills": [
+            "Defensive",
+            "Dodge"
+          ]
         }
+      ],
+      "league_types": [
+        "Lustrian Superleague"
       ]
     },
     {
@@ -75,7 +92,7 @@
         },
         {
           "name": "Bribery and Corruption",
-          "description": "This team can purchase Bribes for 50,000 gold pieces. Additionally, when using a Bribe, they may re-roll the D6 result (on a 1 the bribe is still wasted)."
+          "description": "Once per match, when this team rolls a 1 when Arguing the Call, you may re-roll the die."
         }
       ],
       "positions": [
@@ -90,7 +107,12 @@
           "max": 16,
           "primary": "A",
           "secondary": "G",
-          "skills": ["Thick Skull", "Right Stuff", "Dodge", "Stunty"]
+          "skills": [
+            "Thick Skull",
+            "Right Stuff",
+            "Dodge",
+            "Stunty"
+          ]
         },
         {
           "name": "Black Orc",
@@ -103,7 +125,10 @@
           "max": 6,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Brawler", "Grab"]
+          "skills": [
+            "Brawler",
+            "Grab"
+          ]
         },
         {
           "name": "Trained Troll",
@@ -116,8 +141,18 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGP",
-          "skills": ["Mighty Blow (+1)", "Throw Team-mate", "Projectile Vomit", "Really Stupid", "Regeneration", "Always Hungry"]
+          "skills": [
+            "Mighty Blow (+1)",
+            "Throw Team-mate",
+            "Projectile Vomit",
+            "Really Stupid",
+            "Regeneration",
+            "Always Hungry"
+          ]
         }
+      ],
+      "league_types": [
+        "Badlands Brawl"
       ]
     },
     {
@@ -139,7 +174,9 @@
           "max": 16,
           "primary": "G",
           "secondary": "AF",
-          "skills": ["Fend"]
+          "skills": [
+            "Fend"
+          ]
         },
         {
           "name": "Knight Thrower",
@@ -152,7 +189,11 @@
           "max": 2,
           "primary": "GP",
           "secondary": "AF",
-          "skills": ["Dauntless", "Nerves of Steel", "Pass"]
+          "skills": [
+            "Dauntless",
+            "Nerves of Steel",
+            "Pass"
+          ]
         },
         {
           "name": "Knight Catcher",
@@ -165,7 +206,11 @@
           "max": 2,
           "primary": "AG",
           "secondary": "F",
-          "skills": ["Dauntless", "Catch", "Nerves of Steel"]
+          "skills": [
+            "Dauntless",
+            "Catch",
+            "Nerves of Steel"
+          ]
         },
         {
           "name": "Grail Knight",
@@ -178,8 +223,15 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Dauntless", "Stand Firm", "Block"]
+          "skills": [
+            "Dauntless",
+            "Stand Firm",
+            "Block"
+          ]
         }
+      ],
+      "league_types": [
+        "Old World Classic"
       ]
     },
     {
@@ -191,7 +243,7 @@
       "special_rules": [
         {
           "name": "Favoured of Hashut",
-          "description": "Allows access to 'Favoured of Hashut' inducements and Star Players."
+          "description": "This team is aligned with Hashut. Some Star Players with 'Favoured of...' can only play for teams with this specific alignment."
         }
       ],
       "positions": [
@@ -219,7 +271,10 @@
           "max": 2,
           "primary": "GA",
           "secondary": "AF",
-          "skills": ["Stab", "Shadowing"]
+          "skills": [
+            "Stab",
+            "Shadowing"
+          ]
         },
         {
           "name": "Chaos Dwarf Blocker",
@@ -232,7 +287,11 @@
           "max": 4,
           "primary": "GS",
           "secondary": "AM",
-          "skills": ["Block", "Thick Skull", "Iron Hard Skin"]
+          "skills": [
+            "Block",
+            "Thick Skull",
+            "Iron Hard Skin"
+          ]
         },
         {
           "name": "Chaos Dwarf Flamesmith",
@@ -245,7 +304,12 @@
           "max": 2,
           "primary": "GS",
           "secondary": "AM",
-          "skills": ["Thick Skull", "Breathe Fire", "Brawler", "Disturbing Presence"]
+          "skills": [
+            "Thick Skull",
+            "Breathe Fire",
+            "Brawler",
+            "Disturbing Presence"
+          ]
         },
         {
           "name": "Bull Centaur",
@@ -258,7 +322,11 @@
           "max": 2,
           "primary": "GS",
           "secondary": "AM",
-          "skills": ["Sprint", "Sure Feet", "Thick Skull"]
+          "skills": [
+            "Sprint",
+            "Sure Feet",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Minotaur",
@@ -271,8 +339,19 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": ["Loner (4+)", "Frenzy", "Horns", "Mighty Blow (+1)", "Thick Skull", "Unchannelled Fury"]
+          "skills": [
+            "Loner (4+)",
+            "Frenzy",
+            "Horns",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Unchannelled Fury"
+          ]
         }
+      ],
+      "league_types": [
+        "World's Edge Superleague",
+        "Badlands Brawl"
       ]
     },
     {
@@ -284,7 +363,7 @@
       "special_rules": [
         {
           "name": "Favoured of...",
-          "description": "The team must choose an alignment: Khorne, Nurgle, Slaanesh, Tzeentch, or Undivided. This selection determines access to specific inducements and Star Players."
+          "description": "When creating the team roster, this team must choose an alignment from: Hashut, Khorne, Nurgle, Slaanesh, Tzeentch, or Chaos Undivided. Once chosen, it cannot be changed. Some Star Players with 'Favoured of...' can only play for teams with a specific alignment."
         }
       ],
       "positions": [
@@ -299,7 +378,9 @@
           "max": 16,
           "primary": "GM",
           "secondary": "AF",
-          "skills": ["Animosity (All)"]
+          "skills": [
+            "Animosity (All)"
+          ]
         },
         {
           "name": "Renegade Goblin",
@@ -312,7 +393,12 @@
           "max": 1,
           "primary": "AM",
           "secondary": "GP",
-          "skills": ["Animosity (All)", "Right Stuff", "Dodge", "Stunty"]
+          "skills": [
+            "Animosity (All)",
+            "Right Stuff",
+            "Dodge",
+            "Stunty"
+          ]
         },
         {
           "name": "Renegade Orc",
@@ -325,7 +411,9 @@
           "max": 1,
           "primary": "GM",
           "secondary": "AF",
-          "skills": ["Animosity (All)"]
+          "skills": [
+            "Animosity (All)"
+          ]
         },
         {
           "name": "Renegade Skaven",
@@ -338,7 +426,9 @@
           "max": 1,
           "primary": "GM",
           "secondary": "AF",
-          "skills": ["Animosity (All)"]
+          "skills": [
+            "Animosity (All)"
+          ]
         },
         {
           "name": "Renegade Dark Elf",
@@ -351,7 +441,9 @@
           "max": 1,
           "primary": "AGM",
           "secondary": "F",
-          "skills": ["Animosity (All)"]
+          "skills": [
+            "Animosity (All)"
+          ]
         },
         {
           "name": "Renegade Human Thrower",
@@ -364,7 +456,11 @@
           "max": 1,
           "primary": "GMP",
           "secondary": "AF",
-          "skills": ["Animosity (All)", "Sure Hands", "Pass"]
+          "skills": [
+            "Animosity (All)",
+            "Sure Hands",
+            "Pass"
+          ]
         },
         {
           "name": "Troll",
@@ -377,7 +473,15 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGMP",
-          "skills": ["Loner (4+)", "Mighty Blow (+1)", "Throw Team-mate", "Projectile Vomit", "Really Stupid", "Regeneration", "Always Hungry"]
+          "skills": [
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Throw Team-mate",
+            "Projectile Vomit",
+            "Really Stupid",
+            "Regeneration",
+            "Always Hungry"
+          ]
         },
         {
           "name": "Ogre",
@@ -390,7 +494,13 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": ["Loner (4+)", "Bone Head", "Mighty Blow (+1)", "Thick Skull", "Throw Team-mate"]
+          "skills": [
+            "Loner (4+)",
+            "Bone Head",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Throw Team-mate"
+          ]
         },
         {
           "name": "Minotaur",
@@ -403,7 +513,14 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": ["Loner (4+)", "Frenzy", "Horns", "Mighty Blow (+1)", "Thick Skull", "Unchannelled Fury"]
+          "skills": [
+            "Loner (4+)",
+            "Frenzy",
+            "Horns",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Unchannelled Fury"
+          ]
         },
         {
           "name": "Rat Ogre",
@@ -416,8 +533,17 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": ["Loner (4+)", "Animal Savagery", "Frenzy", "Mighty Blow (+1)", "Prehensile Tail"]
+          "skills": [
+            "Loner (4+)",
+            "Animal Savagery",
+            "Frenzy",
+            "Mighty Blow (+1)",
+            "Prehensile Tail"
+          ]
         }
+      ],
+      "league_types": [
+        "Chaos Championship"
       ]
     },
     {
@@ -439,7 +565,12 @@
           "max": 16,
           "primary": "A",
           "secondary": "GS",
-          "skills": ["Jump Up", "Right Stuff", "Stunty", "Wrestle"]
+          "skills": [
+            "Jump Up",
+            "Right Stuff",
+            "Stunty",
+            "Wrestle"
+          ]
         },
         {
           "name": "Woodland Fox",
@@ -452,7 +583,12 @@
           "max": 2,
           "primary": "",
           "secondary": "A",
-          "skills": ["Dodge", "My Ball", "Side Step", "Stunty"]
+          "skills": [
+            "Dodge",
+            "My Ball",
+            "Side Step",
+            "Stunty"
+          ]
         },
         {
           "name": "Gnome Illusionist",
@@ -465,7 +601,12 @@
           "max": 2,
           "primary": "AP",
           "secondary": "G",
-          "skills": ["Jump Up", "Stunty", "Trickster", "Wrestle"]
+          "skills": [
+            "Jump Up",
+            "Stunty",
+            "Trickster",
+            "Wrestle"
+          ]
         },
         {
           "name": "Gnome Beastmaster",
@@ -478,7 +619,12 @@
           "max": 2,
           "primary": "A",
           "secondary": "GS",
-          "skills": ["Guard", "Jump Up", "Stunty", "Wrestle"]
+          "skills": [
+            "Guard",
+            "Jump Up",
+            "Stunty",
+            "Wrestle"
+          ]
         },
         {
           "name": "Altern Forest Treeman",
@@ -491,8 +637,19 @@
           "max": 2,
           "primary": "S",
           "secondary": "AGP",
-          "skills": ["Mighty Blow (+1)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-mate", "Timmm-ber!"]
+          "skills": [
+            "Mighty Blow (+1)",
+            "Stand Firm",
+            "Strong Arm",
+            "Take Root",
+            "Thick Skull",
+            "Throw Team-mate",
+            "Timmm-ber!"
+          ]
         }
+      ],
+      "league_types": [
+        "Old World Classic"
       ]
     },
     {
@@ -514,7 +671,9 @@
           "max": 16,
           "primary": "GMS",
           "secondary": "AP",
-          "skills": ["Horns"]
+          "skills": [
+            "Horns"
+          ]
         },
         {
           "name": "Chosen Blocker",
@@ -540,7 +699,13 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": ["Bone Head", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
+          "skills": [
+            "Bone Head",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Throw Team-Mate"
+          ]
         },
         {
           "name": "Chaos Troll",
@@ -553,7 +718,15 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": ["Always Hungry", "Loner (4+)", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
+          "skills": [
+            "Always Hungry",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Projectile Vomit",
+            "Really Stupid",
+            "Regeneration",
+            "Throw Team-Mate"
+          ]
         },
         {
           "name": "Minotaur",
@@ -566,8 +739,18 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": ["Frenzy", "Horns", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull", "Unchannelled Fury"]
+          "skills": [
+            "Frenzy",
+            "Horns",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Unchannelled Fury"
+          ]
         }
+      ],
+      "league_types": [
+        "Chaos Championship"
       ]
     },
     {
@@ -602,7 +785,9 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": ["Dump-Off"]
+          "skills": [
+            "Dump-Off"
+          ]
         },
         {
           "name": "Dark Elf Assassin",
@@ -615,7 +800,10 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Shadowing", "Stab"]
+          "skills": [
+            "Shadowing",
+            "Stab"
+          ]
         },
         {
           "name": "Dark Elf Blitzer",
@@ -628,7 +816,9 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Block"]
+          "skills": [
+            "Block"
+          ]
         },
         {
           "name": "Witch Elf",
@@ -641,8 +831,15 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Dodge", "Frenzy", "Jump Up"]
+          "skills": [
+            "Dodge",
+            "Frenzy",
+            "Jump Up"
+          ]
         }
+      ],
+      "league_types": [
+        "Elven Kingdoms League"
       ]
     },
     {
@@ -664,7 +861,11 @@
           "max": 12,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Block", "Tackle", "Thick Skull"]
+          "skills": [
+            "Block",
+            "Tackle",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Dwarf Runner",
@@ -677,7 +878,10 @@
           "max": 2,
           "primary": "GP",
           "secondary": "AS",
-          "skills": ["Sure Hands", "Thick Skull"]
+          "skills": [
+            "Sure Hands",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Dwarf Blitzer",
@@ -690,7 +894,10 @@
           "max": 2,
           "primary": "GS",
           "secondary": "AP",
-          "skills": ["Block", "Thick Skull"]
+          "skills": [
+            "Block",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Troll Slayer",
@@ -703,7 +910,12 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Block", "Dauntless", "Frenzy", "Thick Skull"]
+          "skills": [
+            "Block",
+            "Dauntless",
+            "Frenzy",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Deathroller",
@@ -716,8 +928,21 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Break Tackle", "Dirty Player (+2)", "Juggernaut", "Loner (5+)", "Mighty Blow (+1)", "No Hands", "Secret Weapon", "Stand Firm"]
+          "skills": [
+            "Break Tackle",
+            "Dirty Player (+2)",
+            "Juggernaut",
+            "Loner (5+)",
+            "Mighty Blow (+1)",
+            "No Hands",
+            "Secret Weapon",
+            "Stand Firm"
+          ]
         }
+      ],
+      "league_types": [
+        "Old World Classic",
+        "World's Edge Superleague"
       ]
     },
     {
@@ -752,7 +977,9 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": ["Pass"]
+          "skills": [
+            "Pass"
+          ]
         },
         {
           "name": "Elven Union Catcher",
@@ -765,7 +992,10 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Catch", "Nerves of Steel"]
+          "skills": [
+            "Catch",
+            "Nerves of Steel"
+          ]
         },
         {
           "name": "Elven Union Blitzer",
@@ -778,8 +1008,14 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Block", "Side Step"]
+          "skills": [
+            "Block",
+            "Side Step"
+          ]
         }
+      ],
+      "league_types": [
+        "Elven Kingdoms League"
       ]
     },
     {
@@ -788,7 +1024,12 @@
       "reroll_cost": 60000,
       "apothecary_allowed": true,
       "tier": 3,
-      "special_rules": ["Bribery and Corruption", "Underworld Challenge"],
+      "special_rules": [
+        {
+          "name": "Bribery and Corruption",
+          "description": "Once per match, when this team rolls a 1 when Arguing the Call, you may re-roll the die."
+        }
+      ],
       "positions": [
         {
           "name": "Goblin Lineman",
@@ -801,7 +1042,11 @@
           "max": 16,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Dodge", "Right Stuff", "Stunty"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Stunty"
+          ]
         },
         {
           "name": "Bomma",
@@ -814,7 +1059,12 @@
           "max": 1,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Bombardier", "Dodge", "Secret Weapon", "Stunty"]
+          "skills": [
+            "Bombardier",
+            "Dodge",
+            "Secret Weapon",
+            "Stunty"
+          ]
         },
         {
           "name": "Looney",
@@ -827,7 +1077,11 @@
           "max": 1,
           "primary": "A",
           "secondary": "GS",
-          "skills": ["Chainsaw", "Secret Weapon", "Stunty"]
+          "skills": [
+            "Chainsaw",
+            "Secret Weapon",
+            "Stunty"
+          ]
         },
         {
           "name": "Fanatic",
@@ -840,7 +1094,12 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Ball & Chain", "No Hands", "Secret Weapon", "Stunty"]
+          "skills": [
+            "Ball & Chain",
+            "No Hands",
+            "Secret Weapon",
+            "Stunty"
+          ]
         },
         {
           "name": "Pogoer",
@@ -853,7 +1112,11 @@
           "max": 1,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Dodge", "Pogo Stick", "Stunty"]
+          "skills": [
+            "Dodge",
+            "Pogo Stick",
+            "Stunty"
+          ]
         },
         {
           "name": "Ooligan",
@@ -866,7 +1129,13 @@
           "max": 1,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Dirty Player (+1)", "Disturbing Presence", "Dodge", "Right Stuff", "Stunty"]
+          "skills": [
+            "Dirty Player (+1)",
+            "Disturbing Presence",
+            "Dodge",
+            "Right Stuff",
+            "Stunty"
+          ]
         },
         {
           "name": "Doom Diver",
@@ -879,7 +1148,12 @@
           "max": 2,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Dodge", "Right Stuff", "Stunty", "Swoop"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Stunty",
+            "Swoop"
+          ]
         },
         {
           "name": "Trained Troll",
@@ -892,8 +1166,20 @@
           "max": 2,
           "primary": "S",
           "secondary": "AGM",
-          "skills": ["Always Hungry", "Loner (3+)", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
+          "skills": [
+            "Always Hungry",
+            "Loner (3+)",
+            "Mighty Blow (+1)",
+            "Projectile Vomit",
+            "Really Stupid",
+            "Regeneration",
+            "Throw Team-Mate"
+          ]
         }
+      ],
+      "league_types": [
+        "Badlands Brawl",
+        "Underworld Challenge"
       ]
     },
     {
@@ -902,7 +1188,7 @@
       "reroll_cost": 60000,
       "apothecary_allowed": true,
       "tier": 3,
-      "special_rules": ["Halfling Thimble Cup"],
+      "special_rules": [],
       "positions": [
         {
           "name": "Halfling Hopeful",
@@ -915,7 +1201,11 @@
           "max": 16,
           "primary": "A",
           "secondary": "GS",
-          "skills": ["Dodge", "Right Stuff", "Stunty"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Stunty"
+          ]
         },
         {
           "name": "Halfling Hefty",
@@ -928,7 +1218,11 @@
           "max": 2,
           "primary": "AP",
           "secondary": "GS",
-          "skills": ["Dodge", "Fend", "Stunty"]
+          "skills": [
+            "Dodge",
+            "Fend",
+            "Stunty"
+          ]
         },
         {
           "name": "Halfling Catcher",
@@ -941,7 +1235,13 @@
           "max": 4,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Catch", "Dodge", "Right Stuff", "Sprint", "Stunty"]
+          "skills": [
+            "Catch",
+            "Dodge",
+            "Right Stuff",
+            "Sprint",
+            "Stunty"
+          ]
         },
         {
           "name": "Treeman",
@@ -954,8 +1254,20 @@
           "max": 2,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Mighty Blow (+1)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-Mate", "Timmm-ber!"]
+          "skills": [
+            "Mighty Blow (+1)",
+            "Stand Firm",
+            "Strong Arm",
+            "Take Root",
+            "Thick Skull",
+            "Throw Team-Mate",
+            "Timmm-ber!"
+          ]
         }
+      ],
+      "league_types": [
+        "Halfling Thimble Cup",
+        "Old World Classic"
       ]
     },
     {
@@ -990,7 +1302,11 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": ["Cloud Burster", "Pass", "Safe Pair of Hands"]
+          "skills": [
+            "Cloud Burster",
+            "Pass",
+            "Safe Pair of Hands"
+          ]
         },
         {
           "name": "High Elf Catcher",
@@ -1003,7 +1319,9 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Catch"]
+          "skills": [
+            "Catch"
+          ]
         },
         {
           "name": "High Elf Blitzer",
@@ -1016,8 +1334,13 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Block"]
+          "skills": [
+            "Block"
+          ]
         }
+      ],
+      "league_types": [
+        "Elven Kingdoms League"
       ]
     },
     {
@@ -1052,7 +1375,10 @@
           "max": 2,
           "primary": "GP",
           "secondary": "AS",
-          "skills": ["Pass", "Sure Hands"]
+          "skills": [
+            "Pass",
+            "Sure Hands"
+          ]
         },
         {
           "name": "Human Catcher",
@@ -1065,7 +1391,10 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Catch", "Dodge"]
+          "skills": [
+            "Catch",
+            "Dodge"
+          ]
         },
         {
           "name": "Human Blitzer",
@@ -1078,7 +1407,9 @@
           "max": 4,
           "primary": "GS",
           "secondary": "AP",
-          "skills": ["Block"]
+          "skills": [
+            "Block"
+          ]
         },
         {
           "name": "Ogre",
@@ -1091,8 +1422,17 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Bone Head", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
+          "skills": [
+            "Bone Head",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Throw Team-Mate"
+          ]
         }
+      ],
+      "league_types": [
+        "Old World Classic"
       ]
     },
     {
@@ -1114,7 +1454,9 @@
           "max": 16,
           "primary": "G",
           "secondary": "AS",
-          "skills": ["Fend"]
+          "skills": [
+            "Fend"
+          ]
         },
         {
           "name": "Imperial Thrower",
@@ -1127,7 +1469,10 @@
           "max": 2,
           "primary": "GP",
           "secondary": "AS",
-          "skills": ["Pass", "Running Pass"]
+          "skills": [
+            "Pass",
+            "Running Pass"
+          ]
         },
         {
           "name": "Noble Blitzer",
@@ -1140,7 +1485,10 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Block", "Catch"]
+          "skills": [
+            "Block",
+            "Catch"
+          ]
         },
         {
           "name": "Bodyguard",
@@ -1153,7 +1501,10 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Stand Firm", "Wrestle"]
+          "skills": [
+            "Stand Firm",
+            "Wrestle"
+          ]
         },
         {
           "name": "Ogre",
@@ -1166,8 +1517,17 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Bone Head", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
+          "skills": [
+            "Bone Head",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Throw Team-Mate"
+          ]
         }
+      ],
+      "league_types": [
+        "Old World Classic"
       ]
     },
     {
@@ -1176,7 +1536,12 @@
       "reroll_cost": 70000,
       "apothecary_allowed": true,
       "tier": 2,
-      "special_rules": [],
+      "special_rules": [
+        {
+          "name": "Favoured of Khorne",
+          "description": "This team is aligned with Khorne, the Blood God. Some Star Players with 'Favoured of...' can only play for teams with this specific alignment."
+        }
+      ],
       "positions": [
         {
           "name": "Khorne Marauder",
@@ -1189,7 +1554,9 @@
           "max": 16,
           "primary": "GM",
           "secondary": "AS",
-          "skills": ["Frenzy"]
+          "skills": [
+            "Frenzy"
+          ]
         },
         {
           "name": "Khorne Bloodseeker",
@@ -1202,7 +1569,11 @@
           "max": 2,
           "primary": "AGM",
           "secondary": "PS",
-          "skills": ["Frenzy", "Juggernaut", "Horns"]
+          "skills": [
+            "Frenzy",
+            "Juggernaut",
+            "Horns"
+          ]
         },
         {
           "name": "Bloodspawn",
@@ -1215,8 +1586,17 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": ["Claws", "Frenzy", "Loner (4+)", "Mighty Blow (+1)", "Unchannelled Fury"]
+          "skills": [
+            "Claws",
+            "Frenzy",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Unchannelled Fury"
+          ]
         }
+      ],
+      "league_types": [
+        "Favoured of Khorne"
       ]
     },
     {
@@ -1238,7 +1618,10 @@
           "max": 12,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Dodge", "Stunty"]
+          "skills": [
+            "Dodge",
+            "Stunty"
+          ]
         },
         {
           "name": "Chameleon Skink",
@@ -1251,7 +1634,12 @@
           "max": 2,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Dodge", "On the Ball", "Shadowing", "Stunty"]
+          "skills": [
+            "Dodge",
+            "On the Ball",
+            "Shadowing",
+            "Stunty"
+          ]
         },
         {
           "name": "Saurus Blocker",
@@ -1277,8 +1665,17 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Bone Head", "Loner (4+)", "Mighty Blow (+1)", "Prehensile Tail", "Thick Skull"]
+          "skills": [
+            "Bone Head",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Prehensile Tail",
+            "Thick Skull"
+          ]
         }
+      ],
+      "league_types": [
+        "Lustrian Superleague"
       ]
     },
     {
@@ -1287,7 +1684,12 @@
       "reroll_cost": 70000,
       "apothecary_allowed": false,
       "tier": 2,
-      "special_rules": ["Masters of Undeath"],
+      "special_rules": [
+        {
+          "name": "Masters of Undeath",
+          "description": "Once per match, if an opposing player with ST 4 or less without the Stunty trait suffers a Dead result on the Injury table, this team may Raise the Dead and immediately add a Lineman from their team list to their Reserves box. This may temporarily give the team more than 16 players. The raised player can be permanently hired for free after the match if the roster has space."
+        }
+      ],
       "positions": [
         {
           "name": "Zombie Lineman",
@@ -1300,7 +1702,9 @@
           "max": 16,
           "primary": "G",
           "secondary": "AS",
-          "skills": ["Regeneration"]
+          "skills": [
+            "Regeneration"
+          ]
         },
         {
           "name": "Ghoul Runner",
@@ -1313,7 +1717,9 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Dodge"]
+          "skills": [
+            "Dodge"
+          ]
         },
         {
           "name": "Wraith",
@@ -1326,7 +1732,13 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Block", "Foul Appearance", "No Hands", "Regeneration", "Side Step"]
+          "skills": [
+            "Block",
+            "Foul Appearance",
+            "No Hands",
+            "Regeneration",
+            "Side Step"
+          ]
         },
         {
           "name": "Werewolf",
@@ -1339,7 +1751,11 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Claws", "Frenzy", "Regeneration"]
+          "skills": [
+            "Claws",
+            "Frenzy",
+            "Regeneration"
+          ]
         },
         {
           "name": "Flesh Golem",
@@ -1352,8 +1768,15 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Regeneration", "Stand Firm", "Thick Skull"]
+          "skills": [
+            "Regeneration",
+            "Stand Firm",
+            "Thick Skull"
+          ]
         }
+      ],
+      "league_types": [
+        "Sylvanian Spotlight"
       ]
     },
     {
@@ -1375,7 +1798,10 @@
           "max": 16,
           "primary": "G",
           "secondary": "AS",
-          "skills": ["Block", "Drunkard"]
+          "skills": [
+            "Block",
+            "Drunkard"
+          ]
         },
         {
           "name": "Norse Berserker",
@@ -1388,7 +1814,11 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Block", "Frenzy", "Jump Up"]
+          "skills": [
+            "Block",
+            "Frenzy",
+            "Jump Up"
+          ]
         },
         {
           "name": "Valkyrie",
@@ -1401,7 +1831,11 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": ["Catch", "Dauntless", "Pass"]
+          "skills": [
+            "Catch",
+            "Dauntless",
+            "Pass"
+          ]
         },
         {
           "name": "Ulfwerener",
@@ -1414,7 +1848,9 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Frenzy"]
+          "skills": [
+            "Frenzy"
+          ]
         },
         {
           "name": "Yhetee",
@@ -1427,8 +1863,17 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Claws", "Disturbing Presence", "Frenzy", "Loner (4+)", "Unchannelled Fury"]
+          "skills": [
+            "Claws",
+            "Disturbing Presence",
+            "Frenzy",
+            "Loner (4+)",
+            "Unchannelled Fury"
+          ]
         }
+      ],
+      "league_types": [
+        "Old World Classic"
       ]
     },
     {
@@ -1437,7 +1882,12 @@
       "reroll_cost": 70000,
       "apothecary_allowed": false,
       "tier": 2,
-      "special_rules": ["Favoured of Nurgle"],
+      "special_rules": [
+        {
+          "name": "Favoured of Nurgle",
+          "description": "This team is aligned with Nurgle, the Plague God. Some Star Players with 'Favoured of...' can only play for teams with this specific alignment."
+        }
+      ],
       "positions": [
         {
           "name": "Rotter Lineman",
@@ -1450,7 +1900,10 @@
           "max": 16,
           "primary": "GM",
           "secondary": "AS",
-          "skills": ["Decay", "Plague Ridden"]
+          "skills": [
+            "Decay",
+            "Plague Ridden"
+          ]
         },
         {
           "name": "Pestigor",
@@ -1463,7 +1916,11 @@
           "max": 4,
           "primary": "GMS",
           "secondary": "AP",
-          "skills": ["Horns", "Plague Ridden", "Regeneration"]
+          "skills": [
+            "Horns",
+            "Plague Ridden",
+            "Regeneration"
+          ]
         },
         {
           "name": "Bloater",
@@ -1476,7 +1933,12 @@
           "max": 4,
           "primary": "GSM",
           "secondary": "A",
-          "skills": ["Disturbing Presence", "Foul Appearance", "Plague Ridden", "Regeneration"]
+          "skills": [
+            "Disturbing Presence",
+            "Foul Appearance",
+            "Plague Ridden",
+            "Regeneration"
+          ]
         },
         {
           "name": "Rotspawn",
@@ -1489,8 +1951,20 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": ["Disturbing Presence", "Foul Appearance", "Loner (4+)", "Mighty Blow (+1)", "Plague Ridden", "Really Stupid", "Regeneration", "Tentacles"]
+          "skills": [
+            "Disturbing Presence",
+            "Foul Appearance",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Plague Ridden",
+            "Really Stupid",
+            "Regeneration",
+            "Tentacles"
+          ]
         }
+      ],
+      "league_types": [
+        "Favoured of Nurgle"
       ]
     },
     {
@@ -1499,7 +1973,7 @@
       "reroll_cost": 70000,
       "apothecary_allowed": true,
       "tier": 3,
-      "special_rules": ["Badlands Brawl", "Old World Classic"],
+      "special_rules": [],
       "positions": [
         {
           "name": "Gnoblar",
@@ -1512,7 +1986,13 @@
           "max": 16,
           "primary": "A",
           "secondary": "G",
-          "skills": ["Dodge", "Right Stuff", "Side Step", "Stunty", "Titchy"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Side Step",
+            "Stunty",
+            "Titchy"
+          ]
         },
         {
           "name": "Ogre",
@@ -1525,8 +2005,17 @@
           "max": 6,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Bone Head", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
+          "skills": [
+            "Bone Head",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Throw Team-Mate"
+          ]
         }
+      ],
+      "league_types": [
+        "Badlands Brawl",
+        "Old World Classic"
       ]
     },
     {
@@ -1535,7 +2024,7 @@
       "reroll_cost": 70000,
       "apothecary_allowed": true,
       "tier": 2,
-      "special_rules": ["Old World Classic"],
+      "special_rules": [],
       "positions": [
         {
           "name": "Human Lineman",
@@ -1561,7 +2050,11 @@
           "max": 1,
           "primary": "GP",
           "secondary": "AS",
-          "skills": ["Animosity (Dwarf)", "Pass", "Sure Hands"]
+          "skills": [
+            "Animosity (Dwarf)",
+            "Pass",
+            "Sure Hands"
+          ]
         },
         {
           "name": "Human Catcher",
@@ -1574,7 +2067,11 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Animosity (Dwarf)", "Catch", "Dodge"]
+          "skills": [
+            "Animosity (Dwarf)",
+            "Catch",
+            "Dodge"
+          ]
         },
         {
           "name": "Human Blitzer",
@@ -1587,7 +2084,11 @@
           "max": 1,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Animosity (Dwarf)", "Block", "Catch"]
+          "skills": [
+            "Animosity (Dwarf)",
+            "Block",
+            "Catch"
+          ]
         },
         {
           "name": "Dwarf Blocker",
@@ -1600,7 +2101,12 @@
           "max": 2,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Animosity (Halfling)", "Block", "Tackle", "Thick Skull"]
+          "skills": [
+            "Animosity (Halfling)",
+            "Block",
+            "Tackle",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Dwarf Runner",
@@ -1613,7 +2119,10 @@
           "max": 1,
           "primary": "GP",
           "secondary": "AS",
-          "skills": ["Sure Hands", "Thick Skull"]
+          "skills": [
+            "Sure Hands",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Dwarf Blitzer",
@@ -1626,7 +2135,10 @@
           "max": 1,
           "primary": "GS",
           "secondary": "A",
-          "skills": ["Block", "Thick Skull"]
+          "skills": [
+            "Block",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Halfling Hopeful",
@@ -1639,7 +2151,12 @@
           "max": 2,
           "primary": "A",
           "secondary": "GS",
-          "skills": ["Animosity (Big Guy)", "Dodge", "Right Stuff", "Stunty"]
+          "skills": [
+            "Animosity (Big Guy)",
+            "Dodge",
+            "Right Stuff",
+            "Stunty"
+          ]
         },
         {
           "name": "Ogre",
@@ -1652,7 +2169,13 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Bone Head", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"]
+          "skills": [
+            "Bone Head",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Thick Skull",
+            "Throw Team-Mate"
+          ]
         },
         {
           "name": "Treeman",
@@ -1665,8 +2188,20 @@
           "max": 1,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Loner (4+)", "Mighty Blow (+1)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-Mate", "Timmm-ber!"]
+          "skills": [
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Stand Firm",
+            "Strong Arm",
+            "Take Root",
+            "Thick Skull",
+            "Throw Team-Mate",
+            "Timmm-ber!"
+          ]
         }
+      ],
+      "league_types": [
+        "Old World Classic"
       ]
     },
     {
@@ -1701,7 +2236,10 @@
           "max": 2,
           "primary": "GP",
           "secondary": "AS",
-          "skills": ["Pass", "Sure Hands"]
+          "skills": [
+            "Pass",
+            "Sure Hands"
+          ]
         },
         {
           "name": "Goblin",
@@ -1714,7 +2252,11 @@
           "max": 4,
           "primary": "A",
           "secondary": "GPS",
-          "skills": ["Dodge", "Right Stuff", "Stunty"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Stunty"
+          ]
         },
         {
           "name": "Big Un Blocker",
@@ -1740,7 +2282,9 @@
           "max": 4,
           "primary": "GS",
           "secondary": "AP",
-          "skills": ["Block"]
+          "skills": [
+            "Block"
+          ]
         },
         {
           "name": "Troll",
@@ -1753,8 +2297,19 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": ["Always Hungry", "Loner (4+)", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
+          "skills": [
+            "Always Hungry",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Projectile Vomit",
+            "Really Stupid",
+            "Regeneration",
+            "Throw Team-Mate"
+          ]
         }
+      ],
+      "league_types": [
+        "Badlands Brawl"
       ]
     },
     {
@@ -1763,7 +2318,12 @@
       "reroll_cost": 70000,
       "apothecary_allowed": false,
       "tier": 1,
-      "special_rules": ["Masters of Undeath"],
+      "special_rules": [
+        {
+          "name": "Masters of Undeath",
+          "description": "Once per match, if an opposing player with ST 4 or less without the Stunty trait suffers a Dead result on the Injury table, this team may Raise the Dead and immediately add a Lineman from their team list to their Reserves box. This may temporarily give the team more than 16 players. The raised player can be permanently hired for free after the match if the roster has space."
+        }
+      ],
       "positions": [
         {
           "name": "Skeleton Lineman",
@@ -1776,7 +2336,10 @@
           "max": 16,
           "primary": "G",
           "secondary": "AS",
-          "skills": ["Regeneration", "Thick Skull"]
+          "skills": [
+            "Regeneration",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Zombie Lineman",
@@ -1789,7 +2352,9 @@
           "max": 16,
           "primary": "G",
           "secondary": "AS",
-          "skills": ["Regeneration"]
+          "skills": [
+            "Regeneration"
+          ]
         },
         {
           "name": "Ghoul Runner",
@@ -1802,7 +2367,9 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Dodge"]
+          "skills": [
+            "Dodge"
+          ]
         },
         {
           "name": "Wight Blitzer",
@@ -1815,7 +2382,10 @@
           "max": 2,
           "primary": "GS",
           "secondary": "AP",
-          "skills": ["Block", "Regeneration"]
+          "skills": [
+            "Block",
+            "Regeneration"
+          ]
         },
         {
           "name": "Mummy",
@@ -1828,8 +2398,14 @@
           "max": 2,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Mighty Blow (+1)", "Regeneration"]
+          "skills": [
+            "Mighty Blow (+1)",
+            "Regeneration"
+          ]
         }
+      ],
+      "league_types": [
+        "Sylvanian Spotlight"
       ]
     },
     {
@@ -1864,7 +2440,10 @@
           "max": 2,
           "primary": "GP",
           "secondary": "AMS",
-          "skills": ["Pass", "Sure Hands"]
+          "skills": [
+            "Pass",
+            "Sure Hands"
+          ]
         },
         {
           "name": "Gutter Runner",
@@ -1877,7 +2456,9 @@
           "max": 4,
           "primary": "AG",
           "secondary": "MPS",
-          "skills": ["Dodge"]
+          "skills": [
+            "Dodge"
+          ]
         },
         {
           "name": "Skaven Blitzer",
@@ -1890,7 +2471,9 @@
           "max": 2,
           "primary": "GS",
           "secondary": "APM",
-          "skills": ["Block"]
+          "skills": [
+            "Block"
+          ]
         },
         {
           "name": "Rat Ogre",
@@ -1903,8 +2486,17 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGM",
-          "skills": ["Animal Savagery", "Frenzy", "Loner (4+)", "Mighty Blow (+1)", "Prehensile Tail"]
+          "skills": [
+            "Animal Savagery",
+            "Frenzy",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Prehensile Tail"
+          ]
         }
+      ],
+      "league_types": [
+        "Underworld Challenge"
       ]
     },
     {
@@ -1913,7 +2505,16 @@
       "reroll_cost": 60000,
       "apothecary_allowed": false,
       "tier": 3,
-      "special_rules": ["Bribery and Corruption", "Underworld Challenge", "Low Cost Linemen"],
+      "special_rules": [
+        {
+          "name": "Bribery and Corruption",
+          "description": "Once per match, when this team rolls a 1 when Arguing the Call, you may re-roll the die."
+        },
+        {
+          "name": "Low Cost Linemen",
+          "description": "In a league, when calculating this team's current Team Value, the hiring cost of their Linemen is considered to be 0 gold pieces. Add any value increases normally."
+        }
+      ],
       "positions": [
         {
           "name": "Snotling",
@@ -1926,7 +2527,13 @@
           "max": 16,
           "primary": "A",
           "secondary": "G",
-          "skills": ["Dodge", "Right Stuff", "Side Step", "Stunty", "Titchy"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Side Step",
+            "Stunty",
+            "Titchy"
+          ]
         },
         {
           "name": "Fungus Flinga",
@@ -1939,7 +2546,15 @@
           "max": 2,
           "primary": "AP",
           "secondary": "G",
-          "skills": ["Bombardier", "Dodge", "Right Stuff", "Secret Weapon", "Side Step", "Stunty", "Titchy"]
+          "skills": [
+            "Bombardier",
+            "Dodge",
+            "Right Stuff",
+            "Secret Weapon",
+            "Side Step",
+            "Stunty",
+            "Titchy"
+          ]
         },
         {
           "name": "Fun-hoppa",
@@ -1952,7 +2567,14 @@
           "max": 2,
           "primary": "A",
           "secondary": "G",
-          "skills": ["Dodge", "Pogo Stick", "Right Stuff", "Side Step", "Stunty", "Titchy"]
+          "skills": [
+            "Dodge",
+            "Pogo Stick",
+            "Right Stuff",
+            "Side Step",
+            "Stunty",
+            "Titchy"
+          ]
         },
         {
           "name": "Stilty Runna",
@@ -1965,7 +2587,14 @@
           "max": 2,
           "primary": "A",
           "secondary": "G",
-          "skills": ["Dodge", "Right Stuff", "Sprint", "Stand Firm", "Stunty", "Titchy"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Sprint",
+            "Stand Firm",
+            "Stunty",
+            "Titchy"
+          ]
         },
         {
           "name": "Pump Wagon",
@@ -1978,7 +2607,14 @@
           "max": 2,
           "primary": "S",
           "secondary": "A",
-          "skills": ["Dirty Player (+1)", "Juggernaut", "Mighty Blow (+1)", "Really Stupid", "Secret Weapon", "Stand Firm"]
+          "skills": [
+            "Dirty Player (+1)",
+            "Juggernaut",
+            "Mighty Blow (+1)",
+            "Really Stupid",
+            "Secret Weapon",
+            "Stand Firm"
+          ]
         },
         {
           "name": "Trained Troll",
@@ -1991,8 +2627,20 @@
           "max": 2,
           "primary": "S",
           "secondary": "AGM",
-          "skills": ["Always Hungry", "Loner (3+)", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
+          "skills": [
+            "Always Hungry",
+            "Loner (3+)",
+            "Mighty Blow (+1)",
+            "Projectile Vomit",
+            "Really Stupid",
+            "Regeneration",
+            "Throw Team-Mate"
+          ]
         }
+      ],
+      "league_types": [
+        "Badlands Brawl",
+        "Underworld Challenge"
       ]
     },
     {
@@ -2001,7 +2649,12 @@
       "reroll_cost": 70000,
       "apothecary_allowed": false,
       "tier": 2,
-      "special_rules": ["Masters of Undeath"],
+      "special_rules": [
+        {
+          "name": "Masters of Undeath",
+          "description": "Once per match, if an opposing player with ST 4 or less without the Stunty trait suffers a Dead result on the Injury table, this team may Raise the Dead and immediately add a Lineman from their team list to their Reserves box. This may temporarily give the team more than 16 players. The raised player can be permanently hired for free after the match if the roster has space."
+        }
+      ],
       "positions": [
         {
           "name": "Skeleton Lineman",
@@ -2014,7 +2667,10 @@
           "max": 16,
           "primary": "G",
           "secondary": "AS",
-          "skills": ["Regeneration", "Thick Skull"]
+          "skills": [
+            "Regeneration",
+            "Thick Skull"
+          ]
         },
         {
           "name": "Anointed Thrower",
@@ -2027,7 +2683,11 @@
           "max": 2,
           "primary": "GP",
           "secondary": "AS",
-          "skills": ["Pass", "Regeneration", "Sure Hands"]
+          "skills": [
+            "Pass",
+            "Regeneration",
+            "Sure Hands"
+          ]
         },
         {
           "name": "Anointed Blitzer",
@@ -2040,7 +2700,10 @@
           "max": 2,
           "primary": "GS",
           "secondary": "AP",
-          "skills": ["Block", "Regeneration"]
+          "skills": [
+            "Block",
+            "Regeneration"
+          ]
         },
         {
           "name": "Tomb Guardian",
@@ -2053,8 +2716,14 @@
           "max": 4,
           "primary": "S",
           "secondary": "AG",
-          "skills": ["Decay", "Regeneration"]
+          "skills": [
+            "Decay",
+            "Regeneration"
+          ]
         }
+      ],
+      "league_types": [
+        "Sylvanian Spotlight"
       ]
     },
     {
@@ -2063,7 +2732,12 @@
       "reroll_cost": 70000,
       "apothecary_allowed": true,
       "tier": 2,
-      "special_rules": ["Bribery and Corruption", "Underworld Challenge"],
+      "special_rules": [
+        {
+          "name": "Bribery and Corruption",
+          "description": "Once per match, when this team rolls a 1 when Arguing the Call, you may re-roll the die."
+        }
+      ],
       "positions": [
         {
           "name": "Goblin Lineman",
@@ -2076,7 +2750,11 @@
           "max": 16,
           "primary": "AMT",
           "secondary": "GPS",
-          "skills": ["Dodge", "Right Stuff", "Stunty"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Stunty"
+          ]
         },
         {
           "name": "Snotling Lineman",
@@ -2089,7 +2767,13 @@
           "max": 6,
           "primary": "AMT",
           "secondary": "G",
-          "skills": ["Dodge", "Right Stuff", "Side Step", "Stunty", "Titchy"]
+          "skills": [
+            "Dodge",
+            "Right Stuff",
+            "Side Step",
+            "Stunty",
+            "Titchy"
+          ]
         },
         {
           "name": "Skaven Clanrat",
@@ -2102,7 +2786,9 @@
           "max": 3,
           "primary": "GMT",
           "secondary": "AS",
-          "skills": ["Animosity (Goblin)"]
+          "skills": [
+            "Animosity (Goblin)"
+          ]
         },
         {
           "name": "Skaven Thrower",
@@ -2115,7 +2801,11 @@
           "max": 1,
           "primary": "GMP",
           "secondary": "AST",
-          "skills": ["Animosity (Goblin)", "Pass", "Sure Hands"]
+          "skills": [
+            "Animosity (Goblin)",
+            "Pass",
+            "Sure Hands"
+          ]
         },
         {
           "name": "Gutter Runner",
@@ -2128,7 +2818,10 @@
           "max": 1,
           "primary": "AGMT",
           "secondary": "PS",
-          "skills": ["Animosity (Goblin)", "Dodge"]
+          "skills": [
+            "Animosity (Goblin)",
+            "Dodge"
+          ]
         },
         {
           "name": "Skaven Blitzer",
@@ -2141,7 +2834,10 @@
           "max": 1,
           "primary": "GSM",
           "secondary": "APT",
-          "skills": ["Animosity (Goblin)", "Block"]
+          "skills": [
+            "Animosity (Goblin)",
+            "Block"
+          ]
         },
         {
           "name": "Troll",
@@ -2154,7 +2850,15 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AGP",
-          "skills": ["Always Hungry", "Loner (4+)", "Mighty Blow (+1)", "Projectile Vomit", "Really Stupid", "Regeneration", "Throw Team-Mate"]
+          "skills": [
+            "Always Hungry",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Projectile Vomit",
+            "Really Stupid",
+            "Regeneration",
+            "Throw Team-Mate"
+          ]
         },
         {
           "name": "Rat Ogre",
@@ -2167,8 +2871,17 @@
           "max": 1,
           "primary": "SM",
           "secondary": "AG",
-          "skills": ["Animal Savagery", "Frenzy", "Loner (4+)", "Mighty Blow (+1)", "Prehensile Tail"]
+          "skills": [
+            "Animal Savagery",
+            "Frenzy",
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Prehensile Tail"
+          ]
         }
+      ],
+      "league_types": [
+        "Underworld Challenge"
       ]
     },
     {
@@ -2177,7 +2890,12 @@
       "reroll_cost": 70000,
       "apothecary_allowed": false,
       "tier": 2,
-      "special_rules": ["Masters of Undeath"],
+      "special_rules": [
+        {
+          "name": "Masters of Undeath",
+          "description": "Once per match, if an opposing player with ST 4 or less without the Stunty trait suffers a Dead result on the Injury table, this team may Raise the Dead and immediately add a Lineman from their team list to their Reserves box. This may temporarily give the team more than 16 players. The raised player can be permanently hired for free after the match if the roster has space."
+        }
+      ],
       "positions": [
         {
           "name": "Thrall Lineman",
@@ -2203,7 +2921,11 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Animal Savagery", "Hypnotic Gaze", "Regeneration"]
+          "skills": [
+            "Animal Savagery",
+            "Hypnotic Gaze",
+            "Regeneration"
+          ]
         },
         {
           "name": "Vampire Thrower",
@@ -2216,7 +2938,12 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": ["Animal Savagery", "Hypnotic Gaze", "Pass", "Regeneration"]
+          "skills": [
+            "Animal Savagery",
+            "Hypnotic Gaze",
+            "Pass",
+            "Regeneration"
+          ]
         },
         {
           "name": "Vampire Blitzer",
@@ -2229,8 +2956,16 @@
           "max": 4,
           "primary": "AGS",
           "secondary": "P",
-          "skills": ["Animal Savagery", "Hypnotic Gaze", "Juggernaut", "Regeneration"]
+          "skills": [
+            "Animal Savagery",
+            "Hypnotic Gaze",
+            "Juggernaut",
+            "Regeneration"
+          ]
         }
+      ],
+      "league_types": [
+        "Sylvanian Spotlight"
       ]
     },
     {
@@ -2265,7 +3000,9 @@
           "max": 2,
           "primary": "AGP",
           "secondary": "S",
-          "skills": ["Pass"]
+          "skills": [
+            "Pass"
+          ]
         },
         {
           "name": "Wood Elf Catcher",
@@ -2278,7 +3015,10 @@
           "max": 4,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Catch", "Dodge"]
+          "skills": [
+            "Catch",
+            "Dodge"
+          ]
         },
         {
           "name": "Wardancer",
@@ -2291,7 +3031,11 @@
           "max": 2,
           "primary": "AG",
           "secondary": "PS",
-          "skills": ["Block", "Dodge", "Leap"]
+          "skills": [
+            "Block",
+            "Dodge",
+            "Leap"
+          ]
         },
         {
           "name": "Treeman",
@@ -2304,8 +3048,20 @@
           "max": 1,
           "primary": "S",
           "secondary": "AGP",
-          "skills": ["Loner (4+)", "Mighty Blow (+1)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-Mate", "Timmm-ber!"]
+          "skills": [
+            "Loner (4+)",
+            "Mighty Blow (+1)",
+            "Stand Firm",
+            "Strong Arm",
+            "Take Root",
+            "Thick Skull",
+            "Throw Team-Mate",
+            "Timmm-ber!"
+          ]
         }
+      ],
+      "league_types": [
+        "Elven Kingdoms League"
       ]
     }
   ]

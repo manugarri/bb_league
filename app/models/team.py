@@ -1,4 +1,5 @@
 """Team and race models."""
+import json
 from datetime import datetime
 from app.extensions import db
 
@@ -22,6 +23,7 @@ class Race(db.Model):
     reroll_cost = db.Column(db.Integer, default=60000)
     apothecary_allowed = db.Column(db.Boolean, default=True)
     special_rules = db.Column(db.Text)  # JSON array of special rules
+    league_types = db.Column(db.Text)  # JSON array of available league types
     tier = db.Column(db.Integer, default=1)  # 1-3 tier rating
     
     # Relationships
@@ -30,6 +32,24 @@ class Race(db.Model):
     
     def __repr__(self) -> str:
         return f"<Race {self.name}>"
+    
+    def get_special_rules(self) -> list:
+        """Return special rules as a list of dicts."""
+        if not self.special_rules:
+            return []
+        try:
+            return json.loads(self.special_rules)
+        except (json.JSONDecodeError, TypeError):
+            return []
+    
+    def get_league_types(self) -> list:
+        """Return available league types as a list of strings."""
+        if not self.league_types:
+            return []
+        try:
+            return json.loads(self.league_types)
+        except (json.JSONDecodeError, TypeError):
+            return []
 
 
 class Position(db.Model):
@@ -74,6 +94,7 @@ class Team(db.Model):
     name = db.Column(db.String(64), nullable=False, index=True)
     coach_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     race_id = db.Column(db.Integer, db.ForeignKey("races.id"), nullable=False)
+    league_type = db.Column(db.String(64), nullable=True)  # Selected league type for this team
     
     # Team resources
     treasury = db.Column(db.Integer, default=1000000)

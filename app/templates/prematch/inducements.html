@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}{% if get_locale() == 'es' %}Incentivos{% else %}Inducements{% endif %} - {{ team.name }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('matches.index') }}">{{ _('Matches') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('prematch.index', match_id=match.id) }}">{% if get_locale() == 'es' %}Pre-Partido{% else %}Pre-Match{% endif %}</a></li>
+        <li class="breadcrumb-item active">{{ team.name }}</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    <!-- Budget Panel -->
+    <div class="col-lg-4">
+        <div class="card sticky-lg-top" style="top: 80px;">
+            <div class="card-header">
+                <i class="bi bi-wallet2 me-2"></i>{% if get_locale() == 'es' %}Presupuesto{% else %}Budget{% endif %}
+            </div>
+            <div class="card-body">
+                <div class="mb-3 pb-3 border-bottom">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>{% if get_locale() == 'es' %}Caja de Gastos:{% else %}Petty Cash:{% endif %}</span>
+                        <span class="text-gold fw-bold">{{ "{:,}".format(petty_cash) }}g</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>{% if get_locale() == 'es' %}Tesoro disponible:{% else %}Available Treasury:{% endif %}</span>
+                        <span>{{ "{:,}".format(team.treasury) }}g</span>
+                    </div>
+                </div>
+                
+                <div class="mb-3 pb-3 border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <span>{% if get_locale() == 'es' %}Presupuesto Total:{% else %}Total Budget:{% endif %}</span>
+                        <span class="fw-bold">{{ "{:,}".format(available_budget) }}g</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-danger">
+                        <span>{% if get_locale() == 'es' %}Gastado:{% else %}Spent:{% endif %}</span>
+                        <span>-{{ "{:,}".format(current_cost) }}g</span>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between">
+                    <span class="fw-bold">{% if get_locale() == 'es' %}Restante:{% else %}Remaining:{% endif %}</span>
+                    <span class="fw-bold {% if remaining_budget >= 0 %}text-success{% else %}text-danger{% endif %}">
+                        {{ "{:,}".format(remaining_budget) }}g
+                    </span>
+                </div>
+                
+                <!-- Current Inducements -->
+                {% if current_inducements %}
+                <hr>
+                <h6 class="text-gold mb-3">{% if get_locale() == 'es' %}Incentivos Seleccionados{% else %}Selected Inducements{% endif %}</h6>
+                {% for ind in current_inducements %}
+                <div class="d-flex justify-content-between align-items-center mb-2 p-2 rounded" style="background: var(--bb-darker);">
+                    <div>
+                        <span class="d-block">{{ ind.inducement_name }}</span>
+                        <small class="text-muted">{{ "{:,}".format(ind.total_cost) }}g {% if ind.quantity > 1 %}(x{{ ind.quantity }}){% endif %}</small>
+                    </div>
+                    <form action="{{ url_for('prematch.inducements', match_id=match.id, team_id=team.id) }}" method="POST" class="d-inline">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="action" value="remove">
+                        <input type="hidden" name="inducement_entry_id" value="{{ ind.id }}">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </div>
+                {% endfor %}
+                {% endif %}
+                
+                <!-- Submit Button -->
+                <hr>
+                <form action="{{ url_for('prematch.inducements', match_id=match.id, team_id=team.id) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="action" value="submit">
+                    <button type="submit" class="btn btn-success w-100" {% if remaining_budget < 0 %}disabled{% endif %}>
+                        <i class="bi bi-check-circle me-2"></i>{% if get_locale() == 'es' %}Confirmar Incentivos{% else %}Confirm Inducements{% endif %}
+                    </button>
+                </form>
+                <a href="{{ url_for('prematch.index', match_id=match.id) }}" class="btn btn-outline-secondary w-100 mt-2">
+                    <i class="bi bi-arrow-left me-2"></i>{% if get_locale() == 'es' %}Volver{% else %}Back{% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Available Inducements -->
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-cart-plus me-2"></i>{% if get_locale() == 'es' %}Incentivos Disponibles{% else %}Available Inducements{% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    {% for ind in available_inducements %}
+                    {% set tr_ind = tr_inducement(ind, get_locale()) %}
+                    {% if ind.id != 'star_player' and ind.id != 'mercenary' %}
+                    <div class="col-md-6">
+                        <div class="card h-100" style="background: var(--bb-darker);">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="card-title text-gold mb-0">{{ tr_ind.display_name }}</h6>
+                                    <span class="badge {% if ind.has_discount %}bg-success{% else %}bg-secondary{% endif %}">
+                                        {{ "{:,}".format(ind.cost) }}g
+                                        {% if ind.has_discount %}
+                                        <del class="small opacity-75">{{ "{:,}".format(ind.original_cost) }}g</del>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <p class="card-text small text-muted mb-3">{{ tr_ind.display_description }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{% if get_locale() == 'es' %}Máx:{% else %}Max:{% endif %} {{ ind.max_quantity }}</small>
+                                    <form action="{{ url_for('prematch.inducements', match_id=match.id, team_id=team.id) }}" method="POST" class="d-inline">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="action" value="add">
+                                        <input type="hidden" name="inducement_id" value="{{ ind.id }}">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="btn btn-sm btn-primary" 
+                                                {% if ind.cost > remaining_budget %}disabled{% endif %}>
+                                            <i class="bi bi-plus-circle me-1"></i>{% if get_locale() == 'es' %}Añadir{% else %}Add{% endif %}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Star Players Section -->
+        {% if available_stars %}
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-star-fill me-2 text-gold"></i>{% if get_locale() == 'es' %}Jugadores Estrella{% else %}Star Players{% endif %}
+            </div>
+            <div class="card-body">
+                <p class="text-muted small mb-3">
+                    {% if get_locale() == 'es' %}
+                    Los Jugadores Estrella son mercenarios legendarios que puedes contratar para un partido. 
+                    Puedes contratar hasta 2 Jugadores Estrella por partido.
+                    {% else %}
+                    Star Players are legendary mercenaries you can hire for a match. 
+                    You can hire up to 2 Star Players per match.
+                    {% endif %}
+                </p>
+                
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>{% if get_locale() == 'es' %}Nombre{% else %}Name{% endif %}</th>
+                                <th class="text-center">MA</th>
+                                <th class="text-center">ST</th>
+                                <th class="text-center">AG</th>
+                                <th class="text-center">PA</th>
+                                <th class="text-center">AV</th>
+                                <th>{% if get_locale() == 'es' %}Habilidades{% else %}Skills{% endif %}</th>
+                                <th class="text-end">{% if get_locale() == 'es' %}Coste{% else %}Cost{% endif %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for star in available_stars %}
+                            <tr>
+                                <td>
+                                    <span class="text-gold fw-bold">{{ star.name }}</span>
+                                </td>
+                                <td class="text-center">{{ star.movement }}</td>
+                                <td class="text-center">{{ star.strength }}</td>
+                                <td class="text-center">{{ star.agility }}+</td>
+                                <td class="text-center">{% if star.passing and star.passing > 0 %}{{ star.passing }}+{% else %}-{% endif %}</td>
+                                <td class="text-center">{{ star.armor }}+</td>
+                                <td>
+                                    {% set skills = star.get_skill_list() %}
+                                    {% for skill in skills[:3] %}
+                                    <span class="badge bg-secondary me-1">{{ tr_skill(skill, get_locale()) }}</span>
+                                    {% endfor %}
+                                    {% if skills | length > 3 %}
+                                    <span class="badge bg-secondary" data-bs-toggle="tooltip" title="{{ skills[3:] | join(', ') }}">+{{ skills | length - 3 }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end text-gold">{{ "{:,}".format(star.cost) }}g</td>
+                                <td>
+                                    <form action="{{ url_for('prematch.inducements', match_id=match.id, team_id=team.id) }}" method="POST" class="d-inline">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="action" value="add_star">
+                                        <input type="hidden" name="star_player_id" value="{{ star.id }}">
+                                        <button type="submit" class="btn btn-sm btn-outline-primary" 
+                                                {% if star.cost > remaining_budget %}disabled{% endif %}>
+                                            <i class="bi bi-plus-circle"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Initialize Bootstrap tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
+{% endblock %}
+

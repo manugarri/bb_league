@@ -1,7 +1,7 @@
 # Blood Bowl League Tracker - Makefile
 # Use: make <command>
 
-.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams
+.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams export-users import-users export-leagues import-leagues
 
 # Default target
 help:
@@ -25,6 +25,14 @@ help:
 	@echo "                  - Export teams to JSON (default: backups/teams_export.json)"
 	@echo "  make import-teams [FILE=<path>] [RESET=1]"
 	@echo "                  - Import teams from JSON (RESET=1 clears existing teams)"
+	@echo "  make export-users [FILE=<path>]"
+	@echo "                  - Export users to JSON (default: backups/users_export.json)"
+	@echo "  make import-users [FILE=<path>] [RESET=1]"
+	@echo "                  - Import users from JSON (RESET=1 clears existing users)"
+	@echo "  make export-leagues [FILE=<path>]"
+	@echo "                  - Export leagues to JSON (default: backups/leagues_export.json)"
+	@echo "  make import-leagues [FILE=<path>] [RESET=1]"
+	@echo "                  - Import leagues from JSON (RESET=1 clears existing leagues)"
 	@echo ""
 
 # Install dependencies
@@ -112,4 +120,24 @@ export-teams:
 # Usage: make import-teams [FILE=backups/teams_export.json] [RESET=1]
 import-teams:
 	uv run python scripts/teams_export_import.py import --input $(or $(FILE),backups/teams_export.json) $(if $(filter 1 true yes,$(RESET)),--reset)
+
+# Export users to JSON file
+# Usage: make export-users [FILE=backups/users_export.json]
+export-users:
+	uv run python scripts/users_export_import.py export --output $(or $(FILE),backups/users_export.json)
+
+# Import users from JSON file
+# Usage: make import-users [FILE=backups/users_export.json] [RESET=1]
+import-users:
+	uv run python scripts/users_export_import.py import --input $(or $(FILE),backups/users_export.json) $(if $(filter 1 true yes,$(RESET)),--reset)
+
+# Export leagues to JSON file
+# Usage: make export-leagues [FILE=backups/leagues_export.json]
+export-leagues:
+	uv run python scripts/leagues_export_import.py export --output $(or $(FILE),backups/leagues_export.json)
+
+# Import leagues from JSON file
+# Usage: make import-leagues [FILE=backups/leagues_export.json] [RESET=1]
+import-leagues:
+	uv run python scripts/leagues_export_import.py import --input $(or $(FILE),backups/leagues_export.json) $(if $(filter 1 true yes,$(RESET)),--reset)
 

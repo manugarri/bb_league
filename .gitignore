@@ -1,4 +1,6 @@
 ignore_this.txt
+ignore/
+pdfs/
 # Python
 __pycache__/
 *.py[cod]
@@ -26,6 +28,7 @@ wheels/
 venv/
 ENV/
 env/
+.windows-venv
 
 # IDE
 .idea/

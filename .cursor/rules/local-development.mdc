@@ -1,0 +1,4 @@
+---
+alwaysApply: true
+---
+We are using powershell for commands, make sure to use proper syntax. For example, do not use '&&' when running multiple chained commands.

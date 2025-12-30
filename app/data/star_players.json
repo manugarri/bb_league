@@ -10,7 +10,8 @@
       "av": 11,
       "skills": ["Block", "Loner (4+)", "Mighty Blow (+2)", "Thick Skull", "Throw Team-Mate"],
       "special_abilities": ["The Ballista: Once per game, when Morg performs a Throw Team-Mate action, increase the range by 1 category."],
-      "teams": ["Amazon", "Black Orc", "Chaos Chosen", "Chaos Renegade", "Dark Elf", "Dwarf", "Elven Union", "Goblin", "Halfling", "High Elf", "Human", "Imperial Nobility", "Khorne", "Lizardmen", "Necromantic Horror", "Norse", "Nurgle", "Ogre", "Old World Alliance", "Orc", "Shambling Undead", "Skaven", "Snotling", "Tomb Kings", "Underworld Denizens", "Vampire", "Wood Elf", "Bretonnian"]
+      "teams": ["Amazon", "Black Orc", "Chaos Chosen", "Chaos Renegade", "Dark Elf", "Dwarf", "Elven Union", "Goblin", "Halfling", "High Elf", "Human", "Imperial Nobility", "Khorne", "Lizardmen", "Necromantic Horror", "Norse", "Nurgle", "Ogre", "Old World Alliance", "Orc", "Shambling Undead", "Skaven", "Snotling", "Tomb Kings", "Underworld Denizens", "Vampire", "Wood Elf", "Bretonnian"],
+      "league_types": ["Lustrian Superleague", "Badlands Brawl", "Old World Classic", "World's Edge Superleague", "Chaos Championship", "Elven Kingdoms League", "Halfling Thimble Cup", "Sylvanian Spotlight", "Underworld Challenge", "Favoured of Khorne", "Favoured of Nurgle"]
     },
     {
       "name": "Griff Oberwald",
@@ -22,7 +23,8 @@
       "av": 9,
       "skills": ["Block", "Dodge", "Fend", "Loner (3+)", "Sprint", "Sure Feet"],
       "special_abilities": ["Consummate Professional: Once per game, Griff may re-roll one dice that was rolled either as a single dice roll or as part of a dice pool."],
-      "teams": ["Human", "Bretonnian", "Imperial Nobility", "Old World Alliance"]
+      "teams": ["Human", "Bretonnian", "Imperial Nobility", "Old World Alliance"],
+      "league_types": ["Old World Classic"]
     },
     {
       "name": "Hakflem Skuttlespike",
@@ -34,7 +36,8 @@
       "av": 8,
       "skills": ["Dodge", "Extra Arms", "Loner (4+)", "Prehensile Tail", "Two Heads"],
       "special_abilities": ["Treacherous: Once per game, when an opposition player is activated, Hakflem may immediately move up to 3 squares."],
-      "teams": ["Skaven", "Underworld Denizens"]
+      "teams": ["Skaven", "Underworld Denizens"],
+      "league_types": ["Underworld Challenge"]
     },
     {
       "name": "Varag Ghoul-Chewer",
@@ -46,7 +49,8 @@
       "av": 10,
       "skills": ["Block", "Jump Up", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull"],
       "special_abilities": ["Crushing Blow: Once per game, when Varag makes a Block action, you may add +1 to the Armour roll and +1 to the Injury roll."],
-      "teams": ["Black Orc", "Orc"]
+      "teams": ["Black Orc", "Orc"],
+      "league_types": ["Badlands Brawl"]
     },
     {
       "name": "Deeproot Strongbranch",
@@ -58,7 +62,8 @@
       "av": 11,
       "skills": ["Block", "Loner (4+)", "Mighty Blow (+2)", "Stand Firm", "Strong Arm", "Take Root", "Thick Skull", "Throw Team-Mate", "Timmm-ber!"],
       "special_abilities": ["Reliable: Deeproot has a Loner (4+) trait rather than (4+) and may re-roll the dice if Loner fails."],
-      "teams": ["Halfling", "Wood Elf", "Old World Alliance"]
+      "teams": ["Halfling", "Wood Elf", "Old World Alliance"],
+      "league_types": ["Halfling Thimble Cup", "Elven Kingdoms League", "Old World Classic"]
     },
     {
       "name": "Kreek Rustgouger",
@@ -70,7 +75,8 @@
       "av": 10,
       "skills": ["Ball & Chain", "Loner (4+)", "Mighty Blow (+1)", "No Hands", "Prehensile Tail", "Secret Weapon"],
       "special_abilities": ["Whirling Dervish: When Kreek moves, he may choose to change his facing after each square of movement."],
-      "teams": ["Skaven", "Underworld Denizens"]
+      "teams": ["Skaven", "Underworld Denizens"],
+      "league_types": ["Underworld Challenge"]
     },
     {
       "name": "Roxanna Darknail",
@@ -82,7 +88,8 @@
       "av": 8,
       "skills": ["Dodge", "Frenzy", "Jump Up", "Juggernaut", "Leap", "Loner (4+)", "Stab"],
       "special_abilities": ["Burst of Speed: Once per game, Roxanna may increase her MA by +2 for an entire activation."],
-      "teams": ["Amazon", "Dark Elf", "Elven Union", "High Elf", "Wood Elf"]
+      "teams": ["Amazon", "Dark Elf", "Elven Union", "High Elf", "Wood Elf"],
+      "league_types": ["Lustrian Superleague", "Elven Kingdoms League"]
     },
     {
       "name": "Grim Ironjaw",
@@ -94,7 +101,8 @@
       "av": 10,
       "skills": ["Block", "Dauntless", "Frenzy", "Loner (4+)", "Multiple Block", "Thick Skull"],
       "special_abilities": ["Slayer: Once per game, when Grim makes a Block action, you may choose to make it a -2 Dice block."],
-      "teams": ["Dwarf", "Norse", "Old World Alliance"]
+      "teams": ["Dwarf", "Norse", "Old World Alliance"],
+      "league_types": ["World's Edge Superleague", "Old World Classic"]
     },
     {
       "name": "Zug",
@@ -106,7 +114,8 @@
       "av": 10,
       "skills": ["Block", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull"],
       "special_abilities": ["Crushing Blow: Once per game, when Zug makes a Block action, you may choose to double the Strength of Zug for the purpose of determining dice."],
-      "teams": ["Human", "Bretonnian", "Imperial Nobility", "Old World Alliance"]
+      "teams": ["Human", "Bretonnian", "Imperial Nobility", "Old World Alliance"],
+      "league_types": ["Old World Classic"]
     },
     {
       "name": "Wilhelm Chaney",
@@ -118,7 +127,8 @@
       "av": 9,
       "skills": ["Catch", "Claws", "Frenzy", "Loner (4+)", "Regeneration", "Wrestle"],
       "special_abilities": ["Savage Mauling: Once per game, after Wilhelm has made a successful Block, you may choose to make a second Block action immediately."],
-      "teams": ["Necromantic Horror", "Shambling Undead", "Vampire"]
+      "teams": ["Necromantic Horror", "Shambling Undead", "Vampire"],
+      "league_types": ["Sylvanian Spotlight"]
     },
     {
       "name": "Bomber Dribblesnot",
@@ -130,7 +140,8 @@
       "av": 8,
       "skills": ["Accurate", "Bombardier", "Dodge", "Loner (4+)", "Right Stuff", "Secret Weapon", "Stunty"],
       "special_abilities": ["Kaboom!: Bomber's bombs have a +1 modifier to the Armour roll and a +1 modifier to the Injury roll."],
-      "teams": ["Goblin", "Ogre", "Orc", "Snotling", "Underworld Denizens"]
+      "teams": ["Goblin", "Ogre", "Orc", "Snotling", "Underworld Denizens"],
+      "league_types": ["Badlands Brawl", "Underworld Challenge"]
     },
     {
       "name": "Ripper Bolgrot",
@@ -142,7 +153,8 @@
       "av": 10,
       "skills": ["Grab", "Loner (4+)", "Mighty Blow (+1)", "Regeneration", "Throw Team-Mate"],
       "special_abilities": ["Throw Team-Mate: Ripper may throw team-mates as if they were the ball. He is Really Stupid though!"],
-      "teams": ["Goblin", "Orc", "Underworld Denizens"]
+      "teams": ["Goblin", "Orc", "Underworld Denizens"],
+      "league_types": ["Badlands Brawl", "Underworld Challenge"]
     },
     {
       "name": "Karla Von Kill",
@@ -154,7 +166,8 @@
       "av": 9,
       "skills": ["Block", "Dauntless", "Dodge", "Jump Up", "Loner (4+)"],
       "special_abilities": ["Indomitable: Once per game, Karla may re-roll any one dice."],
-      "teams": ["Amazon", "Human", "Imperial Nobility", "Norse", "Old World Alliance"]
+      "teams": ["Amazon", "Human", "Imperial Nobility", "Norse", "Old World Alliance"],
+      "league_types": ["Lustrian Superleague", "Old World Classic"]
     },
     {
       "name": "Helmut Wulf",
@@ -166,7 +179,8 @@
       "av": 9,
       "skills": ["Chainsaw", "Loner (4+)", "Pro", "Secret Weapon", "Stand Firm"],
       "special_abilities": ["Old Pro: When rolling to see if Helmut is Sent Off, roll 2D6 and pick the highest."],
-      "teams": ["Human", "Imperial Nobility", "Norse", "Old World Alliance"]
+      "teams": ["Human", "Imperial Nobility", "Norse", "Old World Alliance"],
+      "league_types": ["Old World Classic"]
     },
     {
       "name": "Glart Smashrip",
@@ -178,7 +192,8 @@
       "av": 9,
       "skills": ["Block", "Claw", "Juggernaut", "Loner (4+)", "Stand Firm"],
       "special_abilities": ["Frenzied Rush: Once per game, Glart may make a second Blitz action."],
-      "teams": ["Chaos Chosen", "Chaos Renegade", "Nurgle", "Skaven", "Underworld Denizens"]
+      "teams": ["Chaos Chosen", "Chaos Renegade", "Nurgle", "Skaven", "Underworld Denizens"],
+      "league_types": ["Chaos Championship", "Underworld Challenge", "Favoured of Nurgle"]
     },
     {
       "name": "Eldril Sidewinder",
@@ -190,7 +205,8 @@
       "av": 8,
       "skills": ["Catch", "Dodge", "Hypnotic Gaze", "Loner (4+)", "Nerves of Steel", "On the Ball"],
       "special_abilities": ["Mesmerizing Dance: Once per game, Eldril may move up to 3 squares at the start of any opposition turn."],
-      "teams": ["Dark Elf", "Elven Union", "High Elf", "Wood Elf"]
+      "teams": ["Dark Elf", "Elven Union", "High Elf", "Wood Elf"],
+      "league_types": ["Elven Kingdoms League"]
     },
     {
       "name": "Mighty Zug",
@@ -202,7 +218,8 @@
       "av": 10,
       "skills": ["Block", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull"],
       "special_abilities": ["The Wall: Once per game, Mighty Zug may force an opposing player to reroll a Block dice."],
-      "teams": ["Human", "Imperial Nobility", "Old World Alliance", "Bretonnian"]
+      "teams": ["Human", "Imperial Nobility", "Old World Alliance", "Bretonnian"],
+      "league_types": ["Old World Classic"]
     },
     {
       "name": "Skitter Stab-Stab",
@@ -214,7 +231,8 @@
       "av": 8,
       "skills": ["Dodge", "Loner (4+)", "Prehensile Tail", "Shadowing", "Stab"],
       "special_abilities": ["Sneaky Stab: Once per game, when Skitter uses his Stab skill, he may re-roll the Armour roll."],
-      "teams": ["Skaven", "Underworld Denizens"]
+      "teams": ["Skaven", "Underworld Denizens"],
+      "league_types": ["Underworld Challenge"]
     },
     {
       "name": "Lord Borak the Despoiler",
@@ -226,7 +244,8 @@
       "av": 10,
       "skills": ["Block", "Dirty Player (+2)", "Loner (4+)", "Mighty Blow (+1)", "Sneaky Git"],
       "special_abilities": ["Lord of Chaos: Once per game, Lord Borak may force the referee to look the other way during a foul."],
-      "teams": ["Chaos Chosen", "Chaos Renegade", "Khorne", "Nurgle"]
+      "teams": ["Chaos Chosen", "Chaos Renegade", "Khorne", "Nurgle"],
+      "league_types": ["Chaos Championship", "Favoured of Khorne", "Favoured of Nurgle"]
     },
     {
       "name": "Fungus the Loon",
@@ -238,7 +257,8 @@
       "av": 8,
       "skills": ["Ball & Chain", "Loner (4+)", "Mighty Blow (+1)", "No Hands", "Secret Weapon", "Stunty"],
       "special_abilities": ["Whirling Death: Fungus hits everything in his path, friend or foe!"],
-      "teams": ["Goblin", "Orc", "Snotling", "Underworld Denizens"]
+      "teams": ["Goblin", "Orc", "Snotling", "Underworld Denizens"],
+      "league_types": ["Badlands Brawl", "Underworld Challenge"]
     },
     {
       "name": "Count Luthor Von Drakenborg",
@@ -250,7 +270,8 @@
       "av": 10,
       "skills": ["Block", "Dodge", "Hypnotic Gaze", "Loner (4+)", "Regeneration", "Side Step"],
       "special_abilities": ["The Lord of the Night: Once per game, Count Luthor may regenerate automatically without rolling."],
-      "teams": ["Necromantic Horror", "Shambling Undead", "Vampire"]
+      "teams": ["Necromantic Horror", "Shambling Undead", "Vampire"],
+      "league_types": ["Sylvanian Spotlight"]
     },
     {
       "name": "Grak and Crumbleberry",
@@ -262,7 +283,8 @@
       "av": 10,
       "skills": ["Bone Head", "Kick Team-Mate", "Loner (4+)", "Mighty Blow (+1)", "Thick Skull", "Throw Team-Mate"],
       "special_abilities": ["Two for One: Grak comes with Crumbleberry, a Halfling who rides on his shoulders."],
-      "teams": ["Halfling", "Human", "Imperial Nobility", "Ogre", "Old World Alliance"]
+      "teams": ["Halfling", "Human", "Imperial Nobility", "Ogre", "Old World Alliance"],
+      "league_types": ["Halfling Thimble Cup", "Old World Classic"]
     },
     {
       "name": "Rashnak Backstabber",
@@ -274,7 +296,8 @@
       "av": 8,
       "skills": ["Dodge", "Loner (4+)", "Shadowing", "Stab"],
       "special_abilities": ["Assassination: Once per game, Rashnak's Stab gains +2 to the Armour roll."],
-      "teams": ["Dark Elf", "Skaven", "Underworld Denizens"]
+      "teams": ["Dark Elf", "Skaven", "Underworld Denizens"],
+      "league_types": ["Elven Kingdoms League", "Underworld Challenge"]
     },
     {
       "name": "Barik Farblast",
@@ -286,7 +309,8 @@
       "av": 8,
       "skills": ["Hail Mary Pass", "Loner (4+)", "Pass", "Secret Weapon", "Strong Arm", "Sure Hands", "Thick Skull"],
       "special_abilities": ["Cannonball: Barik's thrown ball can injure players it hits!"],
-      "teams": ["Dwarf", "Human", "Imperial Nobility", "Old World Alliance"]
+      "teams": ["Dwarf", "Human", "Imperial Nobility", "Old World Alliance"],
+      "league_types": ["World's Edge Superleague", "Old World Classic"]
     },
     {
       "name": "Scrappa Sorehead",
@@ -298,7 +322,8 @@
       "av": 8,
       "skills": ["Dirty Player (+1)", "Dodge", "Loner (4+)", "Pogo Stick", "Right Stuff", "Sprint", "Stunty", "Sure Feet"],
       "special_abilities": ["Yoink!: Once per game, Scrappa may pick up the ball in any square he moves through."],
-      "teams": ["Goblin", "Ogre", "Orc", "Snotling", "Underworld Denizens"]
+      "teams": ["Goblin", "Ogre", "Orc", "Snotling", "Underworld Denizens"],
+      "league_types": ["Badlands Brawl", "Underworld Challenge"]
     },
     {
       "name": "Akhorne the Squirrel",
@@ -310,8 +335,8 @@
       "av": 6,
       "skills": ["Claws", "Dauntless", "Dodge", "Frenzy", "Jump Up", "Loner (4+)", "No Hands", "Sidestep", "Stunty", "Titchy"],
       "special_abilities": ["Furry Fury: Akhorne can re-roll failed Dauntless rolls."],
-      "teams": ["Halfling", "Wood Elf"]
+      "teams": ["Halfling", "Wood Elf"],
+      "league_types": ["Halfling Thimble Cup", "Elven Kingdoms League"]
     }
   ]
 }
-

@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from app.extensions import db
 from app.models import Team, Race, Position, Player, Skill, PlayerSkill
 from app.forms.team import CreateTeamForm, HirePlayerForm, EditTeamForm, EditPlayerForm
+from app.utils.translations import translate_league_type
 
 teams_bp = Blueprint("teams", __name__)
 
@@ -42,14 +43,30 @@ def index():
 def create():
     """Create a new team."""
     form = CreateTeamForm()
-    form.race_id.choices = [(r.id, r.name) for r in Race.query.order_by(Race.name).all()]
+    races = Race.query.order_by(Race.name).all()
+    form.race_id.choices = [(r.id, r.name) for r in races]
+    
+    # Build league_types data for JavaScript
+    race_league_types = {r.id: r.get_league_types() for r in races}
+    
+    # Build all possible league types for form validation (with translated labels)
+    all_league_types = set()
+    for r in races:
+        all_league_types.update(r.get_league_types())
+    select_label = "-- Selecciona Tipo de Liga (Opcional) --" if str(get_locale()) == 'es' else "-- Select League Type (Optional) --"
+    form.league_type.choices = [("", select_label)] + [(lt, translate_league_type(lt)) for lt in sorted(all_league_types)]
+    
+    # Build translations map for JavaScript
+    league_type_translations = {lt: translate_league_type(lt) for lt in all_league_types}
     
     if form.validate_on_submit():
         treasury = form.treasury.data if form.treasury.data is not None else 1000000
+        league_type = form.league_type.data if form.league_type.data else None
         team = Team(
             name=form.name.data,
             coach_id=current_user.id,
             race_id=form.race_id.data,
+            league_type=league_type,
             treasury=treasury
         )
         db.session.add(team)
@@ -61,8 +78,7 @@ def create():
             flash(f"Team '{team.name}' created successfully!", "success")
         return redirect(url_for("teams.view", team_id=team.id))
     
-    races = Race.query.order_by(Race.name).all()
-    return render_template("teams/create.html", form=form, races=races)
+    return render_template("teams/create.html", form=form, races=races, race_league_types=race_league_types, league_type_translations=league_type_translations)
 
 
 @teams_bp.route("/<int:team_id>")
@@ -110,8 +126,14 @@ def edit(team_id: int):
     
     form = EditTeamForm(obj=team)
     
+    # Set league_type choices based on team's race (with translated labels)
+    league_types = team.race.get_league_types()
+    none_label = "-- Ninguno --" if str(get_locale()) == 'es' else "-- None --"
+    form.league_type.choices = [("", none_label)] + [(lt, translate_league_type(lt)) for lt in league_types]
+    
     if form.validate_on_submit():
         team.name = form.name.data
+        team.league_type = form.league_type.data if form.league_type.data else None
         if form.treasury.data is not None:
             team.treasury = form.treasury.data
         # Update team assets

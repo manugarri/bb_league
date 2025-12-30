@@ -34,6 +34,7 @@ def create_app(config_name: str = "development") -> Flask:
     from app.blueprints.matches import matches_bp
     from app.blueprints.bets import bets_bp
     from app.blueprints.api import api_bp
+    from app.blueprints.prematch import prematch_bp
     
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix="/auth")
@@ -42,6 +43,7 @@ def create_app(config_name: str = "development") -> Flask:
     app.register_blueprint(matches_bp, url_prefix="/matches")
     app.register_blueprint(bets_bp, url_prefix="/bets")
     app.register_blueprint(api_bp, url_prefix="/api")
+    app.register_blueprint(prematch_bp, url_prefix="/prematch")
     
     # Register error handlers
     register_error_handlers(app)
@@ -54,7 +56,8 @@ def create_app(config_name: str = "development") -> Flask:
     def inject_locale():
         from app.utils.translations import (
             translate_race, translate_position, translate_skill, 
-            translate_star_player, translate_skills_list, get_team_description
+            translate_star_player, translate_skills_list, get_team_description,
+            translate_league_type, translate_inducement
         )
         return {
             'get_locale': get_locale, 
@@ -65,6 +68,8 @@ def create_app(config_name: str = "development") -> Flask:
             'tr_star': translate_star_player,
             'tr_skills_list': translate_skills_list,
             'get_team_desc': get_team_description,
+            'tr_league_type': translate_league_type,
+            'tr_inducement': translate_inducement,
         }
     
     # Create database tables

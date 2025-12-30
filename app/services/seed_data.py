@@ -83,17 +83,35 @@ def seed_races_and_positions():
     for team_data in data.get("teams", []):
         # Check if race exists
         race = Race.query.filter_by(name=team_data["name"]).first()
+        
+        # Serialize special rules to JSON
+        special_rules = team_data.get("special_rules", [])
+        special_rules_json = json.dumps(special_rules) if special_rules else None
+        
+        # Serialize league types to JSON
+        league_types = team_data.get("league_types", [])
+        league_types_json = json.dumps(league_types) if league_types else None
+        
         if not race:
             race = Race(
                 name=team_data["name"],
                 description=team_data.get("description", ""),
                 reroll_cost=team_data.get("reroll_cost", 50000),
                 apothecary_allowed=team_data.get("apothecary_allowed", True),
-                tier=team_data.get("tier", 2)
+                tier=team_data.get("tier", 2),
+                special_rules=special_rules_json,
+                league_types=league_types_json
             )
             db.session.add(race)
             db.session.flush()  # Get the race ID
             race_count += 1
+        else:
+            # Update existing race's special rules if changed
+            if race.special_rules != special_rules_json:
+                race.special_rules = special_rules_json
+            # Update existing race's league types if changed
+            if race.league_types != league_types_json:
+                race.league_types = league_types_json
         
         # Add positions
         for pos_data in team_data.get("positions", []):

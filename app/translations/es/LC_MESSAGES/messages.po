@@ -289,6 +289,46 @@ msgstr "Entrenadores Asistentes"
 msgid "Cheerleaders"
 msgstr "Animadoras"
 
+msgid "League Type"
+msgstr "Tipo de Liga"
+
+# League Types (Team Affiliations)
+msgid "Lustrian Superleague"
+msgstr "Superliga Lustriana"
+
+msgid "Chaos Championship"
+msgstr "Campeonato del Caos"
+
+msgid "Badlands Brawl"
+msgstr "Reyerta en las Yermas"
+
+msgid "World's Edge Superleague"
+msgstr "Superliga de los Confines del Mundo"
+
+msgid "Elven Kingdoms League"
+msgstr "Liga de los Reinos Élficos"
+
+msgid "Sylvanian Spotlight"
+msgstr "Liga Silvania"
+
+msgid "Old World Classic"
+msgstr "Clásica del Viejo Mundo"
+
+msgid "Underworld Challenge"
+msgstr "Desafío del Inframundo"
+
+msgid "gold"
+msgstr "oro"
+
+msgid "Save Changes"
+msgstr "Guardar Cambios"
+
+msgid "Danger Zone"
+msgstr "Zona de Peligro"
+
+msgid "Delete Team"
+msgstr "Eliminar Equipo"
+
 msgid "TV (Team Value)"
 msgstr "VE (Valor del Equipo)"
 
@@ -1925,4 +1965,851 @@ msgstr "Pts V/E/D"
 
 msgid "No standings yet. The league hasn't started."
 msgstr "Aún no hay clasificación. La liga no ha comenzado."
+
+
+# Race Names (singular forms)
+msgid "Amazons"
+msgstr "Amazonas"
+
+msgid "Black Orcs"
+msgstr "Orcos Negros"
+
+msgid "Chaos Renegades"
+msgstr "Renegados del Caos"
+
+msgid "Gnomes"
+msgstr "Gnomos"
+
+msgid "Bretonnian"
+msgstr "Bretonniano"
+
+msgid "Bretonnians"
+msgstr "Bretonianos"
+
+msgid "Chaos Dwarves"
+msgstr "Enanos del Caos"
+
+# Position Names
+msgid "Linewoman"
+msgstr "Mujer de Línea"
+
+msgid "Amazon Linewoman"
+msgstr "Amazona de Línea"
+
+msgid "Amazon Thrower"
+msgstr "Lanzadora Amazona"
+
+msgid "Amazon Catcher"
+msgstr "Receptora Amazona"
+
+msgid "Amazon Blitzer"
+msgstr "Blitzer Amazona"
+
+msgid "Amazon Blocker"
+msgstr "Bloqueadora Amazona"
+
+msgid "Goblin Bruiser"
+msgstr "Goblin Matón"
+
+msgid "Trained Troll"
+msgstr "Trol Entrenado"
+
+msgid "Beastman Runner"
+msgstr "Corredor Hombre Bestia"
+
+msgid "Chosen Blocker"
+msgstr "Bloqueador Elegido"
+
+msgid "Chaos Ogre"
+msgstr "Ogro del Caos"
+
+msgid "Chaos Troll"
+msgstr "Trol del Caos"
+
+msgid "Renegade Human Lineman"
+msgstr "Humano Renegado de Línea"
+
+msgid "Renegade Human Thrower"
+msgstr "Lanzador Humano Renegado"
+
+msgid "Renegade Goblin"
+msgstr "Goblin Renegado"
+
+msgid "Renegade Orc"
+msgstr "Orco Renegado"
+
+msgid "Renegade Skaven"
+msgstr "Skaven Renegado"
+
+msgid "Renegade Dark Elf"
+msgstr "Elfo Oscuro Renegado"
+
+msgid "Renegade Troll"
+msgstr "Trol Renegado"
+
+msgid "Renegade Ogre"
+msgstr "Ogro Renegado"
+
+msgid "Renegade Minotaur"
+msgstr "Minotauro Renegado"
+
+msgid "Dark Elf Lineman"
+msgstr "Elfo Oscuro de Línea"
+
+msgid "Dark Elf Runner"
+msgstr "Corredor Elfo Oscuro"
+
+msgid "Dark Elf Assassin"
+msgstr "Asesino Elfo Oscuro"
+
+msgid "Dark Elf Blitzer"
+msgstr "Blitzer Elfo Oscuro"
+
+msgid "Dwarf Blocker Lineman"
+msgstr "Bloqueador Enano de Línea"
+
+msgid "Dwarf Runner"
+msgstr "Corredor Enano"
+
+msgid "Dwarf Blitzer"
+msgstr "Blitzer Enano"
+
+msgid "Troll Slayer"
+msgstr "Matador de Trols"
+
+msgid "Elven Union Lineman"
+msgstr "Elfo de Línea de la Unión"
+
+msgid "Elven Union Thrower"
+msgstr "Lanzador de la Unión Élfica"
+
+msgid "Elven Union Catcher"
+msgstr "Receptor de la Unión Élfica"
+
+msgid "Elven Union Blitzer"
+msgstr "Blitzer de la Unión Élfica"
+
+msgid "Looney"
+msgstr "Lunático"
+
+msgid "Fanatic"
+msgstr "Fanático"
+
+msgid "Pogoer"
+msgstr "Saltador de Pogo"
+
+msgid "Ooligan"
+msgstr "Hooligan"
+
+msgid "Doom Diver"
+msgstr "Saltador Letal"
+
+msgid "Halfling Hefty"
+msgstr "Halfling Corpulento"
+
+msgid "Halfling Catcher"
+msgstr "Receptor Halfling"
+
+msgid "High Elf Lineman"
+msgstr "Alto Elfo de Línea"
+
+msgid "High Elf Thrower"
+msgstr "Lanzador Alto Elfo"
+
+msgid "High Elf Catcher"
+msgstr "Receptor Alto Elfo"
+
+msgid "High Elf Blitzer"
+msgstr "Blitzer Alto Elfo"
+
+msgid "Human Lineman"
+msgstr "Humano de Línea"
+
+msgid "Human Thrower"
+msgstr "Lanzador Humano"
+
+msgid "Human Catcher"
+msgstr "Receptor Humano"
+
+msgid "Human Blitzer"
+msgstr "Blitzer Humano"
+
+msgid "Imperial Retainer Lineman"
+msgstr "Vasallo Imperial de Línea"
+
+msgid "Imperial Thrower"
+msgstr "Lanzador Imperial"
+
+msgid "Noble Blitzer"
+msgstr "Noble Blitzer"
+
+msgid "Bloodborn Marauder"
+msgstr "Merodeador Sanguinario"
+
+msgid "Khorne Lineman"
+msgstr "Hombre de Línea de Khorne"
+
+msgid "Herald of Khorne"
+msgstr "Heraldo de Khorne"
+
+msgid "Skink Runner"
+msgstr "Corredor Eslizón"
+
+msgid "Skink Chameleon"
+msgstr "Eslizón Camaleón"
+
+msgid "Saurus Blocker"
+msgstr "Bloqueador Saurio"
+
+msgid "Zombie Lineman"
+msgstr "Zombi de Línea"
+
+msgid "Ghoul Runner"
+msgstr "Corredor Ghoul"
+
+msgid "Wraith"
+msgstr "Espectro"
+
+msgid "Norse Raider Lineman"
+msgstr "Asaltante Nórdico de Línea"
+
+msgid "Norse Beer Boar"
+msgstr "Jabalí Cervecero Nórdico"
+
+msgid "Norse Berserker"
+msgstr "Berserker Nórdico"
+
+msgid "Rotter Lineman"
+msgstr "Podrido de Línea"
+
+msgid "Ogre Runt Punter"
+msgstr "Ogro Pateador de Enanos"
+
+msgid "Old World Human Lineman"
+msgstr "Humano del Viejo Mundo de Línea"
+
+msgid "Old World Human Thrower"
+msgstr "Lanzador Humano del Viejo Mundo"
+
+msgid "Old World Human Catcher"
+msgstr "Receptor Humano del Viejo Mundo"
+
+msgid "Old World Human Blitzer"
+msgstr "Blitzer Humano del Viejo Mundo"
+
+msgid "Old World Dwarf Blocker"
+msgstr "Bloqueador Enano del Viejo Mundo"
+
+msgid "Old World Dwarf Runner"
+msgstr "Corredor Enano del Viejo Mundo"
+
+msgid "Old World Dwarf Blitzer"
+msgstr "Blitzer Enano del Viejo Mundo"
+
+msgid "Old World Dwarf Troll Slayer"
+msgstr "Matador de Trols Enano del Viejo Mundo"
+
+msgid "Old World Halfling Hopeful"
+msgstr "Halfling Esperanzado del Viejo Mundo"
+
+msgid "Orc Lineman"
+msgstr "Orco de Línea"
+
+msgid "Orc Thrower"
+msgstr "Lanzador Orco"
+
+msgid "Big Un Blocker"
+msgstr "Bloqueador Grandullón"
+
+msgid "Orc Blitzer"
+msgstr "Blitzer Orco"
+
+msgid "Untrained Troll"
+msgstr "Trol Sin Entrenar"
+
+msgid "Skeleton Lineman"
+msgstr "Esqueleto de Línea"
+
+msgid "Wight Blitzer"
+msgstr "Blitzer Tumulario"
+
+msgid "Skaven Clanrat"
+msgstr "Rata de Clan Skaven"
+
+msgid "Stormvermin Blitzer"
+msgstr "Blitzer Guardia de Asalto"
+
+msgid "Snotling Lineman"
+msgstr "Snotling de Línea"
+
+msgid "Fun-hoppa"
+msgstr "Saltador"
+
+msgid "Underworld Goblin Lineman"
+msgstr "Goblin del Submundo de Línea"
+
+msgid "Underworld Snotling"
+msgstr "Snotling del Submundo"
+
+msgid "Thrall Lineman"
+msgstr "Esclavo de Línea"
+
+msgid "Vampire Runner"
+msgstr "Corredor Vampiro"
+
+msgid "Vampire Blitzer"
+msgstr "Blitzer Vampiro"
+
+msgid "Vampire Thrower"
+msgstr "Lanzador Vampiro"
+
+msgid "Wood Elf Lineman"
+msgstr "Elfo Silvano de Línea"
+
+msgid "Wood Elf Thrower"
+msgstr "Lanzador Elfo Silvano"
+
+msgid "Wood Elf Catcher"
+msgstr "Receptor Elfo Silvano"
+
+msgid "Altern Forest Treeman"
+msgstr "Hombre Árbol del Bosque de Altern"
+
+msgid "Anointed Blitzer"
+msgstr "Blitzer Ungido"
+
+msgid "Anointed Thrower"
+msgstr "Lanzador Ungido"
+
+msgid "Bloodspawn"
+msgstr "Engendro Sanguinario"
+
+msgid "Bomma"
+msgstr "Bomma"
+
+msgid "Chameleon Skink"
+msgstr "Eslizón Camaleón"
+
+msgid "Chaos Dwarf Blocker"
+msgstr "Bloqueador Enano del Caos"
+
+msgid "Chaos Dwarf Flamesmith"
+msgstr "Forjallamas Enano del Caos"
+
+msgid "Dwarf Blocker"
+msgstr "Bloqueador Enano"
+
+msgid "Eagle Warrior Linewoman"
+msgstr "Guerrera Águila de Línea"
+
+msgid "Gnome Beastmaster"
+msgstr "Domador de Bestias Gnomo"
+
+msgid "Gnome Illusionist"
+msgstr "Ilusionista Gnomo"
+
+msgid "Gnome Lineman"
+msgstr "Gnomo de Línea"
+
+msgid "Goblin Lineman"
+msgstr "Goblin de Línea"
+
+msgid "Grail Knight"
+msgstr "Caballero del Grial"
+
+msgid "Hobgoblin Lineman"
+msgstr "Hobgoblin de Línea"
+
+msgid "Jaguar Warrior Blocker"
+msgstr "Guerrero Jaguar Bloqueador"
+
+msgid "Khorne Bloodseeker"
+msgstr "Buscasangre de Khorne"
+
+msgid "Khorne Marauder"
+msgstr "Merodeador de Khorne"
+
+msgid "Knight Catcher"
+msgstr "Caballero Receptor"
+
+msgid "Knight Thrower"
+msgstr "Caballero Lanzador"
+
+msgid "Piranha Warrior Blitzer"
+msgstr "Guerrera Piraña Blitzer"
+
+msgid "Python Warrior Thrower"
+msgstr "Guerrera Pitón Lanzadora"
+
+msgid "Renegade Human"
+msgstr "Humano Renegado"
+
+msgid "Sneaky Stabba"
+msgstr "Apuñalador Furtivo"
+
+msgid "Woodland Fox"
+msgstr "Zorro del Bosque"
+
+# Skill Names
+msgid "Mighty Blow (+1)"
+msgstr "Golpe Poderoso (+1)"
+
+msgid "Mighty Blow (+2)"
+msgstr "Golpe Poderoso (+2)"
+
+msgid "Claws"
+msgstr "Garras"
+
+msgid "Loner (3+)"
+msgstr "Solitario (3+)"
+
+msgid "Loner (4+)"
+msgstr "Solitario (4+)"
+
+msgid "Loner (5+)"
+msgstr "Solitario (5+)"
+
+msgid "Sidestep"
+msgstr "Paso Lateral"
+
+msgid "Projectile Vomit"
+msgstr "Vómito Proyectil"
+
+msgid "Timmm-ber!"
+msgstr "¡Maderaaa!"
+
+msgid "Take Root"
+msgstr "Echar Raíces"
+
+msgid "Unchannelled Fury"
+msgstr "Furia Descontrolada"
+
+msgid "Dirty Player (+1)"
+msgstr "Jugador Sucio (+1)"
+
+msgid "Dirty Player (+2)"
+msgstr "Jugador Sucio (+2)"
+
+msgid "Brutal Blocker"
+msgstr "Bloqueador Brutal"
+
+msgid "Defensive"
+msgstr "Defensivo"
+
+msgid "Defensive Tackle"
+msgstr "Placaje Defensivo"
+
+msgid "Eye Gouge"
+msgstr "Meter el Dedo en el Ojo"
+
+msgid "Kick-Off Return"
+msgstr "Recepción de Saque"
+
+msgid "Piling On"
+msgstr "Apilar"
+
+msgid "Quick Foul"
+msgstr "Falta Rápida"
+
+msgid "Saboteur"
+msgstr "Saboteador"
+
+msgid "Steady Feet"
+msgstr "Pies Firmes"
+
+msgid "Swoop"
+msgstr "Picado"
+
+# Star Player Names
+msgid "Morg 'n' Thorg"
+msgstr "Morg 'n' Thorg"
+
+msgid "Griff Oberwald"
+msgstr "Griff Oberwald"
+
+msgid "Hakflem Skuttlespike"
+msgstr "Hakflem Skuttlespike"
+
+msgid "Varag Ghoul-Chewer"
+msgstr "Varag Devoraghuls"
+
+msgid "Deeproot Strongbranch"
+msgstr "Raíz Profunda Ramaforte"
+
+msgid "Kreek Rustgouger"
+msgstr "Kreek Roñarranca"
+
+msgid "Roxanna Darknail"
+msgstr "Roxanna Uñanegra"
+
+msgid "Grim Ironjaw"
+msgstr "Grim Mandíbula de Hierro"
+
+msgid "Zug"
+msgstr "Zug"
+
+msgid "Bomber Dribblesnot"
+msgstr "Bombardero Baboso"
+
+msgid "Fungus the Loon"
+msgstr "Fungus el Lunático"
+
+msgid "Ripper Bolgrot"
+msgstr "Destripador Bolgrot"
+
+msgid "Scrappa Sorehead"
+msgstr "Scrappa Cabezadolor"
+
+msgid "Nobbla Blackwart"
+msgstr "Nobbla Verruga Negra"
+
+msgid "Wilhelm Chaney"
+msgstr "Wilhelm Chaney"
+
+msgid "Count Luthor von Drakenborg"
+msgstr "Conde Luthor von Drakenborg"
+
+msgid "The Swift Twins"
+msgstr "Los Gemelos Veloces"
+
+msgid "Glart Smashrip Jr"
+msgstr "Glart Machaca Jr"
+
+msgid "Helmut Wulf"
+msgstr "Helmut Wulf"
+
+msgid "Karla von Kill"
+msgstr "Karla von Kill"
+
+msgid "Lord Borak the Despoiler"
+msgstr "Lord Borak el Saqueador"
+
+msgid "Max Spleenripper"
+msgstr "Max Destripatripas"
+
+msgid "Mighty Zug"
+msgstr "Zug el Poderoso"
+
+msgid "Puggy Baconbreath"
+msgstr "Puggy Aliento de Bacon"
+
+msgid "Skrull Halfheight"
+msgstr "Skrull Mediaaltura"
+
+msgid "Aspiring Champion"
+msgstr "Campeón Aspirante"
+
+# Special Abilities
+msgid "The Ballista"
+msgstr "La Ballesta"
+
+msgid "Consummate Professional"
+msgstr "Profesional Consumado"
+
+msgid "Treacherous"
+msgstr "Traicionero"
+
+msgid "Crushing Blow"
+msgstr "Golpe Aplastante"
+
+msgid "Reliable"
+msgstr "Confiable"
+
+msgid "Whirling Dervish"
+msgstr "Derviche Giratorio"
+
+msgid "Burst of Speed"
+msgstr "Ráfaga de Velocidad"
+
+msgid "Slayer"
+msgstr "Matador"
+
+# Team Descriptions (English msgid with Spanish msgstr)
+msgid "In the jungles of Lustria, Amazon teams are squads of warrior women with super-athlete physiques perfect for Blood Bowl. Their innate agility allows them to pierce through defenses, dodging without giving opponents a chance to react."
+msgstr "En las selvas de Lustria, los equipos Amazonas son escuadras de mujeres guerreras con físicos de superatletas perfectos para Blood Bowl. Su agilidad innata les permite atravesar defensas, esquivando sin dar oportunidad a los oponentes de reaccionar."
+
+msgid "Black Orcs are the biggest and strongest of all Orcs. Unlike the rest of their race, Black Orcs are much less stupid and don't like getting bogged down in trivial arguments on the pitch. They form their own teams and focus on winning matches."
+msgstr "Los Orcos Negros son los más grandes y fuertes de todos los Orcos. A diferencia del resto de su raza, los Orcos Negros son mucho menos estúpidos y no les gusta enredarse en discusiones triviales en el campo. Forman sus propios equipos y se centran en ganar partidos."
+
+msgid "Blood Bowl is phenomenally popular among followers of Chaos. Most Chaos teams are formed by Beastmen, reinforced by Chosen humans who have been selected by the forces of Chaos, along with Minotaurs, Ogres, and Trolls."
+msgstr "Blood Bowl es fenomenalmente popular entre los seguidores del Caos. La mayoría de los equipos del Caos están formados por Hombres Bestia, reforzados por humanos Elegidos que han sido seleccionados por las fuerzas del Caos, junto con Minotauros, Ogros y Troles."
+
+msgid "Renegade teams are made up of outcasts and rebels who have turned to Chaos. They combine humans, elves, orcs, and other races united in their devotion to the Dark Gods."
+msgstr "Los equipos Renegados están formados por parias y rebeldes que se han vuelto al Caos. Combinan humanos, elfos, orcos y otras razas unidas en su devoción a los Dioses Oscuros."
+
+msgid "Cruel and athletic, Dark Elves combine speed with cruelty. Their players are known for their ruthless approach to the game."
+msgstr "Crueles y atléticos, los Elfos Oscuros combinan velocidad con crueldad. Sus jugadores son conocidos por su enfoque despiadado del juego."
+
+msgid "Slow but incredibly tough, Dwarfs are masters of the attrition game. Their players are known for their Block and Tackle skills."
+msgstr "Lentos pero increíblemente resistentes, los Enanos son maestros del juego de desgaste. Sus jugadores son conocidos por sus habilidades de Bloqueo y Placaje."
+
+msgid "Elegant and agile, Elves play a beautiful passing game. They are known for their speed and ball-handling skills."
+msgstr "Elegantes y ágiles, los Elfos juegan un hermoso juego de pases. Son conocidos por su velocidad y habilidades de manejo del balón."
+
+msgid "Goblin teams rely on trickery, traps, and secret weapons. What they lack in strength they make up for in cunning and madness."
+msgstr "Los equipos Goblin confían en el engaño, las trampas y las armas secretas. Lo que les falta en fuerza lo compensan con astucia y locura."
+
+msgid "Gnome teams combine cunning with woodland creatures. Their illusionists and beastmasters bring a unique style to the pitch."
+msgstr "Los equipos Gnomos combinan la astucia con criaturas del bosque. Sus ilusionistas y domadores de bestias traen un estilo único al campo."
+
+msgid "Halfling teams are known for their Treemen and indomitable spirit. They may not win much, but they're always entertaining."
+msgstr "Los equipos Halfling son conocidos por sus Hombres Árbol y su espíritu indomable. Puede que no ganen mucho, pero siempre son entretenidos."
+
+msgid "The elite of the elven world, High Elves play a precise and elegant passing game. They are arrogant but incredibly skilled."
+msgstr "La élite del mundo élfico, los Altos Elfos juegan un juego de pases preciso y elegante. Son arrogantes pero increíblemente habilidosos."
+
+msgid "Human teams are versatile and balanced. They can adapt to any style of play and are an excellent starting point for new coaches."
+msgstr "Los equipos Humanos son versátiles y equilibrados. Pueden adaptarse a cualquier estilo de juego y son un excelente punto de partida para nuevos entrenadores."
+
+msgid "Imperial Nobility teams combine wealth and prestige with Blood Bowl. Their noble blitzers are backed up by ogre bodyguards."
+msgstr "Los equipos de Nobleza Imperial combinan la riqueza y el prestigio con el Blood Bowl. Sus nobles blitzers están respaldados por guardaespaldas ogros."
+
+msgid "Dedicated to the Blood God, Khorne teams seek bloodshed above all else. They are brutally aggressive."
+msgstr "Dedicados al Dios de la Sangre, los equipos de Khorne buscan derramamiento de sangre por encima de todo. Son brutalmente agresivos."
+
+msgid "Lizardmen combine the speed of Skinks with the power of Saurus. They are an extremely versatile team."
+msgstr "Los Hombres Lagarto combinan la velocidad de los Eslizones con el poder de los Saurios. Son un equipo extremadamente versátil."
+
+msgid "Necromantic Horror teams mix undead with creatures like Werewolves and Flesh Golems."
+msgstr "Los equipos de Horror Necromántico mezclan muertos vivientes con criaturas como Hombres Lobo y Gólems de Carne."
+
+msgid "Norse teams are aggressive and combative. Their players are known for their Block skill and reckless style."
+msgstr "Los equipos Nórdicos son agresivos y combativos. Sus jugadores son conocidos por su habilidad de Bloqueo y su estilo temerario."
+
+msgid "Blessed by the Plague God, Nurgle teams are tough and disgusting. Their players are hard to bring down."
+msgstr "Bendecidos por el Dios de la Plaga, los equipos de Nurgle son resistentes y repugnantes. Sus jugadores son difíciles de derribar."
+
+msgid "Ogre teams are incredibly strong but not very bright. They rely on little Gnoblars to handle the ball."
+msgstr "Los equipos de Ogros son increíblemente fuertes pero no muy brillantes. Confían en pequeños Gnoblars para manejar el balón."
+
+msgid "The Old World Alliance combines Humans, Dwarfs, and Halflings into one team. They offer great versatility."
+msgstr "La Alianza del Viejo Mundo combina Humanos, Enanos y Halflings en un solo equipo. Ofrecen gran versatilidad."
+
+msgid "Orc teams are tough and aggressive. They are a balanced team with good blocking and blitz options."
+msgstr "Los equipos Orcos son resistentes y agresivos. Son un equipo equilibrado con buenas opciones de bloqueo y blitz."
+
+msgid "Shambling Undead combine Zombies and Skeletons with fast Ghouls and powerful Mummies."
+msgstr "Los Muertos Vivientes combinan Zombis y Esqueletos con Ghouls rápidos y poderosas Momias."
+
+msgid "Skaven teams are extremely fast but fragile. They rely on their speed to outmaneuver opponents."
+msgstr "Los equipos Skaven son extremadamente rápidos pero frágiles. Confían en su velocidad para superar a los oponentes."
+
+msgid "Snotling teams are tiny, weak, and numerous. They rely on pure chaos and pump wagons."
+msgstr "Los equipos Snotling son diminutos, débiles y numerosos. Confían en el caos puro y los vagones bomba."
+
+msgid "Tomb Kings are ancient undead from the desert lands. They include Tomb Guardians and mummies."
+msgstr "Los Reyes Funerarios son muertos vivientes antiguos de las tierras del desierto. Incluyen Guardianes de Tumba y momias."
+
+msgid "Underworld Denizens combine Goblins, Skaven, and mutants into a chaotic team."
+msgstr "Los Habitantes del Submundo combinan Goblins, Skaven y mutantes en un equipo caótico."
+
+msgid "Vampire teams have incredibly skilled players but must feed on their Thralls."
+msgstr "Los equipos Vampiro tienen jugadores increíblemente habilidosos pero deben alimentarse de sus Esclavos."
+
+msgid "Wood Elves are the most agile of all elves. They play a spectacular passing and running game."
+msgstr "Los Elfos Silvanos son los más ágiles de todos los elfos. Juegan un juego de pases y carreras espectacular."
+
+msgid "Bretonnian teams combine nobility with peasant players. Knights charge into battle while yeomen hold the line."
+msgstr "Los equipos Bretonianos combinan nobleza con jugadores campesinos. Los caballeros cargan en batalla mientras los labriegos mantienen la línea."
+
+msgid "Chaos Dwarfs combine the toughness of Dwarfs with the corruption of Chaos. They use Hobgoblins as expendable players."
+msgstr "Los Enanos del Caos combinan la resistencia de los Enanos con la corrupción del Caos. Usan Hobgoblins como jugadores prescindibles."
+
+# ============================================================================
+# PRE-MATCH ACTIVITIES & INDUCEMENTS
+# ============================================================================
+
+msgid "Pre-Match Activities"
+msgstr "Actividades Pre-Partido"
+
+msgid "Pre-Match"
+msgstr "Pre-Partido"
+
+msgid "Inducements"
+msgstr "Incentivos"
+
+msgid "Petty Cash"
+msgstr "Caja de Gastos"
+
+msgid "Budget"
+msgstr "Presupuesto"
+
+msgid "Total Budget"
+msgstr "Presupuesto Total"
+
+msgid "Remaining"
+msgstr "Restante"
+
+msgid "Spent"
+msgstr "Gastado"
+
+msgid "Ready"
+msgstr "Listo"
+
+msgid "Pending"
+msgstr "Pendiente"
+
+msgid "Available Inducements"
+msgstr "Incentivos Disponibles"
+
+msgid "Selected Inducements"
+msgstr "Incentivos Seleccionados"
+
+msgid "Confirm Inducements"
+msgstr "Confirmar Incentivos"
+
+msgid "Manage Inducements"
+msgstr "Gestionar Incentivos"
+
+msgid "Skip Without Inducements"
+msgstr "Saltar Sin Incentivos"
+
+msgid "No inducements"
+msgstr "Sin incentivos"
+
+msgid "No inducements purchased"
+msgstr "Sin incentivos adquiridos"
+
+msgid "Max"
+msgstr "Máx"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Both teams are ready!"
+msgstr "¡Ambos equipos están listos!"
+
+msgid "The match can begin."
+msgstr "El partido puede comenzar."
+
+msgid "Pre-match activities completed!"
+msgstr "¡Actividades pre-partido completadas!"
+
+msgid "Pre-Match Activities Pending"
+msgstr "Actividades Pre-Partido Pendientes"
+
+msgid "Before playing the match, both teams must complete their pre-match activities (inducements)."
+msgstr "Antes de jugar el partido, ambos equipos deben completar sus actividades pre-partido (incentivos)."
+
+msgid "View Pre-Match"
+msgstr "Ver Pre-Partido"
+
+msgid "What is Petty Cash?"
+msgstr "¿Qué es la Caja de Gastos?"
+
+msgid "Inducements submitted! Your team is ready for the match."
+msgstr "¡Incentivos enviados! Tu equipo está listo para el partido."
+
+msgid "Pre-match activities skipped. Your team is ready."
+msgstr "Actividades pre-partido saltadas. Tu equipo está listo."
+
+msgid "Star Players"
+msgstr "Jugadores Estrella"
+
+msgid "You can hire up to 2 Star Players per match."
+msgstr "Puedes contratar hasta 2 Jugadores Estrella por partido."
+
+# Inducement Names (already in inducements.json with name_es)
+msgid "Prayers to Nuffle"
+msgstr "Plegarias a Nuffle"
+
+msgid "Part-time Assistant Coaches"
+msgstr "Ayudantes a Tiempo Parcial"
+
+msgid "Temporary Cheerleaders"
+msgstr "Animadoras Temporales"
+
+msgid "Team Mascot"
+msgstr "Mascota del Equipo"
+
+msgid "Weather Mage"
+msgstr "Cambiaclimas"
+
+msgid "Bloodweiser Kegs"
+msgstr "Barriles de Cerveza Estrella Blitzer"
+
+msgid "Bribe"
+msgstr "Soborno"
+
+msgid "Extra Training"
+msgstr "Entrenamientos Adicionales"
+
+msgid "Mortuary Assistant"
+msgstr "Ayudante de la Morgue"
+
+msgid "Plague Doctor"
+msgstr "Médico de la Peste"
+
+msgid "Riotous Rookies"
+msgstr "Novatos Embravecidos"
+
+msgid "Wandering Apothecary"
+msgstr "Apotecario Errante"
+
+msgid "Halfling Master Chef"
+msgstr "Chef Maestro Halfling"
+
+msgid "Biased Referee"
+msgstr "Árbitro Poco Imparcial"
+
+msgid "Josef Bugman"
+msgstr "Josef Bugman"
+
+msgid "Mercenary Player"
+msgstr "Jugador Mercenario"
+
+msgid "Star Player"
+msgstr "Jugador Estrella"
+
+msgid "Wizard"
+msgstr "Mago"
+
+# Prayers to Nuffle results
+msgid "Treacherous Trapdoor"
+msgstr "Trampilla Traicionera"
+
+msgid "Friend of the Ref"
+msgstr "Amigo del Árbitro"
+
+msgid "Stiletto"
+msgstr "Puñal"
+
+msgid "Iron Man"
+msgstr "Músculos de Hierro"
+
+msgid "Knuckle Dusters"
+msgstr "Nudilleras"
+
+msgid "Bad Habits"
+msgstr "Malas Costumbres"
+
+msgid "Greased Cleats"
+msgstr "Tacos Engrasados"
+
+msgid "Blessed by Nuffle"
+msgstr "Bendición de Nuffle"
+
+msgid "Moles Under the Pitch"
+msgstr "Topos Bajo el Campo"
+
+msgid "Perfect Passing"
+msgstr "Pase Perfecto"
+
+msgid "Dazzling Catches"
+msgstr "Recepciones Deslumbrantes"
+
+msgid "Crowd Support"
+msgstr "Apoyo del Público"
+
+msgid "Foul Play"
+msgstr "Con Faltas y a lo Loco"
+
+msgid "Rock Throw"
+msgstr "Pedrada"
+
+msgid "Ref Scrutiny"
+msgstr "Escrutinio Arbitral"
+
+msgid "Intensive Training"
+msgstr "Entrenamiento Intensivo"
 

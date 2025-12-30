@@ -17,6 +17,11 @@ This document tracks all design decisions and changes made during development.
 10. [UI/UX Decisions](#uiux-decisions)
 11. [CLI Tools](#cli-tools)
 12. [Skills and Traits System](#skills-and-traits-system)
+13. [Makefile Commands](#makefile-commands)
+14. [League Types System](#league-types-system)
+15. [Special Rules System](#special-rules-system)
+16. [Star Players League Types](#star-players-league-types)
+17. [Pre-Match Activities System](#pre-match-activities-system)
 
 ---
 
@@ -339,18 +344,41 @@ The `update_from_match()` method now calculates:
 - Spanish (es)
 
 ### Translation Approach
-1. **Static UI text**: Flask-Babel with `_()` function
-2. **Game data**: Custom translation utilities (`tr_race()`, `tr_position()`, `tr_skill()`, `tr_star()`)
+1. **All translations**: Centralized in Flask-Babel's `messages.po` file
+2. **Game data**: Custom translation utilities in `app/utils/translations.py` using Flask-Babel's `gettext()`
 3. **Flash messages**: Language check with `session.get('language', 'en')`
 
 ### Translation Files
-- `app/translations/es/LC_MESSAGES/messages.po` - UI strings
-- `app/data/translations.json` - Game-specific translations (races, positions, skills, star players)
+- `app/translations/es/LC_MESSAGES/messages.po` - All translations including:
+  - UI strings
+  - Race names (singular and plural forms)
+  - Position names (170+ positions)
+  - Skill names (90+ skills)
+  - Star player names
+  - Special abilities
+  - Team descriptions
+  - Special rules and league types
+
+### Translation Utilities (`app/utils/translations.py`)
+| Function | Purpose |
+|----------|---------|
+| `translate_race(name, locale)` | Translate race names |
+| `translate_position(name, locale)` | Translate position names |
+| `translate_skill(name, locale)` | Translate skill names |
+| `translate_star_player(name, locale)` | Translate star player names |
+| `translate_skills_list(skills_str, locale)` | Translate comma-separated skill lists |
+| `get_team_description(race_name, locale)` | Get translated team description |
 
 ### Language Switcher
 - Accessible from navbar dropdown
 - Stores preference in session
 - Works on login page (public route)
+
+### Migration from JSON to Babel (December 2025)
+- **Removed**: `app/data/translations.json` - all translations consolidated
+- **Updated**: Translation utilities now use `flask_babel.gettext()` instead of JSON loading
+- **Added**: `has_request_context()` checks for graceful fallback outside request context
+- **Benefit**: Single source of truth, standard tooling support (`pybabel extract/update/compile`)
 
 ---
 
@@ -439,17 +467,264 @@ Forms using WTForms use `{{ form.hidden_tag() }}` instead.
 
 | Command | Description |
 |---------|-------------|
-| `make install` | Install dependencies with uv |
-| `make run` | Start application |
-| `make dev` | Start in debug mode |
+| `make install-dev` | Install dependencies with uv (Windows) |
+| `make install-prod` | Install dependencies with uv (Linux/Ubuntu) |
+| `make run-dev` | Start application in debug mode (Windows) |
+| `make run-prod` | Start application with gunicorn (Linux/Ubuntu) |
 | `make seed` | Seed database with game data (races, skills, star players) |
 | `make seed-test-data` | Seed test users, teams, and league for development |
 | `make reset` | Delete and recreate database with seed data |
 | `make clean` | Remove generated files |
 | `make test` | Run pytest |
 | `make upsert-user` | Create/update user |
-| `make update-translations` | Extract translatable strings |
-| `make compile-translations` | Compile .po to .mo files |
+| `make db-export` | Export entire database to JSON file |
+| `make db-import` | Import database from JSON file |
+| `make export-teams` | Export teams to JSON file |
+| `make import-teams` | Import teams from JSON (with optional RESET=1) |
+| `make export-users` | Export users to JSON file |
+| `make import-users` | Import users from JSON (with optional RESET=1) |
+| `make export-leagues` | Export leagues to JSON file |
+| `make import-leagues` | Import leagues from JSON (with optional RESET=1) |
+
+### Database Export/Import Scripts
+Located in `scripts/`:
+- `db_export_import.py` - Full database backup/restore
+- `teams_export_import.py` - Teams with players and star players
+- `users_export_import.py` - Users with passwords (hashed)
+- `leagues_export_import.py` - Leagues with seasons and standings
+
+---
+
+## League Types System
+
+### Overview
+Teams can be affiliated with specific league types based on their race. This follows the official Blood Bowl 3rd Edition rulebook guidelines.
+
+### Implementation
+- **Data storage**: `league_types` JSON array stored in `Race` model
+- **Team affiliation**: `league_type` column in `Team` model (nullable)
+- **Source**: League types extracted from `pdfs/reglamento-bb3-teams.pdf`
+
+### Available League Types
+| League Type | Spanish Translation |
+|-------------|---------------------|
+| Lustrian Superleague | Superliga Lustriana |
+| Chaos Championship | Campeonato del Caos |
+| Badlands Brawl | Reyerta en las Yermas |
+| World's Edge Superleague | Superliga de los Confines del Mundo |
+| Elven Kingdoms League | Liga de los Reinos Elficos |
+| Sylvanian Spotlight | Liga Silvania |
+| Old World Classic | Clasica del Viejo Mundo |
+| Underworld Challenge | Desafio del Inframundo |
+
+### User Interface
+- **Team Creation**: Dynamic dropdown showing available league types for selected race
+- **Team Edit**: Dropdown to change/set league type
+- **Team View**: Badge displaying current league type
+
+### Race Method
+```python
+Race.get_league_types() -> list[str]
+```
+Returns list of available league types for the race (parsed from JSON).
+
+---
+
+## Special Rules System
+
+### Overview
+Each race has special rules that apply to all teams of that race. These are defined in `teams.json` and displayed on team view pages.
+
+### Implementation
+- **Data storage**: `special_rules` JSON array stored in `Race` model
+- **Source**: Special rules extracted from `pdfs/reglamento-bb3-team-rules.pdf`
+- **Translations**: All special rule names and descriptions in `messages.po`
+
+### Example Special Rules
+| Rule | Description |
+|------|-------------|
+| Brawlin' Brutes | SPP earned differently (3 for CAS, 2 for TD) |
+| Bribery and Corruption | Re-roll failed Argue the Call once per match |
+| Favoured of Khorne | Can re-roll a single die when blocking |
+| Badland Brawl | Once per game, re-roll Armour roll |
+
+### Race Method
+```python
+Race.get_special_rules() -> list[dict]
+```
+Returns list of special rules with `name` and `description` keys.
+
+---
+
+## Star Players League Types
+
+### Overview
+Star players are now associated with specific league types, determining which leagues they can be hired for. This follows the official Blood Bowl 3rd Edition rulebook ("JUEGA PARA" / "Plays For" section for each star player).
+
+### Implementation
+- **Data storage**: `league_types` JSON array added to each star player in `app/data/star_players.json`
+- **Source**: League type affiliations extracted from `pdfs/reglamento-bb3-star-players.pdf`
+
+### Star Player League Affiliations
+
+| Star Player | League Types |
+|-------------|--------------|
+| Morg 'n' Thorg | All leagues (universal) |
+| Griff Oberwald | Old World Classic |
+| Hakflem Skuttlespike | Underworld Challenge |
+| Varag Ghoul-Chewer | Badlands Brawl |
+| Deeproot Strongbranch | Halfling Thimble Cup, Elven Kingdoms League, Old World Classic |
+| Kreek Rustgouger | Underworld Challenge |
+| Roxanna Darknail | Lustrian Superleague, Elven Kingdoms League |
+| Grim Ironjaw | World's Edge Superleague, Old World Classic |
+| Zug | Old World Classic |
+| Wilhelm Chaney | Sylvanian Spotlight |
+| Bomber Dribblesnot | Badlands Brawl, Underworld Challenge |
+| Ripper Bolgrot | Badlands Brawl, Underworld Challenge |
+| Karla Von Kill | Lustrian Superleague, Old World Classic |
+| Helmut Wulf | Old World Classic |
+| Glart Smashrip | Chaos Championship, Underworld Challenge, Favoured of Nurgle |
+| Eldril Sidewinder | Elven Kingdoms League |
+| Mighty Zug | Old World Classic |
+| Skitter Stab-Stab | Underworld Challenge |
+| Lord Borak the Despoiler | Chaos Championship, Favoured of Khorne, Favoured of Nurgle |
+| Fungus the Loon | Badlands Brawl, Underworld Challenge |
+| Count Luthor Von Drakenborg | Sylvanian Spotlight |
+| Grak and Crumbleberry | Halfling Thimble Cup, Old World Classic |
+| Rashnak Backstabber | Elven Kingdoms League, Underworld Challenge |
+| Barik Farblast | World's Edge Superleague, Old World Classic |
+| Scrappa Sorehead | Badlands Brawl, Underworld Challenge |
+| Akhorne the Squirrel | Halfling Thimble Cup, Elven Kingdoms League |
+
+### JSON Structure
+```json
+{
+  "name": "Griff Oberwald",
+  "cost": 320000,
+  "skills": [...],
+  "teams": ["Human", "Bretonnian", "Imperial Nobility", "Old World Alliance"],
+  "league_types": ["Old World Classic"]
+}
+```
+
+---
+
+## Pre-Match Activities System
+
+### Overview
+Pre-match activities allow coaches to prepare their teams before a match begins. This includes purchasing inducements - temporary bonuses and special hires that last for a single match.
+
+### Workflow
+1. **Match Scheduled**: When a match is created, both teams can access pre-match activities
+2. **Inducement Selection**: Each coach can purchase inducements using:
+   - **Petty Cash**: Free gold given to the team with lower Team Value (TV equals the difference)
+   - **Team Treasury**: Additional gold from the team's treasury
+3. **Submission**: Once satisfied, coaches submit their inducement selections
+4. **Match Ready**: When both teams have submitted, the match can begin
+
+### Database Models
+
+#### PreMatchSubmission (`app/models/prematch.py`)
+```python
+class PreMatchSubmission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    match_id = db.Column(db.Integer, db.ForeignKey("matches.id"))
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
+    inducements_submitted = db.Column(db.Boolean, default=False)
+    inducements_submitted_at = db.Column(db.DateTime)
+    total_inducements_cost = db.Column(db.Integer, default=0)
+```
+
+#### MatchInducement (`app/models/prematch.py`)
+```python
+class MatchInducement(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    match_id = db.Column(db.Integer, db.ForeignKey("matches.id"))
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
+    inducement_id = db.Column(db.String(64))  # References inducements.json
+    inducement_name = db.Column(db.String(128))
+    quantity = db.Column(db.Integer, default=1)
+    cost_per_unit = db.Column(db.Integer)
+    total_cost = db.Column(db.Integer)
+    extra_data = db.Column(db.Text)  # JSON for star_player_id, etc.
+```
+
+### Match Model Updates
+Added to `Match` model:
+- `home_prematch_ready` (Boolean) - Home team submitted pre-match
+- `away_prematch_ready` (Boolean) - Away team submitted pre-match
+- `is_prematch_complete` (Property) - Both teams ready
+- `can_record_result` (Property) - Pre-match complete or in progress
+
+### Available Inducements
+Based on Blood Bowl 3rd Edition rules (`pdfs/reglamento-bb3-inducements.pdf`):
+
+| Inducement | Cost | Max | Notes |
+|------------|------|-----|-------|
+| Prayers to Nuffle | 10,000g | 3 | Roll D16 for random effect |
+| Part-time Assistants | 20,000g | 5 | +1 to assistant coaches |
+| Temporary Cheerleaders | 5,000g | 5 | +1 to cheerleaders |
+| Team Mascot | 25,000g | 1 | Extra team re-roll |
+| Weather Mage | 25,000g | 1 | Re-roll weather table |
+| Bloodweiser Kegs | 50,000g | 2 | +1 to KO recovery |
+| Bribe | 100,000g (50,000g*) | 3 (6*) | Avoid send-off |
+| Extra Training | 100,000g | 8 | Extra team re-roll |
+| Mortuary Assistant | 100,000g | 1 | Undead only |
+| Plague Doctor | 100,000g | 1 | Nurgle only |
+| Riotous Rookies | 150,000g | 1 | Low Cost Linemen only |
+| Wandering Apothecary | 100,000g | 2 | Apothecary-allowed only |
+| Halfling Master Chef | 300,000g (100,000g*) | 1 | Steal re-rolls |
+| Biased Referee | 120,000g (80,000g*) | 1 | Ref favors your team |
+| Josef Bugman | 100,000g | 1 | Famous staff member |
+| Mercenary Player | 30,000g + cost | 3 | Temporary player |
+| Star Player | Variable | 2 | Legendary mercenary |
+| Wizard | 150,000g | 1 | Fireball or Lightning |
+
+*Discounted for teams with specific special rules
+
+### Petty Cash Calculation
+```python
+def calculate_petty_cash(home_team, away_team) -> tuple:
+    home_tv = home_team.calculate_tv()
+    away_tv = away_team.calculate_tv()
+    diff = abs(home_tv - away_tv)
+    
+    if home_tv < away_tv:
+        return (diff, 0)  # Home gets petty cash
+    elif away_tv < home_tv:
+        return (0, diff)  # Away gets petty cash
+    return (0, 0)
+```
+
+### Blueprint Routes (`app/blueprints/prematch.py`)
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/prematch/match/<id>` | GET | Pre-match overview |
+| `/prematch/match/<id>/team/<team_id>/inducements` | GET, POST | Manage inducements |
+| `/prematch/match/<id>/team/<team_id>/skip` | POST | Skip without inducements |
+| `/prematch/api/match/<id>/inducements` | GET | API for inducements data |
+
+### User Interface
+- **Pre-match Overview**: Shows both teams' status, petty cash, and purchased inducements
+- **Inducements Page**: Interactive UI for browsing and purchasing inducements
+- **Star Players Section**: Dedicated section for hiring star players
+- **Budget Tracker**: Real-time display of remaining budget
+
+### Integration with Match Flow
+1. Match view shows pre-match status when scheduled
+2. "Pre-Match Activities" button visible for scheduled matches
+3. Record Result button only enabled when pre-match complete
+4. Inducements displayed on completed match view
+
+### Data File
+`app/data/inducements.json` contains:
+- All inducement definitions with English/Spanish names and descriptions
+- Cost, max quantity, availability rules
+- Race/special rule discounts
+- Prayers to Nuffle table
+
+### Translations
+All inducement names and UI strings translated in `messages.po`
 
 ---
 
@@ -458,16 +733,17 @@ Forms using WTForms use `{{ form.hidden_tag() }}` instead.
 ### Not Yet Implemented
 - Star player hiring validation against league's `allow_star_players` setting
 - Deflections stat in player stats form
-- Match-based star player hiring (vs permanent roster)
 - Tournament bracket support
 - API authentication with JWT
 - Bet cancellation before match starts
 - Betting statistics and leaderboards
 - User treasury management (separate from team treasury)
+- Mercenary player hiring in inducements (position selection)
+- Prayers to Nuffle random roll implementation
 
 ### Known Limitations
 - Database must be reset for schema changes (no migrations)
-- Star players are permanently hired to roster (not per-match)
+- Star players can be hired permanently to roster OR as match inducements
 - No image upload for teams/players
 - User treasury for betting is currently at 0 (needs initial funding mechanism)
 
@@ -522,5 +798,5 @@ Skills and traits extracted from the official Blood Bowl 3rd Edition rulebook (P
 
 ---
 
-*Last updated: December 20, 2025*
+*Last updated: December 30, 2025*
 

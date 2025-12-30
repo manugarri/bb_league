@@ -24,10 +24,18 @@
                     
                     <div class="mb-4">
                         {{ form.race_id.label(class="form-label") }}
-                        {{ form.race_id(class="form-select form-select-lg") }}
+                        {{ form.race_id(class="form-select form-select-lg", id="race-select") }}
                         {% for error in form.race_id.errors %}
                         <div class="text-danger small">{{ error }}</div>
                         {% endfor %}
+                    </div>
+                    
+                    <div class="mb-4" id="league-type-container" style="display: none;">
+                        <label class="form-label">{% if get_locale() == 'es' %}Tipo de Liga{% else %}League Type{% endif %}</label>
+                        <select name="league_type" id="league-type-select" class="form-select form-select-lg">
+                            <option value="">-- {% if get_locale() == 'es' %}Selecciona Tipo de Liga (Opcional){% else %}Select League Type (Optional){% endif %} --</option>
+                        </select>
+                        <div class="form-text">{% if get_locale() == 'es' %}Selecciona la liga a la que este equipo está adscrito{% else %}Select the league this team is affiliated with{% endif %}</div>
                     </div>
                     
                     <div class="mb-4">
@@ -99,4 +107,46 @@
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// League types data from server
+const raceLeagueTypes = {{ race_league_types | tojson | safe }};
+// League type translations
+const leagueTypeTranslations = {{ league_type_translations | tojson | safe }};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const raceSelect = document.getElementById('race-select');
+    const leagueTypeContainer = document.getElementById('league-type-container');
+    const leagueTypeSelect = document.getElementById('league-type-select');
+    
+    function updateLeagueTypes() {
+        const raceId = raceSelect.value;
+        const leagueTypes = raceLeagueTypes[raceId] || [];
+        
+        // Clear existing options
+        leagueTypeSelect.innerHTML = '<option value="">-- {% if get_locale() == "es" %}Selecciona Tipo de Liga (Opcional){% else %}Select League Type (Optional){% endif %} --</option>';
+        
+        if (leagueTypes.length > 0) {
+            leagueTypes.forEach(function(lt) {
+                const option = document.createElement('option');
+                option.value = lt;
+                // Use translated name if available
+                option.textContent = leagueTypeTranslations[lt] || lt;
+                leagueTypeSelect.appendChild(option);
+            });
+            leagueTypeContainer.style.display = 'block';
+        } else {
+            leagueTypeContainer.style.display = 'none';
+        }
+    }
+    
+    raceSelect.addEventListener('change', updateLeagueTypes);
+    
+    // Initialize on page load
+    updateLeagueTypes();
+});
+</script>
 {% endblock %}

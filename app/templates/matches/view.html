@@ -62,7 +62,23 @@
         </div>
         
         <div class="text-center mt-4">
-            {% if can_record %}
+            {% if match.status == 'scheduled' or match.status == 'prematch' %}
+            <!-- Pre-match Activities Button -->
+            <a href="{{ url_for('prematch.index', match_id=match.id) }}" class="btn btn-secondary btn-lg me-2">
+                <i class="bi bi-clipboard-check me-2"></i>{% if get_locale() == 'es' %}Actividades Pre-Partido{% else %}Pre-Match Activities{% endif %}
+                {% if match.home_prematch_ready and match.away_prematch_ready %}
+                <span class="badge bg-success ms-1">✓</span>
+                {% elif match.home_prematch_ready or match.away_prematch_ready %}
+                <span class="badge bg-warning ms-1">1/2</span>
+                {% endif %}
+            </a>
+            {% endif %}
+            
+            {% if can_record and match.is_prematch_complete %}
+            <a href="{{ url_for('matches.record', match_id=match.id) }}" class="btn btn-primary btn-lg me-2">
+                <i class="bi bi-pencil-square me-2"></i>{% if get_locale() == 'es' %}Registrar Resultado{% else %}Record Result{% endif %}
+            </a>
+            {% elif can_record and match.status == 'in_progress' %}
             <a href="{{ url_for('matches.record', match_id=match.id) }}" class="btn btn-primary btn-lg me-2">
                 <i class="bi bi-pencil-square me-2"></i>{% if get_locale() == 'es' %}Registrar Resultado{% else %}Record Result{% endif %}
             </a>
@@ -107,6 +123,52 @@
         </div>
     </div>
 </div>
+
+{% if match.status == 'scheduled' and not match.is_prematch_complete %}
+<!-- Pre-Match Alert -->
+<div class="alert alert-info mb-4">
+    <div class="d-flex align-items-center">
+        <div class="me-3">
+            <i class="bi bi-clipboard-check fs-3"></i>
+        </div>
+        <div class="flex-grow-1">
+            <h5 class="mb-1">{% if get_locale() == 'es' %}Actividades Pre-Partido Pendientes{% else %}Pre-Match Activities Pending{% endif %}</h5>
+            <p class="mb-0">
+                {% if get_locale() == 'es' %}
+                Antes de jugar el partido, ambos equipos deben completar sus actividades pre-partido (incentivos).
+                {% else %}
+                Before playing the match, both teams must complete their pre-match activities (inducements).
+                {% endif %}
+            </p>
+            <div class="mt-2">
+                <span class="badge {% if match.home_prematch_ready %}bg-success{% else %}bg-warning{% endif %} me-2">
+                    {{ match.home_team.name }}: {% if match.home_prematch_ready %}{% if get_locale() == 'es' %}Listo{% else %}Ready{% endif %}{% else %}{% if get_locale() == 'es' %}Pendiente{% else %}Pending{% endif %}{% endif %}
+                </span>
+                <span class="badge {% if match.away_prematch_ready %}bg-success{% else %}bg-warning{% endif %}">
+                    {{ match.away_team.name }}: {% if match.away_prematch_ready %}{% if get_locale() == 'es' %}Listo{% else %}Ready{% endif %}{% else %}{% if get_locale() == 'es' %}Pendiente{% else %}Pending{% endif %}{% endif %}
+                </span>
+            </div>
+        </div>
+        <a href="{{ url_for('prematch.index', match_id=match.id) }}" class="btn btn-info">
+            <i class="bi bi-arrow-right me-2"></i>{% if get_locale() == 'es' %}Ver Pre-Partido{% else %}View Pre-Match{% endif %}
+        </a>
+    </div>
+</div>
+{% elif match.is_prematch_complete and not match.is_completed %}
+<!-- Pre-Match Complete Alert -->
+<div class="alert alert-success mb-4">
+    <div class="d-flex align-items-center">
+        <i class="bi bi-check-circle-fill me-2 fs-4"></i>
+        <span>
+            {% if get_locale() == 'es' %}
+            ¡Actividades pre-partido completadas! El partido puede comenzar.
+            {% else %}
+            Pre-match activities completed! The match can begin.
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endif %}
 
 {% if match.is_completed %}
 <!-- Match Stats -->
@@ -271,6 +333,51 @@
     </div>
     <div class="card-body">
         <p class="mb-0">{{ match.notes }}</p>
+    </div>
+</div>
+{% endif %}
+
+<!-- Inducements Section (if any were purchased) -->
+{% set home_inducements = match.get_team_inducements(match.home_team_id) %}
+{% set away_inducements = match.get_team_inducements(match.away_team_id) %}
+{% if home_inducements or away_inducements %}
+<div class="card mt-4">
+    <div class="card-header">
+        <i class="bi bi-cart-check me-2"></i>{% if get_locale() == 'es' %}Incentivos{% else %}Inducements{% endif %}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="text-gold">{{ match.home_team.name }}</h6>
+                {% if home_inducements %}
+                <ul class="list-unstyled mb-0">
+                    {% for ind in home_inducements %}
+                    <li class="d-flex justify-content-between">
+                        <span>{{ ind.inducement_name }}{% if ind.quantity > 1 %} x{{ ind.quantity }}{% endif %}</span>
+                        <span class="text-muted">{{ "{:,}".format(ind.total_cost) }}g</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted small mb-0">{% if get_locale() == 'es' %}Sin incentivos{% else %}No inducements{% endif %}</p>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h6 class="text-gold">{{ match.away_team.name }}</h6>
+                {% if away_inducements %}
+                <ul class="list-unstyled mb-0">
+                    {% for ind in away_inducements %}
+                    <li class="d-flex justify-content-between">
+                        <span>{{ ind.inducement_name }}{% if ind.quantity > 1 %} x{{ ind.quantity }}{% endif %}</span>
+                        <span class="text-muted">{{ "{:,}".format(ind.total_cost) }}g</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted small mb-0">{% if get_locale() == 'es' %}Sin incentivos{% else %}No inducements{% endif %}</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 {% endif %}
