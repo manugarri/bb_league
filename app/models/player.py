@@ -56,19 +56,17 @@ class Skill(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True, nullable=False)
-    name_es = db.Column(db.String(64))  # Spanish name
     category = db.Column(db.String(20), nullable=False)  # A, S, G, M, P, E
     skill_type = db.Column(db.String(20), default="active")  # active, passive
     is_mandatory = db.Column(db.Boolean, default=False)  # Must use when applicable (marked with *)
     description = db.Column(db.Text)
-    description_es = db.Column(db.Text)  # Spanish description
     
     def __repr__(self) -> str:
         return f"<Skill {self.name}>"
     
     @property
     def category_name(self) -> str:
-        """Return full category name."""
+        """Return full category name (English)."""
         categories = {
             'A': 'Agility',
             'S': 'Strength', 
@@ -76,19 +74,6 @@ class Skill(db.Model):
             'M': 'Mutation',
             'P': 'Passing',
             'E': 'Extraordinary'
-        }
-        return categories.get(self.category, self.category)
-    
-    @property
-    def category_name_es(self) -> str:
-        """Return full category name in Spanish."""
-        categories = {
-            'A': 'Agilidad',
-            'S': 'Fuerza', 
-            'G': 'Generales',
-            'M': 'Mutación',
-            'P': 'Pase',
-            'E': 'Triquiñuelas'
         }
         return categories.get(self.category, self.category)
 
@@ -99,11 +84,9 @@ class Trait(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True, nullable=False)
-    name_es = db.Column(db.String(64))  # Spanish name
     trait_type = db.Column(db.String(20), default="passive")  # active, passive
     is_mandatory = db.Column(db.Boolean, default=False)  # Must use when applicable (marked with *)
     description = db.Column(db.Text)
-    description_es = db.Column(db.Text)  # Spanish description
     
     def __repr__(self) -> str:
         return f"<Trait {self.name}>"
@@ -303,4 +286,97 @@ class Player(db.Model):
         )
         db.session.add(player_trait)
         return player_trait
+    
+    def assign_starting_skills(self) -> tuple:
+        """
+        Assign starting skills and traits from position to this player.
+        Returns tuple of (skills_added, traits_added) counts.
+        """
+        from app.extensions import db
+        
+        skills_added = 0
+        traits_added = 0
+        
+        if not self.position or not self.position.starting_skills:
+            return skills_added, traits_added
+        
+        # Parse starting skills from position (comma-separated string)
+        skill_names = [s.strip() for s in self.position.starting_skills.split(',') if s.strip()]
+        
+        for skill_name in skill_names:
+            # Check if player already has this skill/trait
+            existing_skill = self.skills.join(Skill).filter(Skill.name == skill_name).first()
+            if existing_skill:
+                continue
+            
+            existing_trait = self.traits.join(Trait).filter(Trait.name == skill_name).first()
+            if existing_trait:
+                continue
+            
+            # Try to find as a skill first
+            skill = Skill.query.filter_by(name=skill_name).first()
+            if skill:
+                player_skill = PlayerSkill(
+                    player_id=self.id,
+                    skill_id=skill.id,
+                    is_starting=True
+                )
+                db.session.add(player_skill)
+                skills_added += 1
+                continue
+            
+            # Try to find as a trait
+            trait = Trait.query.filter_by(name=skill_name).first()
+            if trait:
+                player_trait = PlayerTrait(
+                    player_id=self.id,
+                    trait_id=trait.id,
+                    is_starting=True
+                )
+                db.session.add(player_trait)
+                traits_added += 1
+                continue
+            
+            # Handle parameterized traits like "Loner (4+)" -> "Loner (X+)"
+            # and "Animosity (All)" -> "Animosity"
+            base_name = skill_name.split('(')[0].strip()
+            
+            # Check for parameterized trait
+            parameterized_trait = Trait.query.filter(
+                Trait.name.like(f"{base_name} (%)") | (Trait.name == base_name)
+            ).first()
+            if parameterized_trait:
+                # Check if already has this trait
+                existing = self.traits.filter_by(trait_id=parameterized_trait.id).first()
+                if not existing:
+                    player_trait = PlayerTrait(
+                        player_id=self.id,
+                        trait_id=parameterized_trait.id,
+                        is_starting=True
+                    )
+                    db.session.add(player_trait)
+                    traits_added += 1
+                continue
+            
+            # Check for parameterized skill
+            parameterized_skill = Skill.query.filter(
+                Skill.name.like(f"{base_name} (%)") | (Skill.name == base_name)
+            ).first()
+            if parameterized_skill:
+                existing = self.skills.filter_by(skill_id=parameterized_skill.id).first()
+                if not existing:
+                    player_skill = PlayerSkill(
+                        player_id=self.id,
+                        skill_id=parameterized_skill.id,
+                        is_starting=True
+                    )
+                    db.session.add(player_skill)
+                    skills_added += 1
+                continue
+            
+            # Skill/trait not found - log warning
+            import logging
+            logging.warning(f"Skill/trait '{skill_name}' not found for player {self.name}")
+        
+        return skills_added, traits_added
 

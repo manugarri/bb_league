@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from app.extensions import db
 from app.models import Team, Race, Position, Player, Skill, PlayerSkill
 from app.forms.team import CreateTeamForm, HirePlayerForm, EditTeamForm, EditPlayerForm
-from app.utils.translations import translate_league_type
+from app.utils.translations import translate_league_type, translate_skill
 
 teams_bp = Blueprint("teams", __name__)
 
@@ -243,6 +243,11 @@ def hire_player(team_id: int):
         team.treasury -= position.cost
         
         db.session.add(player)
+        db.session.flush()  # Get player ID before assigning skills
+        
+        # Assign starting skills from position
+        player.assign_starting_skills()
+        
         db.session.commit()
         
         # Update team value
@@ -331,7 +336,6 @@ def edit_player(team_id: int, player_id: int):
         if cat not in skills_by_category:
             skills_by_category[cat] = {
                 'name': skill.category_name,
-                'name_es': skill.category_name_es,
                 'is_primary': cat in primary_categories,
                 'skills': []
             }
@@ -394,8 +398,9 @@ def add_player_skill(team_id: int, player_id: int, skill_id: int):
     # Check if player already has this skill
     existing = PlayerSkill.query.filter_by(player_id=player.id, skill_id=skill.id).first()
     if existing:
+        skill_display = translate_skill(skill.name, lang)
         if lang == 'es':
-            flash(f"{player.name} ya tiene la habilidad {skill.name_es or skill.name}.", "warning")
+            flash(f"{player.name} ya tiene la habilidad {skill_display}.", "warning")
         else:
             flash(f"{player.name} already has the skill {skill.name}.", "warning")
         return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
@@ -407,8 +412,9 @@ def add_player_skill(team_id: int, player_id: int, skill_id: int):
     all_categories = primary_categories + secondary_categories
     
     if skill.category not in all_categories:
+        category_display = translate_skill(skill.category_name, lang)
         if lang == 'es':
-            flash(f"Esta posición no puede aprender habilidades de {skill.category_name_es}.", "danger")
+            flash(f"Esta posición no puede aprender habilidades de {category_display}.", "danger")
         else:
             flash(f"This position cannot learn {skill.category_name} skills.", "danger")
         return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
@@ -426,7 +432,7 @@ def add_player_skill(team_id: int, player_id: int, skill_id: int):
     team.calculate_tv()
     db.session.commit()
     
-    skill_display = skill.name_es if lang == 'es' and skill.name_es else skill.name
+    skill_display = translate_skill(skill.name, lang)
     if lang == 'es':
         flash(f"¡Habilidad '{skill_display}' añadida a {player.name}!", "success")
     else:
@@ -455,8 +461,9 @@ def remove_player_skill(team_id: int, player_id: int, skill_id: int):
     player_skill = PlayerSkill.query.filter_by(player_id=player.id, skill_id=skill.id).first()
     
     if not player_skill:
+        skill_display = translate_skill(skill.name, lang)
         if lang == 'es':
-            flash(f"{player.name} no tiene la habilidad {skill.name_es or skill.name}.", "warning")
+            flash(f"{player.name} no tiene la habilidad {skill_display}.", "warning")
         else:
             flash(f"{player.name} doesn't have the skill {skill.name}.", "warning")
         return redirect(url_for("teams.edit_player", team_id=team.id, player_id=player.id))
@@ -477,7 +484,7 @@ def remove_player_skill(team_id: int, player_id: int, skill_id: int):
     team.calculate_tv()
     db.session.commit()
     
-    skill_display = skill.name_es if lang == 'es' and skill.name_es else skill.name
+    skill_display = translate_skill(skill.name, lang)
     if lang == 'es':
         flash(f"Habilidad '{skill_display}' eliminada de {player.name}.", "warning")
     else:

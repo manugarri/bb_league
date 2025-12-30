@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Hire Player - {{ team.name }}{% endblock %}
+{% block title %}{% if get_locale() == 'es' %}Contratar Jugador{% else %}Hire Player{% endif %} - {{ team.name }}{% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url_for('teams.index') }}">Teams</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('teams.index') }}">{{ _('Teams') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ url_for('teams.view', team_id=team.id) }}">{{ team.name }}</a></li>
-        <li class="breadcrumb-item active">Hire Player</li>
+        <li class="breadcrumb-item active">{% if get_locale() == 'es' %}Contratar Jugador{% else %}Hire Player{% endif %}</li>
     </ol>
 </nav>
 
@@ -15,14 +15,14 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
-                <i class="bi bi-person-plus me-2"></i>Hire New Player
+                <i class="bi bi-person-plus me-2"></i>{% if get_locale() == 'es' %}Contratar Nuevo Jugador{% else %}Hire New Player{% endif %}
             </div>
             <div class="card-body p-4">
                 <div class="alert alert-info">
                     <i class="bi bi-wallet2 me-2"></i>
-                    Treasury: <strong>{{ "{:,}".format(team.treasury) }}g</strong>
+                    {{ _('Treasury') }}: <strong>{{ "{:,}".format(team.treasury) }}g</strong>
                     &nbsp;|&nbsp;
-                    Roster: <strong>{{ team.roster_count }}/16</strong>
+                    {{ _('Roster') }}: <strong>{{ team.roster_count }}/16</strong>
                 </div>
                 
                 <form method="POST">
@@ -30,7 +30,8 @@
                     
                     <div class="mb-3">
                         {{ form.name.label(class="form-label") }}
-                        {{ form.name(class="form-control", placeholder="Player name...") }}
+                        {% set name_placeholder = 'Nombre del jugador...' if get_locale() == 'es' else 'Player name...' %}
+                        {{ form.name(class="form-control", placeholder=name_placeholder) }}
                         {% for error in form.name.errors %}
                         <div class="text-danger small">{{ error }}</div>
                         {% endfor %}
@@ -54,9 +55,9 @@
                     
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-person-plus me-1"></i>Hire Player
+                            <i class="bi bi-person-plus me-1"></i>{% if get_locale() == 'es' %}Contratar Jugador{% else %}Hire Player{% endif %}
                         </button>
-                        <a href="{{ url_for('teams.view', team_id=team.id) }}" class="btn btn-outline-secondary">Cancel</a>
+                        <a href="{{ url_for('teams.view', team_id=team.id) }}" class="btn btn-outline-secondary">{{ _('Cancel') }}</a>
                     </div>
                 </form>
             </div>
@@ -66,32 +67,46 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
-                <i class="bi bi-list-ul me-2"></i>Available Positions - {{ team.race.name }}
+                <i class="bi bi-list-ul me-2"></i>{% if get_locale() == 'es' %}Posiciones Disponibles{% else %}Available Positions{% endif %} - {{ tr_race(team.race.name) }}
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-sm table-hover mb-0">
                         <thead>
                             <tr>
-                                <th>Position</th>
+                                <th>{{ _('Position') }}</th>
                                 <th class="text-center">MA</th>
                                 <th class="text-center">ST</th>
                                 <th class="text-center">AG</th>
                                 <th class="text-center">PA</th>
                                 <th class="text-center">AV</th>
+                                <th>{% if get_locale() == 'es' %}Habilidades / Rasgos{% else %}Skills / Traits{% endif %}</th>
                                 <th class="text-center">Max</th>
-                                <th class="text-end">Cost</th>
+                                <th class="text-end">{% if get_locale() == 'es' %}Coste{% else %}Cost{% endif %}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for pos in positions %}
                             <tr>
-                                <td>{{ pos.name }}</td>
+                                <td>{{ tr_position(pos.name) }}</td>
                                 <td class="text-center">{{ pos.movement }}</td>
                                 <td class="text-center">{{ pos.strength }}</td>
                                 <td class="text-center">{{ pos.agility }}+</td>
                                 <td class="text-center">{{ pos.passing }}+</td>
                                 <td class="text-center">{{ pos.armor }}+</td>
+                                <td>
+                                    {% if pos.starting_skills %}
+                                        {% set skill_list = pos.starting_skills.split(',') %}
+                                        {% for skill_name in skill_list[:2] %}
+                                        <span class="badge bg-secondary" style="font-size: 0.7rem;">{{ tr_skill(skill_name.strip()) }}</span>
+                                        {% endfor %}
+                                        {% if skill_list | length > 2 %}
+                                        <span class="badge bg-dark" style="font-size: 0.7rem;">+{{ skill_list | length - 2 }}</span>
+                                        {% endif %}
+                                    {% else %}
+                                    <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
                                 <td class="text-center">0/{{ pos.max_count }}</td>
                                 <td class="text-end text-gold">{{ "{:,}".format(pos.cost) }}</td>
                             </tr>

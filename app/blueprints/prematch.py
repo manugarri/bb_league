@@ -8,6 +8,7 @@ from app.models import (
     MatchInducement, PreMatchSubmission,
     get_available_inducements, calculate_petty_cash, get_inducements_data
 )
+from app.utils.translations import translate_inducement_name
 
 prematch_bp = Blueprint("prematch", __name__)
 
@@ -179,7 +180,7 @@ def inducements(match_id: int, team_id: int):
                 existing.quantity += quantity
                 existing.total_cost += total_cost
             else:
-                name = ind_def.get("name_es" if lang == 'es' else "name", ind_def.get("name"))
+                name = translate_inducement_name(ind_def.get("name"), lang)
                 new_ind = MatchInducement(
                     match_id=match_id,
                     team_id=team_id,

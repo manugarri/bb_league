@@ -98,3 +98,5 @@ alwaysApply: true
 
 Other:
 - We will use a make file to add all utility scripts. The required utility scripts themselves will be in the scripts folder.
+- Every string needs to have a spanish translation.
+- Translations need to be defined as babel translations exclusively (we use flask-babel package)

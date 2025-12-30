@@ -1,7 +1,7 @@
 # Blood Bowl League Tracker - Makefile
 # Use: make <command>
 
-.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams export-users import-users export-leagues import-leagues
+.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams export-users import-users export-leagues import-leagues backfill-skills sync-player-skills remove-es-columns
 
 # Default target
 help:
@@ -140,4 +140,3 @@ export-leagues:
 # Usage: make import-leagues [FILE=backups/leagues_export.json] [RESET=1]
 import-leagues:
 	uv run python scripts/leagues_export_import.py import --input $(or $(FILE),backups/leagues_export.json) $(if $(filter 1 true yes,$(RESET)),--reset)
-

@@ -55,7 +55,7 @@ def create_app(config_name: str = "development") -> Flask:
     @app.context_processor
     def inject_locale():
         from app.utils.translations import (
-            translate_race, translate_position, translate_skill, 
+            translate_race, translate_position, translate_skill, translate_trait,
             translate_star_player, translate_skills_list, get_team_description,
             translate_league_type, translate_inducement
         )
@@ -65,6 +65,7 @@ def create_app(config_name: str = "development") -> Flask:
             'tr_race': translate_race,
             'tr_position': translate_position,
             'tr_skill': translate_skill,
+            'tr_trait': translate_trait,
             'tr_star': translate_star_player,
             'tr_skills_list': translate_skills_list,
             'get_team_desc': get_team_description,

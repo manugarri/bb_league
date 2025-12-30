@@ -843,7 +843,7 @@ msgstr "La clasificación determina los campeones de liga y playoffs."
 # ============================================================================
 
 msgid "General"
-msgstr "General"
+msgstr "Generales"
 
 msgid "Agility"
 msgstr "Agilidad"
@@ -858,242 +858,378 @@ msgid "Mutation"
 msgstr "Mutación"
 
 msgid "Extraordinary"
-msgstr "Extraordinario"
+msgstr "Triquiñuelas"
 
 # ============================================================================
-# COMMON SKILLS
+# COMMON SKILLS (Official Blood Bowl Spanish translations)
 # ============================================================================
 
-msgid "Block"
-msgstr "Bloqueo"
+# Agility Skills
+msgid "Catch"
+msgstr "Atrapar"
+
+msgid "Diving Catch"
+msgstr "Recepción heroica"
+
+msgid "Diving Tackle"
+msgstr "Placaje heroico"
 
 msgid "Dodge"
-msgstr "Esquiva"
+msgstr "Esquivar"
 
-msgid "Sure Hands"
-msgstr "Manos Seguras"
-
-msgid "Tackle"
-msgstr "Placaje"
-
-msgid "Mighty Blow"
-msgstr "Golpe Poderoso"
-
-msgid "Guard"
-msgstr "Guardia"
-
-msgid "Catch"
-msgstr "Recepción"
-
-msgid "Pass"
-msgstr "Pase"
-
-msgid "Frenzy"
-msgstr "Frenesí"
-
-msgid "Claw"
-msgstr "Garra"
-
-msgid "Horns"
-msgstr "Cuernos"
-
-msgid "Regeneration"
-msgstr "Regeneración"
-
-msgid "Thick Skull"
-msgstr "Cráneo Grueso"
-
-msgid "Stand Firm"
-msgstr "Posición Firme"
+msgid "Jump Up"
+msgstr "En pie de un salto"
 
 msgid "Leap"
-msgstr "Salto"
+msgstr "Saltar"
 
-msgid "Very Long Legs"
-msgstr "Piernas Muy Largas"
-
-msgid "Prehensile Tail"
-msgstr "Cola Prensil"
-
-msgid "Tentacles"
-msgstr "Tentáculos"
-
-msgid "Foul Appearance"
-msgstr "Apariencia Repugnante"
-
-msgid "Disturbing Presence"
-msgstr "Presencia Perturbadora"
-
-msgid "Hypnotic Gaze"
-msgstr "Mirada Hipnótica"
-
-msgid "Right Stuff"
-msgstr "Material Adecuado"
-
-msgid "Stunty"
-msgstr "Menudo"
-
-msgid "Titchy"
-msgstr "Diminuto"
-
-msgid "Big Hand"
-msgstr "Mano Grande"
-
-msgid "Extra Arms"
-msgstr "Brazos Extra"
-
-msgid "Two Heads"
-msgstr "Dos Cabezas"
-
-msgid "Always Hungry"
-msgstr "Siempre Hambriento"
-
-msgid "Throw Team-Mate"
-msgstr "Lanzar Compañero"
-
-msgid "Ball & Chain"
-msgstr "Bola y Cadena"
-
-msgid "Chainsaw"
-msgstr "Motosierra"
-
-msgid "Bombardier"
-msgstr "Bombardero"
-
-msgid "Secret Weapon"
-msgstr "Arma Secreta"
-
-msgid "Animosity"
-msgstr "Animosidad"
-
-msgid "Bone Head"
-msgstr "Cabeza Hueca"
-
-msgid "Really Stupid"
-msgstr "Muy Estúpido"
-
-msgid "Wild Animal"
-msgstr "Animal Salvaje"
-
-msgid "Loner"
-msgstr "Solitario"
-
-msgid "Decay"
-msgstr "Putrefacción"
-
-msgid "No Hands"
-msgstr "Sin Manos"
-
-msgid "Stab"
-msgstr "Apuñalar"
-
-msgid "Shadowing"
-msgstr "Persecución"
+msgid "Safe Pair of Hands"
+msgstr "Proteger el cuero"
 
 msgid "Side Step"
-msgstr "Paso Lateral"
+msgstr "Echarse a un lado"
 
-msgid "Pro"
-msgstr "Pro"
+msgid "Sprint"
+msgstr "Esprintar"
+
+msgid "Sure Feet"
+msgstr "Pies firmes"
+
+msgid "Sidestep"
+msgstr "Zafarse"
+
+msgid "Hit and Run"
+msgstr "Golpea y corre"
+
+msgid "Trickster"
+msgstr "Embaucador"
+
+# Strength Skills
+msgid "Defensive"
+msgstr "Defensa"
+
+msgid "Break Tackle"
+msgstr "Abrirse paso"
+
+msgid "Arm Bar"
+msgstr "Llave de brazo"
+
+msgid "Brawler"
+msgstr "Luchador"
+
+msgid "Grab"
+msgstr "Apartar"
+
+msgid "Guard"
+msgstr "Defensa"
+
+msgid "Juggernaut"
+msgstr "Imparable"
+
+msgid "Mighty Blow (+1)"
+msgstr "Golpe mortífero"
+
+msgid "Mighty Blow"
+msgstr "Golpe mortífero"
+
+msgid "Multiple Block"
+msgstr "Placaje múltiple"
+
+msgid "Stand Firm"
+msgstr "Mantenerse firmes"
+
+msgid "Strong Arm"
+msgstr "Brazo fuerte"
+
+msgid "Thick Skull"
+msgstr "Cabeza dura"
+
+# General Skills
+msgid "Block"
+msgstr "Placar"
 
 msgid "Dauntless"
-msgstr "Intrépido"
+msgstr "Agallas"
 
 msgid "Fend"
-msgstr "Rechazar"
+msgstr "Forcejear"
+
+msgid "Frenzy"
+msgstr "Furia"
 
 msgid "Kick"
 msgstr "Patada"
 
+msgid "Pro"
+msgstr "Profesional"
+
+msgid "Shadowing"
+msgstr "Perseguir"
+
 msgid "Strip Ball"
-msgstr "Robar Balón"
+msgstr "Robar balón"
+
+msgid "Sure Hands"
+msgstr "Manos seguras"
+
+msgid "Tackle"
+msgstr "Placaje defensivo"
 
 msgid "Wrestle"
-msgstr "Lucha"
+msgstr "Provocar"
 
-msgid "Diving Catch"
-msgstr "Recepción en Plancha"
+msgid "Steady Feet"
+msgstr "Equilibrio firme"
 
-msgid "Diving Tackle"
-msgstr "Placaje en Plancha"
+# Mutation Skills
+msgid "Big Hand"
+msgstr "Mano grande"
 
-msgid "Jump Up"
-msgstr "Levantarse Rápido"
+msgid "Claws"
+msgstr "Garras"
 
-msgid "Safe Pair of Hands"
-msgstr "Manos Firmes"
+msgid "Claw"
+msgstr "Garras"
 
-msgid "Sneaky Git"
-msgstr "Rata Furtiva"
+msgid "Disturbing Presence"
+msgstr "Presencia perturbadora"
 
-msgid "Sprint"
-msgstr "Sprint"
+msgid "Extra Arms"
+msgstr "Brazos adicionales"
 
-msgid "Sure Feet"
-msgstr "Pies Seguros"
+msgid "Foul Appearance"
+msgstr "Apariencia asquerosa"
 
-msgid "Arm Bar"
-msgstr "Llave de Brazo"
+msgid "Horns"
+msgstr "Cuernos"
 
-msgid "Brawler"
-msgstr "Peleón"
+msgid "Iron Hard Skin"
+msgstr "Piel férrea"
 
-msgid "Break Tackle"
-msgstr "Romper Placaje"
+msgid "Monstrous Mouth"
+msgstr "Boca monstruosa"
 
-msgid "Grab"
-msgstr "Agarrar"
+msgid "Prehensile Tail"
+msgstr "Cola prensil"
 
-msgid "Juggernaut"
-msgstr "Juggernaut"
+msgid "Tentacles"
+msgstr "Tentáculos"
 
-msgid "Multiple Block"
-msgstr "Bloqueo Múltiple"
+msgid "Two Heads"
+msgstr "Dos cabezas"
 
-msgid "Pile Driver"
-msgstr "Martinete"
+msgid "Very Long Legs"
+msgstr "Piernas muy largas"
 
-msgid "Strong Arm"
-msgstr "Brazo Fuerte"
-
+# Passing Skills
 msgid "Accurate"
-msgstr "Preciso"
+msgstr "Precisión"
 
 msgid "Cannoneer"
 msgstr "Cañonero"
 
 msgid "Cloud Burster"
-msgstr "Rompe Nubes"
+msgstr "Partenubes"
 
 msgid "Dump-Off"
-msgstr "Pase Rápido"
+msgstr "Dejada"
 
 msgid "Fumblerooskie"
-msgstr "Fumblerooskie"
+msgstr "Pase a lo loco"
 
 msgid "Hail Mary Pass"
-msgstr "Pase Ave María"
+msgstr "Pase precipitado"
 
 msgid "Leader"
 msgstr "Líder"
 
 msgid "Nerves of Steel"
-msgstr "Nervios de Acero"
+msgstr "Nervios de acero"
 
 msgid "On the Ball"
-msgstr "Atento al Balón"
+msgstr "Atento al balón"
+
+msgid "Pass"
+msgstr "Pasar"
 
 msgid "Running Pass"
-msgstr "Pase en Carrera"
+msgstr "Pasar y seguir"
 
 msgid "Safe Pass"
-msgstr "Pase Seguro"
+msgstr "Pase seguro"
 
-msgid "Iron Hard Skin"
-msgstr "Piel de Hierro"
+msgid "Kick-Off Return"
+msgstr "Patada de despeje"
 
-msgid "Monstrous Mouth"
-msgstr "Boca Monstruosa"
+# Extraordinary Skills
+msgid "Pile Driver"
+msgstr "Meter la bota"
+
+msgid "Dirty Player (+1)"
+msgstr "Jugar sucio"
+
+msgid "Dirty Player (+2)"
+msgstr "Jugar sucio (+2)"
+
+msgid "Mighty Blow (+2)"
+msgstr "Golpe mortífero (+2)"
+
+msgid "Sneaky Git"
+msgstr "Furtivo"
+
+msgid "Stab"
+msgstr "Crujir"
+
+msgid "Defensive Tackle"
+msgstr "Romper defensas"
+
+msgid "Piling On"
+msgstr "Meter la bota"
+
+msgid "Quick Foul"
+msgstr "Falta rápida"
+
+msgid "Brutal Blocker"
+msgstr "Innovador violento"
+
+msgid "Eye Gouge"
+msgstr "Piquete de ojos"
+
+msgid "Saboteur"
+msgstr "Saboteador"
+
+msgid "Swoop"
+msgstr "Vuelo letal"
+
+msgid "Breathe Fire"
+msgstr "Aliento de fuego"
+
+msgid "My Ball"
+msgstr "Mi balón"
+
+# ============================================================================
+# TRAITS (Official Blood Bowl Spanish translations)
+# ============================================================================
+
+msgid "Always Hungry"
+msgstr "Siempre hambriento"
+
+msgid "Animosity"
+msgstr "Animosidad"
+
+msgid "Animosity (All)"
+msgstr "Animosidad (Todos)"
+
+msgid "Animosity (Goblin)"
+msgstr "Animosidad (Goblin)"
+
+msgid "Ball & Chain"
+msgstr "Bola con cadena"
+
+msgid "Bombardier"
+msgstr "Bombardero"
+
+msgid "Bone Head"
+msgstr "Cabeza hueca"
+
+msgid "Chainsaw"
+msgstr "Motosierra"
+
+msgid "Decay"
+msgstr "Descomposición"
+
+msgid "Hypnotic Gaze"
+msgstr "Mirada hipnótica"
+
+msgid "Kick Team-mate"
+msgstr "Patear compañero"
+
+msgid "Loner"
+msgstr "Solitario"
+
+msgid "Loner (X+)"
+msgstr "Solitario"
+
+msgid "Loner (3+)"
+msgstr "Solitario (3+)"
+
+msgid "Loner (4+)"
+msgstr "Solitario (4+)"
+
+msgid "Loner (5+)"
+msgstr "Solitario (5+)"
+
+msgid "No Hands"
+msgstr "Sin manos"
+
+msgid "Pogo Stick"
+msgstr "Pogo saltarín"
+
+msgid "Projectile Vomit"
+msgstr "Vómito proyectil"
+
+msgid "Really Stupid"
+msgstr "Muy estúpido"
+
+msgid "Regeneration"
+msgstr "Regeneración"
+
+msgid "Right Stuff"
+msgstr "Humanoide bala"
+
+msgid "Secret Weapon"
+msgstr "Arma secreta"
+
+msgid "Stunty"
+msgstr "Menudo"
+
+msgid "Swarming"
+msgstr "Enjambre"
+
+msgid "Take Root"
+msgstr "Echar raíces"
+
+msgid "Titchy"
+msgstr "Diminuto"
+
+msgid "Throw Team-mate"
+msgstr "Lanzar compañero"
+
+msgid "Throw Team-Mate"
+msgstr "Lanzar compañero"
+
+msgid "Timmm-ber!"
+msgstr "¡Tronco va!"
+
+msgid "Unchannelled Fury"
+msgstr "Furia desatada"
+
+msgid "Blood Lust (X+)"
+msgstr "Sed de sangre"
+
+msgid "Blood Lust (2+)"
+msgstr "Sed de sangre (2+)"
+
+msgid "Blood Lust (3+)"
+msgstr "Sed de sangre (3+)"
+
+msgid "Animal Savagery"
+msgstr "Salvajismo animal"
+
+msgid "Drunkard"
+msgstr "Borracho"
+
+msgid "Hate (X)"
+msgstr "Odio"
+
+msgid "Hate (Troll)"
+msgstr "Odio (Trol)"
+
+msgid "Plague Ridden"
+msgstr "Apestado"
+
+msgid "Wild Animal"
+msgstr "Animal salvaje"
 
 # ============================================================================
 # BLOOD BOWL RACES
@@ -2350,76 +2486,6 @@ msgstr "Apuñalador Furtivo"
 msgid "Woodland Fox"
 msgstr "Zorro del Bosque"
 
-# Skill Names
-msgid "Mighty Blow (+1)"
-msgstr "Golpe Poderoso (+1)"
-
-msgid "Mighty Blow (+2)"
-msgstr "Golpe Poderoso (+2)"
-
-msgid "Claws"
-msgstr "Garras"
-
-msgid "Loner (3+)"
-msgstr "Solitario (3+)"
-
-msgid "Loner (4+)"
-msgstr "Solitario (4+)"
-
-msgid "Loner (5+)"
-msgstr "Solitario (5+)"
-
-msgid "Sidestep"
-msgstr "Paso Lateral"
-
-msgid "Projectile Vomit"
-msgstr "Vómito Proyectil"
-
-msgid "Timmm-ber!"
-msgstr "¡Maderaaa!"
-
-msgid "Take Root"
-msgstr "Echar Raíces"
-
-msgid "Unchannelled Fury"
-msgstr "Furia Descontrolada"
-
-msgid "Dirty Player (+1)"
-msgstr "Jugador Sucio (+1)"
-
-msgid "Dirty Player (+2)"
-msgstr "Jugador Sucio (+2)"
-
-msgid "Brutal Blocker"
-msgstr "Bloqueador Brutal"
-
-msgid "Defensive"
-msgstr "Defensivo"
-
-msgid "Defensive Tackle"
-msgstr "Placaje Defensivo"
-
-msgid "Eye Gouge"
-msgstr "Meter el Dedo en el Ojo"
-
-msgid "Kick-Off Return"
-msgstr "Recepción de Saque"
-
-msgid "Piling On"
-msgstr "Apilar"
-
-msgid "Quick Foul"
-msgstr "Falta Rápida"
-
-msgid "Saboteur"
-msgstr "Saboteador"
-
-msgid "Steady Feet"
-msgstr "Pies Firmes"
-
-msgid "Swoop"
-msgstr "Picado"
-
 # Star Player Names
 msgid "Morg 'n' Thorg"
 msgstr "Morg 'n' Thorg"
@@ -2709,7 +2775,7 @@ msgstr "Jugadores Estrella"
 msgid "You can hire up to 2 Star Players per match."
 msgstr "Puedes contratar hasta 2 Jugadores Estrella por partido."
 
-# Inducement Names (already in inducements.json with name_es)
+# Inducement Names
 msgid "Prayers to Nuffle"
 msgstr "Plegarias a Nuffle"
 
@@ -2764,6 +2830,68 @@ msgstr "Jugador Estrella"
 msgid "Wizard"
 msgstr "Mago"
 
+# Inducement descriptions
+msgid "Roll 1D16 on the Prayers to Nuffle table for each one purchased. The effects last until the end of the match."
+msgstr "Por cada Plegaria a Nuffle que adquieras, tira 1D16 y consulta la tabla de Plegarias a Nuffle. Las Plegarias duran hasta el final del partido."
+
+msgid "Add +1 to the team's assistant coaches total for kick-off events for each one purchased."
+msgstr "Añade +1 al total de ayudantes del equipo para eventos de Saque de banda por cada uno adquirido."
+
+msgid "Add +1 to the team's cheerleaders total for kick-off events for each one purchased."
+msgstr "Añade +1 al total de animadoras del equipo para eventos de Saque de banda por cada una adquirida."
+
+msgid "Your team gains an additional team re-roll for the match."
+msgstr "Tu equipo obtiene una repetición de equipo adicional para el partido."
+
+msgid "Once per match, you may force a re-roll of the Weather table."
+msgstr "Una vez por partido, puedes forzar una repetición de la tabla del Clima."
+
+msgid "Apply a +1 modifier to rolls to recover KO'd players for each keg purchased."
+msgstr "Aplica un modificador de +1 a las tiradas para recuperar a tus jugadores KO por cada barril adquirido."
+
+msgid "Once per match per Bribe, you may attempt to prevent one of your players from being Sent Off. Roll a D6: on 2+, the player is not Sent Off."
+msgstr "Una vez por partido por Soborno, puedes intentar evitar que uno de tus jugadores sea Expulsado. Tira 1D6: con 2+, el jugador no es Expulsado."
+
+msgid "Your team gains an additional team re-roll for each Extra Training purchased."
+msgstr "Tu equipo obtiene una repetición de equipo adicional por cada Entrenamiento Adicional adquirido."
+
+msgid "Once per match, a dead player may be Regenerated on a 4+ instead of being removed from the roster."
+msgstr "Una vez por partido, un jugador muerto puede Regenerar con 4+ en lugar de ser retirado del roster."
+
+msgid "Once per match, one of your players may re-roll a failed Regeneration roll."
+msgstr "Una vez por partido, uno de tus jugadores puede repetir una tirada de Regeneración fallida."
+
+msgid "At the start of the match, place D3 additional Linemen on your team's reserves box. They have no skills and are removed after the match."
+msgstr "Al inicio del partido, coloca 1D3 Linieros adicionales en la casilla de reservas de tu equipo. No tienen habilidades y se retiran tras el partido."
+
+msgid "Each Wandering Apothecary allows you to use an Apothecary action once per match."
+msgstr "Cada Apotecario Errante te permite usar una acción de Apotecario una vez por partido."
+
+msgid "At the start of each half, roll 3D6. For each 4+, your opponent loses one team re-roll and you gain one."
+msgstr "Al inicio de cada mitad, tira 3D6. Por cada 4+, tu oponente pierde una repetición de equipo y tú ganas una."
+
+msgid "Apply a +1 modifier when Arguing the Call. Additionally, after an opponent's Foul that doesn't result in an ejection, roll D6: on 5+, the player is Sent Off."
+msgstr "Aplica un modificador de +1 al Protestar al árbitro. Además, tras una Falta rival que no resulte en expulsión, tira 1D6: con 5+, el jugador es Expulsado."
+
+msgid "Apply +1 to recover KO'd players. Once per match, after deployment but before kick-off, you may redeploy 1D3 players."
+msgstr "Aplica +1 para recuperar jugadores KO. Una vez por partido, tras el despliegue pero antes del saque, puedes redesplegar 1D3 jugadores."
+
+msgid "Hire a player from your team list. The mercenary has Loner (4+). For +50,000, add one Primary skill."
+msgstr "Contrata un jugador de tu lista de equipo. El mercenario tiene Solitario (4+). Por +50.000, añade una habilidad Primaria."
+
+msgid "Hire a Star Player available to your team. Star Players do not gain SPP and cannot be permanently injured."
+msgstr "Contrata un Jugador Estrella disponible para tu equipo. Los Jugadores Estrella no ganan PE y no pueden sufrir lesiones permanentes."
+
+msgid "Once per match, cast either Fireball (place the ball, roll 2D6 for all players within 3 squares) or Lightning Bolt (target one player)."
+msgstr "Una vez por partido, lanza Bola de Fuego (coloca el balón, tira 2D6 para todos los jugadores en 3 casillas) o Rayo (apunta a un jugador)."
+
+# Inducement cost notes
+msgid "Plus the player's normal cost"
+msgstr "Más el coste normal del jugador"
+
+msgid "Variable - see star player list"
+msgstr "Variable - ver lista de Jugadores Estrella"
+
 # Prayers to Nuffle results
 msgid "Treacherous Trapdoor"
 msgstr "Trampilla Traicionera"
@@ -2812,4 +2940,53 @@ msgstr "Escrutinio Arbitral"
 
 msgid "Intensive Training"
 msgstr "Entrenamiento Intensivo"
+
+# Prayers to Nuffle descriptions
+msgid "When any player enters a trapdoor square, roll D6. On 1, they fall through."
+msgstr "Cada vez que un jugador entre en una casilla con trampilla, tira 1D6. Con 1, cae por ella."
+
+msgid "Treat any 5 or 6 when Arguing the Call as 'Now that you mention it...'"
+msgstr "Cuando Protestes al árbitro, trata cualquier resultado de 5 o 6 como 'Ahora que lo dices...'"
+
+msgid "One random player gains the Stab trait."
+msgstr "Elige al azar un jugador de tu equipo. Obtiene el rasgo Apuñalar."
+
+msgid "One player gains +1 AV (max 11+)."
+msgstr "Elige un jugador de tu equipo. Aumenta en 1 su atributo AV, hasta un máximo de 11+."
+
+msgid "One player gains Mighty Blow (+1)."
+msgstr "Elige un jugador de tu equipo. Obtiene la habilidad Golpe Mortífero."
+
+msgid "1D3 random opponent players gain Loner (2+)."
+msgstr "Elige al azar 1D3 jugadores rivales. Obtienen el rasgo Solitario (2+)."
+
+msgid "One random opponent player has -1 MV (min 1)."
+msgstr "Elige al azar un jugador rival. Su MV se reduce en 1 (mínimo 1)."
+
+msgid "One random player gains Pro."
+msgstr "Elige al azar un jugador de tu equipo. Obtiene la habilidad Profesional."
+
+msgid "Opponent players apply -1 to Going for It rolls."
+msgstr "Los jugadores rivales aplican -1 a sus intentos de Forzar la Marcha."
+
+msgid "Completed passes earn 2 SPP instead of 1."
+msgstr "Cualquier jugador de tu equipo que logre realizar un Pase completo ganará 2 PE en lugar de 1."
+
+msgid "Catching a pass earns 1 SPP."
+msgstr "Cualquier jugador de tu equipo que atrape con éxito el balón como resultado de una acción de Pase obtiene 1 PE."
+
+msgid "If an opponent is injured by a crowd push, the pusher earns 2 SPP."
+msgstr "Si un jugador rival resulta Lesionado al ser empujado fuera del campo, el jugador que lo ha empujado gana 2 PE."
+
+msgid "Fouls that cause injuries earn 2 SPP."
+msgstr "Cualquier jugador de tu equipo que provoque una Lesión como resultado de una acción de Falta gana 2 PE."
+
+msgid "Once per match, at start of your turn, pick a random opponent on pitch. On 4+, they are Knocked Down."
+msgstr "Una vez por partido, al inicio de cualquiera de tus turnos, elige al azar un jugador rival en el campo. Con 4+, es Derribado."
+
+msgid "Opponents committing fouls are automatically Sent Off if armor is broken."
+msgstr "Cualquier jugador rival que realice una acción de Falta será automáticamente Expulsado si rompe la armadura."
+
+msgid "One random player gains a Primary skill of your choice."
+msgstr "Elige al azar un jugador de tu equipo. Obtiene una habilidad Primaria a tu elección."
 

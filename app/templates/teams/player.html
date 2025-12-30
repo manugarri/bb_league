@@ -94,16 +94,27 @@
                 {% endif %}
                 
                 <!-- Skills -->
-                <h5 class="text-gold mb-3"><i class="bi bi-lightning me-2"></i>Skills</h5>
+                <h5 class="text-gold mb-3"><i class="bi bi-lightning me-2"></i>{% if get_locale() == 'es' %}Habilidades{% else %}Skills{% endif %}</h5>
                 {% set skills = player.get_skill_list() %}
                 {% if skills %}
                 <div class="mb-4">
                     {% for skill in skills %}
-                    <span class="badge bg-secondary me-1 mb-1">{{ skill }}</span>
+                    <span class="badge bg-secondary me-1 mb-1">{{ tr_skill(skill) }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                <p class="text-muted mb-4">No skills yet.</p>
+                <p class="text-muted mb-4">{% if get_locale() == 'es' %}Sin habilidades aún.{% else %}No skills yet.{% endif %}</p>
+                {% endif %}
+                
+                <!-- Traits -->
+                {% set traits = player.get_trait_list() %}
+                {% if traits %}
+                <h5 class="text-gold mb-3"><i class="bi bi-star-fill me-2"></i>{% if get_locale() == 'es' %}Rasgos{% else %}Traits{% endif %}</h5>
+                <div class="mb-4">
+                    {% for trait in traits %}
+                    <span class="badge bg-info text-dark me-1 mb-1">{{ tr_trait(trait) }}</span>
+                    {% endfor %}
+                </div>
                 {% endif %}
                 
                 <!-- Level Up Check -->

@@ -1,16 +1,15 @@
 {
   "skill_categories": [
-    {"id": "A", "name": "Agility", "name_es": "Agilidad"},
-    {"id": "S", "name": "Strength", "name_es": "Fuerza"},
-    {"id": "G", "name": "General", "name_es": "Generales"},
-    {"id": "M", "name": "Mutation", "name_es": "Mutación"},
-    {"id": "P", "name": "Passing", "name_es": "Pase"},
-    {"id": "E", "name": "Extraordinary", "name_es": "Triquiñuelas"}
+    {"id": "A", "name": "Agility"},
+    {"id": "S", "name": "Strength"},
+    {"id": "G", "name": "General"},
+    {"id": "M", "name": "Mutation"},
+    {"id": "P", "name": "Passing"},
+    {"id": "E", "name": "Extraordinary"}
   ],
   "skills": [
     {
       "name": "Catch",
-      "name_es": "Atrapar",
       "category": "A",
       "type": "active",
       "description": "This player may re-roll a failed Catch roll. Additionally, this player may choose to use this skill to catch the ball if a Pass, Throw-in, or Kick-off causes it to land in their square.",
@@ -18,7 +17,6 @@
     },
     {
       "name": "Diving Catch",
-      "name_es": "Recepción heroica",
       "category": "A",
       "type": "active",
       "description": "This player may attempt to catch the ball in an adjacent empty square during a Pass action. If they fail, they are placed Prone in that square.",
@@ -26,7 +24,6 @@
     },
     {
       "name": "Diving Tackle",
-      "name_es": "Placaje heroico",
       "category": "A",
       "type": "active",
       "description": "When an opposing player attempts to Dodge out of a square in which they were being Marked by this player, this player may place themselves Prone to apply a -2 modifier to the Dodge roll.",
@@ -34,7 +31,6 @@
     },
     {
       "name": "Dodge",
-      "name_es": "Esquivar",
       "category": "A",
       "type": "active",
       "description": "Once per turn, this player may re-roll a failed Dodge roll. Additionally, this player may choose to use this skill to apply a -1 modifier to the Armour roll when they are hit by a Block.",
@@ -42,7 +38,6 @@
     },
     {
       "name": "Defensive",
-      "name_es": "Defensa",
       "category": "S",
       "type": "active",
       "description": "During the opposing team's turn, when an opposition player attempts to Block this player, this player may apply a +1 modifier to their own Strength characteristic.",
@@ -50,7 +45,6 @@
     },
     {
       "name": "Jump Up",
-      "name_es": "En pie de un salto",
       "category": "A",
       "type": "active",
       "description": "This player may stand up for free at the start of their activation. If they do, they may also attempt to Block an adjacent player without first having to stand up.",
@@ -58,7 +52,6 @@
     },
     {
       "name": "Leap",
-      "name_es": "Saltar",
       "category": "A",
       "type": "active",
       "description": "During their Movement action, this player may attempt to Leap over a single adjacent square. This works like a Jump, except this player may reduce any negative modifiers by 1, to a minimum of -1.",
@@ -66,7 +59,6 @@
     },
     {
       "name": "Safe Pair of Hands",
-      "name_es": "Proteger el cuero",
       "category": "A",
       "type": "active",
       "description": "If this player is Knocked Down or placed Prone while in possession of the ball, the ball does not bounce. Instead, they may place it in any adjacent square, or keep possession of it.",
@@ -74,7 +66,6 @@
     },
     {
       "name": "Side Step",
-      "name_es": "Echarse a un lado",
       "category": "A",
       "type": "active",
       "description": "When this player is pushed back as the result of a Block action against them, they may choose which square they are pushed to rather than the opposing coach.",
@@ -82,7 +73,6 @@
     },
     {
       "name": "Sprint",
-      "name_es": "Esprintar",
       "category": "A",
       "type": "active",
       "description": "When this player performs any action that includes movement, they may attempt to Rush three times rather than the usual two.",
@@ -90,7 +80,6 @@
     },
     {
       "name": "Sure Feet",
-      "name_es": "Pies firmes",
       "category": "A",
       "type": "active",
       "description": "Once per turn, this player may re-roll a failed Rush roll.",
@@ -98,7 +87,6 @@
     },
     {
       "name": "Sidestep",
-      "name_es": "Zafarse",
       "category": "G",
       "type": "active",
       "description": "When this player is pushed as the result of a Block action performed against them, the opposing player cannot make a follow-up move.",
@@ -106,7 +94,6 @@
     },
     {
       "name": "Break Tackle",
-      "name_es": "Abrirse paso",
       "category": "S",
       "type": "active",
       "description": "Once per turn, when this player attempts to Dodge, they may apply a modifier based on their Strength: +1 if ST 3 or less, +2 if ST 4, +3 if ST 5 or more.",
@@ -114,7 +101,6 @@
     },
     {
       "name": "Arm Bar",
-      "name_es": "Llave de brazo",
       "category": "S",
       "type": "active",
       "description": "When an opposing player attempts to Dodge, Leap, or Jump out of a square in which they were being Marked by this player, this player may apply a -1 modifier to the roll.",
@@ -122,7 +108,6 @@
     },
     {
       "name": "Brawler",
-      "name_es": "Luchador",
       "category": "S",
       "type": "active",
       "description": "When this player performs a Block action on its own, they may re-roll a single Both Down result.",
@@ -130,7 +115,6 @@
     },
     {
       "name": "Grab",
-      "name_es": "Apartar",
       "category": "S",
       "type": "active",
       "description": "When this player makes a Block action, they may choose to push the opponent into any adjacent empty square rather than directly away.",
@@ -138,7 +122,6 @@
     },
     {
       "name": "Guard",
-      "name_es": "Defensa",
       "category": "S",
       "type": "passive",
       "description": "When assisting a Block or being assisted in a Block, this player may lend their assist regardless of how many opposing players are Marking them.",
@@ -146,7 +129,6 @@
     },
     {
       "name": "Juggernaut",
-      "name_es": "Imparable",
       "category": "S",
       "type": "active",
       "description": "When this player performs a Blitz action, they may treat Both Down results as Pushback results. Additionally, opposing players cannot use the Stand Firm or Fend skills against this player during a Blitz.",
@@ -154,7 +136,6 @@
     },
     {
       "name": "Mighty Blow (+1)",
-      "name_es": "Golpe mortífero",
       "category": "S",
       "type": "active",
       "description": "When this player performs a Block action, they may apply a +1 modifier to either the Armour roll or the Injury roll. This modifier may be applied after the roll is made.",
@@ -162,7 +143,6 @@
     },
     {
       "name": "Multiple Block",
-      "name_es": "Placaje múltiple",
       "category": "S",
       "type": "active",
       "description": "When this player performs a Block action on its own, they may choose to Block two adjacent opposing players. Make a separate Block roll against each.",
@@ -170,7 +150,6 @@
     },
     {
       "name": "Pile Driver",
-      "name_es": "Meter la bota",
       "category": "E",
       "type": "active",
       "description": "When this player performs a Foul action, they may apply a +1 modifier to the Armour roll.",
@@ -178,7 +157,6 @@
     },
     {
       "name": "Stand Firm",
-      "name_es": "Mantenerse firmes",
       "category": "S",
       "type": "active",
       "description": "This player may choose not to be pushed back as the result of a Block action against them. If they do, they may not use the Fend skill.",
@@ -186,7 +164,6 @@
     },
     {
       "name": "Strong Arm",
-      "name_es": "Brazo fuerte",
       "category": "S",
       "type": "active",
       "description": "This player may apply a +1 modifier to any Passing Ability test they make when performing a Throw Team-mate action.",
@@ -194,7 +171,6 @@
     },
     {
       "name": "Thick Skull",
-      "name_es": "Cabeza dura",
       "category": "S",
       "type": "passive",
       "description": "When an Injury roll is made against this player, they may treat a Stunned result as Knocked Out instead.",
@@ -202,7 +178,6 @@
     },
     {
       "name": "Block",
-      "name_es": "Placar",
       "category": "G",
       "type": "passive",
       "description": "When this player is the target of a Block action or makes a Block action, Both Down results may be treated as if they rolled a Pushed result instead.",
@@ -210,7 +185,6 @@
     },
     {
       "name": "Dauntless",
-      "name_es": "Agallas",
       "category": "G",
       "type": "active",
       "description": "When this player performs a Block action against a player with higher Strength, they may roll 1D6 and add their Strength to the result. If the total is greater than the opposing player's Strength, this player counts as having equal Strength.",
@@ -218,7 +192,6 @@
     },
     {
       "name": "Dirty Player (+1)",
-      "name_es": "Jugar sucio",
       "category": "E",
       "type": "active",
       "description": "When this player performs a Foul action, they may apply a +1 modifier to either the Armour roll or the Injury roll.",
@@ -226,7 +199,6 @@
     },
     {
       "name": "Fend",
-      "name_es": "Forcejear",
       "category": "G",
       "type": "active",
       "description": "When this player is pushed back as the result of a Block action against them, the opposing player may not follow up.",
@@ -234,7 +206,6 @@
     },
     {
       "name": "Frenzy",
-      "name_es": "Furia",
       "category": "G",
       "type": "passive",
       "mandatory": true,
@@ -243,7 +214,6 @@
     },
     {
       "name": "Kick",
-      "name_es": "Patada",
       "category": "G",
       "type": "active",
       "description": "When this player is nominated to be the kicking player, they may choose to halve the number of squares the ball deviates, rounding fractions down.",
@@ -251,7 +221,6 @@
     },
     {
       "name": "Pro",
-      "name_es": "Profesional",
       "category": "G",
       "type": "active",
       "description": "Once per turn, this player may re-roll one dice that was rolled either as a single dice roll, as part of a multiple dice roll, or as part of a dice pool. On a 3+, the dice may be re-rolled. On 1-2, the original result stands.",
@@ -259,7 +228,6 @@
     },
     {
       "name": "Shadowing",
-      "name_es": "Perseguir",
       "category": "E",
       "type": "active",
       "description": "When an opposing player voluntarily moves out of a square in which they were being Marked by this player, this player may attempt to follow them into the vacated square.",
@@ -267,7 +235,6 @@
     },
     {
       "name": "Strip Ball",
-      "name_es": "Robar balón",
       "category": "G",
       "type": "active",
       "description": "When this player performs a Block action against the ball carrier, if the ball carrier is pushed, they will drop the ball in the square they are pushed to.",
@@ -275,7 +242,6 @@
     },
     {
       "name": "Sure Hands",
-      "name_es": "Manos seguras",
       "category": "G",
       "type": "active",
       "description": "This player may re-roll any failed Pick-up roll. Additionally, the Strip Ball skill cannot be used against this player.",
@@ -283,7 +249,6 @@
     },
     {
       "name": "Tackle",
-      "name_es": "Placaje defensivo",
       "category": "G",
       "type": "passive",
       "description": "When an opposing player attempts to Dodge out of a square in which they are being Marked by this player, that player cannot use the Dodge skill.",
@@ -291,7 +256,6 @@
     },
     {
       "name": "Wrestle",
-      "name_es": "Provocar",
       "category": "G",
       "type": "active",
       "description": "When this player performs or is the target of a Block action, they may treat a Both Down result as if both players had been Knocked Down (neither uses the Block skill if they have it).",
@@ -299,7 +263,6 @@
     },
     {
       "name": "Big Hand",
-      "name_es": "Mano grande",
       "category": "M",
       "type": "passive",
       "description": "This player may ignore any modifier(s) for being Marked or for Pouring Rain weather when they attempt to pick up the ball.",
@@ -307,7 +270,6 @@
     },
     {
       "name": "Claws",
-      "name_es": "Garras",
       "category": "M",
       "type": "active",
       "description": "When this player performs a Block action, they may choose to treat an Armour roll result of 8+ as successful, regardless of the opposing player's Armour Value.",
@@ -315,7 +277,6 @@
     },
     {
       "name": "Disturbing Presence",
-      "name_es": "Presencia perturbadora",
       "category": "M",
       "type": "passive",
       "description": "When an opposing player attempts to Pass, Throw Team-mate, or use the Bombardier trait within three squares of this player, they suffer an additional -1 modifier.",
@@ -323,7 +284,6 @@
     },
     {
       "name": "Extra Arms",
-      "name_es": "Brazos adicionales",
       "category": "M",
       "type": "passive",
       "description": "This player may apply a +1 modifier when they attempt to pick up or catch the ball.",
@@ -331,7 +291,6 @@
     },
     {
       "name": "Foul Appearance",
-      "name_es": "Apariencia asquerosa",
       "category": "M",
       "type": "passive",
       "mandatory": true,
@@ -340,7 +299,6 @@
     },
     {
       "name": "Horns",
-      "name_es": "Cuernos",
       "category": "M",
       "type": "active",
       "description": "When this player performs a Blitz action, they may apply a +1 modifier to their Strength characteristic.",
@@ -348,7 +306,6 @@
     },
     {
       "name": "Iron Hard Skin",
-      "name_es": "Piel férrea",
       "category": "M",
       "type": "passive",
       "description": "The Claws skill cannot be used when making an Armour roll against this player.",
@@ -356,7 +313,6 @@
     },
     {
       "name": "Monstrous Mouth",
-      "name_es": "Boca monstruosa",
       "category": "M",
       "type": "active",
       "description": "This player may re-roll any failed Catch roll.",
@@ -364,7 +320,6 @@
     },
     {
       "name": "Prehensile Tail",
-      "name_es": "Cola prensil",
       "category": "M",
       "type": "passive",
       "description": "When an opposing player attempts to Dodge, Leap, or Jump out of a square in which they are being Marked by this player, they suffer an additional -1 modifier.",
@@ -372,7 +327,6 @@
     },
     {
       "name": "Tentacles",
-      "name_es": "Tentáculos",
       "category": "M",
       "type": "active",
       "description": "When an opposing player attempts to Dodge, Leap, or Jump out of this player's tackle zone, roll 1D6 and add this player's Strength, subtracting the opposing player's Strength. On a 6+, the opposing player cannot leave and their activation ends.",
@@ -380,7 +334,6 @@
     },
     {
       "name": "Two Heads",
-      "name_es": "Dos cabezas",
       "category": "M",
       "type": "passive",
       "description": "This player may apply a +1 modifier when they attempt to Dodge.",
@@ -388,7 +341,6 @@
     },
     {
       "name": "Very Long Legs",
-      "name_es": "Piernas muy largas",
       "category": "M",
       "type": "passive",
       "description": "This player may reduce any negative modifiers applied to a Leap roll by 1, to a minimum of -1. Additionally, their tackle zone extends one square further.",
@@ -396,7 +348,6 @@
     },
     {
       "name": "Accurate",
-      "name_es": "Precisión",
       "category": "P",
       "type": "active",
       "description": "When this player performs a Quick Pass or Short Pass action, they may apply a +1 modifier to the Passing Ability test.",
@@ -404,7 +355,6 @@
     },
     {
       "name": "Cannoneer",
-      "name_es": "Cañonero",
       "category": "P",
       "type": "active",
       "description": "When this player performs a Long Pass or Long Bomb action, they may apply a +1 modifier to the Passing Ability test.",
@@ -412,7 +362,6 @@
     },
     {
       "name": "Cloud Burster",
-      "name_es": "Partenubes",
       "category": "P",
       "type": "active",
       "description": "When this player makes a Long Pass or Long Bomb, they may choose to make it a Cloud Burster. The ball travels in a straight line and cannot deviate.",
@@ -420,7 +369,6 @@
     },
     {
       "name": "Dump-Off",
-      "name_es": "Dejada",
       "category": "E",
       "type": "active",
       "description": "If this player is the target of a Block action and is in possession of the ball, they may immediately perform a Quick Pass action, targeting any player they can normally pass to.",
@@ -428,7 +376,6 @@
     },
     {
       "name": "Fumblerooskie",
-      "name_es": "Pase a lo loco",
       "category": "P",
       "type": "active",
       "description": "When this player performs a Pass action and fumbles the ball, they may choose to have the ball bounce from any adjacent square rather than their own.",
@@ -436,7 +383,6 @@
     },
     {
       "name": "Hail Mary Pass",
-      "name_es": "Pase precipitado",
       "category": "P",
       "type": "active",
       "description": "When this player performs a Pass action, they may attempt a Hail Mary Pass. The ball may be thrown to any square on the field, but always has a -1 modifier.",
@@ -444,7 +390,6 @@
     },
     {
       "name": "Leader",
-      "name_es": "Líder",
       "category": "P",
       "type": "passive",
       "description": "A team that includes one or more players with this skill gains a single extra Team Re-roll at the start of each half.",
@@ -452,7 +397,6 @@
     },
     {
       "name": "Nerves of Steel",
-      "name_es": "Nervios de acero",
       "category": "P",
       "type": "passive",
       "description": "This player may ignore any modifier(s) for being Marked when they attempt to Pass, Catch, or Intercept.",
@@ -460,7 +404,6 @@
     },
     {
       "name": "On the Ball",
-      "name_es": "Atento al balón",
       "category": "P",
       "type": "active",
       "description": "This player may move up to 3 squares when the opposing coach declares that one of their players is going to Pass. This move is made out of sequence, before the Pass is resolved.",
@@ -468,7 +411,6 @@
     },
     {
       "name": "Pass",
-      "name_es": "Pasar",
       "category": "P",
       "type": "active",
       "description": "This player may re-roll a failed Passing Ability test when performing a Pass action.",
@@ -476,7 +418,6 @@
     },
     {
       "name": "Running Pass",
-      "name_es": "Pasar y seguir",
       "category": "P",
       "type": "active",
       "description": "When this player performs a Quick Pass action, they may continue their Move action after completing the Pass.",
@@ -484,7 +425,6 @@
     },
     {
       "name": "Safe Pass",
-      "name_es": "Pase seguro",
       "category": "P",
       "type": "active",
       "description": "If this player fumbles a Pass, the ball is not dropped but remains in their possession.",
@@ -492,7 +432,6 @@
     },
     {
       "name": "Kick-Off Return",
-      "name_es": "Patada de despeje",
       "category": "P",
       "type": "active",
       "description": "If a touchback is caused during a kick-off, this player may attempt to catch the ball if they are in the End Zone.",
@@ -500,7 +439,6 @@
     },
     {
       "name": "Sneaky Git",
-      "name_es": "Furtivo",
       "category": "E",
       "type": "active",
       "description": "When this player is Sent Off for committing a Foul, roll a D6. On a 2+, they are not Sent Off.",
@@ -508,23 +446,13 @@
     },
     {
       "name": "Stab",
-      "name_es": "Crujir",
       "category": "E",
       "type": "active",
       "description": "Instead of performing a Block action, this player may perform a Stab action. Make an Armour roll against the opposing player, applying a +1 modifier.",
       "description_es": "En lugar de realizar una acción de Placaje, este jugador puede realizar una acción de Apuñalar. Haz una tirada de Armadura contra el rival con +1."
     },
     {
-      "name": "Diving Tackle",
-      "name_es": "Golpe a la carrera",
-      "category": "A",
-      "type": "active",
-      "description": "When this player moves as part of a Blitz action, they may apply a +1 modifier to their Strength characteristic when making Block actions during that Blitz.",
-      "description_es": "Cuando este jugador se mueve como parte de una acción de Penetración, puede aplicar un modificador de +1 a su Fuerza al hacer acciones de Placaje."
-    },
-    {
       "name": "Defensive Tackle",
-      "name_es": "Romper defensas",
       "category": "A",
       "type": "active",
       "description": "During the opposing team's turn, players Marked by this player cannot use the Defensive or Pile Driver skills.",
@@ -532,31 +460,13 @@
     },
     {
       "name": "Piling On",
-      "name_es": "Meter la bota",
       "category": "E",
       "type": "active",
       "description": "When this player performs a Foul action, they may apply a +1 modifier to the Armour roll.",
       "description_es": "Cuando este jugador realiza una acción de Falta, puede aplicar un modificador de +1 a la tirada de Armadura."
     },
     {
-      "name": "Sneaky Git",
-      "name_es": "Agresor discreto",
-      "category": "E",
-      "type": "active",
-      "description": "When this player is Sent Off for committing a Foul, roll a D6. On a 2+, they are not Sent Off but may continue playing.",
-      "description_es": "Cuando este jugador es Expulsado por cometer una Falta, tira 1D6. Con 2+, no es Expulsado."
-    },
-    {
-      "name": "Grab",
-      "name_es": "Ojo de halcón",
-      "category": "S",
-      "type": "active",
-      "description": "This player may ignore negative modifiers caused by opponents with skills like Dodge or Diving Tackle when making a Block.",
-      "description_es": "Este jugador puede ignorar modificadores negativos causados por rivales con habilidades como Esquivar o Placaje heroico al hacer un Placaje."
-    },
-    {
       "name": "Steady Feet",
-      "name_es": "Equilibrio firme",
       "category": "G",
       "type": "passive",
       "description": "This player may ignore being Pushed into the crowd.",
@@ -564,7 +474,6 @@
     },
     {
       "name": "Quick Foul",
-      "name_es": "Falta rápida",
       "category": "E",
       "type": "active",
       "description": "When this player performs a Foul action, they may choose to not be Sent Off even if they roll a double on the Armour or Injury roll.",
@@ -572,7 +481,6 @@
     },
     {
       "name": "Brutal Blocker",
-      "name_es": "Innovador violento",
       "category": "E",
       "type": "active",
       "description": "When this player causes a casualty, they may apply a +1 modifier to the Casualty roll.",
@@ -580,7 +488,6 @@
     },
     {
       "name": "Eye Gouge",
-      "name_es": "Piquete de ojos",
       "category": "E",
       "type": "active",
       "description": "When this player is involved in a Block action, regardless of the result, they may choose to commit an Eye Gouge. Roll a D6 - on a 4+, the opposing player gains a Niggling Injury.",
@@ -588,33 +495,50 @@
     },
     {
       "name": "Saboteur",
-      "name_es": "Saboteador",
       "category": "E",
       "type": "active",
       "description": "When this player is Knocked Down as a result of an opposing Block, before the Armour roll, roll 1D6. On a 4+, the opposing player is also Knocked Down.",
       "description_es": "Cuando este jugador es Derribado por un Placaje rival, tira 1D6. Con 4+, el jugador rival también es Derribado."
     },
     {
-      "name": "Diving Catch",
-      "name_es": "Recepción heroica",
-      "category": "A",
-      "type": "active",
-      "description": "This player may attempt to catch the ball in an adjacent empty square if a Pass, Throw-in, or Kick-off causes the ball to land there.",
-      "description_es": "Este jugador puede intentar atrapar el balón en una casilla vacía adyacente durante un Pase, Saque de banda o Patada inicial."
-    },
-    {
       "name": "Swoop",
-      "name_es": "Vuelo letal",
       "category": "E",
       "type": "active",
       "description": "When this player is thrown as part of a Throw Team-mate action and lands on an opposing player, apply a +1 modifier to either the Armour roll or Injury roll.",
       "description_es": "Cuando este jugador es lanzado y aterriza sobre un rival, puede aplicar +1 a la tirada de Armadura o Heridas."
+    },
+    {
+      "name": "Hit and Run",
+      "category": "A",
+      "type": "active",
+      "description": "After making a Block action as part of a Blitz, if this player is still standing and has not used their full Movement Allowance, they may continue to move.",
+      "description_es": "Después de realizar un Placaje como parte de una Penetración, si este jugador sigue en pie, puede continuar moviéndose."
+    },
+    {
+      "name": "Breathe Fire",
+      "category": "E",
+      "type": "active",
+      "description": "Instead of performing a Block action, this player may use Breathe Fire. Make an Armour roll against an adjacent opponent. If broken, make an Injury roll with a +1 modifier.",
+      "description_es": "En lugar de Placar, este jugador puede usar Aliento de fuego. Haz una tirada de Armadura contra un rival adyacente con +1 a la tirada de Heridas si superas."
+    },
+    {
+      "name": "My Ball",
+      "category": "E",
+      "type": "active",
+      "description": "When this player attempts to pick up the ball, they may apply a +1 modifier to the Agility roll.",
+      "description_es": "Cuando este jugador intenta recoger el balón, puede aplicar un +1 a la tirada de Agilidad."
+    },
+    {
+      "name": "Trickster",
+      "category": "A",
+      "type": "active",
+      "description": "When this player Dodges, opposing players cannot use skills or abilities that would cause them to fail their Dodge roll.",
+      "description_es": "Cuando este jugador Esquiva, los rivales no pueden usar habilidades que hagan fallar su tirada de Esquivar."
     }
   ],
   "traits": [
     {
       "name": "Always Hungry",
-      "name_es": "Siempre hambriento",
       "type": "active",
       "mandatory": true,
       "description": "When this player performs a Throw Team-mate action, roll 1D6. On a 2+, proceed normally. On a 1, roll again: on 2+ the teammate escapes and the pass is fumbled; on 1, the teammate is eaten and removed from the game.",
@@ -622,7 +546,6 @@
     },
     {
       "name": "Animosity",
-      "name_es": "Animosidad",
       "type": "passive",
       "mandatory": true,
       "description": "This player has difficulty playing with certain teammates. When attempting to Pass to or Hand Off to such a teammate, roll 1D6. On 1, the action fails.",
@@ -630,7 +553,6 @@
     },
     {
       "name": "Ball & Chain",
-      "name_es": "Bola con cadena",
       "type": "passive",
       "mandatory": true,
       "description": "This player must move in a random direction each turn and cannot be controlled normally. They automatically Block any player they move adjacent to.",
@@ -638,14 +560,12 @@
     },
     {
       "name": "Bombardier",
-      "name_es": "Bombardero",
       "type": "active",
       "description": "This player may throw bombs instead of making normal actions. Bombs deviate like passes and explode on landing.",
       "description_es": "Este jugador puede lanzar bombas en lugar de hacer acciones normales. Las bombas se desvían como pases y explotan al aterrizar."
     },
     {
       "name": "Bone Head",
-      "name_es": "Cabeza hueca",
       "type": "passive",
       "mandatory": true,
       "description": "When this player is activated, roll 1D6. On a 1, they stand around doing nothing and their activation immediately ends.",
@@ -653,14 +573,12 @@
     },
     {
       "name": "Chainsaw",
-      "name_es": "Motosierra",
       "type": "active",
       "description": "Instead of performing a Block, this player may attack with their chainsaw. Roll a D6 - on a 2+, make an Armour roll with a +3 modifier. On a 1, the chainsaw kicks back and hits this player instead.",
       "description_es": "En lugar de Placar, este jugador puede atacar con su motosierra. Con 2+ en 1D6, haz tirada de Armadura con +3. Con 1, la motosierra golpea a este jugador."
     },
     {
       "name": "Decay",
-      "name_es": "Descomposición",
       "type": "passive",
       "mandatory": true,
       "description": "When this player suffers a Casualty, the result is automatically increased by one level (KO becomes Badly Hurt, etc.).",
@@ -668,21 +586,18 @@
     },
     {
       "name": "Hypnotic Gaze",
-      "name_es": "Mirada hipnótica",
       "type": "active",
       "description": "This player may use Hypnotic Gaze on an adjacent opposing player instead of taking another action. Roll 2+ on their Agility to succeed - the target loses their tackle zone until the end of this turn.",
       "description_es": "Este jugador puede usar Mirada hipnótica en un rival adyacente. Con 2+ en Agilidad, el objetivo pierde su zona de defensa hasta el final del turno."
     },
     {
       "name": "Kick Team-mate",
-      "name_es": "Patear compañero",
       "type": "active",
       "description": "This player may kick a teammate with the Right Stuff trait instead of throwing them, with different range and accuracy rules.",
       "description_es": "Este jugador puede patear a un compañero con el rasgo Humanoide bala en lugar de lanzarlo."
     },
     {
       "name": "Loner (X+)",
-      "name_es": "Solitario",
       "type": "passive",
       "mandatory": true,
       "description": "If this player wants to use a team re-roll, roll 1D6 first. If the result is less than X, the re-roll is wasted.",
@@ -690,7 +605,6 @@
     },
     {
       "name": "No Hands",
-      "name_es": "Sin manos",
       "type": "passive",
       "mandatory": true,
       "description": "This player cannot pick up, catch, carry, or pass the ball.",
@@ -698,21 +612,18 @@
     },
     {
       "name": "Pogo Stick",
-      "name_es": "Pogo saltarín",
       "type": "active",
       "description": "During their Movement action, this player may attempt to leap over any number of adjacent squares (instead of just one).",
       "description_es": "Durante su acción de Movimiento, este jugador puede intentar saltar sobre cualquier número de casillas adyacentes."
     },
     {
       "name": "Projectile Vomit",
-      "name_es": "Vómito proyectil",
       "type": "active",
       "description": "Instead of performing a Block action, this player may use Projectile Vomit on an adjacent opponent. Roll 2+ to succeed - the opponent is Knocked Down.",
       "description_es": "En lugar de Placar, este jugador puede usar Vómito proyectil contra un rival adyacente. Con 2+, el rival es Derribado."
     },
     {
       "name": "Really Stupid",
-      "name_es": "Muy estúpido",
       "type": "passive",
       "mandatory": true,
       "description": "When this player is activated, unless there is a teammate adjacent, roll 1D6. On 1-3, they do nothing and their activation ends. On 4+, they may act normally.",
@@ -720,21 +631,18 @@
     },
     {
       "name": "Regeneration",
-      "name_es": "Regeneración",
       "type": "passive",
       "description": "When this player suffers a Casualty, roll 1D6 before making the Injury roll. On 4+, the Casualty is ignored and this player is placed in the Reserves box.",
       "description_es": "Cuando este jugador sufre una Baja, tira 1D6 antes de la tirada de Heridas. Con 4+, la Baja se ignora y el jugador va a Reservas."
     },
     {
       "name": "Right Stuff",
-      "name_es": "Humanoide bala",
       "type": "passive",
       "description": "This player can be thrown by a teammate with the Throw Team-mate skill.",
       "description_es": "Este jugador puede ser lanzado por un compañero con la habilidad Lanzar compañero."
     },
     {
       "name": "Secret Weapon",
-      "name_es": "Arma secreta",
       "type": "passive",
       "mandatory": true,
       "description": "At the end of each drive in which this player was on the pitch, they are automatically Sent Off.",
@@ -742,14 +650,12 @@
     },
     {
       "name": "Stab",
-      "name_es": "Puñal",
       "type": "active",
       "description": "Instead of performing a Block action, this player may make a Stab attack. Make an Armour roll against the target.",
       "description_es": "En lugar de Placar, este jugador puede hacer un ataque de Puñal. Haz una tirada de Armadura contra el objetivo."
     },
     {
       "name": "Stunty",
-      "name_es": "Menudo",
       "type": "passive",
       "mandatory": true,
       "description": "This player applies a +1 modifier to any Dodge roll. However, when an Injury roll is made against them, the result is increased by one level.",
@@ -757,14 +663,12 @@
     },
     {
       "name": "Swarming",
-      "name_es": "Enjambre",
       "type": "passive",
       "description": "During setup, additional players with this trait may be placed on the pitch beyond the normal limit.",
       "description_es": "Durante la colocación, jugadores adicionales con este rasgo pueden colocarse en el campo más allá del límite normal."
     },
     {
       "name": "Take Root",
-      "name_es": "Echar raíces",
       "type": "passive",
       "mandatory": true,
       "description": "When this player is activated, roll 1D6. On a 1, they take root and cannot move for the rest of the drive (but can still Block and Pass).",
@@ -772,7 +676,6 @@
     },
     {
       "name": "Titchy",
-      "name_es": "Diminuto",
       "type": "passive",
       "mandatory": true,
       "description": "This player applies a +1 modifier when attempting to Dodge and opponents apply a -1 modifier when attempting to intercept passes thrown by this player.",
@@ -780,21 +683,18 @@
     },
     {
       "name": "Throw Team-mate",
-      "name_es": "Lanzar compañero",
       "type": "active",
       "description": "This player may throw a teammate with the Right Stuff trait instead of the ball.",
       "description_es": "Este jugador puede lanzar a un compañero con el rasgo Humanoide bala en lugar del balón."
     },
     {
       "name": "Timmm-ber!",
-      "name_es": "¡Tronco va!",
       "type": "passive",
       "description": "If this player has MA of 2 or less, apply a +1 modifier to their stand-up rolls for each unmarked, standing teammate adjacent to them.",
       "description_es": "Si este jugador tiene MV de 2 o menos, aplica +1 a sus tiradas para levantarse por cada compañero Desmarcado y En pie adyacente."
     },
     {
       "name": "Unchannelled Fury",
-      "name_es": "Furia desatada",
       "type": "passive",
       "mandatory": true,
       "description": "When this player is activated and wishes to Block, Blitz, or perform certain other actions, roll 1D6. On 1-3, they fail and may only Move. On 4+, they may act normally.",
@@ -802,12 +702,63 @@
     },
     {
       "name": "Blood Lust (X+)",
-      "name_es": "Sed de sangre",
       "type": "passive",
       "mandatory": true,
       "description": "When this player is activated, roll 1D6 (adding 1 if declaring Block or Blitz). If less than X (or natural 1), they may act but must bite a Thrall teammate at end of activation or suffer consequences.",
       "description_es": "Cuando este jugador es activado, tira 1D6. Si el resultado es menor que X, debe morder a un Thrall al final de su activación o sufrir consecuencias."
+    },
+    {
+      "name": "Animal Savagery",
+      "type": "passive",
+      "mandatory": true,
+      "description": "When this player is activated, roll 1D6. On 1-3, they must attempt to Block an adjacent player (friend or foe). On 4+, they may act normally.",
+      "description_es": "Cuando este jugador es activado, tira 1D6. Con 1-3, debe intentar Placar a un jugador adyacente (amigo o enemigo). Con 4+, actúa normalmente."
+    },
+    {
+      "name": "Drunkard",
+      "type": "passive",
+      "mandatory": true,
+      "description": "When this player attempts to Rush, they may only roll D6 once rather than being able to re-roll.",
+      "description_es": "Cuando este jugador intenta Correr, solo puede tirar 1D6 una vez sin poder repetir."
+    },
+    {
+      "name": "Hate (X)",
+      "type": "passive",
+      "mandatory": true,
+      "description": "This player has an intense hatred for players of a specific type (X). When Blocking such a player, this player may apply a +1 modifier to the result.",
+      "description_es": "Este jugador odia intensamente a jugadores de un tipo específico (X). Al Placar a dicho jugador, puede aplicar +1 al resultado."
+    },
+    {
+      "name": "Plague Ridden",
+      "type": "passive",
+      "description": "Once per game, if an opposing player with ST 4 or less is Killed by this player's Block, that player may be replaced by a Rotter Lineman.",
+      "description_es": "Una vez por partido, si un jugador rival con FU 4 o menos es Muerto por el Placaje de este jugador, puede ser reemplazado por un Lineman Putrefacto."
+    },
+    {
+      "name": "Unsteady",
+      "type": "passive",
+      "mandatory": true,
+      "description": "When this player is Pushed Back or places themselves Prone deliberately, they must test to stay upright. Roll 1D6: on 1-2, they become Stunned.",
+      "description_es": "Cuando este jugador es Empujado o se Tumba deliberadamente, debe tirar para mantenerse en pie. Tira 1D6: con 1-2, queda Aturdido."
+    },
+    {
+      "name": "Taunt",
+      "type": "active",
+      "mandatory": true,
+      "description": "Once per turn, during their team's turn, this player may choose an opposing player within 3 squares and in line of sight. That player may only Move or Block this player during their next activation.",
+      "description_es": "Una vez por turno, durante el turno de su equipo, este jugador puede elegir a un jugador rival a 3 casillas o menos y en línea de visión. Ese jugador solo podrá Moverse o Placar a este jugador durante su siguiente activación."
+    },
+    {
+      "name": "Dump-off",
+      "type": "active",
+      "description": "When this player is nominated as the target of a Block action, they may immediately perform a Quick Pass to an eligible teammate within range, before the Block is resolved.",
+      "description_es": "Cuando este jugador es nominado como objetivo de una acción de Placaje, puede inmediatamente realizar un Pase Rápido a un compañero elegible dentro del alcance, antes de resolver el Placaje."
+    },
+    {
+      "name": "Punt",
+      "type": "active",
+      "description": "When making a Kick-off, this player may choose to punt the ball instead of placing it normally. A punt may land anywhere on the field.",
+      "description_es": "Al realizar un Saque Inicial, este jugador puede elegir despejar el balón en lugar de colocarlo normalmente. Un despeje puede aterrizar en cualquier parte del campo."
     }
   ]
 }
-

@@ -67,16 +67,10 @@
                     {% for ps in current_skills %}
                     <div class="d-inline-flex align-items-center bg-dark rounded px-2 py-1">
                         <span class="badge bg-{{ 'primary' if ps.skill.category in primary_categories else 'secondary' }} me-2" 
-                              title="{{ ps.skill.category_name_es if get_locale() == 'es' else ps.skill.category_name }}">
+                              title="{{ tr_skill(ps.skill.category_name) }}">
                             {{ ps.skill.category }}
                         </span>
-                        <span class="me-2">
-                            {% if get_locale() == 'es' and ps.skill.name_es %}
-                                {{ ps.skill.name_es }}
-                            {% else %}
-                                {{ ps.skill.name }}
-                            {% endif %}
-                        </span>
+                        <span class="me-2">{{ tr_skill(ps.skill.name) }}</span>
                         {% if ps.is_starting %}
                         <span class="badge bg-success" title="{% if get_locale() == 'es' %}Habilidad inicial{% else %}Starting skill{% endif %}">
                             <i class="bi bi-star-fill"></i>
@@ -120,6 +114,34 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Current Traits Card -->
+        {% set current_traits = player.traits.all() %}
+        {% if current_traits %}
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-star-fill me-2"></i>{% if get_locale() == 'es' %}Rasgos{% else %}Traits{% endif %}</span>
+                <span class="badge bg-info">{{ current_traits|length }}</span>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2">
+                    {% for pt in current_traits %}
+                    <div class="d-inline-flex align-items-center bg-dark rounded px-2 py-1">
+                        <span class="badge bg-info text-dark me-2">T</span>
+                        <span class="me-2">{{ tr_trait(pt.trait.name) }}</span>
+                        <span class="badge bg-success" title="{% if get_locale() == 'es' %}Rasgo innato{% else %}Innate trait{% endif %}">
+                            <i class="bi bi-lock-fill"></i>
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="small text-muted mt-3">
+                    <i class="bi bi-info-circle me-1"></i>
+                    {% if get_locale() == 'es' %}Los rasgos son habilidades innatas y no se pueden quitar.{% else %}Traits are innate abilities and cannot be removed.{% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
     
     <!-- Add Skills Column -->
@@ -139,7 +161,7 @@
                                 data-bs-toggle="tab" 
                                 data-bs-target="#content-{{ cat }}" 
                                 type="button" role="tab">
-                            {{ data.name_es if get_locale() == 'es' else data.name }}
+                            {{ _(data.name) }}
                             <span class="badge bg-{{ 'primary' if data.is_primary else 'secondary' }} ms-1">{{ data.skills|length }}</span>
                         </button>
                     </li>
@@ -158,17 +180,9 @@
                                     <div class="card-body py-2 px-3">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="flex-grow-1">
-                                                <h6 class="mb-1 text-gold">
-                                                    {% if get_locale() == 'es' and skill.name_es %}
-                                                        {{ skill.name_es }}
-                                                    {% else %}
-                                                        {{ skill.name }}
-                                                    {% endif %}
-                                                </h6>
+                                                <h6 class="mb-1 text-gold">{{ tr_skill(skill.name) }}</h6>
                                                 <small class="text-muted d-block" style="font-size: 0.75rem;">
-                                                    {% if get_locale() == 'es' and skill.description_es %}
-                                                        {{ skill.description_es[:100] }}{% if skill.description_es|length > 100 %}...{% endif %}
-                                                    {% elif skill.description %}
+                                                    {% if skill.description %}
                                                         {{ skill.description[:100] }}{% if skill.description|length > 100 %}...{% endif %}
                                                     {% endif %}
                                                 </small>

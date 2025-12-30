@@ -22,6 +22,7 @@ This document tracks all design decisions and changes made during development.
 15. [Special Rules System](#special-rules-system)
 16. [Star Players League Types](#star-players-league-types)
 17. [Pre-Match Activities System](#pre-match-activities-system)
+18. [Starting Skills Assignment](#starting-skills-assignment)
 
 ---
 
@@ -795,6 +796,51 @@ Skills and traits extracted from the official Blood Bowl 3rd Edition rulebook (P
 - `player.get_all_abilities()` - Returns dict with skills and traits
 - `player.add_skill(skill, is_starting)` - Add a skill to player
 - `player.add_trait(trait)` - Add a trait to player
+- `player.assign_starting_skills()` - Assign starting skills/traits from position
+
+---
+
+## Starting Skills Assignment
+
+### Overview
+When players are hired, they automatically receive the starting skills and traits defined for their position. This mirrors the Blood Bowl rules where each position type comes with specific abilities.
+
+### Implementation
+
+#### Automatic Skill Assignment on Hire
+When a player is hired through the `hire_player` route:
+1. Player is created with stats from position
+2. `player.assign_starting_skills()` is called
+3. Starting skills/traits from `Position.starting_skills` are parsed
+4. Each skill/trait is looked up in the database and assigned with `is_starting=True`
+
+#### Skill/Trait Matching Logic
+The `assign_starting_skills()` method handles:
+- **Exact matches**: Skills like "Block", "Dodge" are matched directly
+- **Parameterized abilities**: Skills like "Loner (4+)" are matched to "Loner (X+)" in the database
+- **Missing abilities**: Logged as warnings but don't fail the operation
+
+#### Database Models
+- `PlayerSkill.is_starting` - Boolean flag indicating if skill came with position
+- `PlayerTrait.is_starting` - Boolean flag indicating if trait came with position
+
+### Backfill Script
+For existing players without starting skills:
+
+```bash
+# Preview what would be changed
+make backfill-skills DRY_RUN=1
+
+# Apply changes
+make backfill-skills
+```
+
+Script location: `scripts/backfill_player_skills.py`
+
+### Skills Added to skills.json
+The following skills/traits were added to support all position abilities:
+- **Skills**: Hit and Run, Breathe Fire, My Ball, Trickster
+- **Traits**: Animal Savagery, Drunkard, Hate (X), Plague Ridden
 
 ---
 

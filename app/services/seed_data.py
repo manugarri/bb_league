@@ -31,12 +31,10 @@ def seed_skills_and_traits():
         if not existing:
             skill = Skill(
                 name=skill_data["name"],
-                name_es=skill_data.get("name_es"),
                 category=skill_data.get("category", "G"),
                 skill_type=skill_data.get("type", "active"),
                 is_mandatory=skill_data.get("mandatory", False),
-                description=skill_data.get("description"),
-                description_es=skill_data.get("description_es")
+                description=skill_data.get("description")
             )
             db.session.add(skill)
             skill_count += 1
@@ -47,11 +45,9 @@ def seed_skills_and_traits():
         if not existing:
             trait = Trait(
                 name=trait_data["name"],
-                name_es=trait_data.get("name_es"),
                 trait_type=trait_data.get("type", "passive"),
                 is_mandatory=trait_data.get("mandatory", False),
-                description=trait_data.get("description"),
-                description_es=trait_data.get("description_es")
+                description=trait_data.get("description")
             )
             db.session.add(trait)
             trait_count += 1
@@ -106,25 +102,26 @@ def seed_races_and_positions():
             db.session.flush()  # Get the race ID
             race_count += 1
         else:
-            # Update existing race's special rules if changed
-            if race.special_rules != special_rules_json:
-                race.special_rules = special_rules_json
-            # Update existing race's league types if changed
-            if race.league_types != league_types_json:
-                race.league_types = league_types_json
+            # Update existing race with all fields from JSON
+            race.description = team_data.get("description", race.description or "")
+            race.reroll_cost = team_data.get("reroll_cost", race.reroll_cost)
+            race.apothecary_allowed = team_data.get("apothecary_allowed", race.apothecary_allowed)
+            race.tier = team_data.get("tier", race.tier)
+            race.special_rules = special_rules_json
+            race.league_types = league_types_json
         
-        # Add positions
+        # Add or update positions
         for pos_data in team_data.get("positions", []):
+            # Handle passing value (0 means no passing)
+            passing_val = pos_data.get("pa")
+            if passing_val == 0:
+                passing_val = None
+            
+            # Convert skills array to comma-separated string
+            skills_str = ", ".join(pos_data.get("skills", []))
+            
             existing = Position.query.filter_by(race_id=race.id, name=pos_data["name"]).first()
             if not existing:
-                # Handle passing value (0 means no passing)
-                passing_val = pos_data.get("pa")
-                if passing_val == 0:
-                    passing_val = None
-                
-                # Convert skills array to comma-separated string
-                skills_str = ", ".join(pos_data.get("skills", []))
-                
                 position = Position(
                     race_id=race.id,
                     name=pos_data["name"],
@@ -141,6 +138,18 @@ def seed_races_and_positions():
                 )
                 db.session.add(position)
                 position_count += 1
+            else:
+                # Update existing position with new data
+                existing.movement = pos_data["ma"]
+                existing.strength = pos_data["st"]
+                existing.agility = pos_data["ag"]
+                existing.passing = passing_val
+                existing.armor = pos_data["av"]
+                existing.cost = pos_data["cost"]
+                existing.max_count = pos_data["max"]
+                existing.primary_skills = pos_data.get("primary", "G")
+                existing.secondary_skills = pos_data.get("secondary", "")
+                existing.starting_skills = skills_str
     
     db.session.commit()
     return race_count, position_count
@@ -156,6 +165,17 @@ def seed_star_players():
     
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
+    
+    # Name mapping from JSON to database (handles singular/plural variations)
+    race_name_mapping = {
+        "Amazon": "Amazons",
+        "Black Orc": "Black Orcs",
+        "Bretonnian": "Bretonnians",
+        "Chaos Renegade": "Chaos Renegades",
+        "Chaos Dwarf": "Chaos Dwarves",
+        "Gnome": "Gnomes",
+        # Most other races use the same name in JSON and DB
+    }
     
     star_count = 0
     
@@ -190,11 +210,20 @@ def seed_star_players():
             
             # Associate with races
             for team_name in sp_data.get("teams", []):
-                race = Race.query.filter_by(name=team_name).first()
+                # Map JSON name to database name
+                db_name = race_name_mapping.get(team_name, team_name)
+                race = Race.query.filter_by(name=db_name).first()
                 if race and race not in star.available_to_races:
                     star.available_to_races.append(race)
             
             star_count += 1
+        else:
+            # Update existing star player's race associations
+            for team_name in sp_data.get("teams", []):
+                db_name = race_name_mapping.get(team_name, team_name)
+                race = Race.query.filter_by(name=db_name).first()
+                if race and race not in star.available_to_races:
+                    star.available_to_races.append(race)
     
     db.session.commit()
     return star_count

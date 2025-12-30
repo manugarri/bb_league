@@ -45,6 +45,15 @@ def translate_skill(name: str, locale: str = None) -> str:
     return _(name)
 
 
+def translate_trait(name: str, locale: str = None) -> str:
+    """Translate a trait name using Flask-Babel."""
+    if locale is None:
+        locale = get_current_locale()
+    if locale == 'en':
+        return name
+    return _(name)
+
+
 def translate_star_player(name: str, locale: str = None) -> str:
     """Translate a star player name using Flask-Babel."""
     if locale is None:
@@ -136,7 +145,7 @@ def translate_skills_list(skills_str: str, locale: str = None) -> str:
 
 
 def translate_inducement(inducement: dict, locale: str = None) -> dict:
-    """Translate an inducement dictionary.
+    """Translate an inducement dictionary using Flask-Babel.
     
     Returns a new dict with translated name and description based on locale.
     """
@@ -144,16 +153,28 @@ def translate_inducement(inducement: dict, locale: str = None) -> dict:
         locale = get_current_locale()
     
     result = inducement.copy()
+    name = inducement.get('name', '')
+    description = inducement.get('description', '')
+    cost_note = inducement.get('cost_note', '')
     
-    if locale == 'es':
-        result['display_name'] = inducement.get('name_es', inducement.get('name', ''))
-        result['display_description'] = inducement.get('description_es', inducement.get('description', ''))
-        if 'cost_note_es' in inducement:
-            result['display_cost_note'] = inducement.get('cost_note_es')
+    if locale == 'en':
+        result['display_name'] = name
+        result['display_description'] = description
+        if cost_note:
+            result['display_cost_note'] = cost_note
     else:
-        result['display_name'] = inducement.get('name', '')
-        result['display_description'] = inducement.get('description', '')
-        if 'cost_note' in inducement:
-            result['display_cost_note'] = inducement.get('cost_note')
+        result['display_name'] = _(name) if name else ''
+        result['display_description'] = _(description) if description else ''
+        if cost_note:
+            result['display_cost_note'] = _(cost_note)
     
     return result
+
+
+def translate_inducement_name(name: str, locale: str = None) -> str:
+    """Translate an inducement name using Flask-Babel."""
+    if locale is None:
+        locale = get_current_locale()
+    if locale == 'en' or not name:
+        return name
+    return _(name)

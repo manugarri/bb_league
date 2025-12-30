@@ -119,7 +119,7 @@
                                 <th class="text-center">{{ _('AG') }}</th>
                                 <th class="text-center">{{ _('PA') }}</th>
                                 <th class="text-center">{{ _('AV') }}</th>
-                                <th>{% if get_locale() == 'es' %}Habilidades{% else %}Skills{% endif %}</th>
+                                <th>{% if get_locale() == 'es' %}Habilidades / Rasgos{% else %}Skills / Traits{% endif %}</th>
                                 <th class="text-center">{{ _('SPP') }}</th>
                                 <th class="text-center">TD</th>
                                 <th class="text-center">{% if get_locale() == 'es' %}BJ{% else %}CAS{% endif %}</th>
@@ -157,27 +157,35 @@
                                 <td class="text-center {% if player.armor != player.position.armor %}text-danger{% endif %}">
                                     {{ player.armor }}+
                                 </td>
-                                <td>
-                                    {% set skills = player.get_skill_list() %}
-                                    {% if skills %}
-                                        {% for skill in skills[:3] %}
-                                        <span class="badge bg-secondary">{{ tr_skill(skill) }}</span>
-                                        {% endfor %}
-                                        {% if skills | length > 3 %}
-                                        <span class="badge bg-dark skill-more-badge" 
-                                              role="button"
-                                              data-bs-toggle="popover" 
-                                              data-bs-trigger="click"
-                                              data-bs-html="true"
-                                              data-bs-title="{% if get_locale() == 'es' %}Todas las Habilidades{% else %}All Skills{% endif %}"
-                                              data-bs-content="{% for skill in skills %}<span class='badge bg-secondary me-1 mb-1'>{{ tr_skill(skill) }}</span>{% endfor %}">
-                                            +{{ skills | length - 3 }}
-                                        </span>
-                                        {% endif %}
-                                    {% else %}
-                                    <span class="text-muted">-</span>
-                                    {% endif %}
-                                </td>
+<td>
+                                                    {% set skills = player.get_skill_list() %}
+                                                    {% set traits = player.get_trait_list() %}
+                                                    {% set all_abilities = skills + traits %}
+                                                    {% if all_abilities %}
+                                                        {# Show first 3 abilities (skills first, then traits) #}
+                                                        {% for skill in skills[:3] %}
+                                                        <span class="badge bg-secondary">{{ tr_skill(skill) }}</span>
+                                                        {% endfor %}
+                                                        {% if skills | length < 3 %}
+                                                            {% for trait in traits[:(3 - skills | length)] %}
+                                                            <span class="badge bg-info text-dark">{{ tr_trait(trait) }}</span>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                        {% if all_abilities | length > 3 %}
+                                                        <span class="badge bg-dark skill-more-badge" 
+                                                              role="button"
+                                                              data-bs-toggle="popover" 
+                                                              data-bs-trigger="click"
+                                                              data-bs-html="true"
+                                                              data-bs-title="{% if get_locale() == 'es' %}Habilidades y Rasgos{% else %}Skills & Traits{% endif %}"
+                                                              data-bs-content="{% for skill in skills %}<span class='badge bg-secondary me-1 mb-1'>{{ tr_skill(skill) }}</span>{% endfor %}{% for trait in traits %}<span class='badge bg-info text-dark me-1 mb-1'>{{ tr_trait(trait) }}</span>{% endfor %}">
+                                                            +{{ all_abilities | length - 3 }}
+                                                        </span>
+                                                        {% endif %}
+                                                    {% else %}
+                                                    <span class="text-muted">-</span>
+                                                    {% endif %}
+                                                </td>
                                 <td class="text-center">
                                     <span class="{% if player.check_level_up() %}text-gold fw-bold{% endif %}" title="{% if player.check_level_up() %}{% if get_locale() == 'es' %}¡Subida de nivel disponible!{% else %}Level up available!{% endif %}{% endif %}">
                                         {{ player.spp }}
