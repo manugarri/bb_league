@@ -1,10 +1,10 @@
 """Leagues blueprint."""
-from flask import Blueprint, render_template, redirect, url_for, flash, request, abort
+from flask import Blueprint, render_template, redirect, url_for, flash, request, abort, session
 from flask_babel import get_locale
 from flask_login import login_required, current_user
 from app.extensions import db
 from app.models import League, Season, LeagueTeam, Standing, Match, Team
-from app.forms.league import CreateLeagueForm, EditLeagueForm, JoinLeagueForm
+from app.forms.league import CreateLeagueForm, EditLeagueForm, JoinLeagueForm, ScheduleMatchForm
 from app.services.scheduler import generate_round_robin_schedule
 
 leagues_bp = Blueprint("leagues", __name__)
@@ -432,9 +432,119 @@ def schedule(league_id: int):
             matches_by_round[round_num] = []
         matches_by_round[round_num].append(match)
     
+    # Get approved teams for the add match form (admin only)
+    league_teams = []
+    form = None
+    if current_user.is_admin:
+        league_teams_entries = league.teams.filter_by(is_approved=True).all()
+        league_teams = [(lt.team.id, lt.team.name) for lt in league_teams_entries]
+        form = ScheduleMatchForm()
+        form.home_team_id.choices = league_teams
+        form.away_team_id.choices = league_teams
+    
     return render_template(
         "leagues/schedule.html",
         league=league,
-        matches_by_round=matches_by_round
+        matches_by_round=matches_by_round,
+        form=form,
+        league_teams=league_teams
     )
+
+
+@leagues_bp.route("/<int:league_id>/schedule/add", methods=["POST"])
+@login_required
+def add_match(league_id: int):
+    """Add a new scheduled match (admin only)."""
+    if not current_user.is_admin:
+        abort(403)
+    
+    league = League.query.get_or_404(league_id)
+    lang = session.get('language', 'en')
+    
+    # Get form data
+    home_team_id = request.form.get("home_team_id", type=int)
+    away_team_id = request.form.get("away_team_id", type=int)
+    round_number = request.form.get("round_number", type=int, default=1)
+    
+    # Validate teams exist and are in the league
+    home_team = Team.query.get_or_404(home_team_id)
+    away_team = Team.query.get_or_404(away_team_id)
+    
+    home_in_league = LeagueTeam.query.filter_by(
+        league_id=league.id, team_id=home_team_id, is_approved=True
+    ).first()
+    away_in_league = LeagueTeam.query.filter_by(
+        league_id=league.id, team_id=away_team_id, is_approved=True
+    ).first()
+    
+    if not home_in_league or not away_in_league:
+        if lang == 'es':
+            flash("Uno o ambos equipos no están registrados en esta liga.", "danger")
+        else:
+            flash("One or both teams are not registered in this league.", "danger")
+        return redirect(url_for("leagues.schedule", league_id=league.id))
+    
+    # Validate teams are different
+    if home_team_id == away_team_id:
+        if lang == 'es':
+            flash("El equipo local y visitante deben ser diferentes.", "danger")
+        else:
+            flash("Home and away teams must be different.", "danger")
+        return redirect(url_for("leagues.schedule", league_id=league.id))
+    
+    # Create the match
+    match = Match(
+        league_id=league.id,
+        season_id=league.current_season.id if league.current_season else None,
+        home_team_id=home_team_id,
+        away_team_id=away_team_id,
+        round_number=round_number,
+        status="scheduled"
+    )
+    db.session.add(match)
+    db.session.commit()
+    
+    if lang == 'es':
+        flash(f"Partido añadido: {home_team.name} vs {away_team.name}", "success")
+    else:
+        flash(f"Match added: {home_team.name} vs {away_team.name}", "success")
+    
+    return redirect(url_for("leagues.schedule", league_id=league.id))
+
+
+@leagues_bp.route("/<int:league_id>/schedule/<int:match_id>/delete", methods=["POST"])
+@login_required
+def delete_match(league_id: int, match_id: int):
+    """Delete a scheduled match (admin only)."""
+    if not current_user.is_admin:
+        abort(403)
+    
+    league = League.query.get_or_404(league_id)
+    match = Match.query.get_or_404(match_id)
+    lang = session.get('language', 'en')
+    
+    # Verify match belongs to this league
+    if match.league_id != league.id:
+        abort(404)
+    
+    # Only allow deletion of scheduled (not completed) matches
+    if match.status == "completed":
+        if lang == 'es':
+            flash("No se puede eliminar un partido completado.", "danger")
+        else:
+            flash("Cannot delete a completed match.", "danger")
+        return redirect(url_for("leagues.schedule", league_id=league.id))
+    
+    match_name = f"{match.home_team.name} vs {match.away_team.name}"
+    
+    # Delete the match
+    db.session.delete(match)
+    db.session.commit()
+    
+    if lang == 'es':
+        flash(f"Partido eliminado: {match_name}", "success")
+    else:
+        flash(f"Match deleted: {match_name}", "success")
+    
+    return redirect(url_for("leagues.schedule", league_id=league.id))
 

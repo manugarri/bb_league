@@ -2990,3 +2990,28 @@ msgstr "Cualquier jugador rival que realice una acción de Falta será automáti
 msgid "One random player gains a Primary skill of your choice."
 msgstr "Elige al azar un jugador de tu equipo. Obtiene una habilidad Primaria a tu elección."
 
+# ============================================================================
+# LEAGUE SCHEDULE MANAGEMENT
+# ============================================================================
+
+msgid "Add Match"
+msgstr "Añadir Partido"
+
+msgid "Delete Match"
+msgstr "Eliminar Partido"
+
+msgid "Are you sure you want to delete this match?"
+msgstr "¿Estás seguro de que quieres eliminar este partido?"
+
+msgid "No schedule generated"
+msgstr "No hay calendario generado"
+
+msgid "The league schedule hasn't been generated yet."
+msgstr "El calendario de la liga aún no se ha generado."
+
+msgid "Round Number"
+msgstr "Número de Jornada"
+
+msgid "At least 2 approved teams are required to create matches."
+msgstr "Se necesitan al menos 2 equipos aprobados para crear partidos."
+

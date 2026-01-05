@@ -1,34 +1,41 @@
 {% extends "base.html" %}
 
-{% block title %}Schedule - {{ league.name }}{% endblock %}
+{% block title %}{{ _('Schedule') }} - {{ league.name }}{% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">Leagues</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('leagues.index') }}">{{ _('Leagues') }}</a></li>
         <li class="breadcrumb-item"><a href="{{ url_for('leagues.view', league_id=league.id) }}">{{ league.name }}</a></li>
-        <li class="breadcrumb-item active">Schedule</li>
+        <li class="breadcrumb-item active">{{ _('Schedule') }}</li>
     </ol>
 </nav>
 
-<h1 class="mb-4"><i class="bi bi-calendar-event text-gold me-2"></i>{{ league.name }} - Schedule</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-calendar-event text-gold me-2"></i>{{ league.name }} - {{ _('Schedule') }}</h1>
+    {% if current_user.is_admin %}
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addMatchModal">
+        <i class="bi bi-plus-circle me-1"></i>{{ _('Add Match') }}
+    </button>
+    {% endif %}
+</div>
 
 {% if matches_by_round %}
 {% for round_num, matches in matches_by_round.items() | sort %}
 <div class="card mb-4">
     <div class="card-header">
-        <i class="bi bi-{{ loop.index }} me-2"></i>Round {{ round_num }}
+        <i class="bi bi-{{ loop.index }} me-2"></i>{{ _('Round') }} {{ round_num }}
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Home</th>
-                        <th class="text-center">Score</th>
-                        <th>Away</th>
-                        <th class="text-center">Status</th>
-                        <th></th>
+                        <th>{{ _('Home') }}</th>
+                        <th class="text-center">{{ _('Score') }}</th>
+                        <th>{{ _('Away') }}</th>
+                        <th class="text-center">{{ _('Status') }}</th>
+                        <th class="text-end">{{ _('Actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,14 +59,32 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <span class="badge {% if match.status == 'completed' %}bg-success{% elif match.status == 'scheduled' %}bg-warning{% else %}bg-secondary{% endif %}">
-                                {{ match.status | capitalize }}
-                            </span>
+                            {% if match.status == 'completed' %}
+                            <span class="badge bg-success">{{ _('Completed') }}</span>
+                            {% elif match.status == 'scheduled' %}
+                            <span class="badge bg-warning text-dark">{{ _('Scheduled') }}</span>
+                            {% elif match.status == 'in_progress' %}
+                            <span class="badge bg-info">{{ _('In Progress') }}</span>
+                            {% elif match.status == 'cancelled' %}
+                            <span class="badge bg-secondary">{{ _('Cancelled') }}</span>
+                            {% else %}
+                            <span class="badge bg-secondary">{{ match.status | capitalize }}</span>
+                            {% endif %}
                         </td>
                         <td class="text-end">
-                            <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-sm btn-outline-primary">
-                                {% if match.is_completed %}Details{% else %}View{% endif %}
-                            </a>
+                            <div class="btn-group" role="group">
+                                <a href="{{ url_for('matches.view', match_id=match.id) }}" class="btn btn-sm btn-outline-primary">
+                                    {% if match.is_completed %}{{ _('Details') }}{% else %}{{ _('View') }}{% endif %}
+                                </a>
+                                {% if current_user.is_admin and match.status != 'completed' %}
+                                <form action="{{ url_for('leagues.delete_match', league_id=league.id, match_id=match.id) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ _('Are you sure you want to delete this match?') }}');">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="{{ _('Delete Match') }}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -74,13 +99,66 @@
 <div class="card">
     <div class="card-body text-center py-5">
         <i class="bi bi-calendar-x display-1 text-muted mb-3"></i>
-        <h4>No schedule generated</h4>
-        <p class="text-muted">The league schedule hasn't been generated yet.</p>
+        <h4>{{ _('No schedule generated') }}</h4>
+        <p class="text-muted">{{ _("The league schedule hasn't been generated yet.") }}</p>
         <a href="{{ url_for('leagues.view', league_id=league.id) }}" class="btn btn-primary">
-            Back to League
+            {{ _('Back to League') }}
         </a>
     </div>
 </div>
 {% endif %}
-{% endblock %}
 
+{% if current_user.is_admin %}
+<!-- Add Match Modal -->
+<div class="modal fade" id="addMatchModal" tabindex="-1" aria-labelledby="addMatchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMatchModalLabel"><i class="bi bi-plus-circle me-2"></i>{{ _('Add Match') }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ _('Cancel') }}"></button>
+            </div>
+            <form action="{{ url_for('leagues.add_match', league_id=league.id) }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="modal-body">
+                    {% if league_teams and league_teams | length >= 2 %}
+                    <div class="mb-3">
+                        <label for="home_team_id" class="form-label">{{ _('Home Team') }}</label>
+                        <select class="form-select" id="home_team_id" name="home_team_id" required>
+                            {% for team_id, team_name in league_teams %}
+                            <option value="{{ team_id }}">{{ team_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="away_team_id" class="form-label">{{ _('Away Team') }}</label>
+                        <select class="form-select" id="away_team_id" name="away_team_id" required>
+                            {% for team_id, team_name in league_teams %}
+                            <option value="{{ team_id }}">{{ team_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="round_number" class="form-label">{{ _('Round Number') }}</label>
+                        <input type="number" class="form-control" id="round_number" name="round_number" value="1" min="1" max="50" required>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        {{ _('At least 2 approved teams are required to create matches.') }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Cancel') }}</button>
+                    {% if league_teams and league_teams | length >= 2 %}
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-plus-circle me-1"></i>{{ _('Add Match') }}
+                    </button>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

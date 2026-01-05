@@ -109,3 +109,21 @@ class JoinLeagueForm(FlaskForm):
         validators=[DataRequired()]
     )
 
+
+class ScheduleMatchForm(FlaskForm):
+    """Schedule a new match form (admin only)."""
+    home_team_id = SelectField(
+        "Home Team",
+        coerce=int,
+        validators=[DataRequired()]
+    )
+    away_team_id = SelectField(
+        "Away Team",
+        coerce=int,
+        validators=[DataRequired()]
+    )
+    round_number = IntegerField(
+        "Round Number",
+        default=1,
+        validators=[InputRequired(), NumberRange(min=1, max=50)]
+    )

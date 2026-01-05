@@ -844,5 +844,65 @@ The following skills/traits were added to support all position abilities:
 
 ---
 
-*Last updated: December 30, 2025*
+## League Schedule Management (Admin)
+
+### Overview
+Administrators can now manage league schedules by adding and deleting matches directly from the schedule view. This allows for flexible schedule management without needing to regenerate the entire schedule.
+
+### Features
+
+#### Delete Scheduled Matches
+- **Restriction**: Only administrators can delete matches
+- **Limitation**: Cannot delete completed matches (only scheduled, in_progress, prematch, or cancelled)
+- **Confirmation**: JavaScript confirm dialog before deletion
+- **Cascade**: All related pre-match submissions and inducements are deleted
+
+#### Add New Scheduled Matches
+- **Restriction**: Only administrators can add matches
+- **Requirements**: At least 2 approved teams must be in the league
+- **Validation**: 
+  - Both teams must be registered and approved in the league
+  - Home and away teams must be different
+- **Fields**: Home team, Away team, Round number
+
+### Routes Added (`app/blueprints/leagues.py`)
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/leagues/<id>/schedule/add` | POST | Add a new scheduled match |
+| `/leagues/<id>/schedule/<match_id>/delete` | POST | Delete a scheduled match |
+
+### Form Added (`app/forms/league.py`)
+```python
+class ScheduleMatchForm(FlaskForm):
+    home_team_id = SelectField("Home Team", coerce=int)
+    away_team_id = SelectField("Away Team", coerce=int)
+    round_number = IntegerField("Round Number", default=1)
+```
+
+### UI Changes
+- **Schedule page**: 
+  - Added "Add Match" button (visible to admins only)
+  - Added delete button for each non-completed match (visible to admins only)
+  - Modal dialog for adding new matches
+  - Confirmation dialog before deleting matches
+
+### Translations Added
+| English | Spanish |
+|---------|---------|
+| Add Match | Añadir Partido |
+| Delete Match | Eliminar Partido |
+| Are you sure you want to delete this match? | ¿Estás seguro de que quieres eliminar este partido? |
+| No schedule generated | No hay calendario generado |
+| The league schedule hasn't been generated yet. | El calendario de la liga aún no se ha generado. |
+| Round Number | Número de Jornada |
+| At least 2 approved teams are required to create matches. | Se necesitan al menos 2 equipos aprobados para crear partidos. |
+
+### Permissions
+- **View schedule**: All authenticated users
+- **Add match**: Administrators only
+- **Delete match**: Administrators only (non-completed matches)
+
+---
+
+*Last updated: January 3, 2026*
 
