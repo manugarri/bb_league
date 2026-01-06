@@ -183,6 +183,9 @@ class Player(db.Model):
     # Value
     value = db.Column(db.Integer, default=0)
     
+    # Notes
+    notes = db.Column(db.Text)
+    
     # Metadata
     hired_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

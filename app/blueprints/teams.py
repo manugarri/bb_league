@@ -301,6 +301,7 @@ def edit_player(team_id: int, player_id: int):
     if form.validate_on_submit():
         player.name = form.name.data
         player.number = form.number.data
+        player.notes = form.notes.data
         db.session.commit()
         if str(get_locale()) == 'es':
             flash("Jugador actualizado correctamente.", "success")

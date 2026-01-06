@@ -124,6 +124,16 @@
                     <p class="mb-0">This player has enough SPP to advance. Choose a new skill!</p>
                 </div>
                 {% endif %}
+                
+                <!-- Notes -->
+                {% if player.notes %}
+                <h5 class="text-gold mb-3"><i class="bi bi-journal-text me-2"></i>{% if get_locale() == 'es' %}Notas{% else %}Notes{% endif %}</h5>
+                <div class="card bg-dark mb-4">
+                    <div class="card-body">
+                        <p class="mb-0" style="white-space: pre-wrap;">{{ player.notes }}</p>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

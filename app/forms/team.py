@@ -1,6 +1,6 @@
 """Team forms."""
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, IntegerField, BooleanField
+from wtforms import StringField, SelectField, IntegerField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, NumberRange, Optional
 
 
@@ -88,5 +88,9 @@ class EditPlayerForm(FlaskForm):
     number = IntegerField(
         "Jersey Number",
         validators=[Optional(), NumberRange(min=1, max=99)]
+    )
+    notes = TextAreaField(
+        "Notes",
+        validators=[Optional(), Length(max=1000)]
     )
 
