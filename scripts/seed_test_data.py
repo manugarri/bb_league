@@ -118,16 +118,14 @@ def create_team_for_user(user: User, team_name: str, race: Race, n_roster_player
             pos = other_positions[idx % len(other_positions)]
         
         name = base_names[idx % len(base_names)]
+        # Create player with default stat modifiers (0)
+        # Effective stats are computed from position base + modifiers
         player = Player(
             team_id=team.id,
             position_id=pos.id,
             name=f"{name} {team_name[:3]}",
             number=idx + 1,
-            movement=pos.movement,
-            strength=pos.strength,
-            agility=pos.agility,
-            passing=pos.passing,
-            armor=pos.armor,
+            # Stat modifiers default to 0 - effective stats come from position
             spp=0,
             level=1,
             value=pos.cost

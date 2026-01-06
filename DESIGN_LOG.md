@@ -109,6 +109,25 @@ TV includes:
 - Cheerleaders × 10,000g
 - Apothecary (50,000g if hired)
 
+### Player Value Calculation
+Player value = Position cost + Learned skills value + Stat increases
+
+**Learned Skills Value:**
+| Skill Type | Value Added |
+|------------|-------------|
+| Premium skills (Dodge, Mighty Blow, Block, Guard) | 30,000g each |
+| Other skills | 20,000g each |
+
+**Stat Increases Value:**
+| Stat | Value per +1 |
+|------|--------------|
+| Movement (MA) | 10,000g |
+| Strength (ST) | 20,000g |
+| Agility (AG) | 20,000g |
+| Armor (AV) | 10,000g |
+
+*Note: Starting skills do not add to player value.*
+
 ### Roster Display
 Player table shows:
 - Number, Name, Position
@@ -904,5 +923,95 @@ class ScheduleMatchForm(FlaskForm):
 
 ---
 
-*Last updated: January 3, 2026*
+## Player Stats Delta Storage
+
+### Overview
+Changed player stat storage from absolute values to delta/modifier values. Instead of storing the full stat values for each player, we now store only the difference (delta) from the base position stats. This reduces data redundancy since most players have the same stats as their position.
+
+### Schema Change
+
+**Old Schema (absolute values):**
+```python
+class Player(db.Model):
+    movement = db.Column(db.Integer)   # e.g., 6
+    strength = db.Column(db.Integer)   # e.g., 3
+    agility = db.Column(db.Integer)    # e.g., 3
+    passing = db.Column(db.Integer)    # e.g., 4
+    armor = db.Column(db.Integer)      # e.g., 8
+```
+
+**New Schema (delta values):**
+```python
+class Player(db.Model):
+    movement_mod = db.Column(db.Integer, default=0)  # e.g., 0 (no change from base)
+    strength_mod = db.Column(db.Integer, default=0)  # e.g., -1 (injury reduced)
+    agility_mod = db.Column(db.Integer, default=0)   # e.g., +1 (improvement)
+    passing_mod = db.Column(db.Integer, default=0)
+    armor_mod = db.Column(db.Integer, default=0)
+
+    @property
+    def movement(self) -> int:
+        """Get effective movement (base + modifier)."""
+        return self.position.movement + (self.movement_mod or 0)
+    # ... similar properties for other stats
+```
+
+### Benefits
+1. **Reduced redundancy**: Most players have modifier values of 0
+2. **Clear tracking**: Easy to see which players have been modified (injuries/improvements)
+3. **Simpler calculations**: Value calculations directly use modifiers
+4. **Position changes**: If position stats change, all players automatically reflect this
+
+### Migration
+- Migration file: `migrations/versions/abd97c1d9d6b_player_stats_delta_storage.py`
+- Handles both fresh databases and existing data conversion
+- Calculates deltas: `delta = absolute_stat - position_base_stat`
+- Supports downgrade to restore absolute values
+
+### Updated Files
+- `app/models/player.py`: Changed stat columns to modifiers, added computed properties
+- `app/blueprints/teams.py`: Updated player hiring (no longer sets absolute stats)
+- `app/blueprints/matches.py`: Updated injury application to modify deltas
+- `scripts/seed_test_data.py`: Updated player creation
+- `scripts/teams_export_import.py`: Updated to export/import both formats
+
+---
+
+## Database Migrations with Flask-Migrate
+
+### Overview
+Re-introduced Flask-Migrate for database schema management, enabling version-controlled migrations.
+
+### Setup
+- Added `flask-migrate>=4.0.0` to dependencies
+- Initialized migrations folder: `migrations/`
+- Configured in `app/extensions.py` and `app/__init__.py`
+
+### Makefile Commands
+
+| Command | Description |
+|---------|-------------|
+| `make migrate` | Apply pending migrations |
+| `make migrate MSG="message"` | Create new migration with message and apply it |
+| `make migrate-init` | Initialize migrations folder (run once for new projects) |
+
+### Usage Examples
+```bash
+# Apply pending migrations
+make migrate
+
+# Create a new migration after model changes
+make migrate MSG="add user preferences table"
+
+# Initialize migrations (new project setup)
+make migrate-init
+```
+
+### Migration Files
+Located in `migrations/versions/`:
+- `abd97c1d9d6b_player_stats_delta_storage.py` - Player stats delta storage conversion
+
+---
+
+*Last updated: January 5, 2026*
 

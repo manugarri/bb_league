@@ -98,6 +98,37 @@
     
     <div class="card mb-4">
         <div class="card-header">
+            <i class="bi bi-people me-2"></i>{{ _('Fan Factor') }}
+        </div>
+        <div class="card-body">
+            <p class="text-muted small mb-3">
+                {% if get_locale() == 'es' %}
+                Indica el cambio en el Factor de Fans de cada equipo (-5 a +5). El Factor de Fans no puede bajar de 1.
+                {% else %}
+                Enter the change in Fan Factor for each team (-5 to +5). Fan Factor cannot go below 1.
+                {% endif %}
+            </p>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label">{{ match.home_team.name }} {% if get_locale() == 'es' %}Cambio de FF{% else %}FF Change{% endif %} <span class="text-muted">({% if get_locale() == 'es' %}Actual{% else %}Current{% endif %}: {{ match.home_team.fan_factor }})</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-plus-slash-minus"></i></span>
+                        {{ form.home_fan_factor_change(class="form-control text-center", placeholder="0") }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">{{ match.away_team.name }} {% if get_locale() == 'es' %}Cambio de FF{% else %}FF Change{% endif %} <span class="text-muted">({% if get_locale() == 'es' %}Actual{% else %}Current{% endif %}: {{ match.away_team.fan_factor }})</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-plus-slash-minus"></i></span>
+                        {{ form.away_fan_factor_change(class="form-control text-center", placeholder="0") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
             <i class="bi bi-journal-text me-2"></i>{{ _('Notes') }} ({% if get_locale() == 'es' %}Opcional{% else %}Optional{% endif %})
         </div>
         <div class="card-body">

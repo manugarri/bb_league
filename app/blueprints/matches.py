@@ -94,6 +94,8 @@ def record(match_id: int):
         match.away_casualties = form.away_casualties.data
         match.home_winnings = form.home_winnings.data
         match.away_winnings = form.away_winnings.data
+        match.home_fan_factor_change = form.home_fan_factor_change.data
+        match.away_fan_factor_change = form.away_fan_factor_change.data
         match.notes = form.notes.data
         match.status = "completed"
         match.played_date = datetime.utcnow()
@@ -101,6 +103,12 @@ def record(match_id: int):
         # Update team treasuries
         match.home_team.treasury += form.home_winnings.data
         match.away_team.treasury += form.away_winnings.data
+        
+        # Update team fan factor (ensure minimum of 1)
+        new_home_ff = match.home_team.fan_factor + form.home_fan_factor_change.data
+        new_away_ff = match.away_team.fan_factor + form.away_fan_factor_change.data
+        match.home_team.fan_factor = max(1, new_home_ff)
+        match.away_team.fan_factor = max(1, new_away_ff)
         
         # Update team stats
         update_team_stats(match)
@@ -384,7 +392,11 @@ def update_standings(match: Match) -> None:
 
 
 def apply_injury(player: Player, injury_type: str, match_id: int) -> None:
-    """Apply injury effect to player."""
+    """Apply injury effect to player.
+    
+    Stat injuries modify the player's stat modifiers (delta from base position).
+    Effective stat = base position stat + modifier. Minimum effective stat is 1.
+    """
     from app.models import Injury
     
     if injury_type == "badly_hurt":
@@ -395,15 +407,21 @@ def apply_injury(player: Player, injury_type: str, match_id: int) -> None:
     elif injury_type == "niggling":
         player.niggling_injuries += 1
     elif injury_type == "-1ma":
-        player.movement = max(1, player.movement - 1)
+        # Only reduce if effective would stay >= 1
+        if player.movement > 1:
+            player.movement_mod = (player.movement_mod or 0) - 1
     elif injury_type == "-1av":
-        player.armor = max(1, player.armor - 1)
+        if player.armor > 1:
+            player.armor_mod = (player.armor_mod or 0) - 1
     elif injury_type == "-1ag":
-        player.agility = max(1, player.agility - 1)
+        if player.agility > 1:
+            player.agility_mod = (player.agility_mod or 0) - 1
     elif injury_type == "-1st":
-        player.strength = max(1, player.strength - 1)
+        if player.strength > 1:
+            player.strength_mod = (player.strength_mod or 0) - 1
     elif injury_type == "-1pa":
-        player.passing = max(1, player.passing - 1) if player.passing else None
+        if player.passing and player.passing > 1:
+            player.passing_mod = (player.passing_mod or 0) - 1
     elif injury_type == "dead":
         player.is_active = False
         player.is_dead = True

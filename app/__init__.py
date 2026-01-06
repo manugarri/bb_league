@@ -2,7 +2,7 @@
 import click
 from flask import Flask, request, session
 from app.config import config
-from app.extensions import db, jwt, login_manager, csrf, babel
+from app.extensions import db, migrate, jwt, login_manager, csrf, babel
 
 
 def get_locale():
@@ -21,6 +21,7 @@ def create_app(config_name: str = "development") -> Flask:
     
     # Initialize extensions
     db.init_app(app)
+    migrate.init_app(app, db)
     jwt.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)

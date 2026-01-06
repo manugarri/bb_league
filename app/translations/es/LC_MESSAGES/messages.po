@@ -3015,3 +3015,19 @@ msgstr "Número de Jornada"
 msgid "At least 2 approved teams are required to create matches."
 msgstr "Se necesitan al menos 2 equipos aprobados para crear partidos."
 
+# ============================================================================
+# FAN FACTOR
+# ============================================================================
+
+msgid "Fan Factor Change"
+msgstr "Cambio de Factor de Fans"
+
+msgid "FF Change"
+msgstr "Cambio de FF"
+
+msgid "Current"
+msgstr "Actual"
+
+msgid "Enter the change in Fan Factor for each team (-5 to +5). Fan Factor cannot go below 1."
+msgstr "Indica el cambio en el Factor de Fans de cada equipo (-5 a +5). El Factor de Fans no puede bajar de 1."
+

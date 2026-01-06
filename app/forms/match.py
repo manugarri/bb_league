@@ -36,6 +36,16 @@ class RecordMatchForm(FlaskForm):
         default=0,
         validators=[InputRequired(), NumberRange(min=0)]
     )
+    home_fan_factor_change = IntegerField(
+        "Home Fan Factor Change",
+        default=0,
+        validators=[InputRequired(), NumberRange(min=-5, max=5)]
+    )
+    away_fan_factor_change = IntegerField(
+        "Away Fan Factor Change",
+        default=0,
+        validators=[InputRequired(), NumberRange(min=-5, max=5)]
+    )
     notes = TextAreaField(
         "Match Notes",
         validators=[Optional()]

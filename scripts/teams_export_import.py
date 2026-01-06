@@ -88,6 +88,13 @@ def export_teams(output_file: str):
                     "name": player.name,
                     "number": player.number,
                     "position_name": player.position.name,
+                    # Store stat modifiers (deltas from base position)
+                    "movement_mod": player.movement_mod or 0,
+                    "strength_mod": player.strength_mod or 0,
+                    "agility_mod": player.agility_mod or 0,
+                    "passing_mod": player.passing_mod or 0,
+                    "armor_mod": player.armor_mod or 0,
+                    # Also export computed values for backwards compatibility
                     "movement": player.movement,
                     "strength": player.strength,
                     "agility": player.agility,
@@ -256,16 +263,35 @@ def import_teams(input_file: str, reset: bool = False):
                     print(f"  Warning: Position '{player_data['position_name']}' not found, skipping player...")
                     continue
                 
+                # Determine stat modifiers
+                # If new format (with _mod fields), use them directly
+                # If old format (absolute stats), calculate deltas from position
+                if "movement_mod" in player_data:
+                    # New format - use modifiers directly
+                    movement_mod = player_data.get("movement_mod", 0)
+                    strength_mod = player_data.get("strength_mod", 0)
+                    agility_mod = player_data.get("agility_mod", 0)
+                    passing_mod = player_data.get("passing_mod", 0)
+                    armor_mod = player_data.get("armor_mod", 0)
+                else:
+                    # Old format - calculate deltas from absolute values
+                    movement_mod = (player_data.get("movement") or position.movement) - position.movement
+                    strength_mod = (player_data.get("strength") or position.strength) - position.strength
+                    agility_mod = (player_data.get("agility") or position.agility) - position.agility
+                    passing_mod = (player_data.get("passing") or position.passing or 0) - (position.passing or 0) if player_data.get("passing") is not None else 0
+                    armor_mod = (player_data.get("armor") or position.armor) - position.armor
+                
                 player = Player(
                     team_id=team.id,
                     position_id=position.id,
                     name=player_data["name"],
                     number=player_data.get("number"),
-                    movement=player_data.get("movement") or position.movement,
-                    strength=player_data.get("strength") or position.strength,
-                    agility=player_data.get("agility") or position.agility,
-                    passing=player_data.get("passing") or position.passing,
-                    armor=player_data.get("armor") or position.armor,
+                    # Use stat modifiers (deltas from base position)
+                    movement_mod=movement_mod,
+                    strength_mod=strength_mod,
+                    agility_mod=agility_mod,
+                    passing_mod=passing_mod,
+                    armor_mod=armor_mod,
                     spp=player_data.get("spp", 0),
                     level=player_data.get("level", 1),
                     games_played=player_data.get("games_played", 0),

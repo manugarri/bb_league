@@ -1,7 +1,7 @@
 # Blood Bowl League Tracker - Makefile
 # Use: make <command>
 
-.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams export-users import-users export-leagues import-leagues backfill-skills sync-player-skills remove-es-columns
+.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams export-users import-users export-leagues import-leagues backfill-skills sync-player-skills remove-es-columns migrate migrate-init
 
 # Default target
 help:
@@ -15,6 +15,10 @@ help:
 	@echo "  make reset      - Reset the database (delete and recreate)"
 	@echo "  make clean      - Remove database and cache files"
 	@echo "  make test       - Run tests"
+	@echo "  make migrate [MSG=<message>]"
+	@echo "                  - Run database migrations (create new migration if MSG provided)"
+	@echo "  make migrate-init"
+	@echo "                  - Initialize migrations folder (run once for new projects)"
 	@echo "  make upsert-user USERNAME=<name> [PASSWORD=<pass>] [ADMIN=1]"
 	@echo "                  - Create or update a user"
 	@echo "  make db-export [FILE=<path>]"
@@ -140,3 +144,19 @@ export-leagues:
 # Usage: make import-leagues [FILE=backups/leagues_export.json] [RESET=1]
 import-leagues:
 	uv run python scripts/leagues_export_import.py import --input $(or $(FILE),backups/leagues_export.json) $(if $(filter 1 true yes,$(RESET)),--reset)
+
+# Database migrations using Flask-Migrate
+# Usage: make migrate [MSG="migration message"]
+# If MSG is provided, creates a new migration with that message
+# If MSG is not provided, just applies pending migrations
+migrate:
+ifdef MSG
+	uv run flask db migrate -m "$(MSG)"
+	uv run flask db upgrade
+else
+	uv run flask db upgrade
+endif
+
+# Initialize migrations folder (run once for new projects)
+migrate-init:
+	uv run flask db init

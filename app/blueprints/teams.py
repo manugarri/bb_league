@@ -224,18 +224,13 @@ def hire_player(team_id: int):
                 flash(f"Maximum {position.max_count} {position.name}(s) allowed.", "danger")
             return render_template("teams/hire_player.html", form=form, team=team)
         
-        # Create player
+        # Create player with modifiers defaulting to 0
+        # Stats are computed from position base + modifiers
         player = Player(
             team_id=team.id,
             position_id=position.id,
             name=form.name.data,
             number=form.number.data,
-            # Initialize stats from position
-            movement=position.movement,
-            strength=position.strength,
-            agility=position.agility,
-            passing=position.passing,
-            armor=position.armor,
             value=position.cost
         )
         

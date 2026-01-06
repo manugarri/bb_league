@@ -153,12 +153,13 @@ class Player(db.Model):
     name = db.Column(db.String(64), nullable=False)
     number = db.Column(db.Integer)
     
-    # Current stats (can differ from position base due to injuries/improvements)
-    movement = db.Column(db.Integer)
-    strength = db.Column(db.Integer)
-    agility = db.Column(db.Integer)
-    passing = db.Column(db.Integer)
-    armor = db.Column(db.Integer)
+    # Stat modifiers (deltas from base position stats)
+    # Positive = improvement, Negative = injury/reduction
+    movement_mod = db.Column(db.Integer, default=0)
+    strength_mod = db.Column(db.Integer, default=0)
+    agility_mod = db.Column(db.Integer, default=0)
+    passing_mod = db.Column(db.Integer, default=0)
+    armor_mod = db.Column(db.Integer, default=0)
     
     # Experience
     spp = db.Column(db.Integer, default=0)  # Star Player Points
@@ -195,32 +196,73 @@ class Player(db.Model):
     def __repr__(self) -> str:
         return f"<Player {self.name} ({self.position.name})>"
     
+    # Computed stat properties (base + modifier)
+    @property
+    def movement(self) -> int:
+        """Get effective movement (base + modifier)."""
+        return (self.position.movement if self.position else 0) + (self.movement_mod or 0)
+    
+    @property
+    def strength(self) -> int:
+        """Get effective strength (base + modifier)."""
+        return (self.position.strength if self.position else 0) + (self.strength_mod or 0)
+    
+    @property
+    def agility(self) -> int:
+        """Get effective agility (base + modifier)."""
+        return (self.position.agility if self.position else 0) + (self.agility_mod or 0)
+    
+    @property
+    def passing(self) -> int:
+        """Get effective passing (base + modifier)."""
+        base = self.position.passing if self.position else None
+        if base is None:
+            return None
+        return base + (self.passing_mod or 0)
+    
+    @property
+    def armor(self) -> int:
+        """Get effective armor (base + modifier)."""
+        return (self.position.armor if self.position else 0) + (self.armor_mod or 0)
+    
     def initialize_from_position(self) -> None:
-        """Set stats from position defaults."""
-        self.movement = self.position.movement
-        self.strength = self.position.strength
-        self.agility = self.position.agility
-        self.passing = self.position.passing
-        self.armor = self.position.armor
+        """Initialize player with zero modifiers (stats come from position)."""
+        self.movement_mod = 0
+        self.strength_mod = 0
+        self.agility_mod = 0
+        self.passing_mod = 0
+        self.armor_mod = 0
         self.value = self.position.cost
     
+    # Premium skills that add 30,000g instead of 20,000g to player value
+    PREMIUM_SKILLS = {'Dodge', 'Mighty Blow', 'Block', 'Guard'}
+    
     def calculate_value(self) -> int:
-        """Calculate player's current value including skills."""
+        """Calculate player's current value including skills and stat changes.
+        
+        Learned skills add to player value:
+        - Premium skills (Dodge, Mighty Blow, Block, Guard): 30,000g each
+        - Other skills: 20,000g each
+        """
         base_value = self.position.cost
         
         # Add value for learned skills (not starting skills)
-        learned_skills = self.skills.filter_by(is_starting=False).count()
-        base_value += learned_skills * 20000
+        for player_skill in self.skills.filter_by(is_starting=False).all():
+            skill_name = player_skill.skill.name if player_skill.skill else ''
+            if skill_name in self.PREMIUM_SKILLS:
+                base_value += 30000
+            else:
+                base_value += 20000
         
-        # Add value for stat increases (approximation)
-        if self.movement > self.position.movement:
-            base_value += 10000 * (self.movement - self.position.movement)
-        if self.strength > self.position.strength:
-            base_value += 20000 * (self.strength - self.position.strength)
-        if self.agility > self.position.agility:
-            base_value += 20000 * (self.agility - self.position.agility)
-        if self.armor > self.position.armor:
-            base_value += 10000 * (self.armor - self.position.armor)
+        # Add value for stat increases (positive modifiers only)
+        if (self.movement_mod or 0) > 0:
+            base_value += 10000 * self.movement_mod
+        if (self.strength_mod or 0) > 0:
+            base_value += 20000 * self.strength_mod
+        if (self.agility_mod or 0) > 0:
+            base_value += 20000 * self.agility_mod
+        if (self.armor_mod or 0) > 0:
+            base_value += 10000 * self.armor_mod
         
         self.value = base_value
         return base_value
