@@ -2632,7 +2632,7 @@
     {
       "name": "Snotlings",
       "description": "The smallest and weakest team in Blood Bowl. Snotlings make up for their terrible stats with large numbers and fun secret weapons.",
-      "reroll_cost": 60000,
+      "reroll_cost": 70000,
       "apothecary_allowed": false,
       "tier": 3,
       "special_rules": [
@@ -2773,7 +2773,7 @@
     {
       "name": "Tomb Kings",
       "description": "Ancient undead from the desert lands. Tomb Kings teams feature Skeleton players backed by powerful Tomb Guardians.",
-      "reroll_cost": 70000,
+      "reroll_cost": 60000,
       "apothecary_allowed": false,
       "tier": 2,
       "special_rules": [
