@@ -127,6 +127,57 @@
     </div>
 </div>
 
+{% if current_user.is_authenticated and scheduled_matches %}
+<!-- Your Scheduled Matches -->
+<div class="card mt-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-calendar-check me-2"></i>{% if get_locale() == 'es' %}Mis Partidos Programados{% else %}My Scheduled Matches{% endif %}</span>
+        <a href="{{ url_for('matches.index') }}" class="btn btn-sm btn-outline-secondary">{% if get_locale() == 'es' %}Ver Todos{% else %}View All{% endif %}</a>
+    </div>
+    <div class="card-body">
+        <div class="list-group list-group-flush">
+            {% for match in scheduled_matches %}
+            <a href="{{ url_for('matches.view', match_id=match.id) }}" class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-end flex-grow-1">
+                        <span class="{% if match.home_team.owner_id == current_user.id %}text-gold fw-bold{% endif %}">
+                            {{ match.home_team.name }}
+                        </span>
+                        <small class="text-muted d-block">{{ tr_race(match.home_team.race.name) }}</small>
+                    </div>
+                    <div class="px-3 text-center">
+                        <span class="badge {% if match.status == 'prematch' %}bg-warning{% else %}bg-secondary{% endif %} fs-6">
+                            {{ _('vs') }}
+                        </span>
+                        {% if match.status == 'prematch' %}
+                        <small class="d-block text-warning mt-1">
+                            <i class="bi bi-hourglass-split"></i> {{ _('Pre-Match') }}
+                        </small>
+                        {% endif %}
+                    </div>
+                    <div class="text-start flex-grow-1">
+                        <span class="{% if match.away_team.owner_id == current_user.id %}text-gold fw-bold{% endif %}">
+                            {{ match.away_team.name }}
+                        </span>
+                        <small class="text-muted d-block">{{ tr_race(match.away_team.race.name) }}</small>
+                    </div>
+                </div>
+                <div class="text-muted text-center mt-2 small">
+                    {% if match.league %}
+                    <span class="me-2"><i class="bi bi-trophy me-1"></i>{{ match.league.name }}</span>
+                    {% endif %}
+                    <span class="me-2"><i class="bi bi-hash"></i>{{ _('Round') }} {{ match.round_number or 'N/A' }}</span>
+                    {% if match.scheduled_date %}
+                    <span><i class="bi bi-clock me-1"></i>{{ match.scheduled_date.strftime('%d/%m/%Y') }}</span>
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% if current_user.is_authenticated and user_teams %}
 <!-- Your Teams -->
 <div class="card mt-4">

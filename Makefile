@@ -1,7 +1,7 @@
 # Blood Bowl League Tracker - Makefile
 # Use: make <command>
 
-.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams export-users import-users export-leagues import-leagues backfill-skills sync-player-skills remove-es-columns migrate migrate-init
+.PHONY: help run dev seed seed-test reset clean install test upsert-user db-export db-import export-teams import-teams export-users import-users export-leagues import-leagues export-bets import-bets backfill-skills sync-player-skills remove-es-columns migrate migrate-init
 
 # Default target
 help:
@@ -37,6 +37,10 @@ help:
 	@echo "                  - Export leagues to JSON (default: backups/leagues_export.json)"
 	@echo "  make import-leagues [FILE=<path>] [RESET=1]"
 	@echo "                  - Import leagues from JSON (RESET=1 clears existing leagues)"
+	@echo "  make export-bets [FILE=<path>]"
+	@echo "                  - Export bets to JSON (default: backups/bets_export.json)"
+	@echo "  make import-bets [FILE=<path>] [RESET=1]"
+	@echo "                  - Import bets from JSON (RESET=1 clears existing bets)"
 	@echo ""
 
 # Install dependencies
@@ -145,6 +149,16 @@ export-leagues:
 import-leagues:
 	uv run python scripts/leagues_export_import.py import --input $(or $(FILE),backups/leagues_export.json) $(if $(filter 1 true yes,$(RESET)),--reset)
 
+# Export bets to JSON file
+# Usage: make export-bets [FILE=backups/bets_export.json]
+export-bets:
+	uv run python scripts/bets_export_import.py export --output $(or $(FILE),backups/bets_export.json)
+
+# Import bets from JSON file
+# Usage: make import-bets [FILE=backups/bets_export.json] [RESET=1]
+import-bets:
+	uv run python scripts/bets_export_import.py import --input $(or $(FILE),backups/bets_export.json) $(if $(filter 1 true yes,$(RESET)),--reset)
+
 # Database migrations using Flask-Migrate
 # Usage: make migrate [MSG="migration message"]
 # If MSG is provided, creates a new migration with that message
@@ -160,3 +174,8 @@ endif
 # Initialize migrations folder (run once for new projects)
 migrate-init:
 	uv run flask db init
+
+
+export-all: export-users export-teams export-leagues export-bets
+
+import-all: import-users import-teams import-leagues import-bets

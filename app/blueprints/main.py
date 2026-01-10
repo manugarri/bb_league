@@ -31,11 +31,22 @@ def index():
     # Get user's teams
     user_teams = current_user.teams.limit(5).all()
     
+    # Get user's scheduled matches (scheduled or in prematch phase)
+    team_ids = [t.id for t in user_teams]
+    scheduled_matches = []
+    if team_ids:
+        from sqlalchemy import or_
+        scheduled_matches = Match.query.filter(
+            Match.status.in_(["scheduled", "prematch"]),
+            or_(Match.home_team_id.in_(team_ids), Match.away_team_id.in_(team_ids))
+        ).order_by(Match.scheduled_date.asc(), Match.round_number.asc()).limit(5).all()
+    
     return render_template(
         "main/index.html",
         recent_matches=recent_matches,
         active_leagues=active_leagues,
-        user_teams=user_teams
+        user_teams=user_teams,
+        scheduled_matches=scheduled_matches
     )
 
 

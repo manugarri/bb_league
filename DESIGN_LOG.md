@@ -505,6 +505,8 @@ Forms using WTForms use `{{ form.hidden_tag() }}` instead.
 | `make import-users` | Import users from JSON (with optional RESET=1) |
 | `make export-leagues` | Export leagues to JSON file |
 | `make import-leagues` | Import leagues from JSON (with optional RESET=1) |
+| `make export-bets` | Export bets to JSON file |
+| `make import-bets` | Import bets from JSON (with optional RESET=1) |
 
 ### Database Export/Import Scripts
 Located in `scripts/`:
@@ -512,6 +514,7 @@ Located in `scripts/`:
 - `teams_export_import.py` - Teams with players and star players
 - `users_export_import.py` - Users with passwords (hashed)
 - `leagues_export_import.py` - Leagues with seasons and standings
+- `bets_export_import.py` - Bets and bet notifications
 
 ---
 
@@ -1013,5 +1016,5 @@ Located in `migrations/versions/`:
 
 ---
 
-*Last updated: January 5, 2026*
+*Last updated: January 10, 2026*
 

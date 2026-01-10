@@ -1,4 +1,9 @@
 ---
 alwaysApply: true
 ---
+
 We are using powershell for commands, make sure to use proper syntax. For example, do not use '&&' when running multiple chained commands.
+
+When adding a  change or a feature , always test in the browser.
+
+Always use the DESIGN_LOG.md document as a guideline, and update it with changes and a date when a change is applied.
